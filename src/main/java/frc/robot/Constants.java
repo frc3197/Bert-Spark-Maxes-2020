@@ -7,6 +7,11 @@
 
 package frc.robot;
 
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
@@ -16,4 +21,14 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public static enum CANSparkMaxID {
+        kLeft1(0, "Left1"), kLeft2(1, "Left2"), kRight1(2, "Right1"), kRight2(3, "Right2");
+    
+        public final int id;
+        public final String name;
+    
+        private CANSparkMaxID(int id, String name) {
+          this.id = id;
+          this.name = name;
+        }
 }
