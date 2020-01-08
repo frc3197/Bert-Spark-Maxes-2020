@@ -1,7 +1,6 @@
 before_script:
 - chmod -x gradle/wrapper/gradle-wrapper.jar
 dist: xenial
-os: win
 language: java
 git:
   depth: false
