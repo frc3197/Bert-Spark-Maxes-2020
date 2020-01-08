@@ -1,7 +1,3 @@
-before_script:
-- chmod -x gradle/wrapper/gradle-wrapper.jar
-dist: xenial
+before_install:
+  - chmod +x gradlew
 language: java
-jdk: openjdk8
-git:
-  depth: false
