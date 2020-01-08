@@ -1,5 +1,4 @@
 dist: xenial
 language: java
-jdk: openjdk11
 git:
   depth: false
