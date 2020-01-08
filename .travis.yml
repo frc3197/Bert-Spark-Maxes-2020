@@ -3,4 +3,4 @@ language: java
 git:
   depth: false
 before_script:
- - chmod +x grailsw
+ - chmod +x gradlew
