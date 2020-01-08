@@ -3,4 +3,5 @@ language: java
 git:
   depth: false
 before_script:
- - chmod a+x gradlew
+ - chmod +x gradlew
+ - chmod +x gradle/wrapper/gradle-wrapper.jar
