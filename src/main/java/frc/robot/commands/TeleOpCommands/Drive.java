@@ -7,21 +7,16 @@
 
 package frc.robot.commands.TeleOpCommands;
 
-import frc.robot.Robot;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.ExampleSubsystem;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.DriveTrain;
+
 /**
  * An example command that uses an example subsystem.
  */
 public class Drive extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Drive driveTrain;
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
+  private final DriveTrain driveTrain;
 
   /**
    * Creates a new ExampleCommand.
@@ -31,7 +26,7 @@ public class Drive extends CommandBase {
   public Drive(DriveTrain driveTrain) {
     this.driveTrain = driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.driveTrain);
+    addRequirements(driveTrain);
   }
 
   // Called when the command is initially scheduled.
@@ -42,9 +37,9 @@ public class Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double tankR = RobotContainer.tankDriveRight();
+    double r = RobotContainer.tankDriveRight();
     double l = RobotContainer.tankDriveLeft();
-    driveTrain.tankDrive(tankR, l);
+    driveTrain.tankDrive(r, l);
   }
 
 
