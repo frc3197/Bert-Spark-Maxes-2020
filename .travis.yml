@@ -1,6 +1,6 @@
+install: gradle wrapper --gradle-version 4.2
 dist: xenial
 language: java
 jdk: openjdk11
 git:
   depth: false
-before_script: chmod -x gradle/wrapper/gradle-wrapper.jar
