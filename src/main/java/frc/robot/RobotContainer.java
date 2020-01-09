@@ -6,13 +6,9 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -29,7 +25,7 @@ public class RobotContainer {
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  private static XboxController driver = new XboxController(0);
+
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -46,10 +42,6 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-
-
-
-
   }
 
 
@@ -61,13 +53,5 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return m_autoCommand;
-  }
-
-  public static double tankDriveRight() {
-    return driver.getY(Hand.kRight);
-  }
-
-  public static double tankDriveLeft() {
-    return driver.getY(Hand.kLeft);
   }
 }
