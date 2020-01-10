@@ -35,7 +35,7 @@ public class RobotContainer {
   */
   public RobotContainer()
   {
-  driveTrain.setDefaultCommand(DriveCommand(driveTrain));
+  driveTrain.setDefaultCommand(Drive(driveTrain));
   
   }
  /*
