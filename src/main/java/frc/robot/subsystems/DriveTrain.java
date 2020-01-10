@@ -41,7 +41,7 @@ public class DriveTrain extends SubsystemBase {
   private SpeedControllerGroup leftMotors = new SpeedControllerGroup(l1Talon, l2Talon);
   private SpeedControllerGroup rightMotors = new SpeedControllerGroup(r1Talon, r2Talon);
   /**
-   * Combines the motor to create drive
+   * Combines the SpeedControllerGroup to create a differential drive.
    */
   private DifferentialDrive drive = new DifferentialDrive(leftMotors, rightMotors);
 
