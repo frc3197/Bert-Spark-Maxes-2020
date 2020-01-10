@@ -31,12 +31,18 @@ public class Drive extends CommandBase {
   @Override
   public void execute() {
     
-  //Pulls the inputs from the controller and assigns them to the variables for use in the tankDrive function. 
+  /*
+  Pulls the inputs from the controller and assigns them to the variables for use in the tankDrive function. 
+  */
     double tankR = RobotContainer.tankDriveRight();
     double l = RobotContainer.tankDriveLeft();
+  /*
   //Executes the tankDrive function with the variables we assigned.
+  */
     driveTrain.tankDrive(tankR, l);
-  //Puts the inputs onto ShuffleBoard.  
+  /*
+  Puts the inputs of the Controller onto ShuffleBoard.  
+  */
     SmartDashboard.putNumber("Left Motor Input", l);
     SmartDashboard.putNumber("Right Motor Input", tankR);
   }
