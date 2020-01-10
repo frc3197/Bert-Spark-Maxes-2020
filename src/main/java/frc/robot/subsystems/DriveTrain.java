@@ -15,8 +15,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
- 
-  
+
+
    private CANSparkMax l1SparkMax = new CANSparkMax(Constants.CANSparkMaxID.kLeft1.id, MotorType.kBrushless);
   private CANSparkMax r1SparkMax = new CANSparkMax(Constants.CANSparkMaxID.kRight1.id, MotorType.kBrushless);
    private CANSparkMax r2SparkMax = new CANSparkMax(Constants.CANSparkMaxID.kRight2.id, MotorType.kBrushless);
@@ -26,7 +26,7 @@ public class DriveTrain extends SubsystemBase {
    * Creates a new Speed Controller Group for the two left,and two right talon
    * motors
    */
-  private SpeedControllerGroup leftMotors = new SpeedControllerGroup(l1SparkMaxparkMax
+  private SpeedControllerGroup leftMotors = new SpeedControllerGroup(l1SparkMax,l2SparkMax);
   private SpeedControllerGroup rightMotors = new SpeedControllerGroup(r1SparkMax,r2SparkMax);
   /**
    * Combines the SpeedControllerGroup to create a differential drive.
