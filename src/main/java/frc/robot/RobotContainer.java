@@ -8,9 +8,23 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
 
- public class RobotContainer {
+/**
+ * RobotContainer is the place where Subsystems and Commands are declared. It's also where buttons are mapped to the controller.
+ * 
+ * @author Jordan Limonov
+ */
+public class RobotContainer {
+  /**
+   * The XboxController for the driver.
+   */
   private static XboxController driver = new XboxController(0);
+  /**
+   * An example Subsystem. [DEPRECATED]
+   */
   private final ExampleSubsystem m_autoSubsystem = new ExampleSubsystem();
+  /**
+   * An example Command [DEPRECATED]
+   */
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
 
  /*
@@ -21,7 +35,11 @@ import edu.wpi.first.wpilibj.XboxController;
 
   }
 */
-
+/**
+ * Gets the Command that will be used for Autonomous
+ * TODO: Add in the SendableChooser part with ShuffleBoard.
+ * @return Command used for Autonomous
+ */
 public Command getAutonomousCommand() {
   // An ExampleCommand will run in autonomous
   return m_autoCommand;
