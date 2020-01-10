@@ -7,7 +7,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
-
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.commands.AutoCommands.Drive;
 /**
  * RobotContainer is the place where Subsystems and Commands are declared. It's also where buttons are mapped to the controller.
  * 
@@ -27,15 +28,18 @@ public class RobotContainer {
   /**
    * An example Command [DEPRECATED]
    */
+  public final DriveTrain drivetrain = new DriveTrain();
+  
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
-  private final Drivetrain drivetrain = new Drivetrain();
+
   
   /*
   * Constructor For RobotContainer    *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
   */
   public RobotContainer()
   {
-  driveTrain.setDefaultCommand(Drive(driveTrain));
+    
+    drivetrain.setDefaultCommand(Drive(drivetrain));
   
   }
  /*
