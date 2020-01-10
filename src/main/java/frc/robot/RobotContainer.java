@@ -28,7 +28,7 @@ public class RobotContainer {
    * An example Command [DEPRECATED]
    */
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
-
+  private final Drivetrain drivetrain = new Drivetrain();
  /*
    private void configureButtonBindings() {
 
