@@ -2,6 +2,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -28,10 +29,12 @@ public Command getAutonomousCommand() {
 
 
   public static double tankDriveRight() {
+    SmartDashboard.putNumber("Right Joystick", driver.getY(Hand.kRight));
     return driver.getY(Hand.kRight);
   }
 
   public static double tankDriveLeft() {
+    SmartDashboard.putNumber("Left Joystick", driver.getY(Hand.kLeft));
     return driver.getY(Hand.kLeft);
   }
 }
