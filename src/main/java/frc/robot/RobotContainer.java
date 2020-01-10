@@ -24,11 +24,23 @@ public class RobotContainer {
    * An example Subsystem. [DEPRECATED]
    */
   private final ExampleSubsystem m_autoSubsystem = new ExampleSubsystem();
+    private final Drivetrain drivetrain = new Drivetrain();
   /**
    * An example Command [DEPRECATED]
    */
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
 
+  
+  /*
+  * Constructor For RobotContainer    *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
+  */
+  public RobotContainer()
+  {
+  driveTrain.setDefaultCommand(Drive(driveTrain));
+  
+  }
+  
+  
  /*
    private void configureButtonBindings() {
 
