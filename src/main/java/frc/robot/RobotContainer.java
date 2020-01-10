@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.XboxController;
  * @author Jordan Limonov
  */
 public class RobotContainer {
+  // The robot's subsystems and commands are defined here...
+  
   /**
    * The XboxController for the driver.
    */
@@ -40,11 +42,10 @@ public class RobotContainer {
  * TODO: Add in the SendableChooser part with ShuffleBoard.
  * @return Command used for Autonomous
  */
-public Command getAutonomousCommand() {
-  // An ExampleCommand will run in autonomous
-  return m_autoCommand;
-}
-
+  public Command getAutonomousCommand() {
+    // An ExampleCommand will run in autonomous
+    return m_autoCommand;
+  }
 
   public static double tankDriveRight() {
     SmartDashboard.putNumber("Right Joystick", driver.getY(Hand.kRight));
