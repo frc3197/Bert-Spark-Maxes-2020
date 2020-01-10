@@ -15,24 +15,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
-  /**
-   * Creates all the Talon objects
-   */
-  private Talon l1Talon = new Talon(Constants.TalonID.kLeft1.id);
-  private Talon l2Talon = new Talon(Constants.TalonID.kLeft2.id);
-  private Talon r1Talon = new Talon(Constants.TalonID.kRight1.id);
-  private Talon r2Talon = new Talon(Constants.TalonID.kRight2.id);
-  /**
-   * Creates the IDs/DriveTrain for the NEO Brushless motors
-   */
-  // private CANSparkMax l1SparkMax = new
-  // CANSparkMax(Constants.CANSparkMaxID.kLeft1.id, MotorType.kBrushless);
-  // private CANSparkMax r1SparkMax = new
-  // CANSparkMax(Constants.CANSparkMaxID.kRight1.id, MotorType.kBrushless);
-  // private CANSparkMax r2SparkMax = new
-  // CANSparkMax(Constants.CANSparkMaxID.kRight2.id, MotorType.kBrushless);
-  // private CANSparkMax l2SparkMax = new
-  // CANSparkMax(Constants.CANSparkMaxID.kLeft2.id, MotorType.kBrushless);
+ 
+  
+   private CANSparkMax l1SparkMax = new CANSparkMax(Constants.CANSparkMaxID.kLeft1.id, MotorType.kBrushless);
+  private CANSparkMax r1SparkMax = new CANSparkMax(Constants.CANSparkMaxID.kRight1.id, MotorType.kBrushless);
+   private CANSparkMax r2SparkMax = new CANSparkMax(Constants.CANSparkMaxID.kRight2.id, MotorType.kBrushless);
+   private CANSparkMax l2SparkMax = new CANSparkMax(Constants.CANSparkMaxID.kLeft2.id, MotorType.kBrushless);
 
   /**
    * Creates a new Speed Controller Group for the two left,and two right talon
@@ -49,10 +37,10 @@ public class DriveTrain extends SubsystemBase {
    * Constructor for the DriveTrain
    */
   public DriveTrain() {
-    // l1SparkMax.setIdleMode(IdleMode.kBrake);
-    // l2SparkMax.setIdleMode(IdleMode.kBrake);
-    // r1SparkMax.setIdleMode(IdleMode.kBrake);
-    // r2SparkMax.setIdleMode(IdleMode.kBrake);
+    l1SparkMax.setIdleMode(IdleMode.kBrake);
+    l2SparkMax.setIdleMode(IdleMode.kBrake);
+    r1SparkMax.setIdleMode(IdleMode.kBrake);
+    r2SparkMax.setIdleMode(IdleMode.kBrake);
   }
 
   @Override
