@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.XboxController;
 /**
  * RobotContainer is the place where Subsystems and Commands are declared. It's also where buttons are mapped to the controller.
  * 
- * @author Jordan Limonov
+ * @author FRC3197
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
@@ -29,10 +29,17 @@ public class RobotContainer {
    */
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
   private final Drivetrain drivetrain = new Drivetrain();
+  
+  /*
+  * Constructor For RobotContainer    *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
+  */
+  public RobotContainer()
+  {
+  driveTrain.setDefaultCommand(DriveCommand(driveTrain));
+  
+  }
  /*
    private void configureButtonBindings() {
-
-
 
 
   }
