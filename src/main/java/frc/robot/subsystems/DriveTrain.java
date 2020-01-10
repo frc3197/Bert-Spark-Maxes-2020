@@ -3,10 +3,10 @@ package frc.robot.subsystems;
 /**
  * Importa the libraries for either the CANSparkMax library or the Talon library
  */
-// import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax;
 
-// import com.revrobotics.CANSparkMax.IdleMode;
-// import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+ import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Talon;
@@ -26,8 +26,8 @@ public class DriveTrain extends SubsystemBase {
    * Creates a new Speed Controller Group for the two left,and two right talon
    * motors
    */
-  private SpeedControllerGroup leftMotors = new SpeedControllerGroup(l1Talon, l2Talon);
-  private SpeedControllerGroup rightMotors = new SpeedControllerGroup(r1Talon, r2Talon);
+  private SpeedControllerGroup leftMotors = new SpeedControllerGroup(l1SparkMaxparkMax
+  private SpeedControllerGroup rightMotors = new SpeedControllerGroup(r1SparkMax,r2SparkMax);
   /**
    * Combines the SpeedControllerGroup to create a differential drive.
    */

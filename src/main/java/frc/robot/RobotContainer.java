@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
 
@@ -28,14 +29,14 @@ public class RobotContainer {
    * An example Command [DEPRECATED]
    */
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
-  private final Drivetrain drivetrain = new Drivetrain();
+  private final DriveTrain drivetrain = new DriveTrain();
   
   /*
   * Constructor For RobotContainer    *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
   */
   public RobotContainer()
   {
-  driveTrain.setDefaultCommand(Drive(driveTrain));
+  drivetrain.setDefaultCommand(Drive(drivetrain));
   
   }
  /*
