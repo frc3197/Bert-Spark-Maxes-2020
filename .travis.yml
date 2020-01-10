@@ -1,4 +1,4 @@
 before_install:
   - chmod +x gradlew
-script: javadoc src\main\java\frc\robot\RobotContainer.java -d docs
+script: javadoc src/main/java/frc/robot/* -d docs 
 language: java
