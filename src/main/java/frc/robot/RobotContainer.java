@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj.SPI.Port;
  * also where buttons are mapped to the controller.
  * 
  * @author FRC3197
- */
+ */\
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
@@ -39,7 +39,7 @@ public class RobotContainer {
   private final Command m_driveForward = new DriveForward(drivetrain, 5);
 
   public final static DriveTrain drivetrain = new DriveTrain();
-  Gyro gyro = new ADXRS450_Gyro(Port.kMXP);
+  Gyro gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
 
   /*
    * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
