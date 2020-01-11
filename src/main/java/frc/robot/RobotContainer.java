@@ -11,13 +11,14 @@ import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
 
 /**
- * RobotContainer is the place where Subsystems and Commands are declared. It's also where buttons are mapped to the controller.
+ * RobotContainer is the place where Subsystems and Commands are declared. It's
+ * also where buttons are mapped to the controller.
  * 
  * @author FRC3197
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  
+
   /**
    * The XboxController for the driver.
    */
@@ -31,26 +32,27 @@ public class RobotContainer {
    */
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
   private final DriveTrain drivetrain = new DriveTrain();
-  
+
   /*
-  * Constructor For RobotContainer    *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
-  */
-  public RobotContainer()
-  {
-  drivetrain.setDefaultCommand(new Drive(drivetrain));
-  
-  }
- /*
-   private void configureButtonBindings() {
-
+   * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
+   */
+  public RobotContainer() {
+    drivetrain.setDefaultCommand(new Drive(drivetrain));
 
   }
-*/
-/**
- * Gets the Command that will be used for Autonomous
- * TODO: Add in the SendableChooser part with ShuffleBoard.
- * @return Command used for Autonomous
- */
+
+  /*
+   * private void configureButtonBindings() {
+   * 
+   * 
+   * }
+   */
+  /**
+   * Gets the Command that will be used for Autonomous TODO: Add in the
+   * SendableChooser part with ShuffleBoard.
+   * 
+   * @return Command used for Autonomous
+   */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return m_autoCommand;
@@ -58,11 +60,11 @@ public class RobotContainer {
 
   public static double tankDriveRight() {
     SmartDashboard.putNumber("Right Joystick", driver.getY(Hand.kRight));
-    return driver.getY(Hand.kRight);
+    return driver.getY(Hand.kRight) * Constants.motor_P;
   }
 
   public static double tankDriveLeft() {
     SmartDashboard.putNumber("Left Joystick", driver.getY(Hand.kLeft));
-    return driver.getY(Hand.kLeft);
+    return driver.getY(Hand.kLeft) * Constants.motor_P;
   }
 }

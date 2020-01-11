@@ -19,6 +19,7 @@ package frc.robot;
  * wherever the constants are needed, to reduce verbosity.
  */
 public final class Constants {
+  public static final double motor_P = .6;
 
   public static enum CANSparkMaxID {
     kLeft1(14, "Left1"), kLeft2(15, "Left2"), kRight1(1, "Right1"), kRight2(16, "Right2");
