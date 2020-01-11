@@ -18,7 +18,9 @@ package frc.robot;
  * It is advised to statically import this class (or one of its inner classes)
  * wherever the constants are needed, to reduce verbosity.
  */
+
 public final class Constants {
+  /*
   public static enum TalonID {
     kLeft1(0, "Left1"), kLeft2(1, "Left2"), kRight1(2, "Right1"), kRight2(3, "Right2");
     
@@ -30,15 +32,16 @@ public final class Constants {
       this.name = name;
     }
   }
-  // public static enum CANSparkMaxID {
-  //   kLeft1(0, "Left1"), kLeft2(1, "Left2"), kRight1(2, "Right1"), kRight2(3, "Right2");
+  */
+   public static enum CANSparkMaxID {
+     kLeft1(14, "Left1"), kLeft2(15, "Left2"), kRight1(16, "Right1"), kRight2(1, "Right2");
 
-  //   public final int id;
-  //   public final String name;
+     public final int id;
+     public final String name;
 
-  //   private CANSparkMaxID(int id, String name) {
-  //     this.id = id;
-  //     this.name = name;
-  //   }
-  // }
+     private CANSparkMaxID(int id, String name) {
+       this.id = id;
+       this.name = name;
+     }
+   }
 }
