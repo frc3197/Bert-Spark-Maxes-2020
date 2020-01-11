@@ -35,6 +35,10 @@ public class RobotContainer {
   public final DriveTrain drivetrain = new DriveTrain();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
 
+  public RobotContainer() {
+    DriveTrain.setDefaultCommand(new Drive(drivetrain));
+  }
+
   /*
    * private void configureButtonBindings() {
    * 
