@@ -2,23 +2,18 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.Sendable;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.AutoCommands.Drive;
-import frc.robot.commands.AutoCommands.DriveBackward;
 import frc.robot.commands.AutoCommands.DriveForward;
 import frc.robot.commands.AutoCommands.DriveRoutine;
+import frc.robot.commands.AutoCommands.TurnToAngle;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.ExampleSubsystem;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.Sendable;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.SPI.Port;
 
 /**
  * RobotContainer is the place where Subsystems and Commands are declared. It's
@@ -36,18 +31,18 @@ public class RobotContainer {
   JoystickButton driverA = new JoystickButton(driver, 1);
 
   private final SequentialCommandGroup m_DriveRoutine = new DriveRoutine(drivetrain);
-  private final Command m_driveForward = new DriveForward(drivetrain, 5);
+  private final Command m_driveForward = new DriveForward(drivetrain, 3);
+  private final Command m_turn90 = new TurnToAngle(90, drivetrain);
 
   public final static DriveTrain drivetrain = new DriveTrain();
-  Gyro gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
 
   /*
    * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
    */
   public RobotContainer() {
     drivetrain.setDefaultCommand(new Drive(drivetrain));
-    gyro.calibrate();
-    Shuffleboard.getTab("Main").add("gyro", (Sendable) gyro);
+    drivetrain.gyro.calibrate();
+    Shuffleboard.getTab("Main").add("gyro", (Sendable) drivetrain.gyro);
     configureButtonBindings();
   }
 
@@ -63,7 +58,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_DriveRoutine;
+    return m_turn90;
   }
 
   public static double tankDriveRight() {
