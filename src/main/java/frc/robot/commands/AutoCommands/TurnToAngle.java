@@ -9,6 +9,9 @@ package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
+import frc.robot.Constants;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.DriveTrain;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -17,18 +20,14 @@ public class TurnToAngle extends PIDCommand {
   /**
    * Creates a new Turn90.
    */
-  public TurnToAngle() {
-    super(
-        // The controller that the command will use
-        new PIDController(0, 0, 0),
-        // This should return the measurement
-        () -> 0,
-        // This should return the setpoint (can also be a constant)
-        () -> 0,
-        // This uses the output
-        output -> {
-          // Use the output here
-        });
+  public TurnToAngle(double targetAngleDegrees, DriveTrain drivetrain) {
+    super(new PIDController(Constants.PIDConstants.kTurn.P, 
+                            Constants.PIDConstants.kTurn.I, 
+                            Constants.PIDConstants.kTurn.D),
+          drivetrain::getAngle, 
+          targetAngleDegrees,
+          output -> drivetrain.tankDrive(0, output),
+          drivetrain);
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
   }
@@ -36,6 +35,6 @@ public class TurnToAngle extends PIDCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return getController().atSetpoint();
   }
 }

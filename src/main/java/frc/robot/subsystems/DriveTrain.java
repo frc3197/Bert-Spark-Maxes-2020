@@ -11,9 +11,12 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -40,6 +43,7 @@ public class DriveTrain extends SubsystemBase {
    */
   private DifferentialDrive drive = new DifferentialDrive(leftMotors, rightMotors);
 
+  public Gyro gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
   /**
    * Constructor for the DriveTrain
    */
@@ -77,5 +81,9 @@ public class DriveTrain extends SubsystemBase {
 
   public double getEncoderValue() {
     return l1Encoder.getPosition();
+  }
+
+  public double getAngle() {
+    return gyro.getAngle();
   }
 }
