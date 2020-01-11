@@ -9,13 +9,18 @@ import frc.robot.commands.AutoCommands.Drive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.commands.AutoCommands.Drive;
 
 /**
- * RobotContainer is the place where Subsystems and Commands are declared. It's also where buttons are mapped to the controller.
+ * RobotContainer is the place where Subsystems and Commands are declared. It's
+ * also where buttons are mapped to the controller.
  * 
- * @author Jordan Limonov
+ * @author FRC3197
  */
 public class RobotContainer {
+  // The robot's subsystems and commands are defined here...
+
   /**
    * The XboxController for the driver.
    */
@@ -27,8 +32,9 @@ public class RobotContainer {
   /**
    * An example Command [DEPRECATED]
    */
+  public final DriveTrain drivetrain = new DriveTrain();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
-  
+
   /*
    * private void configureButtonBindings() {
    * 
@@ -37,16 +43,16 @@ public class RobotContainer {
    * 
    * }
    */
-/**
- * Gets the Command that will be used for Autonomous
- * TODO: Add in the SendableChooser part with ShuffleBoard.
- * @return Command used for Autonomous
- */
-public Command getAutonomousCommand() {
-  // An ExampleCommand will run in autonomous
-  return m_autoCommand;
-}
-
+  /**
+   * Gets the Command that will be used for Autonomous TODO: Add in the
+   * SendableChooser part with ShuffleBoard.
+   * 
+   * @return Command used for Autonomous
+   */
+  public Command getAutonomousCommand() {
+    // An ExampleCommand will run in autonomous
+    return m_autoCommand;
+  }
 
   public static double tankDriveRight() {
     SmartDashboard.putNumber("Right Joystick", driver.getY(Hand.kRight));

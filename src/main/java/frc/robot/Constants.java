@@ -21,27 +21,22 @@ package frc.robot;
 
 public final class Constants {
   /*
-  public static enum TalonID {
-    kLeft1(0, "Left1"), kLeft2(1, "Left2"), kRight1(2, "Right1"), kRight2(3, "Right2");
-    
-    public final int id;
-    public final String name;
-    
-    private TalonID(int id, String name) {
-      this.id = id;
-      this.name = name;
-    }
-  }
-  */
-   public static enum CANSparkMaxID {
+   * public static enum TalonID { kLeft1(0, "Left1"), kLeft2(1, "Left2"),
+   * kRight1(2, "Right1"), kRight2(3, "Right2");
+   * 
+   * public final int id; public final String name;
+   * 
+   * private TalonID(int id, String name) { this.id = id; this.name = name; } }
+   */
+  public static enum CANSparkMaxID {
      kLeft1(14, "Left1"), kLeft2(15, "Left2"), kRight1(16, "Right1"), kRight2(1, "Right2");
 
      public final int id;
      public final String name;
 
-     private CANSparkMaxID(int id, String name) {
-       this.id = id;
-       this.name = name;
-     }
-   }
+  //   private CANSparkMaxID(int id, String name) {
+  //     this.id = id;
+  //     this.name = name;
+  //   }
+  // }
 }

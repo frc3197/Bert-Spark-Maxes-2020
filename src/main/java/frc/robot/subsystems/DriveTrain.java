@@ -40,7 +40,7 @@ public class DriveTrain extends SubsystemBase {
   private SpeedControllerGroup leftMotors = new SpeedControllerGroup(l1SparkMax, l2SparkMax);
   private SpeedControllerGroup rightMotors = new SpeedControllerGroup(r1SparkMax, r2SparkMax);
   /**
-   * Combines the motor to create drive
+   * Combines the SpeedControllerGroup to create a differential drive.
    */
   private DifferentialDrive drive = new DifferentialDrive(leftMotors, rightMotors);
 
