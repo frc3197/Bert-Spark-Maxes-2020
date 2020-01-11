@@ -7,51 +7,48 @@
 
 package frc.robot.commands.AutoCommands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
+import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj2.command.PIDCommand;
+import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
 
-public class DriveBackward extends CommandBase {
-  private final double distance;
-
+// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
+// information, see:
+// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
+public class DriveBackward extends PIDCommand {
+  DriveTrain drivetrain;
   /**
-   * Creates a new DriveBackward.
+   * Creates a new DriveForward.
    */
-  public DriveBackward(DriveTrain driveTrain, double distance) {
-    this.distance = distance;
+  public DriveBackward(double distance, DriveTrain drivetrain) {
+    super(
+        // The controller that the command will use
+        new PIDController(Constants.PIDConstants.kForward.P, Constants.PIDConstants.kForward.I, Constants.PIDConstants.kForward.D),
+        // This should return the measurement
+        drivetrain::getEncoderValue,
+        // This should return the setpoint (can also be a constant)
+        distance,
+        // This uses the output
+        output -> drivetrain.tankDrive(-output * 0.07, -output * 0.07),
+        
+        drivetrain);
+        this.drivetrain = drivetrain;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(driveTrain);
+    // Configure additional PID options by calling `getController` here.
   }
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    RobotContainer.drivetrain.reset();
+  public void initialize(){
+    drivetrain.reset(false);
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    double encoderValue = RobotContainer.drivetrain.getEncoderValue();
-    while (distance - encoderValue > 0) {
-      SmartDashboard.putNumber("Encoder Value", RobotContainer.drivetrain.getEncoderValue());
-      encoderValue = RobotContainer.drivetrain.getEncoderValue();
-      RobotContainer.drivetrain.tankDrive(0.4, 0.4);
-    }
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    RobotContainer.drivetrain.tankDrive(0, 0);
-    SmartDashboard.putBoolean("DriveBackward Completed", true);
-    RobotContainer.drivetrain.reset();
+  public void end(boolean interrupted){
+    drivetrain.tankDrive(0,0);
+    drivetrain.reset(false);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

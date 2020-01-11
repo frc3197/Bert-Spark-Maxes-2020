@@ -17,14 +17,13 @@ import frc.robot.subsystems.DriveTrain;
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class TurnToAngle extends PIDCommand {
+  DriveTrain drivetrain;
   /**
    * Creates a new TurnToAngle.
    * 
    * @param targetAngleDegrees sets the target angle
    * @param drivetrain         sets the dependent driveTrain
    */
-  DriveTrain drivetrain;
-
   public TurnToAngle(double targetAngleDegrees, DriveTrain drivetrain) {
     super(
         new PIDController(Constants.PIDConstants.kTurn.P, Constants.PIDConstants.kTurn.I,
@@ -37,12 +36,12 @@ public class TurnToAngle extends PIDCommand {
   }
 
   public void initialize() {
-    drivetrain.reset();
+    drivetrain.reset(true);
   }
 
   public void end(boolean interrupted) {
     drivetrain.tankDrive(0, 0);
-    drivetrain.reset();
+    drivetrain.reset(false);
   }
 
   // Returns true when the command should end.

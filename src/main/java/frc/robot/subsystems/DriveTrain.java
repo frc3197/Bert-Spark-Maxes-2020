@@ -73,13 +73,15 @@ public class DriveTrain extends SubsystemBase {
     drive.tankDrive(l, r, true);
   }
 
-  public void reset() {
+  public void reset(boolean useGyro) {
     l1Encoder.setPosition(0);
     l2Encoder.setPosition(0);
     r1Encoder.setPosition(0);
     r2Encoder.setPosition(0);
     gyro.reset();
-    gyro.calibrate();
+    if(useGyro){
+      gyro.calibrate();
+    }
   }
 
   public double getEncoderValue() {

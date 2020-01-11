@@ -31,7 +31,7 @@ public class RobotContainer {
   JoystickButton driverA = new JoystickButton(driver, 1);
 
   private final SequentialCommandGroup m_DriveRoutine = new DriveRoutine(drivetrain);
-  private final Command m_driveForward = new DriveForward(drivetrain, 3);
+  private final Command m_driveForward = new DriveForward(3, drivetrain);
   private final Command m_turn90 = new TurnToAngle(90, drivetrain);
 
   public final static DriveTrain drivetrain = new DriveTrain();
@@ -58,7 +58,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_turn90;
+    return m_DriveRoutine;
   }
 
   public static double tankDriveRight() {
