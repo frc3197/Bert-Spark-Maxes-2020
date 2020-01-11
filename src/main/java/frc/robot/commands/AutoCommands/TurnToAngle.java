@@ -18,6 +18,8 @@ import frc.robot.subsystems.DriveTrain;
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class TurnToAngle extends PIDCommand {
   DriveTrain drivetrain;
+  double angle;
+
   /**
    * Creates a new TurnToAngle.
    * 
@@ -31,12 +33,14 @@ public class TurnToAngle extends PIDCommand {
         drivetrain::getAngle, targetAngleDegrees, output -> drivetrain.tankDrive(output * 0.07, -output * 0.07),
         drivetrain);
     this.drivetrain = drivetrain;
+    angle = targetAngleDegrees;
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
   }
 
   public void initialize() {
-    drivetrain.reset(true);
+    drivetrain.reset(false);
+    drivetrain.gyro.calibrate();
   }
 
   public void end(boolean interrupted) {
@@ -53,6 +57,10 @@ public class TurnToAngle extends PIDCommand {
    */
   @Override
   public boolean isFinished() {
-    return getController().atSetpoint();
+    if (Math.abs(angle - drivetrain.gyro.getAngle()) <= Constants.Deadzones.kGyro.deadzone) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

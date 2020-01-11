@@ -18,6 +18,6 @@ public class DriveRoutine extends SequentialCommandGroup {
    * Creates a new DriveRoutine. [DEPRECATED]
    */
   public DriveRoutine(DriveTrain drivetrain) {
-    addCommands(new DriveForward(5, drivetrain), new TurnToAngle(90, drivetrain), new DriveBackward(5, drivetrain));
+    addCommands(new DriveForward(48, drivetrain), new TurnToAngle(90, drivetrain), new DriveForward(24, drivetrain));
   }
 }

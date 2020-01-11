@@ -34,7 +34,7 @@ public final class Constants {
   }
 
   public static enum PIDConstants {
-    kTurn(0.131, 0, 0.025), kForward(0.1, 0, 0);
+    kTurn(0.131, 0, 0.025), kForward(0.3, 0, 0);
 
     public final double P;
     public final double I;
@@ -44,6 +44,16 @@ public final class Constants {
       this.P = P;
       this.I = I;
       this.D = D;
+    }
+  }
+
+  public static enum Deadzones {
+    kEncoder(1), kGyro(5);
+
+    public final double deadzone;
+
+    private Deadzones(double deadzone) {
+      this.deadzone = deadzone;
     }
   }
 }

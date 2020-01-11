@@ -8,6 +8,7 @@
 package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
@@ -17,38 +18,54 @@ import frc.robot.subsystems.DriveTrain;
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class DriveForward extends PIDCommand {
   DriveTrain drivetrain;
+  double distance;
+  double output;
+
   /**
    * Creates a new DriveForward.
    */
   public DriveForward(double distance, DriveTrain drivetrain) {
     super(
         // The controller that the command will use
-        new PIDController(Constants.PIDConstants.kForward.P, Constants.PIDConstants.kForward.I, Constants.PIDConstants.kForward.D),
+        new PIDController(Constants.PIDConstants.kForward.P, Constants.PIDConstants.kForward.I,
+            Constants.PIDConstants.kForward.D),
         // This should return the measurement
         drivetrain::getEncoderValue,
         // This should return the setpoint (can also be a constant)
         distance,
         // This uses the output
-        output -> drivetrain.tankDrive(output * 0.07, output * 0.07),
-        
+        output -> drivetrain.tankDrive(-Math.pow(output, 1 / 2), -Math.pow(output, 1 / 2)),
+
         drivetrain);
-        this.drivetrain = drivetrain;
+    this.drivetrain = drivetrain;
+    this.distance = distance;
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
   }
 
-  public void initialize(){
+  public void initialize() {
     drivetrain.reset(false);
   }
 
-  public void end(boolean interrupted){
-    drivetrain.tankDrive(0,0);
+  // public void execute() {
+  // SmartDashboard.putNumber("Left Motor Input",
+  // -getController().calculate(drivetrain.getEncoderValue(), distance) * 0.2);
+  // SmartDashboard.putNumber("Right Motor Input",
+  // -getController().calculate(drivetrain.getEncoderValue(), distance) * 0.2);
+  // }
+
+  public void end(boolean interrupted) {
+    drivetrain.tankDrive(0, 0);
     drivetrain.reset(false);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (Math.abs(distance - drivetrain.getEncoderValue()) <= Constants.Deadzones.kEncoder.deadzone) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

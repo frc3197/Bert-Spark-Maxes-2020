@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -41,7 +43,7 @@ public class DriveTrain extends SubsystemBase {
   /**
    * Combines the SpeedControllerGroup to create a differential drive.
    */
-  private DifferentialDrive drive = new DifferentialDrive(leftMotors, rightMotors);
+  public DifferentialDrive drive = new DifferentialDrive(leftMotors, rightMotors);
 
   public Gyro gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
 
@@ -57,7 +59,7 @@ public class DriveTrain extends SubsystemBase {
     l2Encoder.setPositionConversionFactor((6 * Math.PI) / 7);
     r1Encoder.setPositionConversionFactor((6 * Math.PI) / 7);
     r2Encoder.setPositionConversionFactor((6 * Math.PI) / 7);
-
+    reset(true);
   }
 
   @Override
@@ -70,6 +72,7 @@ public class DriveTrain extends SubsystemBase {
    * Constructor for the tankDrive method
    */
   public void tankDrive(double r, double l) {
+    SmartDashboard.putNumber("Encoder", getEncoderValue());
     drive.tankDrive(l, r, true);
   }
 
@@ -79,13 +82,13 @@ public class DriveTrain extends SubsystemBase {
     r1Encoder.setPosition(0);
     r2Encoder.setPosition(0);
     gyro.reset();
-    if(useGyro){
+    if (useGyro) {
       gyro.calibrate();
     }
   }
 
   public double getEncoderValue() {
-    return l1Encoder.getPosition();
+    return -l1Encoder.getPosition();
   }
 
   public double getAngle() {

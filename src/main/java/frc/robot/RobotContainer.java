@@ -29,6 +29,7 @@ public class RobotContainer {
    */
   private static XboxController driver = new XboxController(0);
   JoystickButton driverA = new JoystickButton(driver, 1);
+  JoystickButton driverB = new JoystickButton(driver, 2);
 
   private final SequentialCommandGroup m_DriveRoutine = new DriveRoutine(drivetrain);
   private final Command m_driveForward = new DriveForward(3, drivetrain);
@@ -41,8 +42,9 @@ public class RobotContainer {
    */
   public RobotContainer() {
     drivetrain.setDefaultCommand(new Drive(drivetrain));
-    drivetrain.gyro.calibrate();
-    Shuffleboard.getTab("Main").add("gyro", (Sendable) drivetrain.gyro);
+    SmartDashboard.putData("Gyro", (Sendable) drivetrain.gyro);
+    SmartDashboard.putData("Drive Train", (Sendable) drivetrain.drive);
+
     configureButtonBindings();
   }
 
@@ -58,6 +60,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
+
     return m_DriveRoutine;
   }
 
