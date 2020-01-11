@@ -18,7 +18,9 @@ import frc.robot.subsystems.DriveTrain;
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class TurnToAngle extends PIDCommand {
   /**
-   * Creates a new Turn90.
+   * Creates a new TurnToAngle.
+   * @param targetAngleDegrees sets the target angle
+   * @param drivetrain sets the dependent driveTrain
    */
   public TurnToAngle(double targetAngleDegrees, DriveTrain drivetrain) {
     super(new PIDController(Constants.PIDConstants.kTurn.P, 
