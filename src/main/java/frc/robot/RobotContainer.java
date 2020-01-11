@@ -35,8 +35,12 @@ public class RobotContainer {
   public final DriveTrain drivetrain = new DriveTrain();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
 
+  /*
+   * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
+   */
   public RobotContainer() {
-    DriveTrain.setDefaultCommand(new Drive(drivetrain));
+    drivetrain.setDefaultCommand(new Drive(drivetrain));
+
   }
 
   /*
