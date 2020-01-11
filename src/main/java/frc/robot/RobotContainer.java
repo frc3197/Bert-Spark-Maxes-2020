@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj.SPI.Port;
  * also where buttons are mapped to the controller.
  * 
  * @author FRC3197
- */\
+ */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
@@ -47,7 +47,7 @@ public class RobotContainer {
   public RobotContainer() {
     drivetrain.setDefaultCommand(new Drive(drivetrain));
     gyro.calibrate();
-    Shuffleboard.getTab("Main").add("gyro", (Sendable)gyro);
+    Shuffleboard.getTab("Main").add("gyro", (Sendable) gyro);
     configureButtonBindings();
   }
 
