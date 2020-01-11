@@ -44,6 +44,7 @@ public class DriveTrain extends SubsystemBase {
   private DifferentialDrive drive = new DifferentialDrive(leftMotors, rightMotors);
 
   public Gyro gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
+
   /**
    * Constructor for the DriveTrain
    */
@@ -72,11 +73,13 @@ public class DriveTrain extends SubsystemBase {
     drive.tankDrive(l, r, true);
   }
 
-  public void resetEncoders() {
+  public void reset() {
     l1Encoder.setPosition(0);
     l2Encoder.setPosition(0);
     r1Encoder.setPosition(0);
     r2Encoder.setPosition(0);
+    gyro.reset();
+    gyro.calibrate();
   }
 
   public double getEncoderValue() {

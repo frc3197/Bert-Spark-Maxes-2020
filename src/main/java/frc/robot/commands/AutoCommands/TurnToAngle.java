@@ -19,24 +19,37 @@ import frc.robot.subsystems.DriveTrain;
 public class TurnToAngle extends PIDCommand {
   /**
    * Creates a new TurnToAngle.
+   * 
    * @param targetAngleDegrees sets the target angle
-   * @param drivetrain sets the dependent driveTrain
+   * @param drivetrain         sets the dependent driveTrain
    */
+  DriveTrain drivetrain;
+
   public TurnToAngle(double targetAngleDegrees, DriveTrain drivetrain) {
-    super(new PIDController(Constants.PIDConstants.kTurn.P, 
-                            Constants.PIDConstants.kTurn.I, 
-                            Constants.PIDConstants.kTurn.D),
-          drivetrain::getAngle, 
-          targetAngleDegrees,
-          output -> drivetrain.tankDrive(0, output),
-          drivetrain);
+    super(
+        new PIDController(Constants.PIDConstants.kTurn.P, Constants.PIDConstants.kTurn.I,
+            Constants.PIDConstants.kTurn.D),
+        drivetrain::getAngle, targetAngleDegrees, output -> drivetrain.tankDrive(output * 0.07, -output * 0.07),
+        drivetrain);
+    this.drivetrain = drivetrain;
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
   }
 
+  public void initialize() {
+    drivetrain.reset();
+  }
+
+  public void end(boolean interrupted) {
+    drivetrain.tankDrive(0, 0);
+    drivetrain.reset();
+  }
+
   // Returns true when the command should end.
   /**
-   * Returns true when the PIDController reaches the setpoint, being the target angle.
+   * Returns true when the PIDController reaches the setpoint, being the target
+   * angle.
+   * 
    * @return controller setpoint.
    */
   @Override

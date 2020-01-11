@@ -27,7 +27,7 @@ public class DriveBackward extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.drivetrain.resetEncoders();
+    RobotContainer.drivetrain.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -46,7 +46,7 @@ public class DriveBackward extends CommandBase {
   public void end(boolean interrupted) {
     RobotContainer.drivetrain.tankDrive(0, 0);
     SmartDashboard.putBoolean("DriveBackward Completed", true);
-    RobotContainer.drivetrain.resetEncoders();
+    RobotContainer.drivetrain.reset();
   }
 
   // Returns true when the command should end.

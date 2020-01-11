@@ -34,13 +34,13 @@ public final class Constants {
   }
 
   public static enum PIDConstants {
-    kTurn(0.5, 0, 0);
+    kTurn(0.131, 0, 0.025);
 
     public final double P;
     public final double I;
     public final double D;
 
-    private PIDConstants(double P, double I, double D){
+    private PIDConstants(double P, double I, double D) {
       this.P = P;
       this.I = I;
       this.D = D;
