@@ -2,6 +2,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -13,7 +15,10 @@ import frc.robot.commands.AutoCommands.DriveForward;
 import frc.robot.commands.AutoCommands.DriveRoutine;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.SPI.Port;
 
 /**
  * RobotContainer is the place where Subsystems and Commands are declared. It's
@@ -29,15 +34,20 @@ public class RobotContainer {
    */
   private static XboxController driver = new XboxController(0);
   JoystickButton driverA = new JoystickButton(driver, 1);
+
   private final SequentialCommandGroup m_DriveRoutine = new DriveRoutine(drivetrain);
   private final Command m_driveForward = new DriveForward(drivetrain, 5);
+
   public final static DriveTrain drivetrain = new DriveTrain();
+  Gyro gyro = new ADXRS450_Gyro(Port.kMXP);
 
   /*
    * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
    */
   public RobotContainer() {
     drivetrain.setDefaultCommand(new Drive(drivetrain));
+    gyro.calibrate();
+    Shuffleboard.getTab("Main").add("gyro", (Sendable)gyro);
     configureButtonBindings();
   }
 
