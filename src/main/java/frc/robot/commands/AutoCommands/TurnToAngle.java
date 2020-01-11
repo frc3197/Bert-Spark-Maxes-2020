@@ -35,6 +35,10 @@ public class TurnToAngle extends PIDCommand {
   }
 
   // Returns true when the command should end.
+  /**
+   * Returns true when the PIDController reaches the setpoint, being the target angle.
+   * @return controller setpoint.
+   */
   @Override
   public boolean isFinished() {
     return getController().atSetpoint();
