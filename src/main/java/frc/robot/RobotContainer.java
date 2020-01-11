@@ -4,8 +4,13 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.AutoCommands.Drive;
+import frc.robot.commands.AutoCommands.DriveBackward;
+import frc.robot.commands.AutoCommands.DriveForward;
+import frc.robot.commands.AutoCommands.DriveRoutine;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
@@ -23,30 +28,23 @@ public class RobotContainer {
    * The XboxController for the driver.
    */
   private static XboxController driver = new XboxController(0);
-  /**
-   * An example Subsystem. [DEPRECATED]
-   */
-  private final ExampleSubsystem m_autoSubsystem = new ExampleSubsystem();
-  /**
-   * An example Command [DEPRECATED]
-   */
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
-  private final DriveTrain drivetrain = new DriveTrain();
+  JoystickButton driverA = new JoystickButton(driver, 1);
+  private final SequentialCommandGroup m_DriveRoutine = new DriveRoutine(drivetrain);
+  private final Command m_driveForward = new DriveForward(drivetrain, 5);
+  public final static DriveTrain drivetrain = new DriveTrain();
 
   /*
    * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
    */
   public RobotContainer() {
     drivetrain.setDefaultCommand(new Drive(drivetrain));
-
+    configureButtonBindings();
   }
 
-  /*
-   * private void configureButtonBindings() {
-   * 
-   * 
-   * }
-   */
+  private void configureButtonBindings() {
+    driverA.whenPressed(m_DriveRoutine);
+  }
+
   /**
    * Gets the Command that will be used for Autonomous TODO: Add in the
    * SendableChooser part with ShuffleBoard.
@@ -55,7 +53,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return m_DriveRoutine;
   }
 
   public static double tankDriveRight() {

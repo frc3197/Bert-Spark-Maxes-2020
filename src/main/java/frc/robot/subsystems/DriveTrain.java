@@ -1,11 +1,14 @@
 
 package frc.robot.subsystems;
+
+import com.revrobotics.CANEncoder;
+
 /**
  * Importa the libraries for either the CANSparkMax library or the Talon library
  */
 import com.revrobotics.CANSparkMax;
 
- import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -16,18 +19,22 @@ import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
 
-
-   private CANSparkMax l1SparkMax = new CANSparkMax(Constants.CANSparkMaxID.kLeft1.id, MotorType.kBrushless);
+  private CANSparkMax l1SparkMax = new CANSparkMax(Constants.CANSparkMaxID.kLeft1.id, MotorType.kBrushless);
   private CANSparkMax r1SparkMax = new CANSparkMax(Constants.CANSparkMaxID.kRight1.id, MotorType.kBrushless);
-   private CANSparkMax r2SparkMax = new CANSparkMax(Constants.CANSparkMaxID.kRight2.id, MotorType.kBrushless);
-   private CANSparkMax l2SparkMax = new CANSparkMax(Constants.CANSparkMaxID.kLeft2.id, MotorType.kBrushless);
+  private CANSparkMax r2SparkMax = new CANSparkMax(Constants.CANSparkMaxID.kRight2.id, MotorType.kBrushless);
+  private CANSparkMax l2SparkMax = new CANSparkMax(Constants.CANSparkMaxID.kLeft2.id, MotorType.kBrushless);
 
   /**
    * Creates a new Speed Controller Group for the two left,and two right talon
    * motors
    */
-  private SpeedControllerGroup leftMotors = new SpeedControllerGroup(l1SparkMax,l2SparkMax);
-  private SpeedControllerGroup rightMotors = new SpeedControllerGroup(r1SparkMax,r2SparkMax);
+  private SpeedControllerGroup leftMotors = new SpeedControllerGroup(l1SparkMax, l2SparkMax);
+  private SpeedControllerGroup rightMotors = new SpeedControllerGroup(r1SparkMax, r2SparkMax);
+
+  private CANEncoder l1Encoder = new CANEncoder(l1SparkMax);
+  private CANEncoder l2Encoder = new CANEncoder(l2SparkMax);
+  private CANEncoder r1Encoder = new CANEncoder(r1SparkMax);
+  private CANEncoder r2Encoder = new CANEncoder(r2SparkMax);
   /**
    * Combines the SpeedControllerGroup to create a differential drive.
    */
@@ -41,6 +48,11 @@ public class DriveTrain extends SubsystemBase {
     l2SparkMax.setIdleMode(IdleMode.kBrake);
     r1SparkMax.setIdleMode(IdleMode.kBrake);
     r2SparkMax.setIdleMode(IdleMode.kBrake);
+    l1Encoder.setPositionConversionFactor((6 * Math.PI) / 7);
+    l2Encoder.setPositionConversionFactor((6 * Math.PI) / 7);
+    r1Encoder.setPositionConversionFactor((6 * Math.PI) / 7);
+    r2Encoder.setPositionConversionFactor((6 * Math.PI) / 7);
+
   }
 
   @Override
@@ -54,5 +66,16 @@ public class DriveTrain extends SubsystemBase {
    */
   public void tankDrive(double r, double l) {
     drive.tankDrive(l, r, true);
+  }
+
+  public void resetEncoders() {
+    l1Encoder.setPosition(0);
+    l2Encoder.setPosition(0);
+    r1Encoder.setPosition(0);
+    r2Encoder.setPosition(0);
+  }
+
+  public double getEncoderValue() {
+    return l1Encoder.getPosition();
   }
 }
