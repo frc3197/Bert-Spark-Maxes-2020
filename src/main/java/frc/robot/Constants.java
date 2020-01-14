@@ -42,6 +42,7 @@ public final class Constants {
 
     private PIDConstants(double P, double I, double D) {
       this.P = P;
+      // this.P = 1 / math.pow(error,2)
       this.I = I;
       this.D = D;
     }
