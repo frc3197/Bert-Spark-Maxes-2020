@@ -69,4 +69,8 @@ public class RobotContainer {
     SmartDashboard.putNumber("Left Joystick", driver.getY(Hand.kLeft));
     return driver.getY(Hand.kLeft);
   }
+
+  public static double shooterTest() {
+    return driver.getTriggerAxis(Hand.kRight);
+  }
 }
