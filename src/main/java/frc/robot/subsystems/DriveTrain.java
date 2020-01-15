@@ -1,22 +1,12 @@
 
 package frc.robot.subsystems;
 
-/**
- * Importa the libraries for either the CANSparkMax library or the Talon library
- */
-import com.revrobotics.CANSparkMax;
-
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Talon;
 //import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.AutoCommands.Drive;
 
 public class DriveTrain extends SubsystemBase {
   /**
