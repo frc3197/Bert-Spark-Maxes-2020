@@ -31,6 +31,7 @@ public class RobotContainer {
    * An example Command [DEPRECATED]
    */
   public final DriveTrain drivetrain = new DriveTrain();
+  public final Shooter shooter = new Shooter();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
 
   /*
@@ -38,7 +39,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
     drivetrain.setDefaultCommand(new Drive(drivetrain));
-
+    shooter.setDefaultCommand(new ShooterTest(shooter));
   }
 
   /*
