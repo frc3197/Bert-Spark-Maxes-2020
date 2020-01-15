@@ -1,11 +1,9 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.Talon;
 //import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -57,7 +55,7 @@ public class DriveTrain extends SubsystemBase {
   /**
    * Constructor for the tankDrive method
    */
-  public void tankDrive(double r, double l) {
+  public void tankDrive(double l, double r) {
     drive.tankDrive(l, r, true);
   }
 }
