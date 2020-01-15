@@ -38,7 +38,7 @@ public class DriveForward extends PIDCommand {
 
         drivetrain);
     this.drivetrain = drivetrain;
-    this.distance = distance / 2;
+    this.distance = distance;
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
   }
