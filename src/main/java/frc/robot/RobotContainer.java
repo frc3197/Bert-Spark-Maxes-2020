@@ -32,7 +32,7 @@ public class RobotContainer {
 
   public final static DriveTrain drivetrain = new DriveTrain();
   
-  private Command m_driveForward = new DriveForward(50, drivetrain);
+  private Command m_driveForward = new DriveForward(50, drivetrain,0);
   /*
    * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
    */

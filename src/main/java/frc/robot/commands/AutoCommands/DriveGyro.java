@@ -36,11 +36,7 @@ public class DriveGyro extends PIDCommand {
         // This uses the output
         output -> drivetrain.tankDrive(-Math.pow(output, 1 / 2), -Math.pow(output, 1 / 2)),
 
-        drivetrain);  super(
-          Constants.PIDConstants.kTurn.P, Constants.PIDConstants.kTurn.I,
-              Constants.PIDConstants.kTurn.D),
-          drivetrain::getAngle, angle, output -> drivetrain.tankDrive(output * 0.07, -output * 0.07),
-          drivetrain);
+        drivetrain);
       this.drivetrain = drivetrain;
       angle = this.angle;
     this.drivetrain = drivetrain;

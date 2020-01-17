@@ -19,32 +19,57 @@ public class DriveForward extends PIDCommand {
   DriveTrain drivetrain;
   double distance;
   double output;
-
+  double angle;
   /**
    * Creates a new DriveForward.
    */
-  public DriveForward(double distance, DriveTrain drivetrain) {
+
+
+  PIDController gyroPID = new PIDController(Constants.PIDConstants.kTurn.P,     
+  Constants.PIDConstants.kTurn.I, Constants.PIDConstants.kTurn.D);;
+
+
+  public DriveForward(double distance, DriveTrain drivetrain, double angle) {
+    
     super(
+    
         // The controller that the command will use
-        new PIDController(Constants.PIDConstants.kForward.P, Constants.PIDConstants.kForward.I,
+      new PIDController(Constants.PIDConstants.kForward.P, Constants.PIDConstants.kForward.I,
             Constants.PIDConstants.kForward.D),
         // This should return the measurement
         drivetrain::getEncoderValue,
         // This should return the setpoint (can also be a constant)
         distance,
         // This uses the output
-        output -> drivetrain.tankDrive(-Math.pow(output, 1 / 2), -Math.pow(output, 1 / 2)),
-
-        drivetrain);
-    this.drivetrain = drivetrain;
+        output -> drivetrain.tankDrive((-Math.pow(output, 1 / 2))+ GyroPID(), -Math.pow(output, 1 / 2) -GyroPID()));
+        this.drivetrain = drivetrain;
     this.distance = distance;
+    this.angle = angle;
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
+
+    
+  
   }
+
+  
 
   public void initialize() {
     drivetrain.reset(false);
+
   }
+
+
+  public double GyroPID(){
+
+    gyroPID.setTolerance(2);
+    gyroPID.setSetpoint(angle);
+    return gyroPID.calculate(drivetrain.gyro.getAngle());
+  }
+
+
+
+  
 
   // public void execute() {
   // SmartDashboard.putNumber("Left Motor Input",
