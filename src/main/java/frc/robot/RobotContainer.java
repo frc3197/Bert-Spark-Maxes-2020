@@ -6,10 +6,9 @@ import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutoCommands.Drive;
-import frc.robot.commands.AutoCommands.DriveForwardGyro;
+import frc.robot.commands.AutoCommands.DriveForward;
 import frc.robot.subsystems.DriveTrain;
 
 /**
@@ -30,16 +29,16 @@ public class RobotContainer {
 
 
   //private final Command m_DriveFowardGroup = new DriveForwardGyro(angle, distance, drivetrain);
-  private final ParallelCommandGroup m_DriveForwardGyro = new DriveForwardGyro(drivetrain, drivetrain2electricboogaloo);
 
   public final static DriveTrain drivetrain = new DriveTrain();
-  public final static DriveTrain drivetrain2electricboogaloo = new DriveTrain();
+  
+  private Command m_driveForward = new DriveForward(50, drivetrain);
   /*
    * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
    */
   public RobotContainer() {
     drivetrain.setDefaultCommand(new Drive(drivetrain));
-    drivetrain2electricboogaloo.setDefaultCommand(new Drive(drivetrain2electricboogaloo));
+    
     SmartDashboard.putData("Gyro", (Sendable) drivetrain.gyro);
     SmartDashboard.putData("Drive Train", (Sendable) drivetrain.drive);
 
@@ -47,7 +46,7 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    driverA.whenPressed(m_DriveForwardGyro);
+    //driverA.whenPressed(m_DriveForwardGyro);
   }
 
   /**
@@ -59,7 +58,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
 
-    return m_DriveForwardGyro;
+    return m_driveForward;
   }
 
   public static double tankDriveRight() {

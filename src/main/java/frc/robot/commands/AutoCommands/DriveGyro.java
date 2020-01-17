@@ -15,38 +15,51 @@ import frc.robot.subsystems.DriveTrain;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class TurnToAngle extends PIDCommand {
+public class DriveGyro extends PIDCommand {
   DriveTrain drivetrain;
+  double distance;
   double angle;
+  double output;
 
   /**
-   * Creates a new TurnToAngle.
-   * 
-   * @param targetAngleDegrees sets the target angle
-   * @param drivetrain         sets the dependent driveTrain
+   * Creates a new DriveGyro.
    */
-  public TurnToAngle(double targetAngleDegrees, DriveTrain drivetrain) {
+  public DriveGyro(double distance, DriveTrain drivetrain, double angle) {
     super(
-        new PIDController(Constants.PIDConstants.kTurn.P, Constants.PIDConstants.kTurn.I,
-            Constants.PIDConstants.kTurn.D),
-        drivetrain::getAngle,
+        // The controller that the command will use
+        new PIDController(Constants.PIDConstants.kForward.P, Constants.PIDConstants.kForward.I,
+            Constants.PIDConstants.kForward.D),
+        // This should return the measurement
+        drivetrain::getEncoderValue,
+        // This should return the setpoint (can also be a constant)
+        distance,
+        // This uses the output
+        output -> drivetrain.tankDrive(-Math.pow(output, 1 / 2), -Math.pow(output, 1 / 2)),
 
-        targetAngleDegrees,
-        
-        output -> drivetrain.tankDrive(output * 0.07, -output * 0.07),
-        
-        drivetrain);
+        drivetrain);  super(
+          Constants.PIDConstants.kTurn.P, Constants.PIDConstants.kTurn.I,
+              Constants.PIDConstants.kTurn.D),
+          drivetrain::getAngle, angle, output -> drivetrain.tankDrive(output * 0.07, -output * 0.07),
+          drivetrain);
+      this.drivetrain = drivetrain;
+      angle = this.angle;
     this.drivetrain = drivetrain;
-    angle = targetAngleDegrees;
-    
+  this.distance = distance;
+  
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
   }
 
   public void initialize() {
     drivetrain.reset(false);
-    drivetrain.gyro.calibrate();
   }
+
+  // public void execute() {
+  // SmartDashboard.putNumber("Left Motor Input",
+  // -getController().calculate(drivetrain.getEncoderValue(), distance) * 0.2);
+  // SmartDashboard.putNumber("Right Motor Input",
+  // -getController().calculate(drivetrain.getEncoderValue(), distance) * 0.2);
+  // }
 
   public void end(boolean interrupted) {
     drivetrain.tankDrive(0, 0);
@@ -54,15 +67,9 @@ public class TurnToAngle extends PIDCommand {
   }
 
   // Returns true when the command should end.
-  /**
-   * Returns true when the PIDController reaches the setpoint, being the target
-   * angle.
-   * 
-   * @return controller setpoint.
-   */
   @Override
   public boolean isFinished() {
-    if (Math.abs(angle - drivetrain.gyro.getAngle()) <= Constants.Deadzones.kGyro.deadzone) {
+    if (Math.abs(distance - drivetrain.getEncoderValue()) <= Constants.Deadzones.kEncoder.deadzone) {
       return true;
     } else {
       return false;
