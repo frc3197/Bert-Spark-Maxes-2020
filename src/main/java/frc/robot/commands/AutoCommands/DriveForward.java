@@ -8,7 +8,6 @@
 package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
@@ -38,7 +37,7 @@ public class DriveForward extends PIDCommand {
 
         drivetrain);
     this.drivetrain = drivetrain;
-    this.distance = distance / 2;
+    this.distance = distance;
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
   }

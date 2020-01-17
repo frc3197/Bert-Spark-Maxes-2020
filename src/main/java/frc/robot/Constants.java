@@ -34,7 +34,7 @@ public final class Constants {
   }
 
   public static enum PIDConstants {
-    kTurn(0.135, 0.00025, 0.075), kForward(0.3, 0, 0); //(P,I,D)
+    kTurn(0.135, 0.05, 0.075), kForward(0.3, 0, 0); //(P,I,D)
 
     public final double P;
     public final double I;

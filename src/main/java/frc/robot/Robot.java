@@ -19,8 +19,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
-  private Command m_driveRoutine;
   private RobotContainer m_robotContainer;
+  private Command m_DriveForwardGyro;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -72,11 +72,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_driveRoutine = m_robotContainer.getAutonomousCommand();
+    m_DriveForwardGyro = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
-    if (m_driveRoutine != null) {
-      m_driveRoutine.schedule();
+    if (m_DriveForwardGyro != null) {
+      m_DriveForwardGyro.schedule();
 
     }
   }

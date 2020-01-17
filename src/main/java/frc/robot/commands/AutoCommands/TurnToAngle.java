@@ -10,7 +10,6 @@ package frc.robot.commands.AutoCommands;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -34,6 +33,7 @@ public class TurnToAngle extends PIDCommand {
         drivetrain);
     this.drivetrain = drivetrain;
     angle = targetAngleDegrees;
+    
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
   }

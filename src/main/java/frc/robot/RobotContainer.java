@@ -4,15 +4,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutoCommands.Drive;
-import frc.robot.commands.AutoCommands.DriveForward;
-import frc.robot.commands.AutoCommands.DriveRoutine;
-import frc.robot.commands.AutoCommands.TurnToAngle;
+import frc.robot.commands.AutoCommands.DriveForwardGyro;
 import frc.robot.subsystems.DriveTrain;
 
 /**
@@ -31,17 +28,18 @@ public class RobotContainer {
   JoystickButton driverA = new JoystickButton(driver, 1);
   JoystickButton driverB = new JoystickButton(driver, 2);
 
-  private final SequentialCommandGroup m_DriveRoutine = new DriveRoutine(drivetrain);
-  private final Command m_driveForward = new DriveForward(3, drivetrain);
-  private final Command m_turn90 = new TurnToAngle(90, drivetrain);
+
+  //private final Command m_DriveFowardGroup = new DriveForwardGyro(angle, distance, drivetrain);
+  private final ParallelCommandGroup m_DriveForwardGyro = new DriveForwardGyro(drivetrain, drivetrain2electricboogaloo);
 
   public final static DriveTrain drivetrain = new DriveTrain();
-
+  public final static DriveTrain drivetrain2electricboogaloo = new DriveTrain();
   /*
    * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
    */
   public RobotContainer() {
     drivetrain.setDefaultCommand(new Drive(drivetrain));
+    drivetrain2electricboogaloo.setDefaultCommand(new Drive(drivetrain2electricboogaloo));
     SmartDashboard.putData("Gyro", (Sendable) drivetrain.gyro);
     SmartDashboard.putData("Drive Train", (Sendable) drivetrain.drive);
 
@@ -49,7 +47,7 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    driverA.whenPressed(m_DriveRoutine);
+    driverA.whenPressed(m_DriveForwardGyro);
   }
 
   /**
@@ -61,7 +59,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
 
-    return m_DriveRoutine;
+    return m_DriveForwardGyro;
   }
 
   public static double tankDriveRight() {
