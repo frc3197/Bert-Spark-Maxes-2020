@@ -35,6 +35,7 @@ public class RobotContainer {
    */
   public final Shooter shooter = new Shooter();
   public final DriveTrain drivetrain = new DriveTrain();
+  public final Shooter shooter = new Shooter();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
 
   /*
