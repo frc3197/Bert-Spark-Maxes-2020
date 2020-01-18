@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ShooterTest;
 import frc.robot.commands.AutoCommands.Drive;
@@ -25,7 +26,7 @@ public class RobotContainer {
    * The XboxController for the driver.
    */
   private static XboxController driver = new XboxController(0);
-
+  JoystickButton driverA = new JoystickButton(driver, 1);
   /**
    * An example Subsystem. [DEPRECATED]
    */
@@ -35,7 +36,7 @@ public class RobotContainer {
    */
   public final Shooter shooter = new Shooter();
   public final DriveTrain drivetrain = new DriveTrain();
-  public final Shooter shooter = new Shooter();
+
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
 
   /*
