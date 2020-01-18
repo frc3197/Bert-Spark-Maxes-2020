@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ShooterTest;
 import frc.robot.commands.AutoCommands.Drive;
+import frc.robot.commands.AutoCommands.DriveButton;
+import frc.robot.commands.AutoCommands.DriveButton;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Shooter;
@@ -26,17 +28,19 @@ public class RobotContainer {
    * The XboxController for the driver.
    */
   private static XboxController driver = new XboxController(0);
-  JoystickButton driverA = new JoystickButton(driver, 1);
+  public static JoystickButton driverA = new JoystickButton(driver, 1);
   /**
    * An example Subsystem. [DEPRECATED]
    */
   private final ExampleSubsystem m_autoSubsystem = new ExampleSubsystem();
+
   /**
    * An example Command [DEPRECATED]
    */
+
   public final Shooter shooter = new Shooter();
   public final DriveTrain drivetrain = new DriveTrain();
-
+  private final Command m_DriveButton = new DriveButton(drivetrain);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
 
   /*
@@ -45,21 +49,11 @@ public class RobotContainer {
   public RobotContainer() {
     drivetrain.setDefaultCommand(new Drive(drivetrain));
     shooter.setDefaultCommand(new ShooterTest(shooter));
+    // configureButtonBindings();
   }
 
   /*
-   * private void configureButtonBindings() {
-   * 
-   * 
-   * 
-   * 
-   * }
-   */
-  /**
-   * Gets the Command that will be used for Autonomous TODO: Add in the
-   * SendableChooser part with ShuffleBoard.
-   * 
-   * @return Command used for Autonomous
+   * private void configureButtonBindings() { driverA.whileHeld(m_DriveButton); }
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous

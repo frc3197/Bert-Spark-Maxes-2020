@@ -19,10 +19,10 @@ public class DriveTrain extends SubsystemBase {
   /**
    * Creates the IDs/DriveTrain for the NEO Brushless motors
    */
-  private WPI_TalonFX l1SparkMax = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
-  private WPI_TalonFX r1SparkMax = new WPI_TalonFX(Constants.TalonID.kRight1.id);
-  private WPI_TalonFX r2SparkMax = new WPI_TalonFX(Constants.TalonID.kRight2.id);
-  private WPI_TalonFX l2SparkMax = new WPI_TalonFX(Constants.TalonID.kLeft2.id);
+  public WPI_TalonFX l1SparkMax = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
+  public WPI_TalonFX r1SparkMax = new WPI_TalonFX(Constants.TalonID.kRight1.id);
+  public WPI_TalonFX l2SparkMax = new WPI_TalonFX(Constants.TalonID.kLeft2.id);
+  public WPI_TalonFX r2SparkMax = new WPI_TalonFX(Constants.TalonID.kRight2.id);
 
   /**
    * Creates a new Speed Controller Group for the two left,and two right talon
