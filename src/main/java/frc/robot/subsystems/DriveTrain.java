@@ -5,11 +5,12 @@ package frc.robot.subsystems;
  */
 // import com.revrobotics.CANSparkMax;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
 // import com.revrobotics.CANSparkMax.IdleMode;
 // import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -18,10 +19,10 @@ public class DriveTrain extends SubsystemBase {
   /**
    * Creates all the Talon objects
    */
-  private Talon l1Talon = new Talon(Constants.TalonID.kLeft1.id);
-  private Talon l2Talon = new Talon(Constants.TalonID.kLeft2.id);
-  private Talon r1Talon = new Talon(Constants.TalonID.kRight1.id);
-  private Talon r2Talon = new Talon(Constants.TalonID.kRight2.id);
+  private WPI_TalonFX l1Talon = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
+  private WPI_TalonFX l2Talon = new WPI_TalonFX(Constants.TalonID.kLeft2.id);
+  private WPI_TalonFX r1Talon = new WPI_TalonFX(Constants.TalonID.kRight1.id);
+  private WPI_TalonFX r2Talon = new WPI_TalonFX(Constants.TalonID.kRight2.id);
   /**
    * Creates the IDs/DriveTrain for the NEO Brushless motors
    */

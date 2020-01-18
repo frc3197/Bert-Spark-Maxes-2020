@@ -5,17 +5,20 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.AutoCommands.Drive;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
 
 /**
- * RobotContainer is the place where Subsystems and Commands are declared. It's also where buttons are mapped to the controller.
+ * RobotContainer is the place where Subsystems and Commands are declared. It's
+ * also where buttons are mapped to the controller.
  * 
  * @author Jordan Limonov
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  
+
   /**
    * The XboxController for the driver.
    */
@@ -24,36 +27,31 @@ public class RobotContainer {
    * An example Subsystem. [DEPRECATED]
    */
   private final ExampleSubsystem m_autoSubsystem = new ExampleSubsystem();
-    private final Drivetrain drivetrain = new Drivetrain();
+  public final static DriveTrain drivetrain = new DriveTrain();
   /**
    * An example Command [DEPRECATED]
    */
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
 
-  
+  public RobotContainer() {
+    drivetrain.setDefaultCommand(new Drive(drivetrain));
+
+  }
+
   /*
-  * Constructor For RobotContainer    *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
-  */
-  public RobotContainer()
-  {
-  driveTrain.setDefaultCommand(Drive(driveTrain));
-  
-  }
-  
-  
- /*
-   private void configureButtonBindings() {
-
-
-
-
-  }
-*/
-/**
- * Gets the Command that will be used for Autonomous
- * TODO: Add in the SendableChooser part with ShuffleBoard.
- * @return Command used for Autonomous
- */
+   * private void configureButtonBindings() {
+   * 
+   * 
+   * 
+   * 
+   * }
+   */
+  /**
+   * Gets the Command that will be used for Autonomous TODO: Add in the
+   * SendableChooser part with ShuffleBoard.
+   * 
+   * @return Command used for Autonomous
+   */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return m_autoCommand;
