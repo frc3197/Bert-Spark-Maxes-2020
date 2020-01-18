@@ -1,7 +1,6 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 //import edu.wpi.first.wpilibj.Talon;
@@ -25,6 +24,7 @@ public class DriveTrain extends SubsystemBase {
   public WPI_TalonFX l2SparkMax = new WPI_TalonFX(Constants.TalonID.kLeft2.id);
   public WPI_TalonFX r2SparkMax = new WPI_TalonFX(Constants.TalonID.kRight2.id);
   public WPI_TalonFX testTalon = new WPI_TalonFX(Constants.TalonID.kTest1.id);
+
   /**
    * Creates a new Speed Controller Group for the two left,and two right talon
    * motors
@@ -40,6 +40,11 @@ public class DriveTrain extends SubsystemBase {
    * Constructor for the DriveTrain
    */
   public DriveTrain() {
+    l1SparkMax.setSafetyEnabled(false);
+    l2SparkMax.setSafetyEnabled(false);
+    r1SparkMax.setSafetyEnabled(false);
+    r2SparkMax.setSafetyEnabled(false);
+    testTalon.setSafetyEnabled(false);
     // l1SparkMax.setIdleMode(IdleMode.kBrake);
     // l2SparkMax.setIdleMode(IdleMode.kBrake);
     // r1SparkMax.setIdleMode(IdleMode.kBrake);

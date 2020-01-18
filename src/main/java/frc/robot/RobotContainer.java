@@ -7,13 +7,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.ShooterTest;
 import frc.robot.commands.AutoCommands.Drive;
-import frc.robot.commands.AutoCommands.DriveButton;
 import frc.robot.commands.AutoCommands.DriveButton;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.Shooter;
 
 /**
  * RobotContainer is the place where Subsystems and Commands are declared. It's
