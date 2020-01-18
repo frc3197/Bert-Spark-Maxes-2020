@@ -21,6 +21,22 @@ package frc.robot;
 
 public final class Constants {
 
+  public static enum PID_Constants {
+    kDVelocity(0, 0, 0, 0);
+
+    public final double P;
+    public final double I;
+    public final double D;
+    public final double F;
+
+    private PID_Constants(double P, double I, double D, double F) {
+      this.P = P;
+      this.I = I;
+      this.D = D;
+      this.F = F;
+    }
+  }
+
   public static enum TalonID {
     kLeft1(2, "Left1"), kLeft2(3, "Left2"), kRight1(0, "Right1"), kRight2(1, "Right2"), kShooter1(15, "Shooter1"),
     kTest1(14, "Test1");

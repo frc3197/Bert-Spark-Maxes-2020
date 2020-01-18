@@ -19,18 +19,18 @@ public class DriveTrain extends SubsystemBase {
   /**
    * Creates the IDs/DriveTrain for the NEO Brushless motors
    */
-  public WPI_TalonFX l1SparkMax = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
-  public WPI_TalonFX r1SparkMax = new WPI_TalonFX(Constants.TalonID.kRight1.id);
-  public WPI_TalonFX l2SparkMax = new WPI_TalonFX(Constants.TalonID.kLeft2.id);
-  public WPI_TalonFX r2SparkMax = new WPI_TalonFX(Constants.TalonID.kRight2.id);
+  public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
+  public WPI_TalonFX r1TalonFX = new WPI_TalonFX(Constants.TalonID.kRight1.id);
+  public WPI_TalonFX l2TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft2.id);
+  public WPI_TalonFX r2TalonFX = new WPI_TalonFX(Constants.TalonID.kRight2.id);
   public WPI_TalonFX testTalon = new WPI_TalonFX(Constants.TalonID.kTest1.id);
 
   /**
    * Creates a new Speed Controller Group for the two left,and two right talon
    * motors
    */
-  private SpeedControllerGroup leftMotors = new SpeedControllerGroup(l1SparkMax, testTalon);
-  private SpeedControllerGroup rightMotors = new SpeedControllerGroup(r1SparkMax, r2SparkMax);
+  private SpeedControllerGroup leftMotors = new SpeedControllerGroup(l1TalonFX, l2TalonFX);
+  private SpeedControllerGroup rightMotors = new SpeedControllerGroup(r1TalonFX, r2TalonFX);
   /**
    * Combines the SpeedControllerGroup to create a differential drive.
    */
@@ -40,10 +40,10 @@ public class DriveTrain extends SubsystemBase {
    * Constructor for the DriveTrain
    */
   public DriveTrain() {
-    l1SparkMax.setSafetyEnabled(false);
-    l2SparkMax.setSafetyEnabled(false);
-    r1SparkMax.setSafetyEnabled(false);
-    r2SparkMax.setSafetyEnabled(false);
+    l1TalonFX.setSafetyEnabled(false);
+    l2TalonFX.setSafetyEnabled(false);
+    r1TalonFX.setSafetyEnabled(false);
+    r2TalonFX.setSafetyEnabled(false);
     testTalon.setSafetyEnabled(false);
     // l1SparkMax.setIdleMode(IdleMode.kBrake);
     // l2SparkMax.setIdleMode(IdleMode.kBrake);
@@ -62,6 +62,20 @@ public class DriveTrain extends SubsystemBase {
   /**
    * Constructor for the tankDrive method
    */
+
+  public void resetEncoderValue() {
+    l1TalonFX.setSelectedSensorPosition(0);
+  }
+
+  public double getVelocity() {
+    return l1TalonFX.getSelectedSensorVelocity();
+  }
+
+  public double getEncoderValue() {
+    // l1TalonFX.set(mode, value);
+
+    return l1TalonFX.getSelectedSensorPosition();
+  }
 
   public void tankDrive(double l, double r) {
     drive.tankDrive(l, r, true);

@@ -26,6 +26,7 @@ public class Drive extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    driveTrain.resetEncoderValue();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -45,14 +46,18 @@ public class Drive extends CommandBase {
     /*
      * Puts the inputs of the Controller onto ShuffleBoard.
      */
+    System.out.println("Velocity Value  " + driveTrain.getVelocity());
+
     SmartDashboard.putNumber("Left Motor Input", tankL);
     SmartDashboard.putNumber("Right Motor Input", tankR);
   }
 
   // Called once the command ends or is interrupted.
+
   @Override
   public void end(boolean interrupted) {
-    //driveTrain.tankDrive(0, 0);
+    driveTrain.resetEncoderValue();
+    // driveTrain.tankDrive(0, 0);
   }
 
   // Returns true when the command should end.

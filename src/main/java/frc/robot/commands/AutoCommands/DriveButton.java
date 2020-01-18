@@ -15,7 +15,7 @@ public class DriveButton extends CommandBase {
    * 
    * Creates a new DriveButton.
    */
-  DriveTrain drivetrain = new DriveTrain();
+  DriveTrain drivetrain;
 
   public DriveButton(DriveTrain drivetrain) {
     addRequirements(drivetrain);
