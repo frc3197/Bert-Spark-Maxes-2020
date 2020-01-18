@@ -38,9 +38,9 @@ public class DriveGyro extends PIDCommand {
 
         drivetrain);
       this.drivetrain = drivetrain;
-      angle = this.angle;
-    this.drivetrain = drivetrain;
-  this.distance = distance;
+      this.angle = angle;
+      this.drivetrain = drivetrain;
+      this.distance = distance;
   
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
