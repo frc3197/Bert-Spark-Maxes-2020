@@ -38,7 +38,7 @@ public class RobotContainer {
    * An example Command [DEPRECATED]
    */
 
-  public final Shooter shooter = new Shooter();
+  // public final Shooter shooter = new Shooter();
   public final DriveTrain drivetrain = new DriveTrain();
   private final Command m_DriveButton = new DriveButton(drivetrain);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
@@ -48,13 +48,14 @@ public class RobotContainer {
    */
   public RobotContainer() {
     drivetrain.setDefaultCommand(new Drive(drivetrain));
-    shooter.setDefaultCommand(new ShooterTest(shooter));
-    // configureButtonBindings();
+    // shooter.setDefaultCommand(new ShooterTest(shooter));
+    configureButtonBindings();
   }
 
-  /*
-   * private void configureButtonBindings() { driverA.whileHeld(m_DriveButton); }
-   */
+  private void configureButtonBindings() {
+    driverA.whileHeld(m_DriveButton);
+  }
+
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return m_autoCommand;

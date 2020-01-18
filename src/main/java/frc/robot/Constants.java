@@ -22,7 +22,8 @@ package frc.robot;
 public final class Constants {
 
   public static enum TalonID {
-    kLeft1(2, "Left1"), kLeft2(3, "Left2"), kRight1(0, "Right1"), kRight2(1, "Right2"), kShooter1(15, "Shooter1");
+    kLeft1(2, "Left1"), kLeft2(3, "Left2"), kRight1(0, "Right1"), kRight2(1, "Right2"), kShooter1(15, "Shooter1"),
+    kTest1(14, "Test1");
 
     public final int id;
     public final String name;

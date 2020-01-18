@@ -31,7 +31,7 @@ public class Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+
     /*
      * Pulls the inputs from the controller and assigns them to the variables for
      * use in the tankDrive function.
@@ -52,7 +52,7 @@ public class Drive extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    driveTrain.tankDrive(0, 0);
+    //driveTrain.tankDrive(0, 0);
   }
 
   // Returns true when the command should end.
