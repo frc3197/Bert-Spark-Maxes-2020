@@ -1,8 +1,7 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 //import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -20,10 +19,10 @@ public class DriveTrain extends SubsystemBase {
   /**
    * Creates the IDs/DriveTrain for the NEO Brushless motors
    */
-  private WPI_TalonSRX l1SparkMax = new WPI_TalonSRX(Constants.TalonID.kLeft1.id);
-  private WPI_TalonSRX r1SparkMax = new WPI_TalonSRX(Constants.TalonID.kRight1.id);
-  private WPI_TalonSRX r2SparkMax = new WPI_TalonSRX(Constants.TalonID.kRight2.id);
-  private WPI_TalonSRX l2SparkMax = new WPI_TalonSRX(Constants.TalonID.kLeft2.id);
+  private WPI_TalonFX l1SparkMax = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
+  private WPI_TalonFX r1SparkMax = new WPI_TalonFX(Constants.TalonID.kRight1.id);
+  private WPI_TalonFX r2SparkMax = new WPI_TalonFX(Constants.TalonID.kRight2.id);
+  private WPI_TalonFX l2SparkMax = new WPI_TalonFX(Constants.TalonID.kLeft2.id);
 
   /**
    * Creates a new Speed Controller Group for the two left,and two right talon

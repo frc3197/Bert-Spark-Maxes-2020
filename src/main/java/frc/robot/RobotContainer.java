@@ -6,9 +6,11 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ShooterTest;
 import frc.robot.commands.AutoCommands.Drive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Shooter;
 
 /**
  * RobotContainer is the place where Subsystems and Commands are declared. It's
@@ -30,6 +32,7 @@ public class RobotContainer {
   /**
    * An example Command [DEPRECATED]
    */
+  public final Shooter shooter = new Shooter();
   public final DriveTrain drivetrain = new DriveTrain();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
 
@@ -38,7 +41,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
     drivetrain.setDefaultCommand(new Drive(drivetrain));
-
+    shooter.setDefaultCommand(new ShooterTest(shooter));
   }
 
   /*

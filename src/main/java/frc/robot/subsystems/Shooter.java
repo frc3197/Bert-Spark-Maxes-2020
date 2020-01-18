@@ -7,7 +7,7 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -16,7 +16,7 @@ public class Shooter extends SubsystemBase {
   /**
    * Creates a new Shooter.
    */
-  private WPI_TalonSRX TalonShooter1 = new WPI_TalonSRX(Constants.TalonID.kShooter1.id);
+  private WPI_TalonFX TalonShooter1 = new WPI_TalonFX(Constants.TalonID.kShooter1.id);
 
   public Shooter() {
 
