@@ -21,12 +21,16 @@ public class Drive extends CommandBase {
     this.driveTrain = driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(driveTrain);
+    double yvalue = driveTrain.CalcFPS();
+    double yvalue2 = RobotContainer.tankDriveLeft();
+    double[] yValues = new double[] { yvalue, yvalue2 };
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     driveTrain.resetEncoderValue();
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -47,10 +51,13 @@ public class Drive extends CommandBase {
      * Puts the inputs of the Controller onto ShuffleBoard.
      */
     // System.out.println("Velocity Value " + driveTrain.getVelocity());
-    // System.out.println(driveTrain.CalcFPS() + " feet per second.");
+    // System.out.println(driveTrain.CalcFPS() + " feet per second.");\
+
     SmartDashboard.putNumber("Left Motor Input", tankL);
     SmartDashboard.putNumber("Right Motor Input", tankR);
-    SmartDashboard.putNumber("VelocityValue", driveTrain.CalcFPS(tankL, tankR));
+    SmartDashboard.putNumber("VelocityValue", driveTrain.CalcFPS());
+    SmartDashboard.putNumberArray("WIP Graph", yValues);
+
   }
 
   // Called once the command ends or is interrupted.

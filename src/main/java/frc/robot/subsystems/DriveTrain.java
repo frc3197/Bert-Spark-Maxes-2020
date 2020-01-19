@@ -46,6 +46,7 @@ public class DriveTrain extends SubsystemBase {
     r1TalonFX.setSafetyEnabled(false);
     r2TalonFX.setSafetyEnabled(false);
     testTalon.setSafetyEnabled(false);
+
     // l1SparkMax.setIdleMode(IdleMode.kBrake);
     // l2SparkMax.setIdleMode(IdleMode.kBrake);
     // r1SparkMax.setIdleMode(IdleMode.kBrake);
