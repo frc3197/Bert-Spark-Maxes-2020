@@ -80,4 +80,10 @@ public class DriveTrain extends SubsystemBase {
   public void tankDrive(double l, double r) {
     drive.tankDrive(l, r, true);
   }
+
+  public double CalcFPS(double l, double r) {
+    double output = ((l + r) / 2);
+    double outputFPS = ((output * 220000) / 1179.35 / 12);
+    return outputFPS;
+  }
 }

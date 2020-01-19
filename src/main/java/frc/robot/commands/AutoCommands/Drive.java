@@ -46,8 +46,8 @@ public class Drive extends CommandBase {
     /*
      * Puts the inputs of the Controller onto ShuffleBoard.
      */
-    System.out.println("Velocity Value  " + driveTrain.getVelocity());
-
+    // System.out.println("Velocity Value " + driveTrain.getVelocity());
+    System.out.println(driveTrain.CalcFPS(tankL, tankR) + " feet per second.");
     SmartDashboard.putNumber("Left Motor Input", tankL);
     SmartDashboard.putNumber("Right Motor Input", tankR);
   }
