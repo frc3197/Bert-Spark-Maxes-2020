@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 public class DriveTrain extends SubsystemBase {
   /**
@@ -81,8 +82,8 @@ public class DriveTrain extends SubsystemBase {
     drive.tankDrive(l, r, true);
   }
 
-  public double CalcFPS(double l, double r) {
-    double output = ((l + r) / 2);
+  public double CalcFPS() {
+    double output = ((RobotContainer.tankDriveLeft() + RobotContainer.tankDriveRight()) / 2);
     double outputFPS = ((output * 220000) / 1179.35 / 12);
     return outputFPS;
   }

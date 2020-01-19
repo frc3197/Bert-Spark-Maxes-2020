@@ -5,10 +5,12 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PIDCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.AutoCommands.Drive;
 import frc.robot.commands.AutoCommands.DriveButton;
+import frc.robot.commands.AutoCommands.DrivesetVelocity;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 
@@ -38,6 +40,7 @@ public class RobotContainer {
   // public final Shooter shooter = new Shooter();
   public final DriveTrain drivetrain = new DriveTrain();
   private final Command m_DriveButton = new DriveButton(drivetrain);
+  private final PIDCommand m_DriveSetVelocity = new DrivesetVelocity(drivetrain, 10);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
 
   /*
@@ -50,7 +53,7 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    driverA.whileHeld(m_DriveButton);
+    driverA.whileHeld(m_DriveSetVelocity);
   }
 
   public Command getAutonomousCommand() {
