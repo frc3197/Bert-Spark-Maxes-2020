@@ -10,25 +10,30 @@ package frc.robot.commands.AutoCommands;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Constants;
+import frc.robot.subsystems.DriveTrain;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class DrivesetVelocity extends PIDCommand {
+  DriveTrain drivetrain;
+  double velocity;
+
   /**
    * Creates a new DrivesetVelocity.
    */
-  public DrivesetVelocity() {
+  public DrivesetVelocity(DriveTrain drivetrain, double velocity) {
     super(
         // The controller that the command will use
         new PIDController(Constants.PID_Constants.kDVelocity.P, Constants.PID_Constants.kDVelocity.I,
             Constants.PID_Constants.kDVelocity.D, Constants.PID_Constants.kDVelocity.F),
         // This should return the measurement
-        () -> 0,
+        drivetrain::CalcFPS,
         // This should return the setpoint (can also be a constant)
-        () -> 0,
+        velocity,
         // This uses the output
         output -> {
+          drivetrain.tankDrive(1 - output, 1 - output);
           // Use the output here
         });
     // Use addRequirements() here to declare subsystem dependencies.
