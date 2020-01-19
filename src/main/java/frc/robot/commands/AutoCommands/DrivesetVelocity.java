@@ -33,7 +33,7 @@ public class DrivesetVelocity extends PIDCommand {
         velocity,
         // This uses the output
         output -> {
-          drivetrain.tankDrive(output, output);
+          drivetrain.tankDrive(1 - output, 1 - output);
           // Use the output here
         });
     // Use addRequirements() here to declare subsystem dependencies.
