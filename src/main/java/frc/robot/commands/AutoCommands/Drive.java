@@ -50,6 +50,7 @@ public class Drive extends CommandBase {
     // System.out.println(driveTrain.CalcFPS() + " feet per second.");
     SmartDashboard.putNumber("Left Motor Input", tankL);
     SmartDashboard.putNumber("Right Motor Input", tankR);
+    SmartDashboard.putNumber("VelocityValue", driveTrain.CalcFPS(tankL, tankR));
   }
 
   // Called once the command ends or is interrupted.
