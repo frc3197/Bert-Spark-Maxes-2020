@@ -15,14 +15,14 @@ import frc.robot.subsystems.DriveTrain;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class DrivesetVelocity extends PIDCommand {
+public class DriveSetVelocity extends PIDCommand {
   DriveTrain drivetrain;
   double velocity;
 
   /**
    * Creates a new DrivesetVelocity.
    */
-  public DrivesetVelocity(DriveTrain drivetrain, double velocity) {
+  public DriveSetVelocity(DriveTrain drivetrain, double velocity) {
     super(
         // The controller that the command will use
         new PIDController(Constants.PID_Constants.kDVelocity.P, Constants.PID_Constants.kDVelocity.I,
@@ -32,10 +32,12 @@ public class DrivesetVelocity extends PIDCommand {
         // This should return the setpoint (can also be a constant)
         velocity,
         // This uses the output
-        output -> {
-          drivetrain.tankDrive(1 - output, 1 - output);
-          // Use the output here
-        });
+        output -> drivetrain.tankDrive(1 - output, 1 - output));
+    this.drivetrain = drivetrain;
+    this.drivetrain = drivetrain;
+
+    // Use the output here
+
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
   }
