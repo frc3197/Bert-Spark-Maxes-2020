@@ -11,7 +11,9 @@ import frc.robot.subsystems.DriveTrain;
 public class Drive extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   DriveTrain driveTrain;
-  double[] yValues = new double[] { driveTrain.CalcFPS(), RobotContainer.tankDriveLeft() };
+
+  // double[] yValues = new double[] { driveTrain.CalcFPS(),
+  // RobotContainer.tankDriveLeft() };
   /**
    * Creates a new ExampleCommand.
    *
@@ -21,13 +23,8 @@ public class Drive extends CommandBase {
     this.driveTrain = driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(driveTrain);
-  
+
   }
-
-  
-  
-
-  
 
   // Called when the command is initially scheduled.
   @Override
@@ -59,7 +56,7 @@ public class Drive extends CommandBase {
     SmartDashboard.putNumber("Left Motor Input", tankL);
     SmartDashboard.putNumber("Right Motor Input", tankR);
     SmartDashboard.putNumber("VelocityValue", driveTrain.CalcFPS());
-    SmartDashboard.putNumberArray("WIP Graph", yValues);
+    SmartDashboard.putNumber("placeholder", RobotContainer.tankDriveLeft());
 
   }
 
