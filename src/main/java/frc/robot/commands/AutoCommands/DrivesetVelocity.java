@@ -26,14 +26,13 @@ public class DriveSetVelocity extends PIDCommand {
     super(
         // The controller that the command will use
         new PIDController(Constants.PID_Constants.kDVelocity.P, Constants.PID_Constants.kDVelocity.I,
-            Constants.PID_Constants.kDVelocity.D, Constants.PID_Constants.kDVelocity.F),
+            Constants.PID_Constants.kDVelocity.D),
         // This should return the measurement
         drivetrain::CalcFPS,
         // This should return the setpoint (can also be a constant)
         velocity,
         // This uses the output
-        output -> drivetrain.tankDrive(1 - output, 1 - output));
-    this.drivetrain = drivetrain;
+        output -> drivetrain.tankDrive(output, output));
     this.drivetrain = drivetrain;
 
     // Use the output here
