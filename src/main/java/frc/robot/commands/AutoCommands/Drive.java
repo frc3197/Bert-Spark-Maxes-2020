@@ -2,6 +2,7 @@ package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
 
@@ -11,6 +12,7 @@ import frc.robot.subsystems.DriveTrain;
 public class Drive extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   DriveTrain driveTrain;
+  DriveSetVelocity m_DriveSetVelocity;
 
   // double[] yValues = new double[] { driveTrain.CalcFPS(),
   // RobotContainer.tankDriveLeft() };
@@ -55,8 +57,10 @@ public class Drive extends CommandBase {
 
     SmartDashboard.putNumber("Left Motor Input", tankL);
     SmartDashboard.putNumber("Right Motor Input", tankR);
-    SmartDashboard.putNumber("VelocityValue", driveTrain.CalcFPS());
+    // SmartDashboard.putNumber("VelocityValue", driveTrain.CalcFPS());
     SmartDashboard.putNumber("placeholder", RobotContainer.tankDriveLeft());
+    SmartDashboard.putNumber("Ideal Velocity", driveTrain.getVelocityPID());
+    // SmartDashboard.putNumber("Velocity SetPoint", (driveTrain.getVelocityPID()));
 
   }
 

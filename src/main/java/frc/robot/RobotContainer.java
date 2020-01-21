@@ -42,7 +42,7 @@ public class RobotContainer {
   public final DriveTrain drivetrain = new DriveTrain();
   private final Command m_DriveButton = new DriveButton(drivetrain);
   private final Command m_Running = new Running();
-  private final PIDCommand m_DriveSetVelocity = new DriveSetVelocity(drivetrain, 10);
+  public final PIDCommand m_DriveSetVelocity = new DriveSetVelocity(drivetrain, 4);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
 
   /*
@@ -62,6 +62,10 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return m_autoCommand;
+  }
+
+  public PIDCommand getDriveSetVelocity() {
+    return m_DriveSetVelocity;
   }
 
   public static double tankDriveRight() {

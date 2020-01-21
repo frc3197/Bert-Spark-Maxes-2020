@@ -17,11 +17,13 @@ import frc.robot.subsystems.DriveTrain;
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class DriveSetVelocity extends PIDCommand {
   DriveTrain drivetrain;
-  double velocity;
+  public double velocity;
+  double a;
 
   /**
    * Creates a new DrivesetVelocity.
    */
+
   public DriveSetVelocity(DriveTrain drivetrain, double velocity) {
     super(
         // The controller that the command will use
@@ -33,17 +35,32 @@ public class DriveSetVelocity extends PIDCommand {
         velocity,
         // This uses the output
         output -> drivetrain.tankDrive(output, output));
+    this.velocity = velocity;
     this.drivetrain = drivetrain;
-
     // Use the output here
 
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
   }
 
-  // Returns true when the command should end.
+  public double getVelo() {
+    return this.velocity;
+  }
+
   @Override
   public boolean isFinished() {
-    return false;
+    if (velocity = drivetrain::CalcFPS)
+    {
+      return true;
+
+      else
+
+      return false;
+    }
+  }
+
+  public void end(boolean interrupted) {
+    drivetrain.tankDrive(0, 0);
+
   }
 }
