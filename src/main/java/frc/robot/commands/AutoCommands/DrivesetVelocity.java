@@ -49,12 +49,9 @@ public class DriveSetVelocity extends PIDCommand {
 
   @Override
   public boolean isFinished() {
-    if (velocity = drivetrain::CalcFPS)
-    {
+    if (velocity == drivetrain.CalcFPS()) {
       return true;
-
-      else
-
+    } else {
       return false;
     }
   }
