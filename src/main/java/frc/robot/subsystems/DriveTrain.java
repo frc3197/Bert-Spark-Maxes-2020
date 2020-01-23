@@ -1,6 +1,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -54,6 +55,30 @@ public class DriveTrain extends SubsystemBase {
     l2TalonFX.configOpenloopRamp(.75);
     r1TalonFX.configOpenloopRamp(.75);
     r2TalonFX.configOpenloopRamp(.75);
+
+    l1TalonFX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,
+    Constants.kPIDLoopIdx, 
+    Constants.kTimeoutMs);
+
+    l1TalonFX.config_kF(Constants.kPIDLoopIdx,Constants.PID_Constants.kDVelocity.kF, Constants.kTimeoutMs);
+    l2TalonFX.config_kF(Constants.kPIDLoopIdx,Constants.PID_Constants.kDVelocity.kF, Constants.kTimeoutMs);
+    r1TalonFX.config_kF(Constants.kPIDLoopIdx,Constants.PID_Constants.kDVelocity.kF, Constants.kTimeoutMs);
+    r2TalonFX.config_kF(Constants.kPIDLoopIdx,Constants.PID_Constants.kDVelocity.kF, Constants.kTimeoutMs);
+
+    l1TalonFX.config_kP(Constants.kPIDLoopIdx,Constants.PID_Constants.kDVelocity.kP,Constants.kTimeoutMs);  
+    l2TalonFX.config_kP(Constants.kPIDLoopIdx,Constants.PID_Constants.kDVelocity.kP,Constants.kTimeoutMs);
+    r1TalonFX.config_kP(Constants.kPIDLoopIdx,Constants.PID_Constants.kDVelocity.kP,Constants.kTimeoutMs);
+    r2TalonFX.config_kP(Constants.kPIDLoopIdx,Constants.PID_Constants.kDVelocity.kP,Constants.kTimeoutMs);
+
+    l1TalonFX.config_kI(Constants.kPIDLoopIdx,Constants.PID_Constants.kDVelocity.kI,Constants.kTimeoutMs);
+    l2TalonFX.config_kI(Constants.kPIDLoopIdx,Constants.PID_Constants.kDVelocity.kI,Constants.kTimeoutMs);
+    r1TalonFX.config_kI(Constants.kPIDLoopIdx,Constants.PID_Constants.kDVelocity.kI,Constants.kTimeoutMs);
+    r2TalonFX.config_kI(Constants.kPIDLoopIdx,Constants.PID_Constants.kDVelocity.kI,Constants.kTimeoutMs);
+    
+    l1TalonFX.config_kD(Constants.kPIDLoopIdx,Constants.PID_Constants.kDVelocity.kD,Constants.kTimeoutMs);
+    l2TalonFX.config_kD(Constants.kPIDLoopIdx,Constants.PID_Constants.kDVelocity.kD,Constants.kTimeoutMs);
+    r1TalonFX.config_kD(Constants.kPIDLoopIdx,Constants.PID_Constants.kDVelocity.kD,Constants.kTimeoutMs);
+    r2TalonFX.config_kD(Constants.kPIDLoopIdx,Constants.PID_Constants.kDVelocity.kD,Constants.kTimeoutMs);
     // l1SparkMax.setIdleMode(IdleMode.kBrake);
     // l2SparkMax.setIdleMode(IdleMode.kBrake);
     // r1SparkMax.setIdleMode(IdleMode.kBrake);

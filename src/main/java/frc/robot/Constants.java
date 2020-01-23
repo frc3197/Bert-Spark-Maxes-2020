@@ -24,16 +24,16 @@ public final class Constants {
   public static enum PID_Constants {
     kDVelocity(0.2, 0, .009, 0);
 
-    public final double P;
-    public final double I;
-    public final double D;
-    public final double F;
+    public final double kP;
+    public final double kI;
+    public final double kD;
+    public final double kF;
 
-    private PID_Constants(double P, double I, double D, double F) {
-      this.P = P;
-      this.I = I;
-      this.D = D;
-      this.F = F;
+    private PID_Constants(double kP, double kI, double kD, double kF) {
+      this.kP = kP;
+      this.kI = kI;
+      this.kD = kD;
+      this.kF = kF;
     }
   }
 
@@ -63,6 +63,10 @@ public final class Constants {
      this.up = up;
    }
    }
+
+
+public static final int kPIDLoopIdx = 0;
+public static final int kTimeoutMs = 30;
 
 
 

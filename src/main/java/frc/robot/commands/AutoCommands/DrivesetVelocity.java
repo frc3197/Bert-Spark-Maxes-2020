@@ -27,8 +27,8 @@ public class DriveSetVelocity extends PIDCommand {
   public DriveSetVelocity(DriveTrain drivetrain, double velocity) {
     super(
         // The controller that the command will use
-        new PIDController(Constants.PID_Constants.kDVelocity.P, Constants.PID_Constants.kDVelocity.I,
-            Constants.PID_Constants.kDVelocity.D),
+        new PIDController(Constants.PID_Constants.kDVelocity.kP, Constants.PID_Constants.kDVelocity.kI,
+            Constants.PID_Constants.kDVelocity.kD),
         // This should return the measurement
         drivetrain::CalcFPS,
         // This should return the setpoint (can also be a constant)

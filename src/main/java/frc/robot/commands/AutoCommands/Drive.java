@@ -1,5 +1,7 @@
 package frc.robot.commands.AutoCommands;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
@@ -12,7 +14,7 @@ public class Drive extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   DriveTrain driveTrain;
   DriveSetVelocity m_DriveSetVelocity;
-
+  int loops = 0;
   // double[] yValues = new double[] { driveTrain.CalcFPS(),
   // RobotContainer.tankDriveLeft() };
   /**
@@ -44,10 +46,20 @@ public class Drive extends CommandBase {
      */
     double tankR = RobotContainer.tankDriveRight();
     double tankL = RobotContainer.tankDriveLeft();
+    double targetVelocity = RobotContainer.tankDriveLeft() * 500.0 * 4096 / 600;
+
+
+   if(RobotContainer.driver1A.get() == true){
+    driveTrain.l1TalonFX.set(ControlMode.Velocity, targetVelocity);}
+   else
+    {
+   driveTrain.l1TalonFX.set(ControlMode.PercentOutput,tankL);
+    }
     /*
+    
      * Executes the ltankDrive function with the variables we assigned.
      */
-    driveTrain.tankDrive(tankR, tankL);
+    //driveTrain.tankDrive(tankR, tankL);
     /*
      * Puts the inputs of the Controller onto ShuffleBoard.
      */
@@ -68,7 +80,7 @@ public class Drive extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     driveTrain.resetEncoderValue();
-    driveTrain.tankDrive(0, 0);
+    //driveTrain.tankDrive(0, 0);
   }
 
   // Returns true when the command should end.
