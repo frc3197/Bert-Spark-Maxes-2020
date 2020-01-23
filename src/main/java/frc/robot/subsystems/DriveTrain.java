@@ -91,7 +91,7 @@ public class DriveTrain extends SubsystemBase {
 
   public double getVelocityPID() {
     double Velocity;
-    if (RobotContainer.driverA.get() == true) {
+    if (RobotContainer.driver1A.get() == true) {
       Velocity = 10;
     } else
       Velocity = 0;

@@ -38,7 +38,7 @@ public final class Constants {
   }
 
   public static enum TalonID {
-    kLeft1(2, "Left1"), kLeft2(3, "Left2"), kRight1(0, "Right1"), kRight2(1, "Right2"), kShooter1(15, "Shooter1"),
+    kLeft1(2, "Left1"), kLeft2(3, "Left2"), kRight1(0, "Right1"), kRight2(1, "Right2"), kShooter1(15, "Shooter1"), kHood1(5, "Hood1"),
     kTest1(14, "Test1");
 
     public final int id;
@@ -49,6 +49,24 @@ public final class Constants {
       this.name = name;
     }
   }
+
+
+   public static enum ClimberMotor {
+   kClimb(-.05,.05);
+
+   public final double up;
+   public final double down;
+
+   private ClimberMotor(double down, double up)
+   {
+     this.down = down;
+     this.up = up;
+   }
+   }
+
+
+
+
   /*
    * public static enum CANSparkMaxID { kLeft1(14, "Left1"), kLeft2(15, "Left2"),
    * kRight1(16, "Right1"), kRight2(1, "Right2");

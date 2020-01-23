@@ -8,17 +8,21 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Shooter extends SubsystemBase {
+public class Climber extends SubsystemBase {
   /**
-   * Creates a new Shooter.
+   * Creates new motors.
    */
-  private WPI_TalonFX TalonShooter1 = new WPI_TalonFX(Constants.TalonID.kShooter1.id);
 
-  public Shooter() {
+   public WPI_TalonFX climberTalon = new WPI_TalonFX(Constants.TalonID.kHood1.id);
 
+
+  public Climber() {
+   climberTalon.setSafetyEnabled(false);
   }
 
   @Override
@@ -26,8 +30,23 @@ public class Shooter extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void setShooter(double speed) {
-    TalonShooter1.set(speed);
-  }
+
+public boolean moveClimber(double val)
+{
+  boolean moving = true;
+SmartDashboard.putBoolean("Climber Is Moving",moving);
+  climberTalon.set(val);
+  return moving; 
+
+
+}
+
+
+
+
+
+
+
+
 
 }

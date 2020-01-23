@@ -9,11 +9,14 @@ import edu.wpi.first.wpilibj2.command.PIDCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Running;
+import frc.robot.commands.moveClimber;
 import frc.robot.commands.AutoCommands.Drive;
 import frc.robot.commands.AutoCommands.DriveButton;
 import frc.robot.commands.AutoCommands.DriveSetVelocity;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
+
 
 /**
  * RobotContainer is the place where Subsystems and Commands are declared. It's
@@ -27,8 +30,9 @@ public class RobotContainer {
   /**
    * The XboxController for the driver.
    */
-  private static XboxController driver = new XboxController(0);
-  public static JoystickButton driverA = new JoystickButton(driver, 1);
+  private static XboxController driver1 = new XboxController(0);
+  private static XboxController driver2 = new XboxController(1);
+  public static JoystickButton driver1A = new JoystickButton(driver1, 1);
   /**
    * An example Subsystem. [DEPRECATED]
    */
@@ -39,6 +43,7 @@ public class RobotContainer {
    */
 
   // public final Shooter shooter = new Shooter();
+public final Climber climber = new Climber();
   public final DriveTrain drivetrain = new DriveTrain();
   private final Command m_DriveButton = new DriveButton(drivetrain);
   private final Command m_Running = new Running();
@@ -50,13 +55,14 @@ public class RobotContainer {
    */
   public RobotContainer() {
     drivetrain.setDefaultCommand(new Drive(drivetrain));
+    climber.setDefaultCommand(new moveClimber(climber));
     // shooter.setDefaultCommand(new ShooterTest(shooter));
     configureButtonBindings();
   }
 
   private void configureButtonBindings() {
-    driverA.whileHeld(m_DriveSetVelocity);
-    driverA.whenPressed(m_Running);
+    driver1A.whileHeld(m_DriveSetVelocity);
+    driver1A.whenPressed(m_Running);
   }
 
   public Command getAutonomousCommand() {
@@ -64,21 +70,39 @@ public class RobotContainer {
     return m_autoCommand;
   }
 
+  //**   DriveTrain   */
+
   public PIDCommand getDriveSetVelocity() {
     return m_DriveSetVelocity;
   }
 
   public static double tankDriveRight() {
-    SmartDashboard.putNumber("Right Joystick", driver.getY(Hand.kRight));
-    return driver.getY(Hand.kRight);
+    SmartDashboard.putNumber("Right Joystick", driver1.getY(Hand.kRight));
+    return driver1.getY(Hand.kRight);
   }
 
   public static double tankDriveLeft() {
-    SmartDashboard.putNumber("Left Joystick", driver.getY(Hand.kLeft));
-    return driver.getY(Hand.kLeft);
+    SmartDashboard.putNumber("Left Joystick", driver1.getY(Hand.kLeft));
+    return driver1.getY(Hand.kLeft);
   }
 
+  //**  Shooter */
+
   public static double shooterTest() {
-    return driver.getTriggerAxis(Hand.kRight);
+    return driver1.getTriggerAxis(Hand.kRight);
   }
+
+
+  //**  Hood  */ 
+  public static boolean moveClimberDown()  {
+    return driver2.getBumper(Hand.kLeft);
+  }
+
+  public static boolean moveClimberUp()  {
+    return driver2.getBumper(Hand.kRight);
+  }
+
+
+
+
 }

@@ -68,7 +68,7 @@ public class Drive extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     driveTrain.resetEncoderValue();
-    // driveTrain.tankDrive(0, 0);
+    driveTrain.tankDrive(0, 0);
   }
 
   // Returns true when the command should end.
