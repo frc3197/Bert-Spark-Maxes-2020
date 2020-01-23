@@ -2,6 +2,7 @@ package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
 
@@ -10,8 +11,11 @@ import frc.robot.subsystems.DriveTrain;
  */
 public class Drive extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  private final DriveTrain driveTrain;
+  DriveTrain driveTrain;
+  DriveSetVelocity m_DriveSetVelocity;
 
+  // double[] yValues = new double[] { driveTrain.CalcFPS(),
+  // RobotContainer.tankDriveLeft() };
   /**
    * Creates a new ExampleCommand.
    *
@@ -21,12 +25,14 @@ public class Drive extends CommandBase {
     this.driveTrain = driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(driveTrain);
+
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     driveTrain.resetEncoderValue();
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -47,10 +53,15 @@ public class Drive extends CommandBase {
      * Puts the inputs of the Controller onto ShuffleBoard.
      */
     // System.out.println("Velocity Value " + driveTrain.getVelocity());
-    // System.out.println(driveTrain.CalcFPS() + " feet per second.");
+    // System.out.println(driveTrain.CalcFPS() + " feet per second.");\
+
     SmartDashboard.putNumber("Left Motor Input", tankL);
     SmartDashboard.putNumber("Right Motor Input", tankR);
-    SmartDashboard.putNumber("VelocityValue", driveTrain.CalcFPS(tankL, tankR));
+    // SmartDashboard.putNumber("VelocityValue", driveTrain.CalcFPS());
+    SmartDashboard.putNumber("placeholder", RobotContainer.tankDriveLeft());
+    SmartDashboard.putNumber("Ideal Velocity", driveTrain.getVelocityPID());
+    // SmartDashboard.putNumber("Velocity SetPoint", (driveTrain.getVelocityPID()));
+
   }
 
   // Called once the command ends or is interrupted.

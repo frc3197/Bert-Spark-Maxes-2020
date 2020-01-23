@@ -11,7 +11,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Running;
 import frc.robot.commands.AutoCommands.Drive;
 import frc.robot.commands.AutoCommands.DriveButton;
-import frc.robot.commands.AutoCommands.DrivesetVelocity;
+import frc.robot.commands.AutoCommands.DriveSetVelocity;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 
@@ -42,7 +42,7 @@ public class RobotContainer {
   public final DriveTrain drivetrain = new DriveTrain();
   private final Command m_DriveButton = new DriveButton(drivetrain);
   private final Command m_Running = new Running();
-  private final PIDCommand m_DriveSetVelocity = new DrivesetVelocity(drivetrain, 10);
+  public final PIDCommand m_DriveSetVelocity = new DriveSetVelocity(drivetrain, 4);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
 
   /*
@@ -62,6 +62,10 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return m_autoCommand;
+  }
+
+  public PIDCommand getDriveSetVelocity() {
+    return m_DriveSetVelocity;
   }
 
   public static double tankDriveRight() {

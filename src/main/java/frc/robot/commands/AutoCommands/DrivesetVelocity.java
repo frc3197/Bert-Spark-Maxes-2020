@@ -15,34 +15,49 @@ import frc.robot.subsystems.DriveTrain;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class DrivesetVelocity extends PIDCommand {
+public class DriveSetVelocity extends PIDCommand {
   DriveTrain drivetrain;
-  double velocity;
+  public double velocity;
+  double a;
 
   /**
    * Creates a new DrivesetVelocity.
    */
-  public DrivesetVelocity(DriveTrain drivetrain, double velocity) {
+
+  public DriveSetVelocity(DriveTrain drivetrain, double velocity) {
     super(
         // The controller that the command will use
         new PIDController(Constants.PID_Constants.kDVelocity.P, Constants.PID_Constants.kDVelocity.I,
-            Constants.PID_Constants.kDVelocity.D, Constants.PID_Constants.kDVelocity.F),
+            Constants.PID_Constants.kDVelocity.D),
         // This should return the measurement
         drivetrain::CalcFPS,
         // This should return the setpoint (can also be a constant)
         velocity,
         // This uses the output
-        output -> {
-          drivetrain.tankDrive(1 - output, 1 - output);
-          // Use the output here
-        });
+        output -> drivetrain.tankDrive(output, output));
+    this.velocity = velocity;
+    this.drivetrain = drivetrain;
+    // Use the output here
+
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
   }
 
-  // Returns true when the command should end.
+  public double getVelo() {
+    return this.velocity;
+  }
+
   @Override
   public boolean isFinished() {
-    return false;
+    if (velocity == drivetrain.CalcFPS()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public void end(boolean interrupted) {
+    drivetrain.tankDrive(0, 0);
+
   }
 }
