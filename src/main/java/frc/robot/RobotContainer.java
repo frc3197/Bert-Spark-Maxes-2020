@@ -12,7 +12,6 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Running;
 import frc.robot.commands.AutoCommands.Drive;
 import frc.robot.commands.AutoCommands.DriveButton;
-import frc.robot.commands.AutoCommands.DriveSetVelocity;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 
@@ -44,7 +43,6 @@ public class RobotContainer {
   public final DriveTrain drivetrain = new DriveTrain();
   private final Command m_DriveButton = new DriveButton(drivetrain);
   private final Command m_Running = new Running();
-  public final PIDCommand m_DriveSetVelocity = new DriveSetVelocity(drivetrain, 4);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
   //public static final NetworkTableInstance ntInst = NetworkTableInstance.getDefault();
 
@@ -58,7 +56,7 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    driverA.whileHeld(m_DriveSetVelocity);
+    
     driverA.whenPressed(m_Running);
   }
 
@@ -67,9 +65,6 @@ public class RobotContainer {
     return m_autoCommand;
   }
 
-  public PIDCommand getDriveSetVelocity() {
-    return m_DriveSetVelocity;
-  }
 
   public static double tankDriveRight() {
     SmartDashboard.putNumber("Right Joystick", driver.getY(Hand.kRight));
@@ -84,25 +79,4 @@ public class RobotContainer {
   public static double shooterTest() {
     return driver.getTriggerAxis(Hand.kRight);
   }
-<<<<<<< Updated upstream
-=======
-
-  public static boolean moveClimberUp()  {
-    return driver2.getBumper(Hand.kRight);
-  }
-
-  public static void pullNetworkTables(){
-    double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
-    double tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
-    double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
-    double ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
-    System.out.println(tv);
-    System.out.println(tx);
-    System.out.println(ty);
-    System.out.println(ta);
-  }
-
-
-
->>>>>>> Stashed changes
 }
