@@ -11,7 +11,7 @@ import frc.robot.subsystems.DriveTrain;
 public class Drive extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   DriveTrain driveTrain;
-  DriveSetVelocity m_DriveSetVelocity;
+  
 
   // double[] yValues = new double[] { driveTrain.CalcFPS(),
   // RobotContainer.tankDriveLeft() };
@@ -44,18 +44,6 @@ public class Drive extends CommandBase {
      */
     double tankR = RobotContainer.tankDriveRight();
     double tankL = RobotContainer.tankDriveLeft();
-<<<<<<< Updated upstream
-=======
-    double targetVelocity = RobotContainer.tankDriveLeft() * 500.0 * 4096 / 600;
-    RobotContainer.pullNetworkTables();
-
-   if(RobotContainer.driver1A.get() == true){
-    driveTrain.l1TalonFX.set(ControlMode.Velocity, targetVelocity);}
-   else
-    {
-   driveTrain.l1TalonFX.set(ControlMode.PercentOutput,tankL);
-    }
->>>>>>> Stashed changes
     /*
      * Executes the ltankDrive function with the variables we assigned.
      */
