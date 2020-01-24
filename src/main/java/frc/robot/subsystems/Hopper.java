@@ -7,19 +7,23 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
-public class Shooter extends SubsystemBase {
+public class Hopper extends SubsystemBase {
   /**
-   * Creates a new Shooter.
+   * Creates a new Hopper.
    */
-  private WPI_TalonSRX TalonShooter1 = new WPI_TalonSRX(Constants.TalonID.kShooter1.id);
 
-  public Shooter() {
-    TalonShooter1.setSafetyEnabled(false);
+  public final WPI_TalonFX hopMotor1 = new WPI_TalonFX(8);
+  public final WPI_TalonFX hopMotor2 = new WPI_TalonFX(9);
+  public final WPI_TalonFX hopMotor3 = new WPI_TalonFX(10);
+
+  public Hopper() {
+    hopMotor1.setSafetyEnabled(false);
+    hopMotor2.setSafetyEnabled(false);
+    hopMotor3.setSafetyEnabled(false);
 
   }
 
@@ -28,8 +32,9 @@ public class Shooter extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void setShooter(double speed) {
-    TalonShooter1.set(speed);
+  public void hopperStart(double val) {
+    hopMotor1.set(val);
+    hopMotor2.set(val);
+    hopMotor3.set(val);
   }
-
 }

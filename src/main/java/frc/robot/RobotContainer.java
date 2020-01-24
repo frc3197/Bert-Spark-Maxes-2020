@@ -15,6 +15,7 @@ import frc.robot.commands.AutoCommands.Scrub;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Hopper;
 
 /**
  * RobotContainer is the place where Subsystems and Commands are declared. It's
@@ -28,9 +29,10 @@ public class RobotContainer {
   /**
    * The XboxController for the driver.
    */
-  private static XboxController driver = new XboxController(0);
-  public static JoystickButton driverA = new JoystickButton(driver, 1);
-  public static JoystickButton driverX = new JoystickButton(driver, 3);
+  private static XboxController driver1 = new XboxController(0);
+  private static XboxController driver2 = new XboxController(1);
+  public static JoystickButton driverA = new JoystickButton(driver1, 1);
+  public static JoystickButton driverX = new JoystickButton(driver1, 3);
   /**
    * An example Subsystem. [DEPRECATED]
    */
@@ -42,6 +44,7 @@ public class RobotContainer {
 
   // public final Shooter shooter = new Shooter();
   public final DriveTrain drivetrain = new DriveTrain();
+  public final Hopper hopper = new Hopper();
   public final ControlPanel controlPanel = new ControlPanel();
   private final Command m_DriveButton = new DriveButton(drivetrain);
   private final Command m_Running = new Running();
@@ -63,6 +66,11 @@ public class RobotContainer {
 
     driverA.whenPressed(m_Running);
     driverX.whenPressed(m_Scrub);
+
+  }
+
+  public static boolean getHopper() {
+    return driver2.getBumper(Hand.kRight);
   }
 
   public Command getAutonomousCommand() {
@@ -71,16 +79,16 @@ public class RobotContainer {
   }
 
   public static double tankDriveRight() {
-    SmartDashboard.putNumber("Right Joystick", driver.getY(Hand.kRight));
-    return driver.getY(Hand.kRight);
+    SmartDashboard.putNumber("Right Joystick", driver1.getY(Hand.kRight));
+    return driver1.getY(Hand.kRight);
   }
 
   public static double tankDriveLeft() {
-    SmartDashboard.putNumber("Left Joystick", driver.getY(Hand.kLeft));
-    return driver.getY(Hand.kLeft);
+    SmartDashboard.putNumber("Left Joystick", driver1.getY(Hand.kLeft));
+    return driver1.getY(Hand.kLeft);
   }
 
   public static double shooterTest() {
-    return driver.getTriggerAxis(Hand.kRight);
+    return driver1.getTriggerAxis(Hand.kRight);
   }
 }
