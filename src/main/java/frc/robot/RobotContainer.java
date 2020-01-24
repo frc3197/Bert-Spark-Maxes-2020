@@ -11,7 +11,6 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Running;
 import frc.robot.commands.AutoCommands.Drive;
 import frc.robot.commands.AutoCommands.DriveButton;
-import frc.robot.commands.AutoCommands.DriveSetVelocity;
 import frc.robot.commands.AutoCommands.Scrub;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
@@ -47,8 +46,9 @@ public class RobotContainer {
   private final Command m_DriveButton = new DriveButton(drivetrain);
   private final Command m_Running = new Running();
   private final Command m_Scrub = new Scrub(controlPanel);
-  public final PIDCommand m_DriveSetVelocity = new DriveSetVelocity(drivetrain, 4);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
+  // public static final NetworkTableInstance ntInst =
+  // NetworkTableInstance.getDefault();
 
   /*
    * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
@@ -60,7 +60,7 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    driverA.whileHeld(m_DriveSetVelocity);
+
     driverA.whenPressed(m_Running);
     driverX.whenPressed(m_Scrub);
   }
@@ -68,10 +68,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return m_autoCommand;
-  }
-
-  public PIDCommand getDriveSetVelocity() {
-    return m_DriveSetVelocity;
   }
 
   public static double tankDriveRight() {

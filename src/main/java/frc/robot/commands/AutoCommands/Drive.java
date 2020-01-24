@@ -11,7 +11,7 @@ import frc.robot.subsystems.DriveTrain;
 public class Drive extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   DriveTrain driveTrain;
-  DriveSetVelocity m_DriveSetVelocity;
+  
 
   // double[] yValues = new double[] { driveTrain.CalcFPS(),
   // RobotContainer.tankDriveLeft() };
