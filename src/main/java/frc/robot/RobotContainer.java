@@ -12,6 +12,8 @@ import frc.robot.commands.Running;
 import frc.robot.commands.AutoCommands.Drive;
 import frc.robot.commands.AutoCommands.DriveButton;
 import frc.robot.commands.AutoCommands.DriveSetVelocity;
+import frc.robot.commands.AutoCommands.Scrub;
+import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 
@@ -29,6 +31,7 @@ public class RobotContainer {
    */
   private static XboxController driver = new XboxController(0);
   public static JoystickButton driverA = new JoystickButton(driver, 1);
+  public static JoystickButton driverX = new JoystickButton(driver, 3);
   /**
    * An example Subsystem. [DEPRECATED]
    */
@@ -40,8 +43,10 @@ public class RobotContainer {
 
   // public final Shooter shooter = new Shooter();
   public final DriveTrain drivetrain = new DriveTrain();
+  public final ControlPanel controlPanel = new ControlPanel();
   private final Command m_DriveButton = new DriveButton(drivetrain);
   private final Command m_Running = new Running();
+  private final Command m_Scrub = new Scrub(controlPanel);
   public final PIDCommand m_DriveSetVelocity = new DriveSetVelocity(drivetrain, 4);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
 
@@ -57,6 +62,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     driverA.whileHeld(m_DriveSetVelocity);
     driverA.whenPressed(m_Running);
+    driverX.whenPressed(m_Scrub);
   }
 
   public Command getAutonomousCommand() {
