@@ -5,23 +5,21 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.AutoCommands;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.Hopper;
+import frc.robot.subsystems.Intake;
 
-public class Hop extends CommandBase {
+public class TakeIn extends CommandBase {
   /**
-   * Creates a new Hop.
+   * Creates a new TakeIn.
    */
-  Hopper hopper;
+  Intake intake;
 
-  public Hop(Hopper hopper) {
+  public TakeIn(Intake intake) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.hopper = hopper;
-
-    // ADD A REQUIREMENT
+    this.intake = intake;
+    addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
@@ -32,19 +30,12 @@ public class Hop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    boolean hopperOn = RobotContainer.getHopper();
-    if (hopperOn == true) {
-      hopper.hopperStart(.8);
-    } else {
-      hopper.hopperStart(0);
-    }
+    intake.takeIn(0.5);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    hopper.hopperStart(0);
   }
 
   // Returns true when the command should end.

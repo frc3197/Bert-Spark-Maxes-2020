@@ -5,39 +5,46 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.AutoCommands;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.Hopper;
 
-public class DriveButton extends CommandBase {
+public class Feed extends CommandBase {
   /**
-   * 
-   * Creates a new DriveButton.
+   * Creates a new Hop.
    */
-  DriveTrain drivetrain;
+  Hopper hopper;
 
-  public DriveButton(DriveTrain drivetrain) {
-    addRequirements(drivetrain);
-    this.drivetrain = drivetrain;
+  public Feed(Hopper hopper) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    this.hopper = hopper;
+
+    // ADD A REQUIREMENT
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.tankDrive(.7, .7);
+
+    boolean hopperOn = RobotContainer.getHopper();
+    if (hopperOn == true) {
+      hopper.hopperStart(.8);
+    } else {
+      hopper.hopperStart(0);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
+    hopper.hopperStart(0);
   }
 
   // Returns true when the command should end.

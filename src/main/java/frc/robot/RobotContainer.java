@@ -7,11 +7,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Running;
-import frc.robot.commands.AutoCommands.Drive;
-import frc.robot.commands.AutoCommands.DriveButton;
-import frc.robot.commands.AutoCommands.Scrub;
+import frc.robot.commands.Drive;
+import frc.robot.commands.DriveButton;
+import frc.robot.commands.Scrub;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -49,7 +48,6 @@ public class RobotContainer {
   private final Command m_DriveButton = new DriveButton(drivetrain);
   private final Command m_Running = new Running();
   private final Command m_Scrub = new Scrub(controlPanel);
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
   // public static final NetworkTableInstance ntInst =
   // NetworkTableInstance.getDefault();
 
@@ -75,7 +73,7 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return m_Scrub;
   }
 
   public static double tankDriveRight() {
