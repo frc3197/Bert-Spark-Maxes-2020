@@ -1,16 +1,22 @@
 package frc.robot.commands.AutoCommands;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
+
 /**
  * An example command that uses an example subsystem.
  */
 public class Drive extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final DriveTrain driveTrain;
-
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
+  DriveTrain driveTrain;
+  DriveSetVelocity m_DriveSetVelocity;
+  int loops = 0;
+  // double[] yValues = new double[] { driveTrain.CalcFPS(),
+  // RobotContainer.tankDriveLeft() };
   /**
    * Creates a new ExampleCommand.
    *
@@ -20,37 +26,61 @@ public class Drive extends CommandBase {
     this.driveTrain = driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(driveTrain);
+
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    driveTrain.resetEncoderValue();
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-  /*
-  * Pulls the inputs from the controller and assigns them to the variables for use in the tankDrive function. 
-  */
+
+    /*
+     * Pulls the inputs from the controller and assigns them to the variables for
+     * use in the tankDrive function.
+     */
     double tankR = RobotContainer.tankDriveRight();
-    double l = RobotContainer.tankDriveLeft();
-  /*
-  * Executes the tankDrive function with the variables we assigned.
-  */
-    driveTrain.tankDrive(tankR, l);
-  /*
-  * Puts the inputs of the Controller onto ShuffleBoard.  
-  */
-    SmartDashboard.putNumber("Left Motor Input", l);
+    double tankL = RobotContainer.tankDriveLeft();
+    double targetVelocity = RobotContainer.tankDriveLeft() * 500.0 * 4096 / 600;
+
+
+   if(RobotContainer.driver1A.get() == true){
+    driveTrain.l1TalonFX.set(ControlMode.Velocity, targetVelocity);}
+   else
+    {
+   driveTrain.l1TalonFX.set(ControlMode.PercentOutput,tankL);
+    }
+    /*
+    
+     * Executes the ltankDrive function with the variables we assigned.
+     */
+    //driveTrain.tankDrive(tankR, tankL);
+    /*
+     * Puts the inputs of the Controller onto ShuffleBoard.
+     */
+    // System.out.println("Velocity Value " + driveTrain.getVelocity());
+    // System.out.println(driveTrain.CalcFPS() + " feet per second.");\
+
+    SmartDashboard.putNumber("Left Motor Input", tankL);
     SmartDashboard.putNumber("Right Motor Input", tankR);
+    // SmartDashboard.putNumber("VelocityValue", driveTrain.CalcFPS());
+    SmartDashboard.putNumber("placeholder", RobotContainer.tankDriveLeft());
+    SmartDashboard.putNumber("Ideal Velocity", driveTrain.getVelocityPID());
+    // SmartDashboard.putNumber("Velocity SetPoint", (driveTrain.getVelocityPID()));
+
   }
 
-
   // Called once the command ends or is interrupted.
+
   @Override
   public void end(boolean interrupted) {
+    driveTrain.resetEncoderValue();
+    //driveTrain.tankDrive(0, 0);
   }
 
   // Returns true when the command should end.
