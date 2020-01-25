@@ -44,18 +44,19 @@ public class Drive extends CommandBase {
     double tankR = RobotContainer.tankDriveRight();
     double tankL = RobotContainer.tankDriveLeft();
     RobotContainer.pullNetworkTables();
+    System.out.println("Distance From Target: " + RobotContainer.getDistanceFromTarget());
     /*
      * Executes the ltankDrive function with the variables we assigned.
      */
-    driveTrain.tankDrive(tankR, tankL);
+    driveTrain.tankDrive(-tankR, -tankL);
     /*
      * Puts the inputs of the Controller onto ShuffleBoard.
      */
     // System.out.println("Velocity Value " + driveTrain.getVelocity());
     // System.out.println(driveTrain.CalcFPS() + " feet per second.");\
 
-    SmartDashboard.putNumber("Left Motor Input", tankL);
-    SmartDashboard.putNumber("Right Motor Input", tankR);
+    SmartDashboard.putNumber("Left Motor Input", -tankL);
+    SmartDashboard.putNumber("Right Motor Input", -tankR);
     // SmartDashboard.putNumber("VelocityValue", driveTrain.CalcFPS());
     SmartDashboard.putNumber("placeholder", RobotContainer.tankDriveLeft());
     SmartDashboard.putNumber("Ideal Velocity", driveTrain.getVelocityPID());

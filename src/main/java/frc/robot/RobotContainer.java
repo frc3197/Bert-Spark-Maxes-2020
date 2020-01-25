@@ -96,4 +96,12 @@ public class RobotContainer {
     System.out.println(ty);
     // System.out.println(ta);
   }
+
+  public static double getDistanceFromTarget() {
+    double ty = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
+    ty = Math.toRadians(ty);
+    double limeDistance = 74 / (Math.tan(ty));
+    return limeDistance;
+  }
+  // real total hight is 98.25 lime hight is 22.5 75.75 = h2-h1
 }
