@@ -13,9 +13,13 @@ import frc.robot.commands.Drive;
 import frc.robot.commands.DriveButton;
 import frc.robot.commands.Scrub;
 import frc.robot.commands.Shoot;
+import frc.robot.commands.TakeIn;
+import frc.robot.commands.moveArms;
+import frc.robot.subsystems.Arms;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hopper;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
 /**
@@ -35,6 +39,7 @@ public class RobotContainer {
   public static JoystickButton driverA = new JoystickButton(driver1, 1);
   public static JoystickButton driverX = new JoystickButton(driver1, 3);
   public static JoystickButton driverY = new JoystickButton(driver1, 4);
+  public static JoystickButton driverB = new JoystickButton(driver1, 2);
   /**
    * An example Subsystem. [DEPRECATED]
    */
@@ -46,8 +51,12 @@ public class RobotContainer {
   // public final Shooter shooter = new Shooter();
   public final DriveTrain drivetrain = new DriveTrain();
   public final Hopper hopper = new Hopper();
+  public final Intake intake = new Intake();
+  public final Arms arms = new Arms();
   public final ControlPanel controlPanel = new ControlPanel();
   public final Shooter shooter = new Shooter();
+  private final Command m_TakeIn = new TakeIn(intake);
+  private final Command m_moveArms = new moveArms(arms);
   private final Command m_DriveButton = new DriveButton(drivetrain);
   private final Command m_Running = new Running();
   private final Command m_Scrub = new Scrub(controlPanel);
@@ -60,18 +69,19 @@ public class RobotContainer {
    */
   public RobotContainer() {
     drivetrain.setDefaultCommand(new Drive(drivetrain));
-    // shooter.setDefaultCommand(new ShooterTest(shooter));
+    shooter.setDefaultCommand(new Shoot(shooter));
     configureButtonBindings();
   }
 
   private void configureButtonBindings() {
 
-    driverA.whenPressed(m_Running);
+    driverA.whenPressed(m_moveArms);
     driverX.whenPressed(m_Scrub);
-    driverY.whenPressed(m_Shoot);
-
+    
   }
-
+  public static double getShot() {
+    return driver1.getTriggerAxis(Hand.kRight);
+  }
   public static boolean getHopper() {
     return driver2.getBumper(Hand.kRight);
   }
