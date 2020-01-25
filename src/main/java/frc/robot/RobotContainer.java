@@ -14,6 +14,7 @@ import frc.robot.commands.Drive;
 import frc.robot.commands.DriveButton;
 import frc.robot.commands.Scrub;
 import frc.robot.commands.Shoot;
+import frc.robot.commands.AutoCommands.TrackLimelightX;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hopper;
@@ -47,6 +48,7 @@ public class RobotContainer {
   public static final NetworkTableInstance ntInst = NetworkTableInstance.getDefault();
   private final Command m_Scrub = new Scrub(controlPanel);
   private final Command m_Shoot = new Shoot(shooter);
+  private final Command m_limelightTrack = new TrackLimelightX(shooter, drivetrain);
 
   /*
    * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
@@ -71,7 +73,7 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_Scrub;
+    return m_limelightTrack;
   }
 
   public static double tankDriveRight() {
