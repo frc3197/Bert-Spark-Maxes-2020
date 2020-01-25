@@ -8,18 +8,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Arms;
+import frc.robot.subsystems.Turret;
 
-public class moveArms extends CommandBase {
+public class moveTurret extends CommandBase {
   /**
-   * Creates a new moveArms.
+   * Creates a new moveTurret.
    */
-  Arms arms;
-  double gyroValueExample = 0;
-  public moveArms(Arms arms) {
-    this.arms = arms;
-    addRequirements(arms);
+  Turret turret;
+ double xOffset = 0;
+  public moveTurret(Turret turret) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.turret = turret;
+    addRequirements(turret);
   }
 
   // Called when the command is initially scheduled.
@@ -30,13 +30,16 @@ public class moveArms extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (gyroValueExample < 50){
-      arms.moveArms(.5);
+    if (xOffset != 0){
+     turret.setMotorSpeed(.5);
+    
+
+    }else{
+
+
+     turret.setMotorSpeed(0);
     }
-      else{
-      arms.moveArms(0);}
-    }
-  
+  }
   
 
   // Called once the command ends or is interrupted.

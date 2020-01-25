@@ -8,18 +8,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Arms;
+import frc.robot.subsystems.Hood;
 
-public class moveArms extends CommandBase {
+public class moveHood extends CommandBase {
   /**
-   * Creates a new moveArms.
+   * Creates a new moveHood.
    */
-  Arms arms;
-  double gyroValueExample = 0;
-  public moveArms(Arms arms) {
-    this.arms = arms;
-    addRequirements(arms);
+  Hood hood;
+
+  double yOffset = 0;
+  public moveHood(Hood hood) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.hood = hood;
+    addRequirements(hood);
   }
 
   // Called when the command is initially scheduled.
@@ -30,14 +31,16 @@ public class moveArms extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (gyroValueExample < 50){
-      arms.moveArms(.5);
-    }
-      else{
-      arms.moveArms(0);}
-    }
-  
-  
+if(yOffset != 0)
+{
+ hood.moveHood(.5);
+}
+else{
+
+hood.moveHood(0);
+
+}
+  }
 
   // Called once the command ends or is interrupted.
   @Override

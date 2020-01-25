@@ -15,12 +15,16 @@ import frc.robot.commands.Scrub;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.TakeIn;
 import frc.robot.commands.moveArms;
+import frc.robot.commands.moveHood;
+import frc.robot.commands.moveTurret;
 import frc.robot.subsystems.Arms;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Turret;
 
 /**
  * RobotContainer is the place where Subsystems and Commands are declared. It's
@@ -55,8 +59,12 @@ public class RobotContainer {
   public final Arms arms = new Arms();
   public final ControlPanel controlPanel = new ControlPanel();
   public final Shooter shooter = new Shooter();
+  public final Hood hood = new Hood ();
+  public final Turret turret = new Turret();
   private final Command m_TakeIn = new TakeIn(intake);
   private final Command m_moveArms = new moveArms(arms);
+  private final Command m_moveHood = new moveHood(hood);
+  private final Command m_moveTurret = new moveTurret(turret);
   private final Command m_DriveButton = new DriveButton(drivetrain);
   private final Command m_Running = new Running();
   private final Command m_Scrub = new Scrub(controlPanel);

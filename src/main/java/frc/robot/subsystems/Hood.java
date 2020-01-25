@@ -7,30 +7,25 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Arms extends SubsystemBase {
+public class Hood extends SubsystemBase {
   /**
-   * Creates a new Arms.
+   * Creates a new Hood.
    */
-  public final WPI_TalonFX armsMotor1 = new WPI_TalonFX(11);
-  public final WPI_TalonFX armsMotor2 = new WPI_TalonFX(12);
+  public final WPI_TalonFX hoodMotor = new WPI_TalonFX(13);
 
-  public Arms() {
+  public Hood() {
 
-    armsMotor1.setSafetyEnabled(false);
-    armsMotor2.setSafetyEnabled(false);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
-  public void moveArms(double output) {
-    armsMotor1.set(output);
-    armsMotor2.set(output);
-  }
+
+public void moveHood(double d) {
+}
 }
