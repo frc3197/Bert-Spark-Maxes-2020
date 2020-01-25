@@ -15,7 +15,7 @@ import frc.robot.subsystems.DriveTrain;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class DriveSetVelocity extends PIDCommand {
+public class DriveVelocity extends PIDCommand {
   DriveTrain drivetrain;
   public double velocity;
   double a;
@@ -24,7 +24,7 @@ public class DriveSetVelocity extends PIDCommand {
    * Creates a new DrivesetVelocity.
    */
 
-  public DriveSetVelocity(DriveTrain drivetrain, double velocity) {
+  public DriveVelocity(DriveTrain drivetrain, double velocity) {
     super(
         // The controller that the command will use
         new PIDController(Constants.PID_Constants.kDVelocity.kP, Constants.PID_Constants.kDVelocity.kI,
