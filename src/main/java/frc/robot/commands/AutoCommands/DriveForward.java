@@ -24,52 +24,43 @@ public class DriveForward extends PIDCommand {
    * Creates a new DriveForward.
    */
 
-
   PIDController gyroPID;
 
   public DriveForward(double distance, DriveTrain drivetrain, double angle) {
-    
+
     super(
-    
+
         // The controller that the command will use
-      new PIDController(Constants.PIDConstants.kForward.P, Constants.PIDConstants.kForward.I,
-            Constants.PIDConstants.kForward.D),
+        new PIDController(Constants.PID_Constants.kForward.kP, Constants.PID_Constants.kForward.kI,
+            Constants.PID_Constants.kForward.kD),
         // This should return the measurement
         drivetrain::getEncoderValue,
         // This should return the setpoint (can also be a constant)
         distance,
         // This uses the output
-        output -> drivetrain.tankDrive((-Math.pow(output, 1 / 2)), -Math.pow(output, 1 / 2) ));
-        this.drivetrain = drivetrain;
+        output -> drivetrain.tankDrive((-Math.pow(output, 1 / 2)), -Math.pow(output, 1 / 2)));
+    this.drivetrain = drivetrain;
     this.distance = distance;
     this.angle = angle;
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
-    gyroPID = new PIDController(Constants.PIDConstants.kTurn.P,     
-      Constants.PIDConstants.kTurn.I, Constants.PIDConstants.kTurn.D);
+    gyroPID = new PIDController(Constants.PID_Constants.kTurn.kP, Constants.PID_Constants.kTurn.kI,
+        Constants.PID_Constants.kTurn.kD);
     gyroPID.setTolerance(2);
     gyroPID.setSetpoint(angle);
   }
 
-  
-
   public void initialize() {
-    drivetrain.reset(false);
 
   }
 
-  public void execute(){
+  public void execute() {
     GyroPID();
   }
 
-
-  public double GyroPID(){
+  public double GyroPID() {
     return gyroPID.calculate(drivetrain.gyro.getAngle());
   }
-
-
-
-  
 
   // public void execute() {
   // SmartDashboard.putNumber("Left Motor Input",
@@ -80,13 +71,12 @@ public class DriveForward extends PIDCommand {
 
   public void end(boolean interrupted) {
     drivetrain.tankDrive(0, 0);
-    drivetrain.reset(false);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (Math.abs(distance - drivetrain.getEncoderValue()) <= Constants.Deadzones.kEncoder.deadzone) {
+    if (Math.abs(distance - drivetrain.getEncoderValue()) <= 0.05) {
       return true;
     } else {
       return false;

@@ -25,8 +25,8 @@ public class DriveBackward extends PIDCommand {
   public DriveBackward(double distance, DriveTrain drivetrain) {
     super(
         // The controller that the command will use
-        new PIDController(Constants.PIDConstants.kForward.P, Constants.PIDConstants.kForward.I,
-            Constants.PIDConstants.kForward.D),
+        new PIDController(Constants.PID_Constants.kForward.kP, Constants.PID_Constants.kForward.kI,
+            Constants.PID_Constants.kForward.kD),
         // This should return the measurement
         drivetrain::getEncoderValue,
         // This should return the setpoint (can also be a constant)
@@ -42,18 +42,16 @@ public class DriveBackward extends PIDCommand {
   }
 
   public void initialize() {
-    drivetrain.reset(false);
   }
 
   public void end(boolean interrupted) {
     drivetrain.tankDrive(0, 0);
-    drivetrain.reset(false);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (Math.abs(distance - drivetrain.getEncoderValue()) <= Constants.Deadzones.kEncoder.deadzone) {
+    if (Math.abs(distance - drivetrain.getEncoderValue()) <= 0.05) {
       return true;
     } else {
       return false;
