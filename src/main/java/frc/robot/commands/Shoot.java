@@ -11,13 +11,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Shooter;
 
-public class ShooterTest extends CommandBase {
+public class Shoot extends CommandBase {
   private final Shooter shooter;
 
   /**
    * Creates a new ShooterTest.
    */
-  public ShooterTest(Shooter shooter) {
+  public Shoot(Shooter shooter) {
     this.shooter = shooter;
     addRequirements(shooter);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -31,8 +31,7 @@ public class ShooterTest extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double triggerInput = RobotContainer.shooterTest();
-    shooter.setShooter(triggerInput);
+    shooter.setShooter(0.7);
   }
 
   // Called once the command ends or is interrupted.

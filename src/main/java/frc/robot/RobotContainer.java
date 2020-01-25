@@ -11,10 +11,11 @@ import frc.robot.commands.Running;
 import frc.robot.commands.Drive;
 import frc.robot.commands.DriveButton;
 import frc.robot.commands.Scrub;
+import frc.robot.commands.Shoot;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Hopper;
+import frc.robot.subsystems.Shooter;
 
 /**
  * RobotContainer is the place where Subsystems and Commands are declared. It's
@@ -32,10 +33,10 @@ public class RobotContainer {
   private static XboxController driver2 = new XboxController(1);
   public static JoystickButton driverA = new JoystickButton(driver1, 1);
   public static JoystickButton driverX = new JoystickButton(driver1, 3);
+  public static JoystickButton driverY = new JoystickButton(driver1, 4);
   /**
    * An example Subsystem. [DEPRECATED]
    */
-  private final ExampleSubsystem m_autoSubsystem = new ExampleSubsystem();
 
   /**
    * An example Command [DEPRECATED]
@@ -45,9 +46,11 @@ public class RobotContainer {
   public final DriveTrain drivetrain = new DriveTrain();
   public final Hopper hopper = new Hopper();
   public final ControlPanel controlPanel = new ControlPanel();
+  public final Shooter shooter = new Shooter();
   private final Command m_DriveButton = new DriveButton(drivetrain);
   private final Command m_Running = new Running();
   private final Command m_Scrub = new Scrub(controlPanel);
+  private final Command m_Shoot = new Shoot(shooter);
   // public static final NetworkTableInstance ntInst =
   // NetworkTableInstance.getDefault();
 
@@ -64,6 +67,7 @@ public class RobotContainer {
 
     driverA.whenPressed(m_Running);
     driverX.whenPressed(m_Scrub);
+    driverY.whenPressed(m_Shoot);
 
   }
 
@@ -84,9 +88,5 @@ public class RobotContainer {
   public static double tankDriveLeft() {
     SmartDashboard.putNumber("Left Joystick", driver1.getY(Hand.kLeft));
     return driver1.getY(Hand.kLeft);
-  }
-
-  public static double shooterTest() {
-    return driver1.getTriggerAxis(Hand.kRight);
   }
 }
