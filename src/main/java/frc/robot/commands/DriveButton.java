@@ -8,31 +8,30 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.DriveTrain;
 
-public class ShooterTest extends CommandBase {
-  private final Shooter shooter;
-
+public class DriveButton extends CommandBase {
   /**
-   * Creates a new ShooterTest.
+   * 
+   * Creates a new DriveButton.
    */
-  public ShooterTest(Shooter shooter) {
-    this.shooter = shooter;
-    addRequirements(shooter);
-    // Use addRequirements() here to declare subsystem dependencies.
+  DriveTrain drivetrain;
+
+  public DriveButton(DriveTrain drivetrain) {
+    addRequirements(drivetrain);
+    this.drivetrain = drivetrain;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double triggerInput = RobotContainer.shooterTest();
-    shooter.setShooter(triggerInput);
+    drivetrain.tankDrive(.7, .7);
   }
 
   // Called once the command ends or is interrupted.

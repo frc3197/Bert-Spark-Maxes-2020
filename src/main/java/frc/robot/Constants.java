@@ -22,7 +22,7 @@ package frc.robot;
 public final class Constants {
 
   public static enum PID_Constants {
-    kDVelocity(0.2, 0, .009, 0);
+    kDVelocity(0.001, 0, .009, 0);
 
     public final double P;
     public final double I;
@@ -39,7 +39,8 @@ public final class Constants {
 
   public static enum TalonID {
     kLeft1(2, "Left1"), kLeft2(3, "Left2"), kRight1(0, "Right1"), kRight2(1, "Right2"), kShooter1(15, "Shooter1"),
-    kTest1(14, "Test1");
+    kTest1(14, "Test1"), kCtrlP(6, "CtrlPnl1"), kIntake(7, "Intake"), kHop1(8, "Hop1"), kHop2(9, "Hop2"),
+    kHop3(10, "Hop3");
 
     public final int id;
     public final String name;
