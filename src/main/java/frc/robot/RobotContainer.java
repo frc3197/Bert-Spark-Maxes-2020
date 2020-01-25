@@ -6,13 +6,17 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PIDCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Running;
-import frc.robot.commands.AutoCommands.Drive;
-import frc.robot.commands.AutoCommands.DriveButton;
+import frc.robot.commands.Drive;
+import frc.robot.commands.DriveButton;
+import frc.robot.commands.Scrub;
+import frc.robot.commands.Shoot;
+import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Hopper;
+import frc.robot.subsystems.Shooter;
 
 /**
  * RobotContainer is the place where Subsystems and Commands are declared. It's
@@ -26,13 +30,14 @@ public class RobotContainer {
   /**
    * The XboxController for the driver.
    */
-  private static XboxController driver = new XboxController(0);
-  public static JoystickButton driverA = new JoystickButton(driver, 1);
+  private static XboxController driver1 = new XboxController(0);
+  private static XboxController driver2 = new XboxController(1);
+  public static JoystickButton driverA = new JoystickButton(driver1, 1);
+  public static JoystickButton driverX = new JoystickButton(driver1, 3);
+  public static JoystickButton driverY = new JoystickButton(driver1, 4);
   /**
    * An example Subsystem. [DEPRECATED]
    */
-  private final ExampleSubsystem m_autoSubsystem = new ExampleSubsystem();
-
 
   /**
    * An example Command [DEPRECATED]
@@ -40,10 +45,15 @@ public class RobotContainer {
 
   // public final Shooter shooter = new Shooter();
   public final DriveTrain drivetrain = new DriveTrain();
+  public final Hopper hopper = new Hopper();
+  public final ControlPanel controlPanel = new ControlPanel();
+  public final Shooter shooter = new Shooter();
   private final Command m_DriveButton = new DriveButton(drivetrain);
   private final Command m_Running = new Running();
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
-  //public static final NetworkTableInstance ntInst = NetworkTableInstance.getDefault();
+  private final Command m_Scrub = new Scrub(controlPanel);
+  private final Command m_Shoot = new Shoot(shooter);
+  // public static final NetworkTableInstance ntInst =
+  // NetworkTableInstance.getDefault();
 
   /*
    * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
@@ -55,28 +65,30 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    
+
     driverA.whenPressed(m_Running);
+    driverX.whenPressed(m_Scrub);
+    driverY.whenPressed(m_Shoot);
+
+  }
+
+  public static boolean getHopper() {
+    return driver2.getBumper(Hand.kRight);
   }
 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return m_Scrub;
   }
 
-
   public static double tankDriveRight() {
-    SmartDashboard.putNumber("Right Joystick", driver.getY(Hand.kRight));
-    return driver.getY(Hand.kRight);
+    SmartDashboard.putNumber("Right Joystick", driver1.getY(Hand.kRight));
+    return driver1.getY(Hand.kRight);
   }
 
   public static double tankDriveLeft() {
-    SmartDashboard.putNumber("Left Joystick", driver.getY(Hand.kLeft));
-    return driver.getY(Hand.kLeft);
-  }
-
-  public static double shooterTest() {
-    return driver.getTriggerAxis(Hand.kRight);
+    SmartDashboard.putNumber("Left Joystick", driver1.getY(Hand.kLeft));
+    return driver1.getY(Hand.kLeft);
   }
   public static void pullNetworkTables(){
     double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);

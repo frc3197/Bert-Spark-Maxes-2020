@@ -5,33 +5,33 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.AutoCommands;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.Shooter;
 
-public class DriveButton extends CommandBase {
+public class Shoot extends CommandBase {
+  private final Shooter shooter;
+
   /**
-   * 
-   * Creates a new DriveButton.
+   * Creates a new ShooterTest.
    */
-  DriveTrain drivetrain;
-
-  public DriveButton(DriveTrain drivetrain) {
-    addRequirements(drivetrain);
-    this.drivetrain = drivetrain;
+  public Shoot(Shooter shooter) {
+    this.shooter = shooter;
+    addRequirements(shooter);
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.tankDrive(.7, .7);
+    shooter.setShooter(0.7);
   }
 
   // Called once the command ends or is interrupted.
