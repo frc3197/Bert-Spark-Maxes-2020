@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Running;
 import frc.robot.commands.AutoCommands.Drive;
 import frc.robot.commands.AutoCommands.DriveButton;
-import frc.robot.commands.AutoCommands.DriveSetVelocity;
+import frc.robot.commands.AutoCommands.DriveVelocity;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
 
@@ -36,7 +36,7 @@ public class RobotContainer {
   public final DriveTrain drivetrain = new DriveTrain();
   private final Command m_DriveButton = new DriveButton(drivetrain);
   private final Command m_Running = new Running();
-  public final PIDCommand m_DriveSetVelocity = new DriveSetVelocity(drivetrain, 4);
+  public final PIDCommand m_DriveSetVelocity = new DriveVelocity(drivetrain, 4);
 
   /*
    * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
