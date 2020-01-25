@@ -12,7 +12,7 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class DriveTrain extends SubsystemBase {
-  
+
   /**
    * s Creates all the Talon objects
    */
@@ -104,7 +104,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void tankDrive(double l, double r) {
-    System.out.println((l + r) / 2);
+    // System.out.println((l + r) / 2);
     SmartDashboard.putNumber("VelocityValue", CalcFPS());
     drive.tankDrive(l, r, true);
   }

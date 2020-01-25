@@ -2,6 +2,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -33,7 +34,6 @@ public class RobotContainer {
    */
   private final ExampleSubsystem m_autoSubsystem = new ExampleSubsystem();
 
-
   /**
    * An example Command [DEPRECATED]
    */
@@ -43,7 +43,7 @@ public class RobotContainer {
   private final Command m_DriveButton = new DriveButton(drivetrain);
   private final Command m_Running = new Running();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_autoSubsystem);
-  //public static final NetworkTableInstance ntInst = NetworkTableInstance.getDefault();
+  public static final NetworkTableInstance ntInst = NetworkTableInstance.getDefault();
 
   /*
    * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
@@ -55,7 +55,7 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    
+
     driverA.whenPressed(m_Running);
   }
 
@@ -63,7 +63,6 @@ public class RobotContainer {
     // An ExampleCommand will run in autonomous
     return m_autoCommand;
   }
-
 
   public static double tankDriveRight() {
     SmartDashboard.putNumber("Right Joystick", driver.getY(Hand.kRight));
@@ -78,14 +77,15 @@ public class RobotContainer {
   public static double shooterTest() {
     return driver.getTriggerAxis(Hand.kRight);
   }
-  public static void pullNetworkTables(){
-    double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
-    double tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
-    double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
-    double ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
-    System.out.println(tv);
+
+  public static void pullNetworkTables() {
+    double tv = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("tv").getDouble(0);
+    double tx = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("tx").getDouble(0);
+    double ty = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
+    double ta = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ta").getDouble(0);
+    // System.out.println(tv);
     System.out.println(tx);
     System.out.println(ty);
-    System.out.println(ta);
+    // System.out.println(ta);
   }
 }
