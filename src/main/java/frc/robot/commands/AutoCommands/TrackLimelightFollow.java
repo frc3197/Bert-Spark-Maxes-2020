@@ -5,20 +5,24 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.DriveTrain;
 
-public class Shoot extends CommandBase {
-  private final Shooter shooter;
-
+public class TrackLimelightFollow extends CommandBase {
+  TrackLimelightY m_limelightTrackY;
+  TrackLimelightX m_limelightTrackX;
+  DriveTrain driveTrain; 
   /**
-   * Creates a new ShooterTest.
+   * Creates a new TrackLimelightFollow.
    */
-  public Shoot(Shooter shooter) {
-    this.shooter = shooter;
-    addRequirements(shooter);
+  public TrackLimelightFollow(DriveTrain driveTrain, TrackLimelightX m_limelightTrackX, TrackLimelightY m_limelightTrackY) {
+   this.driveTrain = driveTrain;
+   this.m_limelightTrackX = m_limelightTrackX;
+   this.m_limelightTrackY = m_limelightTrackY; 
+    
+    addRequirements(driveTrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -30,13 +34,14 @@ public class Shoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.setShooter(0.7);
+    double leftM = m_limelightTrackX.usePIDOutput() + m_limelightTrackY.usePIDOutput();
+    double rightM = -1 * m_limelightTrackX.usePIDOutput() + m_limelightTrackY.usePIDOutput();
+    driveTrain.tankDrive(leftM, rightM);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
   }
 
   // Returns true when the command should end.

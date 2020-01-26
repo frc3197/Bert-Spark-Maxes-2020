@@ -1,20 +1,20 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.PIDCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.Running;
 import frc.robot.commands.Drive;
-import frc.robot.commands.DriveButton;
+// import frc.robot.commands.DriveButton;
+// import frc.robot.commands.Running;
 import frc.robot.commands.Scrub;
 import frc.robot.commands.Shoot;
+import frc.robot.commands.AutoCommands.TrackLimelightFollow;
 import frc.robot.commands.AutoCommands.TrackLimelightX;
+import frc.robot.commands.AutoCommands.TrackLimelightY;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hopper;
@@ -43,13 +43,14 @@ public class RobotContainer {
   public final Hopper hopper = new Hopper();
   public final ControlPanel controlPanel = new ControlPanel();
   public final Shooter shooter = new Shooter();
-  private final Command m_DriveButton = new DriveButton(drivetrain);
-  private final Command m_Running = new Running();
+  // private final Command m_DriveButton = new DriveButton(drivetrain);
+  // private final Command m_Running = new Running();
   public static final NetworkTableInstance ntInst = NetworkTableInstance.getDefault();
   private final Command m_Scrub = new Scrub(controlPanel);
   private final Command m_Shoot = new Shoot(shooter);
-  private final Command m_limelightTrack = new TrackLimelightX(shooter, drivetrain);
-
+  private final TrackLimelightX m_TrackLimelightX = new TrackLimelightX(shooter, drivetrain);
+  private final TrackLimelightY m_TrackLimelightY = new TrackLimelightY(shooter, drivetrain);
+  private final Command m_TrackLimelightFollow = new TrackLimelightFollow(drivetrain,m_TrackLimelightX,m_TrackLimelightY);
   /*
    * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
    */
@@ -61,7 +62,7 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
 
-    driverA.whenPressed(m_Running);
+    driverA.whileHeld(m_TrackLimelightFollow);
     driverX.whenPressed(m_Scrub);
     driverY.whenPressed(m_Shoot);
 
@@ -73,7 +74,7 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_limelightTrack;
+    return m_TrackLimelightFollow;
   }
 
   public static double tankDriveRight() {
@@ -91,9 +92,9 @@ public class RobotContainer {
     double tx = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("tx").getDouble(0);
     double ty = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
     double ta = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ta").getDouble(0);
-    // System.out.println(tv);
+    System.out.println(tv);
     System.out.println(tx);
     System.out.println(ty);
-    // System.out.println(ta);
+    System.out.println(ta);
   }
 }
