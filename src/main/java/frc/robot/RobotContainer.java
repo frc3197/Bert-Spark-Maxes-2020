@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Drive;
+import frc.robot.commands.Feed;
 // import frc.robot.commands.DriveButton;
 // import frc.robot.commands.Running;
 import frc.robot.commands.Scrub;
@@ -15,6 +16,7 @@ import frc.robot.commands.Shoot;
 import frc.robot.commands.AutoCommands.TrackLimelightFollow;
 import frc.robot.commands.AutoCommands.TrackLimelightX;
 import frc.robot.commands.AutoCommands.TrackLimelightY;
+import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hopper;
@@ -43,6 +45,7 @@ public class RobotContainer {
   public final Hopper hopper = new Hopper();
   public final ControlPanel controlPanel = new ControlPanel();
   public final Shooter shooter = new Shooter();
+  public final ColorSensor ColorSensor = new ColorSensor();
   // private final Command m_DriveButton = new DriveButton(drivetrain);
   // private final Command m_Running = new Running();
   public static final NetworkTableInstance ntInst = NetworkTableInstance.getDefault();
@@ -51,12 +54,16 @@ public class RobotContainer {
   private final TrackLimelightX m_TrackLimelightX = new TrackLimelightX(shooter, drivetrain);
   private final TrackLimelightY m_TrackLimelightY = new TrackLimelightY(shooter, drivetrain);
   private final Command m_TrackLimelightFollow = new TrackLimelightFollow(drivetrain,m_TrackLimelightX,m_TrackLimelightY);
+  
   /*
    * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
    */
   public RobotContainer() {
     drivetrain.setDefaultCommand(new Drive(drivetrain));
-    // shooter.setDefaultCommand(new ShooterTest(shooter));
+    shooter.setDefaultCommand(new Shoot(shooter));
+    hopper.setDefaultCommand(new Feed(hopper));
+    controlPanel.setDefaultCommand(new Scrub(controlPanel));
+
     configureButtonBindings();
   }
 
@@ -76,6 +83,14 @@ public class RobotContainer {
     // An ExampleCommand will run in autonomous
     return m_TrackLimelightFollow;
   }
+
+  public static boolean rotationalControl(){
+    return driver2.getXButton();
+  }
+  public static boolean colorControl(){
+    return driver2.getYButton();
+  }
+
 
   public static double tankDriveRight() {
     SmartDashboard.putNumber("Right Joystick", driver1.getY(Hand.kRight));
