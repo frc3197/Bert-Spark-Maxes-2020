@@ -106,7 +106,7 @@ public class DriveTrain extends SubsystemBase {
   public void tankDrive(double l, double r) {
     // System.out.println((l + r) / 2);
     SmartDashboard.putNumber("VelocityValue", CalcFPS());
-    drive.tankDrive(l, r, true);
+    drive.tankDrive(r, l, true);
   }
 
 }

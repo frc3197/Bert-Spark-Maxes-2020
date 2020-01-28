@@ -18,6 +18,7 @@ public class Feed extends CommandBase {
   Hopper hopper;
 
   public Feed(Hopper hopper) {
+    addRequirements(hopper);
     // Use addRequirements() here to declare subsystem dependencies.
     this.hopper = hopper;
 

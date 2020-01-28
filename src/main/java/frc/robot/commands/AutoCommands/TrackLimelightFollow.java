@@ -13,15 +13,17 @@ import frc.robot.subsystems.DriveTrain;
 public class TrackLimelightFollow extends CommandBase {
   TrackLimelightY m_limelightTrackY;
   TrackLimelightX m_limelightTrackX;
-  DriveTrain driveTrain; 
+  DriveTrain driveTrain;
+
   /**
    * Creates a new TrackLimelightFollow.
    */
-  public TrackLimelightFollow(DriveTrain driveTrain, TrackLimelightX m_limelightTrackX, TrackLimelightY m_limelightTrackY) {
-   this.driveTrain = driveTrain;
-   this.m_limelightTrackX = m_limelightTrackX;
-   this.m_limelightTrackY = m_limelightTrackY; 
-    
+  public TrackLimelightFollow(DriveTrain driveTrain, TrackLimelightX m_limelightTrackX,
+      TrackLimelightY m_limelightTrackY) {
+    this.driveTrain = driveTrain;
+    this.m_limelightTrackX = m_limelightTrackX;
+    this.m_limelightTrackY = m_limelightTrackY;
+
     addRequirements(driveTrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -34,8 +36,8 @@ public class TrackLimelightFollow extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double leftM = m_limelightTrackX.usePIDOutput() + m_limelightTrackY.usePIDOutput();
-    double rightM = -1 * m_limelightTrackX.usePIDOutput() + m_limelightTrackY.usePIDOutput();
+    double leftM = (.8 * m_limelightTrackX.usePIDOutput()) + (.2 * m_limelightTrackY.usePIDOutput());
+    double rightM = (-.8 * m_limelightTrackX.usePIDOutput()) + (.2 * m_limelightTrackY.usePIDOutput());
     driveTrain.tankDrive(leftM, rightM);
   }
 

@@ -9,37 +9,40 @@ package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
-import frc.robot.Constants;
+import frc.robot.Constants.PID_Constants;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Shooter;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class TrackLimelightY extends PIDCommand {
+public class TrackLimelightDistance extends PIDCommand {
   Shooter shooter;
-  DriveTrain drivetrain;
-  static double d;
+  DriveTrain driveTrain;
+  // static double d;
 
   /**
-   * Creates a new TrackLimelightY.
+   * Creates a new TrackLimelight.
    */
-  public TrackLimelightY(Shooter shooter, DriveTrain drivetrain) {
+  public TrackLimelightDistance(Shooter shooter, DriveTrain driveTrain) {
     super(
         // The controller that the command will use
-        new PIDController(Constants.PID_Constants.kHood.P, Constants.PID_Constants.kHood.I,
-            Constants.PID_Constants.kHood.D),
+        new PIDController(PID_Constants.kHood.P, PID_Constants.kHood.I, PID_Constants.kHood.D),
         // This should return the measurement
         shooter::getYOffset,
         // This should return the setpoint (can also be a constant)
         0,
         // This uses the output
         output -> {
-          d = output;
+          driveTrain.tankDrive((output * .2) + .05, (output * .2) + 0.05);
           // Use the output here
         });
-    // Use addRequirements() here to declare subsystem dependencies.
-    // Configure additional PID options by calling `getController` here.
+    addRequirements();
+    this.driveTrain = driveTrain;
+  }
+
+  public void end() {
+    driveTrain.tankDrive(0, 0);
   }
 
   // Returns true when the command should end.
@@ -48,8 +51,7 @@ public class TrackLimelightY extends PIDCommand {
     return false;
   }
 
-  public double usePIDOutput() {
-    return d;
-  }
-
+  // public double usePIDOutput() {
+  // return d;
+  // }
 }

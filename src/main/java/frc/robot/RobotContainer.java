@@ -13,7 +13,9 @@ import frc.robot.commands.Feed;
 // import frc.robot.commands.Running;
 import frc.robot.commands.Scrub;
 import frc.robot.commands.Shoot;
+import frc.robot.commands.AutoCommands.TrackLimelightDistance;
 import frc.robot.commands.AutoCommands.TrackLimelightFollow;
+import frc.robot.commands.AutoCommands.TrackLimelightTurn;
 import frc.robot.commands.AutoCommands.TrackLimelightX;
 import frc.robot.commands.AutoCommands.TrackLimelightY;
 import frc.robot.subsystems.ColorSensor;
@@ -49,12 +51,15 @@ public class RobotContainer {
   // private final Command m_DriveButton = new DriveButton(drivetrain);
   // private final Command m_Running = new Running();
   public static final NetworkTableInstance ntInst = NetworkTableInstance.getDefault();
-  private final Command m_Scrub = new Scrub(controlPanel);
+  private final Command m_Scrub = new Scrub(controlPanel, ColorSensor);
   private final Command m_Shoot = new Shoot(shooter);
   private final TrackLimelightX m_TrackLimelightX = new TrackLimelightX(shooter, drivetrain);
   private final TrackLimelightY m_TrackLimelightY = new TrackLimelightY(shooter, drivetrain);
-  private final Command m_TrackLimelightFollow = new TrackLimelightFollow(drivetrain,m_TrackLimelightX,m_TrackLimelightY);
-  
+  private final TrackLimelightTurn m_TrackLimelightTurn = new TrackLimelightTurn(shooter, drivetrain);
+  private final TrackLimelightDistance m_TrackLimelightDistance = new TrackLimelightDistance(shooter, drivetrain);
+  private final Command m_TrackLimelightFollow = new TrackLimelightFollow(drivetrain, m_TrackLimelightX,
+      m_TrackLimelightY);
+
   /*
    * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
    */
@@ -62,7 +67,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(new Drive(drivetrain));
     shooter.setDefaultCommand(new Shoot(shooter));
     hopper.setDefaultCommand(new Feed(hopper));
-    controlPanel.setDefaultCommand(new Scrub(controlPanel));
+    controlPanel.setDefaultCommand(new Scrub(controlPanel, ColorSensor));
 
     configureButtonBindings();
   }
@@ -84,13 +89,13 @@ public class RobotContainer {
     return m_TrackLimelightFollow;
   }
 
-  public static boolean rotationalControl(){
+  public static boolean rotationalControl() {
     return driver2.getXButton();
   }
-  public static boolean colorControl(){
+
+  public static boolean colorControl() {
     return driver2.getYButton();
   }
-
 
   public static double tankDriveRight() {
     SmartDashboard.putNumber("Right Joystick", driver1.getY(Hand.kRight));

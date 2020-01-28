@@ -21,9 +21,10 @@ public class Scrub extends CommandBase {
   boolean rotationControl = false;
   boolean colorControl = false;
 
-  public Scrub(ControlPanel controlPanel) {
+  public Scrub(ControlPanel controlPanel, ColorSensor colorSensor) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.controlPanel = controlPanel;
+    this.colorSensor = colorSensor;
     addRequirements(controlPanel);
   }
 
@@ -38,21 +39,19 @@ public class Scrub extends CommandBase {
   public void execute() {
     rotationControl = RobotContainer.rotationalControl();
     colorControl = RobotContainer.colorControl();
-    double[] targetColor = {0,0,0};
+    double[] targetColor = { 0, 0, 0 };
     double redVal = colorSensor.red();
     double blueVal = colorSensor.blue();
     double greenVal = colorSensor.green();
     double proximity = colorSensor.proximity();
-    double[] rgb = {redVal,greenVal,blueVal};
+    double[] rgb = { redVal, greenVal, blueVal };
 
     if (rotationControl = true) {
       controlPanel.panelSpin(0.3);
     }
 
-    if(colorControl = true)
-    {
-      if(targetColor == rgb)
-      {
+    if (colorControl = true) {
+      if (targetColor == rgb) {
         // DO STUFF
 
       }
