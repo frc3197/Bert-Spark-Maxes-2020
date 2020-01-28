@@ -8,19 +8,29 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Drive;
+import frc.robot.commands.DriveButton;
 import frc.robot.commands.Feed;
+import frc.robot.commands.Running;
 // import frc.robot.commands.DriveButton;
 // import frc.robot.commands.Running;
 import frc.robot.commands.Scrub;
 import frc.robot.commands.Shoot;
+import frc.robot.commands.TakeIn;
+import frc.robot.commands.moveArms;
+import frc.robot.commands.moveHood;
+import frc.robot.commands.moveTurret;
+import frc.robot.subsystems.Arms;
 import frc.robot.commands.AutoCommands.TrackLimelightFollow;
 import frc.robot.commands.AutoCommands.TrackLimelightX;
 import frc.robot.commands.AutoCommands.TrackLimelightY;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Hopper;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Turret;
 
 /**
  * RobotContainer is the place where Subsystems and Commands are declared. It's
@@ -39,12 +49,23 @@ public class RobotContainer {
   public static JoystickButton driverA = new JoystickButton(driver1, 1);
   public static JoystickButton driverX = new JoystickButton(driver1, 3);
   public static JoystickButton driverY = new JoystickButton(driver1, 4);
+  public static JoystickButton driverB = new JoystickButton(driver1, 2);
 
   // public final Shooter shooter = new Shooter();
   public final DriveTrain drivetrain = new DriveTrain();
   public final Hopper hopper = new Hopper();
+  public final Intake intake = new Intake();
+  public final Arms arms = new Arms();
   public final ControlPanel controlPanel = new ControlPanel();
   public final Shooter shooter = new Shooter();
+  public final Hood hood = new Hood ();
+  public final Turret turret = new Turret();
+  private final Command m_TakeIn = new TakeIn(intake);
+  private final Command m_moveArms = new moveArms(arms);
+  private final Command m_moveHood = new moveHood(hood);
+  private final Command m_moveTurret = new moveTurret(turret);
+  private final Command m_DriveButton = new DriveButton(drivetrain);
+  private final Command m_Running = new Running();
   public final ColorSensor ColorSensor = new ColorSensor();
   // private final Command m_DriveButton = new DriveButton(drivetrain);
   // private final Command m_Running = new Running();
@@ -71,10 +92,11 @@ public class RobotContainer {
 
     driverA.whileHeld(m_TrackLimelightFollow);
     driverX.whenPressed(m_Scrub);
-    driverY.whenPressed(m_Shoot);
-
+    
   }
-
+  public static double getShot() {
+    return driver1.getTriggerAxis(Hand.kRight);
+  }
   public static boolean getHopper() {
     return driver2.getBumper(Hand.kRight);
   }

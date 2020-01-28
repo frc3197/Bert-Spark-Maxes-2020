@@ -7,19 +7,17 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Intake extends SubsystemBase {
+public class Turret extends SubsystemBase {
   /**
-   * Creates a new Intake.
+   * Creates a new Turret.
    */
-  public final WPI_TalonFX intakeMotors = new WPI_TalonFX(7);
+  private final WPI_TalonFX turretMotor = new WPI_TalonFX(16);
 
-  public Intake() {
-    intakeMotors.setSafetyEnabled(false);
+  public Turret() {
 
   }
 
@@ -27,11 +25,7 @@ public class Intake extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
-
-  public void takeIn(double output) {
-    intakeMotors.set(ControlMode.PercentOutput, output);
+  public void setMotorSpeed(double val){
+    turretMotor.set(val);
   }
 }
-
-
-  

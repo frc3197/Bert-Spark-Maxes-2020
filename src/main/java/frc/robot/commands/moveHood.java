@@ -8,26 +8,38 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Hood;
 
-public class Running extends CommandBase {
+public class moveHood extends CommandBase {
   /**
-   * Creates a new Running.
+   * Creates a new moveHood.
    */
-  
-  public Running() {
+  Hood hood;
+
+  double yOffset = 0;
+  public moveHood(Hood hood) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.hood = hood;
+    addRequirements(hood);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("Command is running my guy....");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+if(yOffset != 0)
+{
+ hood.moveHood(.5);
+}
+else{
 
+hood.moveHood(0);
+
+}
   }
 
   // Called once the command ends or is interrupted.
