@@ -36,8 +36,10 @@ public class TrackLimelightFollow extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double leftM = (.8 * m_limelightTrackX.usePIDOutput()) + (.2 * m_limelightTrackY.usePIDOutput());
-    double rightM = (-.8 * m_limelightTrackX.usePIDOutput()) + (.2 * m_limelightTrackY.usePIDOutput());
+    double leftM = (.8 * m_limelightTrackX.usePIDOutput()) + (.05 * m_limelightTrackY.usePIDOutput());
+    double rightM = (-.8 * m_limelightTrackX.usePIDOutput()) + (.05 * m_limelightTrackY.usePIDOutput());
+    System.out.println("LimelightX PID Output: " + m_limelightTrackX.usePIDOutput());
+    // System.out.println("leftM: " + leftM + "|rightM: " + rightM);
     driveTrain.tankDrive(leftM, rightM);
   }
 

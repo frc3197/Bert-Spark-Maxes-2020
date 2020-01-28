@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutoCommands.TrackLimelightDistance;
 import frc.robot.commands.AutoCommands.TrackLimelightFollow;
+import frc.robot.commands.AutoCommands.TrackLimelightFollowTwo;
 import frc.robot.commands.AutoCommands.TrackLimelightTurn;
 import frc.robot.commands.AutoCommands.TrackLimelightX;
 import frc.robot.commands.AutoCommands.TrackLimelightY;
@@ -77,6 +78,7 @@ public class RobotContainer {
   private final TrackLimelightX m_TrackLimelightX = new TrackLimelightX(shooter, drivetrain);
   private final TrackLimelightY m_TrackLimelightY = new TrackLimelightY(shooter, drivetrain);
   private final TrackLimelightTurn m_TrackLimelightTurn = new TrackLimelightTurn(shooter, drivetrain);
+  private final TrackLimelightFollowTwo m_TrackLimelightFollowTwo = new TrackLimelightFollowTwo(shooter, drivetrain);
   private final TrackLimelightDistance m_TrackLimelightDistance = new TrackLimelightDistance(shooter, drivetrain);
   private final Command m_TrackLimelightFollow = new TrackLimelightFollow(drivetrain, m_TrackLimelightX,
       m_TrackLimelightY);
@@ -95,7 +97,9 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
 
-    driverA.whileHeld(m_TrackLimelightFollow);
+    driverA.whileHeld(m_TrackLimelightFollowTwo);
+    driverA.whileHeld(m_TrackLimelightX);
+    driverA.whileHeld(m_TrackLimelightY);
     driverX.whenPressed(m_Scrub);
 
   }
