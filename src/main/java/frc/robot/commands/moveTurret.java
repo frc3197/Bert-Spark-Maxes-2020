@@ -8,27 +8,39 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Turret;
 
-public class Running extends CommandBase {
+public class moveTurret extends CommandBase {
   /**
-   * Creates a new Running.
+   * Creates a new moveTurret.
    */
-  
-  public Running() {
+  Turret turret;
+ double xOffset = 0;
+  public moveTurret(Turret turret) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.turret = turret;
+    addRequirements(turret);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("Command is running my guy....");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (xOffset != 0){
+     turret.setMotorSpeed(.5);
+    
 
+    }else{
+
+
+     turret.setMotorSpeed(0);
+    }
   }
+  
 
   // Called once the command ends or is interrupted.
   @Override

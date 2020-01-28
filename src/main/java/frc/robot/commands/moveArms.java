@@ -8,27 +8,36 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Arms;
 
-public class Running extends CommandBase {
+public class moveArms extends CommandBase {
   /**
-   * Creates a new Running.
+   * Creates a new moveArms.
    */
-  
-  public Running() {
+  Arms arms;
+  double gyroValueExample = 0;
+  public moveArms(Arms arms) {
+    this.arms = arms;
+    addRequirements(arms);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("Command is running my guy....");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-  }
+    if (gyroValueExample < 50){
+      arms.moveArms(.5);
+    }
+      else{
+      arms.moveArms(0);}
+    }
+  
+  
 
   // Called once the command ends or is interrupted.
   @Override
