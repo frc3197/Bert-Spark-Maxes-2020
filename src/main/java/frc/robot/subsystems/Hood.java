@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Hood extends SubsystemBase {
@@ -26,6 +27,12 @@ public class Hood extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-public void moveHood(double d) {
+public void moveHood(double speed) {
+  hoodMotor.set(speed);
 }
+
+public double getYOffset() {
+  return NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
+}
+
 }

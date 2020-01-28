@@ -1,16 +1,16 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.PIDCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.Running;
 import frc.robot.commands.Drive;
-import frc.robot.commands.DriveButton;
+import frc.robot.commands.Feed;
+// import frc.robot.commands.DriveButton;
+// import frc.robot.commands.Running;
 import frc.robot.commands.Scrub;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.TakeIn;
@@ -18,6 +18,10 @@ import frc.robot.commands.moveArms;
 import frc.robot.commands.moveHood;
 import frc.robot.commands.moveTurret;
 import frc.robot.subsystems.Arms;
+import frc.robot.commands.AutoCommands.TrackLimelightFollow;
+import frc.robot.commands.AutoCommands.TrackLimelightX;
+import frc.robot.commands.AutoCommands.TrackLimelightY;
+import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
@@ -44,13 +48,6 @@ public class RobotContainer {
   public static JoystickButton driverX = new JoystickButton(driver1, 3);
   public static JoystickButton driverY = new JoystickButton(driver1, 4);
   public static JoystickButton driverB = new JoystickButton(driver1, 2);
-  /**
-   * An example Subsystem. [DEPRECATED]
-   */
-
-  /**
-   * An example Command [DEPRECATED]
-   */
 
   // public final Shooter shooter = new Shooter();
   public final DriveTrain drivetrain = new DriveTrain();
@@ -67,23 +64,31 @@ public class RobotContainer {
   private final Command m_moveTurret = new moveTurret(turret);
   private final Command m_DriveButton = new DriveButton(drivetrain);
   private final Command m_Running = new Running();
+  public final ColorSensor ColorSensor = new ColorSensor();
+  // private final Command m_DriveButton = new DriveButton(drivetrain);
+  // private final Command m_Running = new Running();
+  public static final NetworkTableInstance ntInst = NetworkTableInstance.getDefault();
   private final Command m_Scrub = new Scrub(controlPanel);
   private final Command m_Shoot = new Shoot(shooter);
-  // public static final NetworkTableInstance ntInst =
-  // NetworkTableInstance.getDefault();
-
+  private final TrackLimelightX m_TrackLimelightX = new TrackLimelightX(shooter, drivetrain);
+  private final TrackLimelightY m_TrackLimelightY = new TrackLimelightY(shooter, drivetrain);
+  private final Command m_TrackLimelightFollow = new TrackLimelightFollow(drivetrain,m_TrackLimelightX,m_TrackLimelightY);
+  
   /*
    * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
    */
   public RobotContainer() {
     drivetrain.setDefaultCommand(new Drive(drivetrain));
     shooter.setDefaultCommand(new Shoot(shooter));
+    hopper.setDefaultCommand(new Feed(hopper));
+    controlPanel.setDefaultCommand(new Scrub(controlPanel));
+
     configureButtonBindings();
   }
 
   private void configureButtonBindings() {
 
-    driverA.whenPressed(m_moveArms);
+    driverA.whileHeld(m_TrackLimelightFollow);
     driverX.whenPressed(m_Scrub);
     
   }
@@ -96,8 +101,16 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_Scrub;
+    return m_TrackLimelightFollow;
   }
+
+  public static boolean rotationalControl(){
+    return driver2.getXButton();
+  }
+  public static boolean colorControl(){
+    return driver2.getYButton();
+  }
+
 
   public static double tankDriveRight() {
     SmartDashboard.putNumber("Right Joystick", driver1.getY(Hand.kRight));
@@ -108,14 +121,23 @@ public class RobotContainer {
     SmartDashboard.putNumber("Left Joystick", driver1.getY(Hand.kLeft));
     return driver1.getY(Hand.kLeft);
   }
-  public static void pullNetworkTables(){
-    double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
-    double tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
-    double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
-    double ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
+
+  public static void pullNetworkTables() {
+    double tv = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("tv").getDouble(0);
+    double tx = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("tx").getDouble(0);
+    double ty = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
+    double ta = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ta").getDouble(0);
     System.out.println(tv);
     System.out.println(tx);
     System.out.println(ty);
     System.out.println(ta);
   }
+
+  public static double getDistanceFromTarget() {
+    double ty = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
+    ty = Math.toRadians(ty);
+    double limeDistance = 74 / (Math.tan(ty));
+    return limeDistance;
+  }
+  // real total hight is 98.25 lime hight is 22.5 75.75 = h2-h1
 }
