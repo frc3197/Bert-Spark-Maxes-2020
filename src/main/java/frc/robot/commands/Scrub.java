@@ -8,14 +8,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanel;
 
 public class Scrub extends CommandBase {
   /**
    * Creates a new ControlPanelTurn.
    */
+  ColorSensor colorSensor;
   ControlPanel controlPanel;
-  boolean runSpinner = false;
+  boolean rotationControl = false;
+  boolean colorControl = false;
 
   public Scrub(ControlPanel controlPanel) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -32,9 +36,28 @@ public class Scrub extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (runSpinner = true) {
+    rotationControl = RobotContainer.rotationalControl();
+    colorControl = RobotContainer.colorControl();
+    double[] targetColor = {0,0,0};
+    double redVal = colorSensor.red();
+    double blueVal = colorSensor.blue();
+    double greenVal = colorSensor.green();
+    double proximity = colorSensor.proximity();
+    double[] rgb = {redVal,greenVal,blueVal};
+
+    if (rotationControl = true) {
       controlPanel.panelSpin(0.3);
     }
+
+    if(colorControl = true)
+    {
+      if(targetColor == rgb)
+      {
+        // DO STUFF
+
+      }
+    }
+
   }
 
   // Called once the command ends or is interrupted.

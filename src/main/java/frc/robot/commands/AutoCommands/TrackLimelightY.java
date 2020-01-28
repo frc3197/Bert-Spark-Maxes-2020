@@ -9,26 +9,25 @@ package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
-import frc.robot.Constants.PID_Constants;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Shooter;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class TrackLimelightX extends PIDCommand {
+public class TrackLimelightY extends PIDCommand {
   Shooter shooter;
-  DriveTrain driveTrain;
+  DriveTrain drivetrain;
   static double d;
   /**
-   * Creates a new TrackLimelight.
+   * Creates a new TrackLimelightY.
    */
-  public TrackLimelightX(Shooter shooter, DriveTrain driveTrain) {
+  public TrackLimelightY(Shooter shooter, DriveTrain drivetrain) {
     super(
         // The controller that the command will use
-        new PIDController(PID_Constants.kTurn.P, PID_Constants.kTurn.I, PID_Constants.kTurn.D),
+        new PIDController(0, 0, 0),
         // This should return the measurement
-        shooter::getXOffset,
+        shooter::getYOffset,
         // This should return the setpoint (can also be a constant)
         0,
         // This uses the output
@@ -36,12 +35,8 @@ public class TrackLimelightX extends PIDCommand {
           d = output;
           // Use the output here
         });
-    addRequirements();
-    this.driveTrain = driveTrain;
-  }
-
-  public void end() {
-    driveTrain.tankDrive(0, 0);
+    // Use addRequirements() here to declare subsystem dependencies.
+    // Configure additional PID options by calling `getController` here.
   }
 
   // Returns true when the command should end.
@@ -50,7 +45,9 @@ public class TrackLimelightX extends PIDCommand {
     return false;
   }
 
-  public double usePIDOutput() {
-    return d;
-  }
+  
+public double usePIDOutput() {
+	return d;
+}
+
 }
