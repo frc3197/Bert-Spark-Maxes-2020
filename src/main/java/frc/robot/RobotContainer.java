@@ -69,11 +69,11 @@ public class RobotContainer {
   private final Command m_moveTurret = new moveTurret(turret);
   private final Command m_DriveButton = new DriveButton(drivetrain);
   private final Command m_Running = new Running();
-  public final ColorSensor ColorSensor = new ColorSensor();
+  public final ColorSensor colorSensor;
   // private final Command m_DriveButton = new DriveButton(drivetrain);
   // private final Command m_Running = new Running();
   public static final NetworkTableInstance ntInst = NetworkTableInstance.getDefault();
-  private final Command m_Scrub = new Scrub(controlPanel, ColorSensor);
+  private final Command m_Scrub;
   private final Command m_Shoot = new Shoot(shooter);
   private final TrackLimelightX m_TrackLimelightX = new TrackLimelightX(shooter, drivetrain);
   private final TrackLimelightY m_TrackLimelightY = new TrackLimelightY(shooter, drivetrain);
@@ -87,10 +87,13 @@ public class RobotContainer {
    * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
    */
   public RobotContainer() {
+    colorSensor = new ColorSensor();
+    m_Scrub = new Scrub(controlPanel, colorSensor);
+
     drivetrain.setDefaultCommand(new Drive(drivetrain));
     shooter.setDefaultCommand(new Shoot(shooter));
     hopper.setDefaultCommand(new Feed(hopper));
-    controlPanel.setDefaultCommand(new Scrub(controlPanel, ColorSensor));
+    controlPanel.setDefaultCommand(new Scrub(controlPanel, colorSensor));
 
     configureButtonBindings();
   }
@@ -102,7 +105,6 @@ public class RobotContainer {
     driverA.whileHeld(m_TrackLimelightY);
     // driverX.whenPressed(m_Scrub);
     driverY.whileHeld(m_Scrub);
-
   }
 
   public static double getShot() {

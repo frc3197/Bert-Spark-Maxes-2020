@@ -19,10 +19,10 @@ public class Scrub extends CommandBase {
   /**
    * Creates a new ControlPanelTurn.
    */
-  ColorSensor colorSensor;
-  ControlPanel controlPanel;
-  boolean rotationControl = false;
-  boolean colorControl = false;
+  private ColorSensor colorSensor;
+  private ControlPanel controlPanel;
+  private boolean rotationControl = false;
+  private boolean colorControl = false;
 
   public Scrub(ControlPanel controlPanel, ColorSensor colorSensor) {
     // Use addRequirements() here to declare subsystem dependencies.

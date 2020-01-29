@@ -35,7 +35,7 @@ public class ColorSensor extends SubsystemBase {
     public ColorSensor() {
         sensor = new I2C(I2C.Port.kOnboard, 0x52); // port, I2c address (0x39 old)
 
-        sensor.write(COMMAND_REGISTER_BIT | 0x00, 0b00000011); // power on, color sensor on
+        sensor.write(COMMAND_REGISTER_BIT, 0b00000011); // power on, color sensor on
     }
 
     protected int readWordRegister(int address) {
