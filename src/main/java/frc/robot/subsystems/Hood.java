@@ -11,12 +11,13 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Hood extends SubsystemBase {
   /**
    * Creates a new Hood.
    */
-  public final WPI_TalonFX hoodMotor = new WPI_TalonFX(13);
+  public final WPI_TalonFX hoodMotor = new WPI_TalonFX(Constants.TalonID.kHood.id);
 
   public Hood() {
 
@@ -27,12 +28,12 @@ public class Hood extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-public void moveHood(double speed) {
-  hoodMotor.set(speed);
-}
+  public void moveHood(double speed) {
+    hoodMotor.set(speed);
+  }
 
-public double getYOffset() {
-  return NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
-}
+  public double getYOffset() {
+    return NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
+  }
 
 }
