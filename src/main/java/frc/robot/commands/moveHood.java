@@ -21,6 +21,7 @@ public class moveHood extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     this.hood = hood;
     addRequirements(hood);
+
   }
 
   // Called when the command is initially scheduled.
@@ -31,6 +32,7 @@ public class moveHood extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    hood.calibrateHoodEncoder();
 if(yOffset != 0)
 {
  hood.moveHood(.5);

@@ -97,7 +97,7 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
 
-    driverA.whileHeld(m_TrackLimelightFollowTwo);
+    driverA.whileHeld(m_TrackLimelightTurn);
     driverA.whileHeld(m_TrackLimelightX);
     driverA.whileHeld(m_TrackLimelightY);
     driverX.whenPressed(m_Scrub);
@@ -149,8 +149,10 @@ public class RobotContainer {
   public static double getDistanceFromTarget() {
     double ty = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
     ty = Math.toRadians(ty);
+    System.out.println("offset : " + ty);
     double limeDistance = 74 / (Math.tan(ty));
     return limeDistance;
+    // Will have to integrate a variable a1 value once set up for limelight angle.
   }
   // real total hight is 98.25 lime hight is 22.5 75.75 = h2-h1
 }
