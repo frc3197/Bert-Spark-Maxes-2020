@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanel;
+import edu.wpi.first.wpilibj.DriverStation;
 
 public class Scrub extends CommandBase {
   /**
@@ -45,18 +46,46 @@ public class Scrub extends CommandBase {
     double greenVal = colorSensor.green();
     double proximity = colorSensor.proximity();
     double[] rgb = { redVal, greenVal, blueVal };
+    double[] blue = { 0, 255, 255 };
+    double[] green = { 0, 255, 0 };
+    double[] red = { 255, 0, 0 };
+    double[] yellow = { 255, 255, 0 };
+
+    String gameData;
+    gameData = DriverStation.getInstance().getGameSpecificMessage();
 
     if (rotationControl = true) {
       controlPanel.panelSpin(0.3);
     }
-
-    if (colorControl = true) {
-      if (targetColor == rgb) {
-        // DO STUFF
-
+    if (gameData.length() > 0) {
+      switch (gameData.charAt(0)) {
+      case 'B':
+        while (rgb != red) {
+          controlPanel.panelSpin(0.2);
+        }
+        break;
+      case 'G':
+        while (rgb != yellow)
+          controlPanel.panelSpin(0.2);
+        break;
+      case 'R':
+        while (rgb != blue)
+          controlPanel.panelSpin(0.2);
+        break;
+      case 'Y':
+        while (rgb != green)
+          controlPanel.panelSpin(0.2);
+        break;
+      default:
+        break;
       }
+    } else {
+      controlPanel.panelSpin(0);
     }
 
+    if (colorControl = true) {
+
+    }
   }
 
   // Called once the command ends or is interrupted.
