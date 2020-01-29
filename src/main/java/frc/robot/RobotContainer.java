@@ -100,7 +100,8 @@ public class RobotContainer {
     driverA.whileHeld(m_TrackLimelightFollowTwo);
     driverA.whileHeld(m_TrackLimelightX);
     driverA.whileHeld(m_TrackLimelightY);
-    driverX.whenPressed(m_Scrub);
+    // driverX.whenPressed(m_Scrub);
+    driverY.whileHeld(m_Scrub);
 
   }
 
@@ -122,7 +123,8 @@ public class RobotContainer {
   }
 
   public static boolean colorControl() {
-    return driver2.getYButton();
+    return false;
+    // return driver2.getYButton();
   }
 
   public static double tankDriveRight() {

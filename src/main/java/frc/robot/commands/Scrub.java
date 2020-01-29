@@ -12,6 +12,8 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanel;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Scrub extends CommandBase {
   /**
@@ -54,26 +56,26 @@ public class Scrub extends CommandBase {
     String gameData;
     gameData = DriverStation.getInstance().getGameSpecificMessage();
 
-    if (rotationControl = true) {
+    if (rotationControl) {
       controlPanel.panelSpin(0.3);
     }
-    if (gameData.length() > 0) {
+    if (gameData.length() > 0 && colorControl) {
       switch (gameData.charAt(0)) {
       case 'B':
-        while (rgb != red) {
+        while (rgb[0] != red[0] && rgb[1] != red[1] && rgb[2] != red[2]) {
           controlPanel.panelSpin(0.2);
         }
         break;
       case 'G':
-        while (rgb != yellow)
+        while (rgb[0] != yellow[0] && rgb[1] != yellow[1] && rgb[2] != yellow[2])
           controlPanel.panelSpin(0.2);
         break;
       case 'R':
-        while (rgb != blue)
+        while (rgb[0] != blue[0] && rgb[1] != blue[1] && rgb[2] != blue[2])
           controlPanel.panelSpin(0.2);
         break;
       case 'Y':
-        while (rgb != green)
+        while (rgb[0] != green[0] && rgb[1] != green[1] && rgb[2] != green[2])
           controlPanel.panelSpin(0.2);
         break;
       default:
@@ -81,16 +83,19 @@ public class Scrub extends CommandBase {
       }
     } else {
       controlPanel.panelSpin(0);
-    }
-
-    if (colorControl = true) {
-
+      SmartDashboard.putBoolean("Scrub Running", true);
+      SmartDashboard.putNumber("Red", rgb[0]);
+      SmartDashboard.putNumber("Green", rgb[1]);
+      SmartDashboard.putNumber("Blue", rgb[2]);
+      // SmartDashboard.putNumberArray("Color Sensor RGB Values", rgb);
+      // System.out.println("R: " + rgb[0] + "G: " + rgb[1] + "B: " + rgb[2]);
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    SmartDashboard.putBoolean("Scrub Running", false);
   }
 
   // Returns true when the command should end.
