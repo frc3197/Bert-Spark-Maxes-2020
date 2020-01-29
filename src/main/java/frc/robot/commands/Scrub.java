@@ -82,6 +82,7 @@ public class Scrub extends CommandBase {
         break;
       }
     } else {
+      //TODO: Figure out why Color Sensor isn't returning anything.
       controlPanel.panelSpin(0);
       SmartDashboard.putBoolean("Scrub Running", true);
       SmartDashboard.putNumber("Red", rgb[0]);
