@@ -12,11 +12,18 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
+import com.revrobotics.ColorMatch;
+import com.revrobotics.ColorSensorV3;
+
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Robot;
 
 public class ColorSensor extends SubsystemBase {
     I2C sensor;
+
+    private final I2C.Port i2cPort = I2C.Port.kOnboard;
+    private final ColorSensorV3 m_colorsensor = new ColorSensorV3(i2cPort);
 
     protected final static int COMMAND_REGISTER_BIT = 0x80;
     protected final static int MULTI_BYTE_BIT = 0x20;
@@ -45,6 +52,10 @@ public class ColorSensor extends SubsystemBase {
         return buf.getShort(0);
     }
 
+    public Color getColor() {
+        return m_colorsensor.getColor();
+    }
+
     public int red() {
         return readWordRegister(RDATA_REGISTER);
     }
@@ -63,10 +74,6 @@ public class ColorSensor extends SubsystemBase {
 
     public int proximity() {
         return readWordRegister(PDATA_REGISTER);
-    }
-
-    public boolean ping() {
-        return sensor.addressOnly();
     }
 
     @Override
