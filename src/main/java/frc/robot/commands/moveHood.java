@@ -14,6 +14,7 @@ public class moveHood extends CommandBase {
   /**
    * Creates a new moveHood.
    */
+   boolean limitSwitchPressed = false;
   Hood hood;
 
   double yOffset = 0;
@@ -27,7 +28,11 @@ public class moveHood extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    
+
+
   }
+}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

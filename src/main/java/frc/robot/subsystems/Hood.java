@@ -17,7 +17,7 @@ import frc.robot.Constants;
 public class Hood extends SubsystemBase {
   DigitalInput forwardLimitSwitch = new DigitalInput(0);
 
-    
+
 
   /**
    * Creates a new Hood.
@@ -36,10 +36,24 @@ public class Hood extends SubsystemBase {
   public void moveHood(double speed) {
     hoodMotor.set(speed);
   }
-  public void calibrateHoodEncoder(){
-    if (forwardLimitSwitch.get()) // If the forward limit switch is pressed, we want to keep the values between -1 and 0
-        hoodMotor.set(-.1);
 
+public void getHoodAngle(){
+  int pos = hoodMotor.getSelectedSensorPosition();
+  // DO SOMETHING TO THE POSITION TO CALCULATE THE ANGLE
+}
+
+
+  public void calibrateHoodEncoder(){
+    while(forwardLimitSwitch.get() = false){
+    if (forwardLimitSwitch.get() = false) // If the forward limit switch is pressed, we want to keep the values between -1 and 0
+        hoodMotor.set(-.1);
+      else(forwardLimitSwitch.get() = true)
+      {
+        hoodMotor.set(0);
+        hoodMotor.resetEncoderValue();
+
+      }
+    }
   }
 
   public static double getDistanceFromTarget() {
