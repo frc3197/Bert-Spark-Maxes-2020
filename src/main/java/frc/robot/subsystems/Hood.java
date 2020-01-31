@@ -37,25 +37,31 @@ public class Hood extends SubsystemBase {
     hoodMotor.set(speed);
   }
 
-public void getHoodAngle(){
+  public void resetHoodEncoder(){
+    hoodMotor.setSelectedSensorPosition(0);
+
+  }
+
+  public void getHoodAngle(){
   int pos = hoodMotor.getSelectedSensorPosition();
   // DO SOMETHING TO THE POSITION TO CALCULATE THE ANGLE
 }
 
 
   public void calibrateHoodEncoder(){
-    while(forwardLimitSwitch.get() = false){
-    if (forwardLimitSwitch.get() = false) // If the forward limit switch is pressed, we want to keep the values between -1 and 0
+    while(forwardLimitSwitch.get() == false){
+    if (forwardLimitSwitch.get() == false) // If the forward limit switch is pressed, we want to keep the values between -1 and 0
         hoodMotor.set(-.1);
-      else(forwardLimitSwitch.get() = true)
-      {
+      else{
         hoodMotor.set(0);
-        hoodMotor.resetEncoderValue();
+        resetHoodEncoder();
 
       }
     }
   }
-
+  public boolean getLimitSwitch(){
+    return forwardLimitSwitch.get();
+  }
   public static double getDistanceFromTarget() {
     double ty = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
     ty = Math.toRadians(ty);

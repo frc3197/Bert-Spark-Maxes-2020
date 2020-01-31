@@ -90,7 +90,7 @@ public class RobotContainer {
   public RobotContainer() {
     colorSensor = new ColorSensor();
     m_Scrub = new Scrub(controlPanel, colorSensor);
-
+    hood.setDefaultCommand(new moveHood(hood));
     drivetrain.setDefaultCommand(new Drive(drivetrain));
     shooter.setDefaultCommand(new Shoot(shooter));
     hopper.setDefaultCommand(new Feed(hopper));
@@ -104,6 +104,7 @@ public class RobotContainer {
     driverA.whileHeld(m_TrackLimelightTurn);
     driverA.whileHeld(m_TrackLimelightX);
     driverA.whileHeld(m_TrackLimelightY);
+
     // driverX.whenPressed(m_Scrub);
     driverY.whileHeld(m_Scrub);
   }
@@ -119,6 +120,10 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return m_TrackLimelightFollow;
+  }
+  
+  public static double hoodMotorManual(){
+    return driver2.getY(Hand.kRight);
   }
 
   public static boolean rotationalControl() {

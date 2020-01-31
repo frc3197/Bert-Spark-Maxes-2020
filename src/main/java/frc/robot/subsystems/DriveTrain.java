@@ -108,10 +108,6 @@ public class DriveTrain extends SubsystemBase {
     SmartDashboard.putNumber("VelocityValue", CalcFPS());
     drive.tankDrive(r, l, true);
   }
-public void calibrateHoodEncoder(){
-  if (forwardLimitSwitch.get()) // If the forward limit switch is pressed, we want to keep the values between -1 and 0
-      left1.set(-.1);
 
-}
 
 }

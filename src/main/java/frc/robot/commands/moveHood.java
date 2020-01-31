@@ -7,7 +7,9 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Hood;
 
 public class moveHood extends CommandBase {
@@ -28,25 +30,29 @@ public class moveHood extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
-
-
+  // hood.calibrateHoodEncoder();
   }
-}
+
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    hood.calibrateHoodEncoder();
-if(yOffset != 0)
-{
- hood.moveHood(.5);
-}
-else{
 
-hood.moveHood(0);
+  SmartDashboard.putBoolean("limitSwitch", getLimitSwitch());
+//   double motorVal = RobotContainer.hoodMotorManual();
+// if(motorVal < .2|| motorVal > .2){
+// hood.moveHood(motorVal);
+// }
+// else{
+//  switch()
+
+// }
 
 }
+  
+
+  private boolean getLimitSwitch() {
+    return false;
   }
 
   // Called once the command ends or is interrupted.
