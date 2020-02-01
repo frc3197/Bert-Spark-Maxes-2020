@@ -46,10 +46,10 @@ public class RobotContainer {
    */
   private static XboxController driver1 = new XboxController(0);
   private static XboxController driver2 = new XboxController(1);
-  public static JoystickButton driverA = new JoystickButton(driver1, 1);
-  public static JoystickButton driverX = new JoystickButton(driver1, 3);
-  public static JoystickButton driverY = new JoystickButton(driver1, 4);
-  public static JoystickButton driverB = new JoystickButton(driver1, 2);
+  public static JoystickButton driver1A = new JoystickButton(driver1, 1);
+  public static JoystickButton driver1X = new JoystickButton(driver1, 3);
+  public static JoystickButton driver1Y = new JoystickButton(driver1, 4);
+  public static JoystickButton driver1B = new JoystickButton(driver1, 2);
 
   // public final Shooter shooter = new Shooter();
   public final DriveTrain drivetrain = new DriveTrain();
@@ -96,12 +96,12 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
 
-    driverA.whileHeld(m_TrackLimelightTurn);
-    driverA.whileHeld(m_TrackLimelightX);
-    driverA.whileHeld(m_TrackLimelightY);
-    driverX.whenPressed(m_moveHood);
+    driver1A.whileHeld(m_TrackLimelightTurn);
+    driver1A.whileHeld(m_TrackLimelightX);
+    driver1A.whileHeld(m_TrackLimelightY);
+    driver1X.whenPressed(m_moveHood);
     // driverX.whenPressed(m_Scrub);
-    driverY.whileHeld(m_Scrub);
+    driver1Y.whileHeld(m_Scrub);
   }
 
   public static double getShot() {
