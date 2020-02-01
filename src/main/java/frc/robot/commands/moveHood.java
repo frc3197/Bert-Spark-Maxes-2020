@@ -39,11 +39,15 @@ public class moveHood extends CommandBase {
   @Override
   public void execute() {
 
-    // SmartDashboard.putBoolean("limitSwitch", hood.getLimitSwitch());
-    // double motorVal = RobotContainer.hoodMotorManual();
-    // if (motorVal < .2 || motorVal > .2) {
-    // hood.moveHood(motorVal);
-    // }
+    SmartDashboard.putBoolean("limitSwitch", hood.getLimitSwitch());
+    double motorVal = RobotContainer.hoodMotorManual();
+    if (motorVal < .2 || motorVal > .2) {
+      hood.moveHood(motorVal);
+    } else {
+      // switch (hood.getYOffset()) {
+      //   case 
+      // }
+    }
 
     hood.moveHoodTicks(-.3, 10);
   }

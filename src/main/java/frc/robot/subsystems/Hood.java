@@ -71,10 +71,7 @@ public class Hood extends SubsystemBase {
   }
 
   public boolean getLimitSwitch() {
-    if (forwardLimitSwitch.get() == true) {
-      return false;
-    } else
-      return true;
+    return !forwardLimitSwitch.get();
   }
 
   public static double getDistanceFromTarget() {

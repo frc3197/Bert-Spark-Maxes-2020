@@ -109,7 +109,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void calibrateHoodEncoder() {
-    // if (forwardLimitSwitch.get()) // If the forward limit switch is pressed, we
+    // if (forwardLimitSwitch.get()) // If the forward limit switch is pressed, then we
     // want to keep the values between -1 and 0
     // left1.set(-.1);
     // }
