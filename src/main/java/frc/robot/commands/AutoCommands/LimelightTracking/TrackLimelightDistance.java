@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.AutoCommands;
+package frc.robot.commands.AutoCommands.LimelightTracking;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
@@ -16,7 +16,7 @@ import frc.robot.subsystems.Shooter;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class TrackLimelightTurn extends PIDCommand {
+public class TrackLimelightDistance extends PIDCommand {
   Shooter shooter;
   DriveTrain driveTrain;
   // static double d;
@@ -24,22 +24,22 @@ public class TrackLimelightTurn extends PIDCommand {
   /**
    * Creates a new TrackLimelight.
    */
-  public TrackLimelightTurn(Shooter shooter, DriveTrain driveTrain) {
+  public TrackLimelightDistance(Shooter shooter, DriveTrain driveTrain) {
     super(
         // The controller that the command will use
-        new PIDController(PID_Constants.kTurn.P, PID_Constants.kTurn.I, PID_Constants.kTurn.D),
+        new PIDController(PID_Constants.kHood.P, PID_Constants.kHood.I, PID_Constants.kHood.D),
         // This should return the measurement
-        shooter::getXOffset,
+        shooter::getYOffset,
         // This should return the setpoint (can also be a constant)
         0,
         // This uses the output
         output -> {
-          driveTrain.tankDrive((output * .8) + .05, (-output * .8) + 0.05);
+          driveTrain.tankDrive((output * .2) + .05, (output * .2) + 0.05);
           // Use the output here
         });
     addRequirements();
     this.driveTrain = driveTrain;
-    getController().setTolerance(5);
+    getController().setTolerance(2);
   }
 
   public void end() {
