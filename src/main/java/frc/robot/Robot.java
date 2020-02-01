@@ -8,9 +8,10 @@
 package frc.robot;
 
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoSource;
+import edu.wpi.cscore.VideoSource.ConnectionStrategy;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -41,8 +42,9 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     m_robotContainer.m_sendableChooser.addOption("Easy Route", m_easyRoute);
     m_robotContainer.m_sendableChooser.addOption("Hard Route", m_hardRoute);
-    UsbCamera camera = new UsbCamera("usb", 0);
-    CameraServer.getInstance().addCamera(camera);
+    // usb0 camera object can be tweaked to change brightness/whatever for usb
+    // camera
+    VideoSource usb0 = CameraServer.getInstance().startAutomaticCapture(0);
     // m_robotContainer.hood.calibrateHoodEncoder();
   }
 
@@ -66,6 +68,7 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
   }
+
   /**
    * This function is called once each time the robot enters Disabled mode.
    */
@@ -76,8 +79,6 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
   }
-
-  
 
   /**
    * This autonomous runs the autonomous command selected by your
@@ -91,7 +92,7 @@ public class Robot extends TimedRobot {
 
     // schedule the autonomous command (example)
     // if (m_autonomousCommand != null) {
-      // m_autonomousCommand.schedule();
+    // m_autonomousCommand.schedule();
     // }
   }
 
@@ -124,8 +125,6 @@ public class Robot extends TimedRobot {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
   }
-
-  
 
   /**
    * This function is called periodically during test mode.
