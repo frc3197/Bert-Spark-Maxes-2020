@@ -33,10 +33,10 @@ public class Hood extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void moveHoodTicks(double speed, double encoderTicks) {
-    double initial = getHoodAngle();
-    while (getHoodAngle() < initial + encoderTicks) {
-      System.out.println(getHoodAngle());
+  public void moveHoodTicks(double source ,double speed, double encoderTicks) {
+    double initial = getEncoderPosition();
+    while (getEncoderPosition() < initial + encoderTicks) {
+      System.out.println(getEncoderPosition());
       hoodMotor.set(speed);
     }
   }
@@ -51,7 +51,7 @@ public class Hood extends SubsystemBase {
 
   }
 
-  public double getHoodAngle() {
+  public double getEncoderPosition() {
     int pos = hoodMotor.getSelectedSensorPosition();
     return pos;
     // DO SOMETHING TO THE POSITION TO CALCULATE THE ANGLE
