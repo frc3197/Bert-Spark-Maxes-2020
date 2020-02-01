@@ -31,30 +31,21 @@ public class moveHood extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // hood.calibrateHoodEncoder();
+    
     hood.resetHoodEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    SmartDashboard.putBoolean("limitSwitch", hood.getLimitSwitch());
-    double motorVal = RobotContainer.hoodMotorManual();
-    if (motorVal < .2 || motorVal > .2) {
-      hood.moveHood(motorVal);
-    } else {
-      // switch (hood.getYOffset()) {
-      //   case 
-      // }
-    }
-
-    hood.moveHoodTicks(-.3, 10);
+    double source = hood.getEncoderPosition();
+    hood.moveHoodTicks(source,-.3, 10);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+
   }
 
   // Returns true when the command should end.
