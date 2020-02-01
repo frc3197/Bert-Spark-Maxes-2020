@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -18,24 +19,29 @@ public class Hood extends SubsystemBase {
    * Creates a new Hood.
    */
   public Hood() {
-hoodMotor.setSafetyEnabled(false);
+    hoodMotor.setSafetyEnabled(false);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
-public void moveHood(double speed){
-  hoodMotor.set(speed);
-}
-public void resetEncoderPosition(){
-hoodMotor.setSelectedSensorPosition(0);
-}
 
-public void moveHoodtoAngle(){
-}
+  public void moveHood(double speed){
+    hoodMotor.set(speed);
+  }
 
+  public void resetEncoderPosition(){
+    hoodMotor.setSelectedSensorPosition(0);
+  }
 
+  public void moveHoodtoAngle(){
+
+  }
+
+  public double getYOffset() {
+    return NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
+  }
 
   public double getEncoderPosition(){
     return hoodMotor.getSelectedSensorPosition();
