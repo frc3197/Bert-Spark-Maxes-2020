@@ -72,6 +72,7 @@ public class RobotContainer {
   public static final NetworkTableInstance ntInst = NetworkTableInstance.getDefault();
   private final Command m_Scrub;
   private final Command m_Shoot = new Shoot(shooter);
+  private final Command m_moveHood = new moveHood(hood);
   private final TrackLimelightX m_TrackLimelightX = new TrackLimelightX(shooter, drivetrain);
   private final TrackLimelightY m_TrackLimelightY = new TrackLimelightY(shooter, drivetrain);
   private final TrackLimelightTurn m_TrackLimelightTurn = new TrackLimelightTurn(shooter, drivetrain);
@@ -86,7 +87,7 @@ public class RobotContainer {
   public RobotContainer() {
     colorSensor = new ColorSensor();
     m_Scrub = new Scrub(controlPanel, colorSensor);
-    hood.setDefaultCommand(new moveHood(hood));
+    // hood.setDefaultCommand(new moveHood(hood));
     drivetrain.setDefaultCommand(new Drive(drivetrain));
     shooter.setDefaultCommand(new Shoot(shooter));
     hopper.setDefaultCommand(new Feed(hopper));
@@ -100,7 +101,7 @@ public class RobotContainer {
     driverA.whileHeld(m_TrackLimelightTurn);
     driverA.whileHeld(m_TrackLimelightX);
     driverA.whileHeld(m_TrackLimelightY);
-
+    driverX.whenPressed(m_moveHood);
     // driverX.whenPressed(m_Scrub);
     driverY.whileHeld(m_Scrub);
   }
