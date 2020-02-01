@@ -18,9 +18,11 @@ public class MoveArms extends CommandBase {
   /**
    * Creates a new MoveArms.
    */
-  public MoveArms(Arms arm) {
-    this.arm = arm;
-    addRequirements(arm);
+  Arms arms;
+
+  public MoveArms(Arms arms) {
+    this.arms = arms;
+    addRequirements(arms);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -35,21 +37,21 @@ public class MoveArms extends CommandBase {
   public void execute() {
     bottomLimit = arm.getBottomLimit();
     topLimit = arm.getTopLimit();
-    if(bottomLimit && !topLimit){
-      while(!topLimit){
+    if (bottomLimit && !topLimit) {
+      while (!topLimit) {
         arm.moveArms(0.2);
         topLimit = arm.getTopLimit();
         bottomLimit = arm.getBottomLimit();
       }
       isFinished = true;
-    }else if(topLimit && !bottomLimit){
-      while(!bottomLimit){
+    } else if (topLimit && !bottomLimit) {
+      while (!bottomLimit) {
         arm.moveArms(-0.2);
         topLimit = arm.getTopLimit();
         bottomLimit = arm.getBottomLimit();
       }
       isFinished = true;
-    }else{
+    } else {
       arm.moveArms(0);
       isFinished = true;
     }
