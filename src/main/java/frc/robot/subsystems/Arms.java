@@ -19,8 +19,8 @@ public class Arms extends SubsystemBase {
   public final WPI_TalonFX armsMotor1 = new WPI_TalonFX(11);
   public final WPI_TalonFX armsMotor2 = new WPI_TalonFX(12);
 
-  DigitalInput forwardLimitSwitchBottom = new DigitalInput(1);
-  DigitalInput forwardLimitSwitchTop = new DigitalInput(2);
+  DigitalInput forwardLSBottom = new DigitalInput(1);
+  DigitalInput forwardLSTop = new DigitalInput(2);
 
   public Arms() {
 
@@ -39,10 +39,10 @@ public class Arms extends SubsystemBase {
   }
 
   public boolean getBottomLimit() {
-    return forwardLimitSwitchBottom.get();
+    return forwardLSBottom.get();
   }
 
   public boolean getTopLimit() {
-    return forwardLimitSwitchTop.get();
+    return forwardLSTop.get();
   }
 }
