@@ -7,11 +7,13 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Shooter;
 
 public class Shoot extends CommandBase {
-  private final Shooter shooter;
+  private Shooter shooter;
 
   /**
    * Creates a new ShooterTest.
@@ -30,13 +32,15 @@ public class Shoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.setShooter(0.7);
+    SmartDashboard.putNumber("Right Trigger", RobotContainer.getShot());
+    shooter.shooterVelocity(RobotContainer.targetVelocity(RobotContainer.getShot(), 2750));
+    // takes right trigger axis of driver 1 and runs up to 5500 RPM
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
+    shooter.setShooter(0);
   }
 
   // Returns true when the command should end.

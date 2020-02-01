@@ -27,7 +27,6 @@ public class DriveTrain extends SubsystemBase {
   public WPI_TalonFX r1TalonFX = new WPI_TalonFX(Constants.TalonID.kRight1.id);
   public WPI_TalonFX l2TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft2.id);
   public WPI_TalonFX r2TalonFX = new WPI_TalonFX(Constants.TalonID.kRight2.id);
-  public WPI_TalonFX testTalon = new WPI_TalonFX(Constants.TalonID.kTest1.id);
 
   /**
    * Creates a new Speed Controller Group for the two left,and two right talon
@@ -48,7 +47,7 @@ public class DriveTrain extends SubsystemBase {
     l2TalonFX.setSafetyEnabled(false);
     r1TalonFX.setSafetyEnabled(false);
     r2TalonFX.setSafetyEnabled(false);
-    testTalon.setSafetyEnabled(false);
+
     // l1TalonFX.configOpenloopRamp(.75);
     // l2TalonFX.configOpenloopRamp(.75);
     // r1TalonFX.configOpenloopRamp(.75);

@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -24,6 +25,7 @@ public class Hood extends SubsystemBase {
 
   public Hood() {
     hoodMotor.setSafetyEnabled(false);
+    hoodMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
   }
 
   @Override
@@ -31,7 +33,16 @@ public class Hood extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  public void moveHoodTicks(double speed, double encoderTicks) {
+    double initial = getHoodAngle();
+    while (getHoodAngle() < initial + encoderTicks) {
+      System.out.println(getHoodAngle());
+      hoodMotor.set(speed);
+    }
+  }
+
   public void moveHood(double speed) {
+
     hoodMotor.set(speed);
   }
 
@@ -40,8 +51,9 @@ public class Hood extends SubsystemBase {
 
   }
 
-  public void getHoodAngle() {
+  public double getHoodAngle() {
     int pos = hoodMotor.getSelectedSensorPosition();
+    return pos;
     // DO SOMETHING TO THE POSITION TO CALCULATE THE ANGLE
   }
 

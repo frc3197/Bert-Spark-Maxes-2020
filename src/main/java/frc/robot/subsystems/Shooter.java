@@ -7,6 +7,10 @@
 
 package frc.robot.subsystems;
 
+import javax.xml.namespace.QName;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -20,6 +24,20 @@ public class Shooter extends SubsystemBase {
   private WPI_TalonSRX TalonShooter1 = new WPI_TalonSRX(Constants.TalonID.kShooter1.id);
 
   public Shooter() {
+    TalonShooter1.configFactoryDefault();
+    TalonShooter1.setSafetyEnabled(false);
+    TalonShooter1.configOpenloopRamp(.25);
+    TalonShooter1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, Constants.kPIDLoopIdx,
+        Constants.kTimeoutMs);
+    TalonShooter1.configNominalOutputForward(0, Constants.kTimeoutMs);
+    TalonShooter1.configNominalOutputReverse(0, Constants.kTimeoutMs);
+    TalonShooter1.configPeakOutputForward(1, Constants.kTimeoutMs);
+    TalonShooter1.configPeakOutputReverse(-1, Constants.kTimeoutMs);
+    TalonShooter1.config_kF(Constants.kPIDLoopIdx, Constants.PID_Constants.kShooter.F, Constants.kTimeoutMs);
+    TalonShooter1.config_kP(Constants.kPIDLoopIdx, Constants.PID_Constants.kShooter.P, Constants.kTimeoutMs);
+    TalonShooter1.config_kI(Constants.kPIDLoopIdx, Constants.PID_Constants.kShooter.I, Constants.kTimeoutMs);
+    TalonShooter1.config_kD(Constants.kPIDLoopIdx, Constants.PID_Constants.kShooter.D, Constants.kTimeoutMs);
+
     TalonShooter1.setSafetyEnabled(false);
 
   }
@@ -27,6 +45,10 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  public void shooterVelocity(double motorVal) {
+    TalonShooter1.set(ControlMode.Velocity, -motorVal);
   }
 
   public void setShooter(double speed) {

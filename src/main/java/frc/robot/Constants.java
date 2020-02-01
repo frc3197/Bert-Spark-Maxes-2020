@@ -22,7 +22,7 @@ package frc.robot;
 public final class Constants {
 
   public static enum PID_Constants {
-    kDVelocity(0.001, 0, .009, 0), kTurn(.1, .000125, .02175, 0), kHood(0.75, 0, 0.2025, 0);
+    kDVelocity(0.001, 0, .009, 0), kTurn(.1, .000125, .02175, 0), kHood(0.75, 0, 0.2025, 0), kShooter(.1, 0, 0, 1);
 
     public final double P;
     public final double I;
@@ -38,9 +38,9 @@ public final class Constants {
   }
 
   public static enum TalonID {
-    kLeft1(2, "Left1"), kLeft2(3, "Left2"), kRight1(0, "Right1"), kRight2(1, "Right2"), kShooter1(50, "Shooter1"),
-    kTest1(14, "Test1"), kCtrlP(6, "CtrlPnl1"), kIntake(7, "Intake"), kHop1(8, "Hop1"), kHop2(9, "Hop2"),
-    kHop3(10, "Hop3"), kArms1(11, "Arms1"), kArms2(12, "Arms2"), kHood(15, "Hood"), kTurret(16, "Turret");
+    kLeft1(2, "Left1"), kLeft2(3, "Left2"), kRight1(0, "Right1"), kRight2(1, "Right2"), kShooter1(10, "Shooter1"),
+    kCtrlP(6, "CtrlPnl1"), kIntake(7, "Intake"), kHop1(8, "Hop1"), kHop2(9, "Hop2"), kHop3(123123123, "Hop3"),
+    kArms1(11, "Arms1"), kArms2(12, "Arms2"), kHood(15, "Hood"), kTurret(16, "Turret");
 
     public final int id;
     public final String name;
@@ -60,4 +60,7 @@ public final class Constants {
    * = name; // }
    */
   // }
+
+  public static final int kPIDLoopIdx = 0;
+  public static final int kTimeoutMs = 30;
 }

@@ -7,16 +7,9 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.AutoCommands.TrackLimelightDistance;
-import frc.robot.commands.AutoCommands.TrackLimelightFollow;
-import frc.robot.commands.AutoCommands.TrackLimelightFollowTwo;
-import frc.robot.commands.AutoCommands.TrackLimelightTurn;
-import frc.robot.commands.AutoCommands.TrackLimelightX;
-import frc.robot.commands.AutoCommands.TrackLimelightY;
 import frc.robot.commands.Drive;
 import frc.robot.commands.DriveButton;
 import frc.robot.commands.Feed;
-import frc.robot.commands.Running;
 // import frc.robot.commands.DriveButton;
 // import frc.robot.commands.Running;
 import frc.robot.commands.Scrub;
@@ -25,6 +18,12 @@ import frc.robot.commands.TakeIn;
 import frc.robot.commands.moveArms;
 import frc.robot.commands.moveHood;
 import frc.robot.commands.moveTurret;
+import frc.robot.commands.AutoCommands.TrackLimelightDistance;
+import frc.robot.commands.AutoCommands.TrackLimelightFollow;
+import frc.robot.commands.AutoCommands.TrackLimelightFollowTwo;
+import frc.robot.commands.AutoCommands.TrackLimelightTurn;
+import frc.robot.commands.AutoCommands.TrackLimelightX;
+import frc.robot.commands.AutoCommands.TrackLimelightY;
 import frc.robot.subsystems.Arms;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanel;
@@ -64,11 +63,8 @@ public class RobotContainer {
   public final Hood hood = new Hood();
   public final Turret turret = new Turret();
   private final Command m_TakeIn = new TakeIn(intake);
-  private final Command m_moveArms = new moveArms(arms);
-  private final Command m_moveHood = new moveHood(hood);
   private final Command m_moveTurret = new moveTurret(turret);
   private final Command m_DriveButton = new DriveButton(drivetrain);
-  private final Command m_Running = new Running();
   // public final ColorSensorV3 colorSensor = new ColorSensorV3
   public final ColorSensor colorSensor;
   // private final Command m_DriveButton = new DriveButton(drivetrain);
@@ -121,8 +117,8 @@ public class RobotContainer {
     // An ExampleCommand will run in autonomous
     return m_TrackLimelightFollow;
   }
-  
-  public static double hoodMotorManual(){
+
+  public static double hoodMotorManual() {
     return driver2.getY(Hand.kRight);
   }
 
@@ -143,6 +139,11 @@ public class RobotContainer {
   public static double tankDriveLeft() {
     SmartDashboard.putNumber("Left Joystick", driver1.getY(Hand.kLeft));
     return driver1.getY(Hand.kLeft);
+  }
+
+  public static double targetVelocity(double source, double RPM) {
+    double targetVelocity = source * RPM * 4096 / 600;
+    return targetVelocity;
   }
 
   public static void pullNetworkTables() {

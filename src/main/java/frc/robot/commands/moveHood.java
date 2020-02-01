@@ -32,22 +32,20 @@ public class moveHood extends CommandBase {
   @Override
   public void initialize() {
     // hood.calibrateHoodEncoder();
+    hood.resetHoodEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-    SmartDashboard.putBoolean("limitSwitch", hood.getLimitSwitch());
-    double motorVal = RobotContainer.hoodMotorManual();
-    if (motorVal < .2 || motorVal > .2) {
-      hood.moveHood(motorVal);
-    } else {
-      switch (hood.getYOffset()) {
-        case 
-      }
-    }
+    // SmartDashboard.putBoolean("limitSwitch", hood.getLimitSwitch());
+    // double motorVal = RobotContainer.hoodMotorManual();
+    // if (motorVal < .2 || motorVal > .2) {
+    // hood.moveHood(motorVal);
+    // }
 
+    hood.moveHoodTicks(-.3, 10);
   }
 
   // Called once the command ends or is interrupted.
