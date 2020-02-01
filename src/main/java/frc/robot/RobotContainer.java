@@ -4,26 +4,24 @@ package frc.robot;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Drive;
 import frc.robot.commands.DriveButton;
 import frc.robot.commands.Feed;
-// import frc.robot.commands.DriveButton;
-// import frc.robot.commands.Running;
 import frc.robot.commands.Scrub;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.TakeIn;
 import frc.robot.commands.moveArms;
 import frc.robot.commands.moveHood;
 import frc.robot.commands.moveTurret;
-import frc.robot.commands.AutoCommands.TrackLimelightDistance;
-import frc.robot.commands.AutoCommands.TrackLimelightFollow;
-import frc.robot.commands.AutoCommands.TrackLimelightFollowTwo;
-import frc.robot.commands.AutoCommands.TrackLimelightTurn;
-import frc.robot.commands.AutoCommands.TrackLimelightX;
-import frc.robot.commands.AutoCommands.TrackLimelightY;
+import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightDistance;
+import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightFollowTwo;
+import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightTurn;
+import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightX;
+import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightY;
 import frc.robot.subsystems.Arms;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanel;
@@ -78,8 +76,8 @@ public class RobotContainer {
   private final TrackLimelightTurn m_TrackLimelightTurn = new TrackLimelightTurn(shooter, drivetrain);
   private final TrackLimelightFollowTwo m_TrackLimelightFollowTwo = new TrackLimelightFollowTwo(shooter, drivetrain);
   private final TrackLimelightDistance m_TrackLimelightDistance = new TrackLimelightDistance(shooter, drivetrain);
-  private final Command m_TrackLimelightFollow = new TrackLimelightFollow(drivetrain, m_TrackLimelightX,
-      m_TrackLimelightY);
+
+  public SendableChooser<Command> m_sendableChooser = new SendableChooser<Command>();
 
   /*
    * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
@@ -116,7 +114,7 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_TrackLimelightFollow;
+    return m_sendableChooser.getSelected();
   }
 
   public static double hoodMotorManual() {

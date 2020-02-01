@@ -5,54 +5,51 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.AutoCommands;
+package frc.robot.commands.AutoCommands.LimelightTracking;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
-import frc.robot.Constants.PID_Constants;
+import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Shooter;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class TrackLimelightDistance extends PIDCommand {
+public class TrackLimelightY extends PIDCommand {
   Shooter shooter;
-  DriveTrain driveTrain;
-  // static double d;
+  DriveTrain drivetrain;
+  static double d;
 
   /**
-   * Creates a new TrackLimelight.
+   * Creates a new TrackLimelightY.
    */
-  public TrackLimelightDistance(Shooter shooter, DriveTrain driveTrain) {
+  public TrackLimelightY(Shooter shooter, DriveTrain drivetrain) {
     super(
         // The controller that the command will use
-        new PIDController(PID_Constants.kHood.P, PID_Constants.kHood.I, PID_Constants.kHood.D),
+        new PIDController(Constants.PID_Constants.kHood.P, Constants.PID_Constants.kHood.I,
+            Constants.PID_Constants.kHood.D),
         // This should return the measurement
         shooter::getYOffset,
         // This should return the setpoint (can also be a constant)
         0,
         // This uses the output
         output -> {
-          driveTrain.tankDrive((output * .2) + .05, (output * .2) + 0.05);
+          d = output;
           // Use the output here
         });
-    addRequirements();
-    this.driveTrain = driveTrain;
-    getController().setTolerance(2);
-  }
-
-  public void end() {
-    driveTrain.tankDrive(0, 0);
+    // Use addRequirements() here to declare subsystem dependencies.
+    // Configure additional PID options by calling `getController` here.
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return getController().atSetpoint();
+    return false;
   }
 
-  // public double usePIDOutput() {
-  // return d;
-  // }
+  public double usePIDOutput() {
+    return d;
+  }
+
 }

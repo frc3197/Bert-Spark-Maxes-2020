@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Hood;
@@ -21,6 +22,8 @@ import frc.robot.subsystems.Hood;
  * project.
  */
 public class Robot extends TimedRobot {
+  private Command m_easyRoute;
+  private Command m_hardRoute;
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
@@ -36,6 +39,8 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     // NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(1);
     m_robotContainer = new RobotContainer();
+    m_robotContainer.m_sendableChooser.addOption("Easy Route", m_easyRoute);
+    m_robotContainer.m_sendableChooser.addOption("Hard Route", m_hardRoute);
     // m_robotContainer.hood.calibrateHoodEncoder();
   }
 
@@ -59,7 +64,6 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
   }
-
   /**
    * This function is called once each time the robot enters Disabled mode.
    */
@@ -71,6 +75,8 @@ public class Robot extends TimedRobot {
   public void disabledPeriodic() {
   }
 
+  
+
   /**
    * This autonomous runs the autonomous command selected by your
    * {@link RobotContainer} class.
@@ -78,11 +84,13 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autonomousCommand.schedule();
+    // m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
-    }
+    // if (m_autonomousCommand != null) {
+      // m_autonomousCommand.schedule();
+    // }
   }
 
   /**
@@ -114,6 +122,8 @@ public class Robot extends TimedRobot {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
   }
+
+  
 
   /**
    * This function is called periodically during test mode.

@@ -5,42 +5,52 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.AutoCommands;
+package frc.robot.commands.AutoCommands.LimelightTracking;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
-import frc.robot.subsystems.Hood;
+import frc.robot.Constants.PID_Constants;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Shooter;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class LimelightHood extends PIDCommand {
-  Hood hood;
-
+public class TrackLimelightX extends PIDCommand {
+  Shooter shooter;
+  DriveTrain driveTrain;
+  static double d;
   /**
-   * Creates a new LimelightHood.
+   * Creates a new TrackLimelight.
    */
-  public LimelightHood(Hood hood) {
+  public TrackLimelightX(Shooter shooter, DriveTrain driveTrain) {
     super(
         // The controller that the command will use
-        new PIDController(0, 0, 0),
+        new PIDController(PID_Constants.kTurn.P, PID_Constants.kTurn.I, PID_Constants.kTurn.D),
         // This should return the measurement
-        hood::getYOffset,
+        shooter::getXOffset,
         // This should return the setpoint (can also be a constant)
         0,
         // This uses the output
         output -> {
-          hood.moveHood(output * .3);
-        });
+          d = output;
           // Use the output here
-        
-    // Use addRequirements() here to declare subsystem dependencies.
-    // Configure additional PID options by calling `getController` here.
+        });
+    addRequirements();
+    this.driveTrain = driveTrain;
+  }
+
+  public void end() {
+    driveTrain.tankDrive(0, 0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;
+  }
+
+  public double usePIDOutput() {
+    return d;
   }
 }
