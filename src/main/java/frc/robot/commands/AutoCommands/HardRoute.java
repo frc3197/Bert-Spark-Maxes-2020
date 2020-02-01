@@ -8,6 +8,16 @@
 package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.Shoot;
+import frc.robot.commands.AutoCommands.LimelightTracking.Align;
+import frc.robot.commands.AutoCommands.SubCommands.DriveDistance;
+import frc.robot.commands.AutoCommands.SubCommands.GyroTurn;
+import frc.robot.commands.AutoCommands.SubCommands.TakeInBall;
+import frc.robot.subsystems.Arms;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Hood;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -16,9 +26,10 @@ public class HardRoute extends SequentialCommandGroup {
   /**
    * Creates a new HardRoute.
    */
-  public HardRoute() {
+  public HardRoute(DriveTrain driveTrain, Arms arms, Intake intake, Hood hood, Shooter shooter) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super();
+    super(new TakeInBall(arms, intake, driveTrain, 0), new GyroTurn(driveTrain, 0), 
+          new Align(hood, shooter, driveTrain), new Shoot(shooter));
   }
 }
