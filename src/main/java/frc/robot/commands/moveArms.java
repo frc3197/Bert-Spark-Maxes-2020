@@ -11,31 +11,47 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arms;
 
 public class MoveArms extends CommandBase {
+  Arms arm;
+  boolean bottomLimit;
+  boolean topLimit;
+  boolean isFinished;
   /**
-   * Creates a new moveArms.
+   * Creates a new MoveArms.
    */
-  Arms arms;
-  double gyroValueExample = 0;
-
-  public MoveArms(Arms arms) {
-    this.arms = arms;
-    addRequirements(arms);
+  public MoveArms(Arms arm) {
+    this.arm = arm;
+    addRequirements(arm);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    isFinished = false;
   }
 
-  // Called every time the scheduler runs while the command is scheduled. It's a
-  // toggle.
+  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (gyroValueExample < 50) {
-      arms.moveArms(.5);
-    } else {
-      arms.moveArms(0);
+    bottomLimit = arm.getBottomLimit();
+    topLimit = arm.getTopLimit();
+    if(bottomLimit && !topLimit){
+      while(!topLimit){
+        arm.moveArms(0.2);
+        topLimit = arm.getTopLimit();
+        bottomLimit = arm.getBottomLimit();
+      }
+      isFinished = true;
+    }else if(topLimit && !bottomLimit){
+      while(!bottomLimit){
+        arm.moveArms(-0.2);
+        topLimit = arm.getTopLimit();
+        bottomLimit = arm.getBottomLimit();
+      }
+      isFinished = true;
+    }else{
+      arm.moveArms(0);
+      isFinished = true;
     }
   }
 
@@ -47,6 +63,6 @@ public class MoveArms extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return isFinished;
   }
 }
