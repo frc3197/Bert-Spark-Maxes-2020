@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Hopper extends SubsystemBase {
@@ -19,6 +20,7 @@ public class Hopper extends SubsystemBase {
   public final WPI_TalonFX hopMotor1 = new WPI_TalonFX(8);
   public final WPI_TalonFX hopMotor2 = new WPI_TalonFX(9);
   public final WPI_TalonFX hopMotor3 = new WPI_TalonFX(10);
+  DigitalInput hopperLS = new DigitalInput(3);
 
   public Hopper() {
     hopMotor1.setSafetyEnabled(false);
@@ -30,6 +32,10 @@ public class Hopper extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  public boolean getLimit() {
+    return hopperLS.get();
   }
 
   public void hopperStart(double val) {

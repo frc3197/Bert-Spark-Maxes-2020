@@ -15,7 +15,7 @@ public class MoveArms extends CommandBase {
    * Creates a new moveArms.
    */
   Arms arms;
-  double gyroValueExample = 0;
+
   public MoveArms(Arms arms) {
     this.arms = arms;
     addRequirements(arms);
@@ -27,17 +27,12 @@ public class MoveArms extends CommandBase {
   public void initialize() {
   }
 
-  // Called every time the scheduler runs while the command is scheduled. It's a toggle.
+  // Called every time the scheduler runs while the command is scheduled. It's a
+  // toggle.
   @Override
   public void execute() {
-    if (gyroValueExample < 50){
-      arms.moveArms(.5);
-    }
-      else{
-      arms.moveArms(0);}
-    }
-  
-  
+
+  }
 
   // Called once the command ends or is interrupted.
   @Override
