@@ -25,7 +25,7 @@ public class Hood extends SubsystemBase {
 
   public Hood() {
     hoodMotor.setSafetyEnabled(false);
-    hoodMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+    hoodMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
   }
 
   @Override
@@ -52,8 +52,9 @@ public class Hood extends SubsystemBase {
   }
 
   public double getEncoderPosition() {
+    
     int pos = hoodMotor.getSelectedSensorPosition();
-    return pos;
+    return -pos;
     // DO SOMETHING TO THE POSITION TO CALCULATE THE ANGLE
   }
 
