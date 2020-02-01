@@ -47,8 +47,7 @@ public class moveHood extends CommandBase {
 //  switch()
 
 // }
-
-}
+  }
   
 
   private boolean getLimitSwitch() {
