@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Arms extends SubsystemBase {
@@ -17,6 +18,9 @@ public class Arms extends SubsystemBase {
    */
   public final WPI_TalonFX armsMotor1 = new WPI_TalonFX(11);
   public final WPI_TalonFX armsMotor2 = new WPI_TalonFX(12);
+
+  DigitalInput forwardLimitSwitchBottom = new DigitalInput(1);
+  DigitalInput forwardLimitSwitchTop = new DigitalInput(2);
 
   public Arms() {
 
@@ -28,8 +32,17 @@ public class Arms extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
   public void moveArms(double output) {
     armsMotor1.set(output);
     armsMotor2.set(output);
+  }
+
+  public boolean getBottomLimit() {
+    return forwardLimitSwitchBottom.get();
+  }
+
+  public boolean getTopLimit() {
+    return forwardLimitSwitchTop.get();
   }
 }
