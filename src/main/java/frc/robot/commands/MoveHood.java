@@ -8,48 +8,48 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Turret;
+import frc.robot.subsystems.Hood;
 
-public class MoveTurret extends CommandBase {
+public class MoveHood extends CommandBase {
+Hood hood;
+double initial = hood.getEncoderPosition();
   /**
-   * Creates a new moveTurret.
+   * Creates a new moveHood.
    */
-  Turret turret;
- double xOffset = 0;
-  public MoveTurret(Turret turret) {
+  public MoveHood(Hood hood) {
+    this.hood = hood;
+    addRequirements(hood);
     // Use addRequirements() here to declare subsystem dependencies.
-    this.turret = turret;
-    addRequirements(turret);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    initial = hood.getEncoderPosition();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (xOffset != 0){
-     turret.setMotorSpeed(.5);
-    
-
-    }else{
-
-
-     turret.setMotorSpeed(0);
-    }
-  }
-  
+    double source = hood.getEncoderPosition();
+    while(source < initial + 100){
+      hood.moveHood(.3);
+  }}
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    hood.moveHood(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if(hood.getEncoderPosition() > initial + 100)
+    {
+      return true;
+    }
+    else{
     return false;
-  }
-}
+  }}}
+
