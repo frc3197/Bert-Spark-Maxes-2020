@@ -5,26 +5,25 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.AutoCommands;
+package frc.robot.commands.AutoCommands.SubCommands;
 
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.Shoot;
-import frc.robot.commands.AutoCommands.LimelightTracking.Align;
-import frc.robot.commands.AutoCommands.SubCommands.DriveDistance;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.commands.MoveArms;
+import frc.robot.commands.TakeIn;
+import frc.robot.subsystems.Arms;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Hood;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Intake;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class EasyRoute extends SequentialCommandGroup {
+public class TakeInBall extends ParallelCommandGroup {
   /**
-   * Creates a new EasyRoute.
+   * Creates a new TakeInBall.
    */
-  public EasyRoute(Hood hood, Shooter shooter, DriveTrain driveTrain) {
+  public TakeInBall(Arms arms, Intake intake, DriveTrain driveTrain, double distance) {
     // Add your commands in the super() call, e.g.
-    // super(new FooCommand(), new BarCommand());
-    super(new Align(hood, shooter, driveTrain), new Shoot(shooter), new DriveDistance(driveTrain, 0));
+    // super(new FooCommand(), new BarCommand());super();
+    super(new DriveDistance(driveTrain, distance), new MoveArms(arms), new TakeIn(intake));
   }
 }

@@ -10,13 +10,13 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Turret;
 
-public class moveTurret extends CommandBase {
+public class MoveTurret extends CommandBase {
   /**
    * Creates a new moveTurret.
    */
   Turret turret;
  double xOffset = 0;
-  public moveTurret(Turret turret) {
+  public MoveTurret(Turret turret) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.turret = turret;
     addRequirements(turret);

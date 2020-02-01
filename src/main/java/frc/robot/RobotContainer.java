@@ -14,9 +14,9 @@ import frc.robot.commands.Feed;
 import frc.robot.commands.Scrub;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.TakeIn;
-import frc.robot.commands.moveArms;
-import frc.robot.commands.moveHood;
-import frc.robot.commands.moveTurret;
+import frc.robot.commands.MoveArms;
+import frc.robot.commands.MoveHood;
+import frc.robot.commands.MoveTurret;
 import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightDistance;
 import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightFollowTwo;
 import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightTurn;
@@ -61,7 +61,7 @@ public class RobotContainer {
   public final Hood hood = new Hood();
   public final Turret turret = new Turret();
   private final Command m_TakeIn = new TakeIn(intake);
-  private final Command m_moveTurret = new moveTurret(turret);
+  private final Command m_moveTurret = new MoveTurret(turret);
   private final Command m_DriveButton = new DriveButton(drivetrain);
   // public final ColorSensorV3 colorSensor = new ColorSensorV3
   public final ColorSensor colorSensor;
@@ -70,7 +70,7 @@ public class RobotContainer {
   public static final NetworkTableInstance ntInst = NetworkTableInstance.getDefault();
   private final Command m_Scrub;
   private final Command m_Shoot = new Shoot(shooter);
-  private final Command m_moveHood = new moveHood(hood);
+  private final Command m_moveHood = new MoveHood(hood);
   private final TrackLimelightX m_TrackLimelightX = new TrackLimelightX(shooter, drivetrain);
   private final TrackLimelightY m_TrackLimelightY = new TrackLimelightY(shooter, drivetrain);
   private final TrackLimelightTurn m_TrackLimelightTurn = new TrackLimelightTurn(shooter, drivetrain);
