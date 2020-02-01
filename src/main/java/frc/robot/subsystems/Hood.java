@@ -17,15 +17,13 @@ import frc.robot.Constants;
 public class Hood extends SubsystemBase {
   DigitalInput forwardLimitSwitch = new DigitalInput(0);
 
-
-
   /**
    * Creates a new Hood.
    */
   public final WPI_TalonFX hoodMotor = new WPI_TalonFX(Constants.TalonID.kHood.id);
 
   public Hood() {
-  hoodMotor.setSafetyEnabled(false);
+    hoodMotor.setSafetyEnabled(false);
   }
 
   @Override
@@ -37,31 +35,36 @@ public class Hood extends SubsystemBase {
     hoodMotor.set(speed);
   }
 
-  public void resetHoodEncoder(){
+  public void resetHoodEncoder() {
     hoodMotor.setSelectedSensorPosition(0);
 
   }
 
-  public void getHoodAngle(){
-  int pos = hoodMotor.getSelectedSensorPosition();
-  // DO SOMETHING TO THE POSITION TO CALCULATE THE ANGLE
-}
+  public void getHoodAngle() {
+    int pos = hoodMotor.getSelectedSensorPosition();
+    // DO SOMETHING TO THE POSITION TO CALCULATE THE ANGLE
+  }
 
-
-  public void calibrateHoodEncoder(){
-    while(forwardLimitSwitch.get() == false){
-    if (forwardLimitSwitch.get() == false) // If the forward limit switch is pressed, we want to keep the values between -1 and 0
+  public void calibrateHoodEncoder() {
+    while (forwardLimitSwitch.get() == false) {
+      if (forwardLimitSwitch.get() == false) // If the forward limit switch is pressed, we want to keep the values
+                                             // between -1 and 0
         hoodMotor.set(-.1);
-      else{
+      else {
         hoodMotor.set(0);
         resetHoodEncoder();
 
       }
     }
   }
-  public boolean getLimitSwitch(){
-    return forwardLimitSwitch.get();
+
+  public boolean getLimitSwitch() {
+    if (forwardLimitSwitch.get() == true) {
+      return false;
+    } else
+      return true;
   }
+
   public static double getDistanceFromTarget() {
     double ty = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
     ty = Math.toRadians(ty);
@@ -70,8 +73,8 @@ public class Hood extends SubsystemBase {
     return limeDistance;
   }
 
-  public double getYOffset() {
-    return NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
+  public int getYOffset() {
+    return (int) NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
   }
 
 }

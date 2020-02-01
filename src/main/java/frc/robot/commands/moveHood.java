@@ -16,10 +16,11 @@ public class moveHood extends CommandBase {
   /**
    * Creates a new moveHood.
    */
-   boolean limitSwitchPressed = false;
+  boolean limitSwitchPressed = false;
   Hood hood;
 
   double yOffset = 0;
+
   public moveHood(Hood hood) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.hood = hood;
@@ -30,29 +31,23 @@ public class moveHood extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-  // hood.calibrateHoodEncoder();
+    // hood.calibrateHoodEncoder();
   }
-
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-  SmartDashboard.putBoolean("limitSwitch", getLimitSwitch());
-//   double motorVal = RobotContainer.hoodMotorManual();
-// if(motorVal < .2|| motorVal > .2){
-// hood.moveHood(motorVal);
-// }
-// else{
-//  switch()
+    SmartDashboard.putBoolean("limitSwitch", hood.getLimitSwitch());
+    double motorVal = RobotContainer.hoodMotorManual();
+    if (motorVal < .2 || motorVal > .2) {
+      hood.moveHood(motorVal);
+    } else {
+      switch (hood.getYOffset()) {
+        case 
+      }
+    }
 
-// }
-
-}
-  
-
-  private boolean getLimitSwitch() {
-    return false;
   }
 
   // Called once the command ends or is interrupted.
