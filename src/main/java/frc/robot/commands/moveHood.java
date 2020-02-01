@@ -31,7 +31,7 @@ public class MoveHood extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-  hood.resetHoodEncoder();
+    hood.resetHoodEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -39,7 +39,7 @@ public class MoveHood extends CommandBase {
   public void execute() {
     double source = hood.getEncoderPosition();
     System.out.println("Source: " + source);
-    hood.moveHoodTicks(source,-.03, 100);
+    hood.moveHoodTicks(source, -.03, 100);
   }
 
   // Called once the command ends or is interrupted.
