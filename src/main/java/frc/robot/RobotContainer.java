@@ -14,7 +14,6 @@ import frc.robot.commands.Feed;
 import frc.robot.commands.Scrub;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.TakeIn;
-import frc.robot.commands.moveArms;
 import frc.robot.commands.moveHood;
 import frc.robot.commands.moveTurret;
 import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightDistance;
