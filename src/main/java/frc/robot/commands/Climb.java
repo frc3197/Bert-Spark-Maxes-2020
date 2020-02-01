@@ -5,26 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.AutoCommands;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
 
-public class TrackLimelightFollow extends CommandBase {
-  TrackLimelightY m_limelightTrackY;
-  TrackLimelightX m_limelightTrackX;
-  DriveTrain driveTrain;
-
+public class Climb extends CommandBase {
   /**
-   * Creates a new TrackLimelightFollow.
+   * Creates a new Climb.
    */
-  public TrackLimelightFollow(DriveTrain driveTrain, TrackLimelightX m_limelightTrackX,
-      TrackLimelightY m_limelightTrackY) {
-    this.driveTrain = driveTrain;
-    this.m_limelightTrackX = m_limelightTrackX;
-    this.m_limelightTrackY = m_limelightTrackY;
-
-    addRequirements(driveTrain);
+  public Climb() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -36,17 +25,11 @@ public class TrackLimelightFollow extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double leftM = (.8 * m_limelightTrackX.usePIDOutput()) + (.05 * m_limelightTrackY.usePIDOutput());
-    double rightM = (-.8 * m_limelightTrackX.usePIDOutput()) + (.05 * m_limelightTrackY.usePIDOutput());
-    System.out.println("LimelightX PID Output: " + m_limelightTrackX.usePIDOutput());
-    // System.out.println("leftM: " + leftM + "|rightM: " + rightM);
-    driveTrain.tankDrive(leftM, rightM);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    driveTrain.tankDrive(0, 0);
   }
 
   // Returns true when the command should end.

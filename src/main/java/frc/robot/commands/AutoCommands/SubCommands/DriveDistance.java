@@ -5,35 +5,34 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.AutoCommands;
+package frc.robot.commands.AutoCommands.SubCommands;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
-import frc.robot.subsystems.Hood;
+import frc.robot.Constants;
+import frc.robot.subsystems.DriveTrain;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class LimelightHood extends PIDCommand {
-  Hood hood;
-
+public class DriveDistance extends PIDCommand {
+  DriveTrain driveTrain;
   /**
-   * Creates a new LimelightHood.
+   * Creates a new DriveDistance.
    */
-  public LimelightHood(Hood hood) {
+  public DriveDistance(DriveTrain driveTrain, double distance) {
     super(
         // The controller that the command will use
-        new PIDController(0, 0, 0),
+        new PIDController(Constants.PID_Constants.kDrive.P, Constants.PID_Constants.kDrive.I, Constants.PID_Constants.kDrive.D),
         // This should return the measurement
-        hood::getYOffset,
+        () -> 0,
         // This should return the setpoint (can also be a constant)
-        0,
+        () -> 0,
         // This uses the output
         output -> {
-          hood.moveHood(output * .3);
-        });
           // Use the output here
-        
+        });
+        this.driveTrain = driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
   }

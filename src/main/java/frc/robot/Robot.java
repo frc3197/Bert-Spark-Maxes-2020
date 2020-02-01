@@ -7,11 +7,13 @@
 
 package frc.robot;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoSource;
+import edu.wpi.cscore.VideoSource.ConnectionStrategy;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.Hood;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -21,6 +23,8 @@ import frc.robot.subsystems.Hood;
  * project.
  */
 public class Robot extends TimedRobot {
+  private Command m_easyRoute;
+  private Command m_hardRoute;
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
@@ -36,6 +40,11 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     // NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(1);
     m_robotContainer = new RobotContainer();
+    m_robotContainer.m_sendableChooser.addOption("Easy Route", m_easyRoute);
+    m_robotContainer.m_sendableChooser.addOption("Hard Route", m_hardRoute);
+    // usb0 camera object can be tweaked to change brightness/whatever for usb
+    // camera
+    VideoSource usb0 = CameraServer.getInstance().startAutomaticCapture(0);
     // m_robotContainer.hood.calibrateHoodEncoder();
   }
 
@@ -78,11 +87,13 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autonomousCommand.schedule();
+    // m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
-    }
+    // if (m_autonomousCommand != null) {
+    // m_autonomousCommand.schedule();
+    // }
   }
 
   /**

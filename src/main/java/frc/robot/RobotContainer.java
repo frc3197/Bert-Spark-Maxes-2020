@@ -4,26 +4,24 @@ package frc.robot;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Drive;
 import frc.robot.commands.DriveButton;
 import frc.robot.commands.Feed;
-// import frc.robot.commands.DriveButton;
-// import frc.robot.commands.Running;
 import frc.robot.commands.Scrub;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.TakeIn;
-import frc.robot.commands.moveArms;
-import frc.robot.commands.moveHood;
-import frc.robot.commands.moveTurret;
-import frc.robot.commands.AutoCommands.TrackLimelightDistance;
-import frc.robot.commands.AutoCommands.TrackLimelightFollow;
-import frc.robot.commands.AutoCommands.TrackLimelightFollowTwo;
-import frc.robot.commands.AutoCommands.TrackLimelightTurn;
-import frc.robot.commands.AutoCommands.TrackLimelightX;
-import frc.robot.commands.AutoCommands.TrackLimelightY;
+import frc.robot.commands.MoveArms;
+import frc.robot.commands.MoveHood;
+import frc.robot.commands.MoveTurret;
+import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightDistance;
+import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightFollowTwo;
+import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightTurn;
+import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightX;
+import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightY;
 import frc.robot.subsystems.Arms;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanel;
@@ -63,7 +61,7 @@ public class RobotContainer {
   public final Hood hood = new Hood();
   public final Turret turret = new Turret();
   private final Command m_TakeIn = new TakeIn(intake);
-  private final Command m_moveTurret = new moveTurret(turret);
+  private final Command m_moveTurret = new MoveTurret(turret);
   private final Command m_DriveButton = new DriveButton(drivetrain);
   // public final ColorSensorV3 colorSensor = new ColorSensorV3
   public final ColorSensor colorSensor;
@@ -72,13 +70,14 @@ public class RobotContainer {
   public static final NetworkTableInstance ntInst = NetworkTableInstance.getDefault();
   private final Command m_Scrub;
   private final Command m_Shoot = new Shoot(shooter);
+  private final Command m_moveHood = new MoveHood(hood);
   private final TrackLimelightX m_TrackLimelightX = new TrackLimelightX(shooter, drivetrain);
   private final TrackLimelightY m_TrackLimelightY = new TrackLimelightY(shooter, drivetrain);
   private final TrackLimelightTurn m_TrackLimelightTurn = new TrackLimelightTurn(shooter, drivetrain);
   private final TrackLimelightFollowTwo m_TrackLimelightFollowTwo = new TrackLimelightFollowTwo(shooter, drivetrain);
   private final TrackLimelightDistance m_TrackLimelightDistance = new TrackLimelightDistance(shooter, drivetrain);
-  private final Command m_TrackLimelightFollow = new TrackLimelightFollow(drivetrain, m_TrackLimelightX,
-      m_TrackLimelightY);
+
+  public SendableChooser<Command> m_sendableChooser = new SendableChooser<Command>();
 
   /*
    * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
@@ -86,7 +85,7 @@ public class RobotContainer {
   public RobotContainer() {
     colorSensor = new ColorSensor();
     m_Scrub = new Scrub(controlPanel, colorSensor);
-    hood.setDefaultCommand(new moveHood(hood));
+    // hood.setDefaultCommand(new moveHood(hood));
     drivetrain.setDefaultCommand(new Drive(drivetrain));
     shooter.setDefaultCommand(new Shoot(shooter));
     hopper.setDefaultCommand(new Feed(hopper));
@@ -100,7 +99,7 @@ public class RobotContainer {
     driverA.whileHeld(m_TrackLimelightTurn);
     driverA.whileHeld(m_TrackLimelightX);
     driverA.whileHeld(m_TrackLimelightY);
-
+    driverX.whenPressed(m_moveHood);
     // driverX.whenPressed(m_Scrub);
     driverY.whileHeld(m_Scrub);
   }
@@ -115,7 +114,7 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_TrackLimelightFollow;
+    return m_sendableChooser.getSelected();
   }
 
   public static double hoodMotorManual() {

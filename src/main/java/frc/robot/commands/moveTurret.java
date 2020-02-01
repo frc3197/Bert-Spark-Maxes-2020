@@ -10,13 +10,14 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Turret;
 
-public class moveTurret extends CommandBase {
+public class MoveTurret extends CommandBase {
   /**
    * Creates a new moveTurret.
    */
   Turret turret;
- double xOffset = 0;
-  public moveTurret(Turret turret) {
+  double xOffset = 0;
+
+  public MoveTurret(Turret turret) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.turret = turret;
     addRequirements(turret);
@@ -30,17 +31,14 @@ public class moveTurret extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (xOffset != 0){
-     turret.setMotorSpeed(.5);
-    
+    if (xOffset != 0) {
+      turret.setMotorSpeed(.5);
 
-    }else{
+    } else {
 
-
-     turret.setMotorSpeed(0);
+      turret.setMotorSpeed(0);
     }
   }
-  
 
   // Called once the command ends or is interrupted.
   @Override

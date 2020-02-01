@@ -10,13 +10,13 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Hood;
 
-public class moveHood extends CommandBase {
+public class MoveHood extends CommandBase {
 Hood hood;
 double initial = hood.getEncoderPosition();
   /**
    * Creates a new moveHood.
    */
-  public moveHood(Hood hood) {
+  public MoveHood(Hood hood) {
     this.hood = hood;
     addRequirements(hood);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -51,5 +51,5 @@ double initial = hood.getEncoderPosition();
     }
     else{
     return false;
-  }}
-}
+  }}}
+

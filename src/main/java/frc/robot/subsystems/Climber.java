@@ -7,37 +7,18 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
-public class Hood extends SubsystemBase {
-  public static WPI_TalonFX hoodMotor = new WPI_TalonFX(Constants.TalonID.kHood.id);
+public class Climber extends SubsystemBase {
   /**
-   * Creates a new Hood.
+   * Creates a new Climber.
    */
-  public Hood() {
-hoodMotor.setSafetyEnabled(false);
+  public Climber() {
+
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-  }
-public void moveHood(double speed){
-  hoodMotor.set(speed);
-}
-public void resetEncoderPosition(){
-hoodMotor.setSelectedSensorPosition(0);
-}
-
-public void moveHoodtoAngle(){
-}
-
-
-
-  public double getEncoderPosition(){
-    return hoodMotor.getSelectedSensorPosition();
   }
 }
