@@ -64,4 +64,12 @@ public class Shooter extends SubsystemBase {
     return NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
   }
 
+  public double getEncoderValue() {
+    return TalonShooter1.getSelectedSensorPosition();
+  }
+
+  public void resetEncoder() {
+    TalonShooter1.setSelectedSensorPosition(0);
+  }
+
 }

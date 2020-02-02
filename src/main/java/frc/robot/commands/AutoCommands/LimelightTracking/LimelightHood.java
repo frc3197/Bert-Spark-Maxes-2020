@@ -7,39 +7,40 @@
 
 package frc.robot.commands.AutoCommands.LimelightTracking;
 
-import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj2.command.PIDCommand;
-import frc.robot.Constants;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Hood;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class LimelightHood extends PIDCommand {
+public class LimelightHood extends CommandBase {
+  Hood hood;
   /**
    * Creates a new LimelightHood.
    */
   public LimelightHood(Hood hood) {
-    super(
-        // The controller that the command will use
-        new PIDController(Constants.PID_Constants.kHood.P, Constants.PID_Constants.kHood.I, Constants.PID_Constants.kHood.D),
-        // This should return the measurement
-        hood::getYOffset,
-        // This should return the setpoint (can also be a constant)
-        0,
-        // This uses the output
-        output -> {
-          hood.moveHood(output * .3);
-        });
-          // Use the output here
-        
+    this.hood = hood;
+    addRequirements(hood);
     // Use addRequirements() here to declare subsystem dependencies.
-    // Configure additional PID options by calling `getController` here.
+  }
+
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {
+   hood.encoderCalibrate();
+  }
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {
+    hood.moveHoodtoAngle();
+  }
+
+  // Called once the command ends or is interrupted.
+  @Override
+  public void end(boolean interrupted) {
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
