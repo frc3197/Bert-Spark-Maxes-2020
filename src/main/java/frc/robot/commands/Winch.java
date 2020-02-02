@@ -10,14 +10,14 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
-public class Climb extends CommandBase {
+public class Winch extends CommandBase {
+  /**
+   * Creates a new Winch.
+   */
   Climber climber;
   boolean Up;
 
-  /**
-   * Creates a new Climb.
-   */
-  public Climb(Climber climber, boolean Up) {
+  public Winch(Climber climber, boolean Up) {
     this.Up = Up;
     this.climber = climber;
     addRequirements(climber);
@@ -33,16 +33,16 @@ public class Climb extends CommandBase {
   @Override
   public void execute() {
     if (Up) {
-      climber.setTelescopeMotor(0.3);
+      climber.setWinchMotor(0.3);
     } else {
-      climber.setTelescopeMotor(-0.3);
+      climber.setWinchMotor(-0.3);
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climber.setTelescopeMotor(0);
+    climber.setWinchMotor(0);
   }
 
   // Returns true when the command should end.
