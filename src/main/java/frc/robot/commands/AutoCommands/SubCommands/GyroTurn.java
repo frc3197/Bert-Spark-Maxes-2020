@@ -16,6 +16,7 @@ import frc.robot.subsystems.DriveTrain;
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class GyroTurn extends PIDCommand {
+  DriveTrain driveTrain;
   /**
    * Creates a new GyroTurn.
    */
@@ -24,15 +25,20 @@ public class GyroTurn extends PIDCommand {
         // The controller that the command will use
         new PIDController(Constants.PID_Constants.kGyro.P, Constants.PID_Constants.kGyro.I, Constants.PID_Constants.kGyro.D),
         // This should return the measurement
-        () -> 0,
+        driveTrain::getGyroAngle,
         // This should return the setpoint (can also be a constant)
-        () -> 0,
+        angle,
         // This uses the output
         output -> {
-          // Use the output here
+          driveTrain.tankDrive(-output, output);        
         });
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
+    this.driveTrain = driveTrain;
+  }
+
+  public void initialize() {
+    driveTrain.resetGyro();
   }
 
   // Returns true when the command should end.

@@ -10,16 +10,19 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Shooter;
 
 public class Shoot extends CommandBase {
   private Shooter shooter;
+  private Hopper hopper;
 
   /**
    * Creates a new ShooterTest.
    */
-  public Shoot(Shooter shooter) {
+  public Shoot(Shooter shooter, Hopper hopper) {
     this.shooter = shooter;
+    this.hopper = hopper;
     addRequirements(shooter);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -32,8 +35,9 @@ public class Shoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putNumber("Right Trigger", RobotContainer.getShot());
-    shooter.shooterVelocity(RobotContainer.targetVelocity(RobotContainer.getShot(), 2750));
+    SmartDashboard.putNumber("Right Trigger", RobotContainer.getShooter());
+    shooter.shooterVelocity(RobotContainer.targetVelocity(RobotContainer.getShooter(), 2750));
+    hopper.hopperElevator(0.5);
     // takes right trigger axis of driver 1 and runs up to 5500 RPM
   }
 

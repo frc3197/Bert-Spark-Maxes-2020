@@ -5,39 +5,41 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.AutoCommands.SubCommands;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
 
-public class DriveButton extends CommandBase {
+public class ToggleLimelight extends CommandBase {
+  private boolean turnOn;
   /**
-   * 
-   * Creates a new DriveButton.
+   * Creates a new ToggleLights.
    */
-  DriveTrain drivetrain;
-
-  public DriveButton(DriveTrain drivetrain) {
-    addRequirements(drivetrain);
-    this.drivetrain = drivetrain;
+  public ToggleLimelight(boolean turnOn) {
+    this.turnOn = turnOn;
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.tankDrive(.7, .7);
+    if(turnOn){
+      NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
+      NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
+    }else{
+      NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(1);
+      NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(1);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
   }
 
   // Returns true when the command should end.

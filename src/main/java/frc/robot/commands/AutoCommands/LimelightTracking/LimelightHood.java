@@ -9,21 +9,20 @@ package frc.robot.commands.AutoCommands.LimelightTracking;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
+import frc.robot.Constants;
 import frc.robot.subsystems.Hood;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class LimelightHood extends PIDCommand {
-  Hood hood;
-
   /**
    * Creates a new LimelightHood.
    */
   public LimelightHood(Hood hood) {
     super(
         // The controller that the command will use
-        new PIDController(0, 0, 0),
+        new PIDController(Constants.PID_Constants.kHood.P, Constants.PID_Constants.kHood.I, Constants.PID_Constants.kHood.D),
         // This should return the measurement
         hood::getYOffset,
         // This should return the setpoint (can also be a constant)

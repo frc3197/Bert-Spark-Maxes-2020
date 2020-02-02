@@ -23,20 +23,22 @@ public class Shooter extends SubsystemBase {
 
   public Shooter() {
     TalonShooter1.configFactoryDefault();
+
     TalonShooter1.setSafetyEnabled(false);
-    TalonShooter1.configOpenloopRamp(.25);
-    TalonShooter1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, Constants.kPIDLoopIdx,
+
+    TalonShooter1.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, Constants.kPIDLoopIdx,
         Constants.kTimeoutMs);
+
     TalonShooter1.configNominalOutputForward(0, Constants.kTimeoutMs);
     TalonShooter1.configNominalOutputReverse(0, Constants.kTimeoutMs);
+
     TalonShooter1.configPeakOutputForward(1, Constants.kTimeoutMs);
     TalonShooter1.configPeakOutputReverse(-1, Constants.kTimeoutMs);
+
     TalonShooter1.config_kF(Constants.kPIDLoopIdx, Constants.PID_Constants.kShooter.F, Constants.kTimeoutMs);
     TalonShooter1.config_kP(Constants.kPIDLoopIdx, Constants.PID_Constants.kShooter.P, Constants.kTimeoutMs);
     TalonShooter1.config_kI(Constants.kPIDLoopIdx, Constants.PID_Constants.kShooter.I, Constants.kTimeoutMs);
     TalonShooter1.config_kD(Constants.kPIDLoopIdx, Constants.PID_Constants.kShooter.D, Constants.kTimeoutMs);
-
-    TalonShooter1.setSafetyEnabled(false);
 
   }
 
@@ -45,12 +47,12 @@ public class Shooter extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void shooterVelocity(double motorVal) {
-    TalonShooter1.set(ControlMode.Velocity, -motorVal);
+  public void shooterVelocity(double val) {
+    TalonShooter1.set(ControlMode.Velocity, -val);
   }
 
-  public void setShooter(double speed) {
-    TalonShooter1.set(speed);
+  public void setShooter(double val) {
+    TalonShooter1.set(val);
   }
 
   public double getXOffset() {

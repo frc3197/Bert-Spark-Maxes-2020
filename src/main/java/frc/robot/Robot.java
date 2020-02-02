@@ -7,9 +7,6 @@
 
 package frc.robot;
 
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.cscore.VideoSource;
-import edu.wpi.cscore.VideoSource.ConnectionStrategy;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -42,9 +39,13 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     m_robotContainer.m_sendableChooser.addOption("Easy Route", m_easyRoute);
     m_robotContainer.m_sendableChooser.addOption("Hard Route", m_hardRoute);
+    m_robotContainer.driveTrain.calibrateGyro();
+    m_robotContainer.hood.encoderCalibrate();
     // usb0 camera object can be tweaked to change brightness/whatever for usb
     // camera
-    VideoSource usb0 = CameraServer.getInstance().startAutomaticCapture(0);
+    CameraServer.getInstance().startAutomaticCapture(0);
+    // VideoSource usb0 = CameraServer.getInstance().startAutomaticCapture(0);
+
     // m_robotContainer.hood.calibrateHoodEncoder();
   }
 

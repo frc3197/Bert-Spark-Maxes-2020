@@ -25,16 +25,20 @@ public class DriveDistance extends PIDCommand {
         // The controller that the command will use
         new PIDController(Constants.PID_Constants.kDrive.P, Constants.PID_Constants.kDrive.I, Constants.PID_Constants.kDrive.D),
         // This should return the measurement
-        () -> 0,
+        driveTrain::getEncoderValue,
         // This should return the setpoint (can also be a constant)
-        () -> 0,
+        distance,
         // This uses the output
         output -> {
-          // Use the output here
+          driveTrain.tankDrive(output, output);
         });
-        this.driveTrain = driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
+    this.driveTrain = driveTrain;
+  }
+
+  public void initialize() {
+    driveTrain.resetEncoder();
   }
 
   // Returns true when the command should end.

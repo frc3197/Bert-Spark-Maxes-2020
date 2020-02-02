@@ -8,11 +8,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Hood;
 
 public class MoveHood extends CommandBase {
 Hood hood;
-double initial = hood.getEncoderPosition();
   /**
    * Creates a new moveHood.
    */
@@ -25,16 +25,14 @@ double initial = hood.getEncoderPosition();
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    initial = hood.getEncoderPosition();
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double source = hood.getEncoderPosition();
-    while(source < initial + 100){
-      hood.moveHood(.3);
-  }}
+    hood.moveHood(RobotContainer.getHoodManual());
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -45,11 +43,7 @@ double initial = hood.getEncoderPosition();
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(hood.getEncoderPosition() > initial + 100)
-    {
-      return true;
-    }
-    else{
     return false;
-  }}}
+  }
+}
 

@@ -8,7 +8,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Turret extends SubsystemBase {
@@ -18,14 +17,14 @@ public class Turret extends SubsystemBase {
   private final WPI_TalonFX turretMotor = new WPI_TalonFX(16);
 
   public Turret() {
-
+    turretMotor.setSafetyEnabled(false);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
-  public void setMotorSpeed(double val){
+  public void turn(double val){
     turretMotor.set(val);
   }
 }

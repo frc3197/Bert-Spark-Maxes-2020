@@ -17,7 +17,7 @@ public class Drive extends CommandBase {
   /**
    * Creates a new ExampleCommand.
    *
-   * @param subsystem The subsystem used by this command.
+   * @param driveTrain The Drivetrain subsystem used by this command.
    */
   public Drive(DriveTrain driveTrain) {
     this.driveTrain = driveTrain;
@@ -29,7 +29,8 @@ public class Drive extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    driveTrain.resetEncoderValue();
+    driveTrain.resetEncoder();
+    driveTrain.resetGyro();
 
   }
 
@@ -59,7 +60,6 @@ public class Drive extends CommandBase {
     SmartDashboard.putNumber("Right Motor Input", -tankR);
     // SmartDashboard.putNumber("VelocityValue", driveTrain.CalcFPS());
     SmartDashboard.putNumber("placeholder", RobotContainer.tankDriveLeft());
-    SmartDashboard.putNumber("Ideal Velocity", driveTrain.getVelocityPID());
     // SmartDashboard.putNumber("Velocity SetPoint", (driveTrain.getVelocityPID()));
 
   }
@@ -68,7 +68,8 @@ public class Drive extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    driveTrain.resetEncoderValue();
+    driveTrain.resetGyro();
+    driveTrain.resetEncoder();
     // driveTrain.tankDrive(0, 0);
   }
 

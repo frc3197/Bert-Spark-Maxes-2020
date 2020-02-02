@@ -16,10 +16,10 @@ public class Intake extends SubsystemBase {
   /**
    * Creates a new Intake.
    */
-  public final WPI_TalonFX intakeMotors = new WPI_TalonFX(7);
+  public final WPI_TalonFX intakeMotor = new WPI_TalonFX(7);
 
   public Intake() {
-    intakeMotors.setSafetyEnabled(false);
+    intakeMotor.setSafetyEnabled(false);
 
   }
 
@@ -28,8 +28,8 @@ public class Intake extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void takeIn(double output) {
-    intakeMotors.set(ControlMode.PercentOutput, output);
+  public void takeIn(double val) {
+    intakeMotor.set(ControlMode.PercentOutput, val);
   }
 }
 

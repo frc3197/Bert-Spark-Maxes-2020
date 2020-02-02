@@ -17,11 +17,12 @@ public class ControlPanel extends SubsystemBase {
   /**
    * Creates a new ControlPanel.
    */
-  private WPI_TalonFX TalonControlPanel1 = new WPI_TalonFX(Constants.TalonID.kCtrlP.id);
+  private WPI_TalonFX TalonCPScrub = new WPI_TalonFX(Constants.TalonID.kCPScrub.id);
+  private WPI_TalonFX TalonCPArm = new WPI_TalonFX(Constants.TalonID.kCPArm.id);
 
   public ControlPanel() {
-    TalonControlPanel1.setSafetyEnabled(false);
-
+    TalonCPScrub.setSafetyEnabled(false);
+    TalonCPArm.setSafetyEnabled(false);
   }
 
   @Override
@@ -29,8 +30,12 @@ public class ControlPanel extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void panelSpin(double output) {
-    TalonControlPanel1.set(ControlMode.PercentOutput, output);
+  public void panelSpin(double val) {
+    TalonCPScrub.set(ControlMode.PercentOutput, val);
+  }
+
+  public void moveCPArm(double val) {
+    TalonCPArm.set(ControlMode.PercentOutput, val);
   }
 
 }

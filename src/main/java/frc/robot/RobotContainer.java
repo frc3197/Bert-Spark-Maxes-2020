@@ -8,20 +8,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
 import frc.robot.commands.Drive;
-import frc.robot.commands.DriveButton;
 import frc.robot.commands.Feed;
+import frc.robot.commands.MoveArms;
 import frc.robot.commands.Scrub;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.TakeIn;
-import frc.robot.commands.MoveArms;
 import frc.robot.commands.MoveHood;
 import frc.robot.commands.MoveTurret;
-import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightDistance;
-import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightFollowTwo;
-import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightTurn;
-import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightX;
-import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightY;
+import frc.robot.commands.AutoCommands.LimelightTracking.AlignScript;
+// TODO: UNCOMMENT FOR DEMO
+// import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightFollow;
+
 import frc.robot.subsystems.Arms;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanel;
@@ -46,13 +45,19 @@ public class RobotContainer {
    */
   private static XboxController driver1 = new XboxController(0);
   private static XboxController driver2 = new XboxController(1);
-  public static JoystickButton driver1A = new JoystickButton(driver1, 1);
-  public static JoystickButton driver1X = new JoystickButton(driver1, 3);
-  public static JoystickButton driver1Y = new JoystickButton(driver1, 4);
-  public static JoystickButton driver1B = new JoystickButton(driver1, 2);
 
-  // public final Shooter shooter = new Shooter();
-  public final DriveTrain drivetrain = new DriveTrain();
+  // TODO: UNCOMMENT FOR DEMO
+  // public static JoystickButton driver1A = new JoystickButton(driver1, 1);
+  // public static JoystickButton driver1B = new JoystickButton(driver1, 2);
+  public static JoystickButton driver1X = new JoystickButton(driver1, 3);
+  // public static JoystickButton driver1Y = new JoystickButton(driver1, 4);
+
+  public static JoystickButton driver2A = new JoystickButton(driver1, 1);
+  // public static JoystickButton driver2B = new JoystickButton(driver1, 2);
+  // public static JoystickButton driver2X = new JoystickButton(driver1, 3);
+  // public static JoystickButton driver2Y = new JoystickButton(driver1, 4);
+
+  public final DriveTrain driveTrain = new DriveTrain();
   public final Hopper hopper = new Hopper();
   public final Intake intake = new Intake();
   public final Arms arms = new Arms();
@@ -60,22 +65,12 @@ public class RobotContainer {
   public final Shooter shooter = new Shooter();
   public final Hood hood = new Hood();
   public final Turret turret = new Turret();
-  private final Command m_TakeIn = new TakeIn(intake);
-  private final Command m_moveTurret = new MoveTurret(turret);
-  private final Command m_DriveButton = new DriveButton(drivetrain);
-  // public final ColorSensorV3 colorSensor = new ColorSensorV3
-  public final ColorSensor colorSensor;
-  // private final Command m_DriveButton = new DriveButton(drivetrain);
-  // private final Command m_Running = new Running();
+  public final ColorSensor colorSensor = new ColorSensor();
+
   public static final NetworkTableInstance ntInst = NetworkTableInstance.getDefault();
-  private final Command m_Scrub;
-  private final Command m_Shoot = new Shoot(shooter);
-  private final Command m_moveHood = new MoveHood(hood);
-  private final TrackLimelightX m_TrackLimelightX = new TrackLimelightX(shooter, drivetrain);
-  private final TrackLimelightY m_TrackLimelightY = new TrackLimelightY(shooter, drivetrain);
-  private final TrackLimelightTurn m_TrackLimelightTurn = new TrackLimelightTurn(shooter, drivetrain);
-  private final TrackLimelightFollowTwo m_TrackLimelightFollowTwo = new TrackLimelightFollowTwo(shooter, drivetrain);
-  private final TrackLimelightDistance m_TrackLimelightDistance = new TrackLimelightDistance(shooter, drivetrain);
+
+  // TODO: BELOW IS FOR DEMO PURPOSES ONLY.
+  // private final TrackLimelightFollow m_TrackLimelightFollow = new TrackLimelightFollow(shooter, driveTrain);
 
   public SendableChooser<Command> m_sendableChooser = new SendableChooser<Command>();
 
@@ -83,33 +78,50 @@ public class RobotContainer {
    * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
    */
   public RobotContainer() {
-    colorSensor = new ColorSensor();
-    m_Scrub = new Scrub(controlPanel, colorSensor);
-    // hood.setDefaultCommand(new moveHood(hood));
-    drivetrain.setDefaultCommand(new Drive(drivetrain));
-    shooter.setDefaultCommand(new Shoot(shooter));
-    hopper.setDefaultCommand(new Feed(hopper));
+    driveTrain.setDefaultCommand(new Drive(driveTrain));
+    intake.setDefaultCommand(new TakeIn(intake));
+    arms.setDefaultCommand(new MoveArms(arms));
+    turret.setDefaultCommand(new MoveTurret(turret));
+    hood.setDefaultCommand(new MoveHood(hood));
     controlPanel.setDefaultCommand(new Scrub(controlPanel, colorSensor));
+    shooter.setDefaultCommand(new Shoot(shooter, hopper));
 
     configureButtonBindings();
   }
 
   private void configureButtonBindings() {
-
-    driver1A.whileHeld(m_TrackLimelightTurn);
-    driver1A.whileHeld(m_TrackLimelightX);
-    driver1A.whileHeld(m_TrackLimelightY);
-    driver1X.whenPressed(m_moveHood);
-    // driverX.whenPressed(m_Scrub);
-    driver1Y.whileHeld(m_Scrub);
+    driver2A.whileHeld(new AlignScript(hood, shooter, driveTrain));
+    driver1X.toggleWhenPressed(new Feed(hopper));
+    // TODO: UNCOMMENT FOR DEMO
+    // driver1A.whileHeld(m_TrackLimelightFollow);
   }
 
-  public static double getShot() {
+  public static double getShooter() {
+    return driver2.getTriggerAxis(Hand.kRight);
+  }
+
+  public static double getIntake() {
     return driver1.getTriggerAxis(Hand.kRight);
   }
 
-  public static boolean getHopper() {
-    return driver2.getBumper(Hand.kRight);
+  public static double getHoodManual() {
+    return driver2.getY(Hand.kRight);
+  }
+
+  public static double getTurretManual() {
+    return driver2.getX(Hand.kLeft);
+  }
+
+  public static boolean getFeeder(){
+    return driver1.getXButton();
+  }
+
+  public static boolean getPositionControl() {
+    return driver2.getYButton();
+  }
+
+  public static boolean getRotationControl() {
+    return driver2.getXButton();
   }
 
   public Command getAutonomousCommand() {

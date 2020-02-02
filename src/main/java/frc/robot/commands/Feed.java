@@ -8,7 +8,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.Hopper;
 
 public class Feed extends CommandBase {
@@ -18,11 +17,9 @@ public class Feed extends CommandBase {
   Hopper hopper;
 
   public Feed(Hopper hopper) {
-    addRequirements(hopper);
     // Use addRequirements() here to declare subsystem dependencies.
     this.hopper = hopper;
-
-    // ADD A REQUIREMENT
+    addRequirements(hopper);
   }
 
   // Called when the command is initially scheduled.
@@ -33,19 +30,13 @@ public class Feed extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    boolean hopperOn = RobotContainer.getHopper();
-    if (hopperOn == true) {
-      hopper.hopperStart(.8);
-    } else {
-      hopper.hopperStart(0);
-    }
+    hopper.hopperFeeder(0.8);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    hopper.hopperStart(0);
+    hopper.hopperFeeder(0);
   }
 
   // Returns true when the command should end.

@@ -16,28 +16,30 @@ import frc.robot.subsystems.Shooter;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class TrackLimelightX extends PIDCommand {
+public class TrackLimelightMaintainDistance extends PIDCommand {
   Shooter shooter;
   DriveTrain driveTrain;
-  static double d;
+  // static double d;
+
   /**
    * Creates a new TrackLimelight.
    */
-  public TrackLimelightX(Shooter shooter, DriveTrain driveTrain) {
+  public TrackLimelightMaintainDistance(Shooter shooter, DriveTrain driveTrain) {
     super(
         // The controller that the command will use
-        new PIDController(PID_Constants.kTurn.P, PID_Constants.kTurn.I, PID_Constants.kTurn.D),
+        new PIDController(PID_Constants.kHood.P, PID_Constants.kHood.I, PID_Constants.kHood.D),
         // This should return the measurement
-        shooter::getXOffset,
+        shooter::getYOffset,
         // This should return the setpoint (can also be a constant)
         0,
         // This uses the output
         output -> {
-          d = output;
+          driveTrain.tankDrive((output * .2) + .05, (output * .2) + 0.05);
           // Use the output here
         });
     addRequirements();
     this.driveTrain = driveTrain;
+    getController().setTolerance(2);
   }
 
   public void end() {
@@ -47,10 +49,10 @@ public class TrackLimelightX extends PIDCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return getController().atSetpoint();
   }
 
-  public double usePIDOutput() {
-    return d;
-  }
+  // public double usePIDOutput() {
+  // return d;
+  // }
 }

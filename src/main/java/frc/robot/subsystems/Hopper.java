@@ -17,15 +17,13 @@ public class Hopper extends SubsystemBase {
    * Creates a new Hopper.
    */
 
-  public final WPI_TalonFX hopMotor1 = new WPI_TalonFX(8);
-  public final WPI_TalonFX hopMotor2 = new WPI_TalonFX(9);
-  public final WPI_TalonFX hopMotor3 = new WPI_TalonFX(10);
+  public final WPI_TalonFX hopElevatorMotor = new WPI_TalonFX(8);
+  public final WPI_TalonFX hopFeederMotor = new WPI_TalonFX(9);
   DigitalInput hopperLS = new DigitalInput(3);
 
   public Hopper() {
-    hopMotor1.setSafetyEnabled(false);
-    hopMotor2.setSafetyEnabled(false);
-    hopMotor3.setSafetyEnabled(false);
+    hopElevatorMotor.setSafetyEnabled(false);
+    hopFeederMotor.setSafetyEnabled(false);
 
   }
 
@@ -38,9 +36,11 @@ public class Hopper extends SubsystemBase {
     return hopperLS.get();
   }
 
-  public void hopperStart(double val) {
-    hopMotor1.set(val);
-    hopMotor2.set(val);
-    hopMotor3.set(val);
+  public void hopperFeeder(double val) {
+    hopFeederMotor.set(val);
+  }
+
+  public void hopperElevator(double val) {
+    hopElevatorMotor.set(val);
   }
 }

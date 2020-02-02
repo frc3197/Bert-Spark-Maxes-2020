@@ -10,11 +10,13 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Hood extends SubsystemBase {
   public static WPI_TalonFX hoodMotor = new WPI_TalonFX(Constants.TalonID.kHood.id);
+  DigitalInput hoodLS = new DigitalInput(4);
   /**
    * Creates a new Hood.
    */
@@ -31,12 +33,16 @@ public class Hood extends SubsystemBase {
     hoodMotor.set(speed);
   }
 
-  public void resetEncoderPosition(){
+  public void encoderCalibrate(){
+    while(!hoodLS.get()){
+      hoodMotor.set(-0.2);
+    }
+    hoodMotor.set(0);
     hoodMotor.setSelectedSensorPosition(0);
   }
 
   public void moveHoodtoAngle(){
-
+    //TODO: Test physics, implement, etc.
   }
 
   public double getYOffset() {

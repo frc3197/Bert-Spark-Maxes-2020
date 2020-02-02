@@ -5,31 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.AutoCommands;
+package frc.robot.commands.AutoCommands.LimelightTracking;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.Shoot;
-import frc.robot.commands.AutoCommands.LimelightTracking.AlignScript;
-import frc.robot.commands.AutoCommands.SubCommands.GyroTurn;
-import frc.robot.commands.AutoCommands.SubCommands.TakeInBall;
-import frc.robot.subsystems.Arms;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Hood;
-import frc.robot.subsystems.Hopper;
-import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class HardRoute extends SequentialCommandGroup {
+public class TrackLimelightFollow extends SequentialCommandGroup {
   /**
-   * Creates a new HardRoute.
+   * Creates a new TrackLimelightFollowTwo.
    */
-  public HardRoute(DriveTrain driveTrain, Arms arms, Intake intake, Hood hood, Shooter shooter, Hopper hopper) {
+  public TrackLimelightFollow(Shooter shooter, DriveTrain driveTrain) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super(new TakeInBall(arms, intake, driveTrain, 0), new GyroTurn(driveTrain, 0), 
-          new AlignScript(hood, shooter, driveTrain), new Shoot(shooter, hopper));
+    super(new TrackLimelightTurn(shooter, driveTrain), new TrackLimelightMaintainDistance(shooter, driveTrain));
   }
 }
