@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arms;
 
 public class MoveArms extends CommandBase {
-  Arms arm;
   boolean bottomLimit;
   boolean topLimit;
   boolean isFinished;
@@ -35,27 +34,27 @@ public class MoveArms extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    bottomLimit = arm.getBottomLimit();	    //TODO: Add things
-    topLimit = arm.getTopLimit();	
-    if (bottomLimit && !topLimit) {	
-      while (!topLimit) {	
-        arm.moveArms(0.2);	
-        topLimit = arm.getTopLimit();	
-        bottomLimit = arm.getBottomLimit();	
-      }	
-      isFinished = true;	
-    } else if (topLimit && !bottomLimit) {	
-      while (!bottomLimit) {	
-        arm.moveArms(-0.2);	
-        topLimit = arm.getTopLimit();	
-        bottomLimit = arm.getBottomLimit();	
-      }	
-      isFinished = true;	
-    } else {	
-      arm.moveArms(0);	
-      isFinished = true;	
+    bottomLimit = arms.getBottomLimit(); // TODO: Add things
+    topLimit = arms.getTopLimit();
+    if (bottomLimit && !topLimit) {
+      while (!topLimit) {
+        arms.moveArms(0.2);
+        topLimit = arms.getTopLimit();
+        bottomLimit = arms.getBottomLimit();
+      }
+      isFinished = true;
+    } else if (topLimit && !bottomLimit) {
+      while (!bottomLimit) {
+        arms.moveArms(-0.2);
+        topLimit = arms.getTopLimit();
+        bottomLimit = arms.getBottomLimit();
+      }
+      isFinished = true;
+    } else {
+      arms.moveArms(0);
+      isFinished = true;
     }
-    //TODO: Add things
+    // TODO: Add things
   }
 
   // Called once the command ends or is interrupted.

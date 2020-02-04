@@ -22,18 +22,22 @@ public class ToggleZoom extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(RobotContainer.getZoom()){
-      NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("pipeline").setNumber(0);
-      RobotContainer.toggleZoomBoolean();
-    }else{
-      NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("pipeline").setNumber(1);
-      RobotContainer.toggleZoomBoolean();
-    }
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    boolean getZoom = RobotContainer.getZoom();
+    // NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("pipeline").setNumber(1);
+    if (getZoom) {
+      NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("pipeline").setNumber(0);
+      RobotContainer.toggleZoomBoolean();
+
+    } else {
+      NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("pipeline").setNumber(1);
+      RobotContainer.toggleZoomBoolean();
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -44,6 +48,6 @@ public class ToggleZoom extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
