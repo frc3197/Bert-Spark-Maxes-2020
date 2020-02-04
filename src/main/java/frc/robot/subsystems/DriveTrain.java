@@ -32,6 +32,10 @@ public class DriveTrain extends SubsystemBase {
     l2TalonFX.setSafetyEnabled(false);
     r1TalonFX.setSafetyEnabled(false);
     r2TalonFX.setSafetyEnabled(false);
+    l1TalonFX.configOpenloopRamp(1);
+    l2TalonFX.configOpenloopRamp(1);
+    r1TalonFX.configOpenloopRamp(1);
+    r2TalonFX.configOpenloopRamp(1);
   }
 
   @Override

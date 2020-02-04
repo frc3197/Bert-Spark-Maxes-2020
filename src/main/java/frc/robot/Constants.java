@@ -40,8 +40,8 @@ public final class Constants {
 
   public static enum TalonID {
     kLeft1(1, "Left1"), kLeft2(3, "Left2"), kRight1(0, "Right1"), kRight2(2, "Right2"), kShooter1(10, "Shooter1"),
-    kCPScrub(6, "CPScrub"), kCPArm(7, "CPArm"), kIntake(7, "Intake"), kElevator(7, "elevator"), kHopper(13, "hopper"),
-    kArms1(11, "Arms1"), kArms2(12, "Arms2"), kHood(15, "Hood"), kTurret(16, "Turret"),
+    kCPScrub(20, "CPScrub"), kCPArm(7, "CPArm"), kIntake(6, "Intake"), kElevator(7, "elevator"), kHopper(13, "hopper"),
+    kArms1(9, "Arms1"), kArms2(8, "Arms2"), kHood(15, "Hood"), kTurret(16, "Turret"),
     kclimberWinch(17, "climberWinch"), kclimberTelescope(18, "climberTelescope");
 
     public final int id;

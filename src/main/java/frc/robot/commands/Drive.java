@@ -31,7 +31,7 @@ public class Drive extends CommandBase {
   public void initialize() {
     driveTrain.resetEncoder();
     driveTrain.resetGyro();
-
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -49,15 +49,15 @@ public class Drive extends CommandBase {
     /*
      * Executes the ltankDrive function with the variables we assigned.
      */
-    driveTrain.tankDrive(-tankR, -tankL);
+    driveTrain.tankDrive(tankR, tankL);
     /*
      * Puts the inputs of the Controller onto ShuffleBoard.
      */
     // System.out.println("Velocity Value " + driveTrain.getVelocity());
     // System.out.println(driveTrain.CalcFPS() + " feet per second.");\
 
-    SmartDashboard.putNumber("Left Motor Input", -tankL);
-    SmartDashboard.putNumber("Right Motor Input", -tankR);
+    SmartDashboard.putNumber("Left Motor Input", tankL);
+    SmartDashboard.putNumber("Right Motor Input", tankR);
     // SmartDashboard.putNumber("VelocityValue", driveTrain.CalcFPS());
     SmartDashboard.putNumber("placeholder", RobotContainer.tankDriveLeft());
     // SmartDashboard.putNumber("Velocity SetPoint", (driveTrain.getVelocityPID()));

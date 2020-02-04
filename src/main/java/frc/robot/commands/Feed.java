@@ -30,7 +30,7 @@ public class Feed extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    hopper.hopperFeeder(0.8);
+    hopper.hopperFeeder(-0.4);
   }
 
   // Called once the command ends or is interrupted.
