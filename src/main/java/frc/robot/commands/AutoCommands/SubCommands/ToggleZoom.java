@@ -12,12 +12,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
 public class ToggleZoom extends CommandBase {
-  private double distance;
   /**
    * Creates a new ToggleZoom.
    */
   public ToggleZoom() {
-    distance = RobotContainer.getDistanceFromTarget();
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
