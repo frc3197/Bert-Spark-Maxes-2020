@@ -55,12 +55,18 @@ public class DriveTrain extends SubsystemBase {
     return l1TalonFX.getSelectedSensorPosition();
   }
 
+  public double getDistance() {
+    double ticks = l1TalonFX.getSelectedSensorPosition();
+    double distance = (ticks / 2048) * (6 * Math.PI);
+    return distance;
+  }
+
   public void tankDrive(double l, double r) {
     // System.out.println((l + r) / 2);
     drive.tankDrive(r, l, true);
   }
 
-  public double getGyroAngle(){
+  public double getGyroAngle() {
     return gyro.getAngle();
   }
 }

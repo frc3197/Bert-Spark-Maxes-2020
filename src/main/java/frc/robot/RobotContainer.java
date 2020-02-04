@@ -8,13 +8,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
+import frc.robot.commands.Climb;
 import frc.robot.commands.Drive;
 import frc.robot.commands.Feed;
 import frc.robot.commands.MoveArms;
 import frc.robot.commands.Scrub;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.TakeIn;
+import frc.robot.commands.Winch;
 import frc.robot.commands.MoveHood;
 import frc.robot.commands.MoveTurret;
 import frc.robot.commands.AutoCommands.LimelightTracking.AlignScript;
@@ -22,6 +23,7 @@ import frc.robot.commands.AutoCommands.LimelightTracking.AlignScript;
 // import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightFollow;
 
 import frc.robot.subsystems.Arms;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
@@ -47,10 +49,11 @@ public class RobotContainer {
   private static XboxController driver2 = new XboxController(1);
 
   // TODO: UNCOMMENT FOR DEMO
-  // public static JoystickButton driver1A = new JoystickButton(driver1, 1);
-  // public static JoystickButton driver1B = new JoystickButton(driver1, 2);
+  public static JoystickButton driver1A = new JoystickButton(driver1, 1);
+  public static JoystickButton driver1B = new JoystickButton(driver1, 2);
   public static JoystickButton driver1X = new JoystickButton(driver1, 3);
-  // public static JoystickButton driver1Y = new JoystickButton(driver1, 4);
+  public static JoystickButton driver1Y = new JoystickButton(driver1, 4);
+  public static JoystickButton driver1RS = new JoystickButton(driver1, 8);
 
   public static JoystickButton driver2A = new JoystickButton(driver1, 1);
   // public static JoystickButton driver2B = new JoystickButton(driver1, 2);
@@ -65,12 +68,14 @@ public class RobotContainer {
   public final Shooter shooter = new Shooter();
   public final Hood hood = new Hood();
   public final Turret turret = new Turret();
+  public final Climber climber = new Climber();
   public final ColorSensor colorSensor = new ColorSensor();
 
   public static final NetworkTableInstance ntInst = NetworkTableInstance.getDefault();
 
   // TODO: BELOW IS FOR DEMO PURPOSES ONLY.
-  // private final TrackLimelightFollow m_TrackLimelightFollow = new TrackLimelightFollow(shooter, driveTrain);
+  // private final TrackLimelightFollow m_TrackLimelightFollow = new
+  // TrackLimelightFollow(shooter, driveTrain);
 
   public SendableChooser<Command> m_sendableChooser = new SendableChooser<Command>();
 
@@ -91,7 +96,10 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     driver2A.whileHeld(new AlignScript(hood, shooter, driveTrain));
-    driver1X.toggleWhenPressed(new Feed(hopper));
+    driver1A.toggleWhenPressed(new Feed(hopper));
+    driver1B.whileHeld(new Climb(climber, false));
+    driver1Y.whileHeld(new Climb(climber, true));
+    driver1RS.whileHeld(new Winch(climber, false));
     // TODO: UNCOMMENT FOR DEMO
     // driver1A.whileHeld(m_TrackLimelightFollow);
   }
@@ -112,7 +120,7 @@ public class RobotContainer {
     return driver2.getX(Hand.kLeft);
   }
 
-  public static boolean getFeeder(){
+  public static boolean getFeeder() {
     return driver1.getXButton();
   }
 
