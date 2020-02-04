@@ -10,12 +10,12 @@ package frc.robot.commands.AutoCommands.SubCommands;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ToggleLimelight extends CommandBase {
+public class ToggleLight extends CommandBase {
   private boolean turnOn;
   /**
    * Creates a new ToggleLights.
    */
-  public ToggleLimelight(boolean turnOn) {
+  public ToggleLight(boolean turnOn) {
     this.turnOn = turnOn;
     // Use addRequirements() here to declare subsystem dependencies.
   }

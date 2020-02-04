@@ -20,7 +20,7 @@ import frc.robot.commands.MoveTurret;
 import frc.robot.commands.AutoCommands.LimelightTracking.AlignScript;
 // TODO: UNCOMMENT FOR DEMO
 // import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightFollow;
-
+import frc.robot.commands.AutoCommands.SubCommands.ToggleZoom;
 import frc.robot.subsystems.Arms;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanel;
@@ -39,6 +39,7 @@ import frc.robot.subsystems.Turret;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  private static boolean zoomOn = false;
 
   /**
    * The XboxController for the driver.
@@ -56,6 +57,7 @@ public class RobotContainer {
   // public static JoystickButton driver2B = new JoystickButton(driver1, 2);
   // public static JoystickButton driver2X = new JoystickButton(driver1, 3);
   // public static JoystickButton driver2Y = new JoystickButton(driver1, 4);
+  public static JoystickButton driver2RS = new JoystickButton(driver2, 8);
 
   public final DriveTrain driveTrain = new DriveTrain();
   public final Hopper hopper = new Hopper();
@@ -92,6 +94,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     driver2A.whileHeld(new AlignScript(hood, shooter, driveTrain));
     driver1X.toggleWhenPressed(new Feed(hopper));
+    driver2RS.whenPressed(new ToggleZoom());
     // TODO: UNCOMMENT FOR DEMO
     // driver1A.whileHeld(m_TrackLimelightFollow);
   }
@@ -124,11 +127,6 @@ public class RobotContainer {
     return driver2.getXButton();
   }
 
-  public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_sendableChooser.getSelected();
-  }
-
   public static double hoodMotorManual() {
     return driver2.getY(Hand.kRight);
   }
@@ -150,6 +148,11 @@ public class RobotContainer {
   public static double tankDriveLeft() {
     SmartDashboard.putNumber("Left Joystick", driver1.getY(Hand.kLeft));
     return driver1.getY(Hand.kLeft);
+  }
+
+  public Command getAutonomousCommand() {
+    // An ExampleCommand will run in autonomous
+    return m_sendableChooser.getSelected();
   }
 
   public static double targetVelocity(double source, double RPM) {
@@ -175,6 +178,18 @@ public class RobotContainer {
     double limeDistance = 74 / (Math.tan(ty));
     return limeDistance;
     // Will have to integrate a variable a1 value once set up for limelight angle.
+  }
+
+  public static boolean getZoom(){
+    return zoomOn;
+  }
+
+  public static void toggleZoomBoolean(){
+    if(zoomOn){
+      zoomOn = false;
+    }else{
+      zoomOn = true;
+    }
   }
   // real total hight is 98.25 lime hight is 22.5 75.75 = h2-h1
 }

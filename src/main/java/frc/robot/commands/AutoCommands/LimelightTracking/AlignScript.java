@@ -8,7 +8,7 @@
 package frc.robot.commands.AutoCommands.LimelightTracking;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.AutoCommands.SubCommands.ToggleLimelight;
+import frc.robot.commands.AutoCommands.SubCommands.ToggleLight;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Shooter;
@@ -23,6 +23,6 @@ public class AlignScript extends SequentialCommandGroup {
   public AlignScript(Hood hood, Shooter shooter, DriveTrain driveTrain) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super(new ToggleLimelight(true), new Align(hood, shooter, driveTrain), new ToggleLimelight(false));
+    super(new ToggleLight(true), new Align(hood, shooter, driveTrain), new ToggleLight(false));
   }
 }
