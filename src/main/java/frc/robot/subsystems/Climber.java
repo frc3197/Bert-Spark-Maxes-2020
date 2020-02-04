@@ -7,14 +7,29 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Climber extends SubsystemBase {
   /**
    * Creates a new Climber.
    */
-  public Climber() {
+  public static final WPI_TalonFX climberWinch = new WPI_TalonFX(Constants.TalonID.kclimberWinch.id);
+  public static final WPI_TalonFX climberTelescope = new WPI_TalonFX(Constants.TalonID.kclimberTelescope.id);
 
+  public Climber() {
+    climberWinch.setSafetyEnabled(false);
+    climberTelescope.setSafetyEnabled(false);
+  }
+
+  public void setWinchMotor(double val) {
+    climberWinch.set(val);
+  }
+
+  public void setTelescopeMotor(double val) {
+    climberTelescope.set(val);
   }
 
   @Override

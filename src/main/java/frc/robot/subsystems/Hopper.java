@@ -11,14 +11,15 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Hopper extends SubsystemBase {
   /**
    * Creates a new Hopper.
    */
 
-  public final WPI_TalonFX hopElevatorMotor = new WPI_TalonFX(8);
-  public final WPI_TalonFX hopFeederMotor = new WPI_TalonFX(9);
+  public final WPI_TalonFX hopElevatorMotor = new WPI_TalonFX(Constants.TalonID.kElevator.id);
+  public final WPI_TalonFX hopFeederMotor = new WPI_TalonFX(Constants.TalonID.kHopper.id);
   DigitalInput hopperLS = new DigitalInput(3);
 
   public Hopper() {

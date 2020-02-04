@@ -17,15 +17,17 @@ import frc.robot.subsystems.DriveTrain;
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class DriveDistance extends PIDCommand {
   DriveTrain driveTrain;
+
   /**
    * Creates a new DriveDistance.
    */
   public DriveDistance(DriveTrain driveTrain, double distance) {
     super(
         // The controller that the command will use
-        new PIDController(Constants.PID_Constants.kDrive.P, Constants.PID_Constants.kDrive.I, Constants.PID_Constants.kDrive.D),
+        new PIDController(Constants.PID_Constants.kDrive.P, Constants.PID_Constants.kDrive.I,
+            Constants.PID_Constants.kDrive.D),
         // This should return the measurement
-        driveTrain::getEncoderValue,
+        driveTrain::getDistance,
         // This should return the setpoint (can also be a constant)
         distance,
         // This uses the output
