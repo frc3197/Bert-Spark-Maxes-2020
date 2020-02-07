@@ -8,7 +8,9 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -23,7 +25,10 @@ public class Robot extends TimedRobot {
   private Command m_easyRoute;
   private Command m_hardRoute;
   private Command m_autonomousCommand;
-
+  public DigitalInput hoodCounter = new DigitalInput(6);
+  int count = 0;
+  boolean LS = true;
+  boolean hopperFull = false;
   private RobotContainer m_robotContainer;
 
   /**
@@ -64,10 +69,27 @@ public class Robot extends TimedRobot {
     // newly-scheduled
     // commands, running already-scheduled commands, removing finished or
     // interrupted commands,
-    // and running subsystem periodic() methods. This must be called from the
-    // robot's periodic
-    // block in order for anything in the Command-based framework to work.
+    // and running subsystem periodic() m
+    boolean pressed = hoodCounter.get();
     CommandScheduler.getInstance().run();
+    if (pressed == true) {
+      if (pressed && LS) {
+        count++;
+        LS = false;
+      }
+    }
+    if (pressed == false) {
+      LS = true;
+    }
+    if (count == 3) {
+      hopperFull = true;
+      count = 0;
+    }
+    if (count > 0) {
+      hopperFull = false;
+    }
+    SmartDashboard.putNumber("Hood Count", count);
+    SmartDashboard.putBoolean("Hopper is Full", hopperFull);
   }
 
   /**
