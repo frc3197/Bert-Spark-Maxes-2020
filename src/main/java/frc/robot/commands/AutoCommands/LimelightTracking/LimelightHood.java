@@ -12,11 +12,15 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Hood;
 
+/**
+ * Defines a LimelightHood object.
+ */
 public class LimelightHood extends CommandBase {
   Hood hood;
 
   /**
    * Creates a new LimelightHood.
+   * @param hood Hood subsystem
    */
   public LimelightHood(Hood hood) {
     this.hood = hood;
@@ -24,7 +28,10 @@ public class LimelightHood extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
-  // Called when the command is initially scheduled.
+  /**
+   * Called when the command is initially scheduled.
+   * Calibrates encoder and forces Limelight to use the no hardware zoom pipeline(for accurate distance calculation).
+   */
   @Override
   public void initialize() {
     hood.encoderCalibrate();
@@ -32,13 +39,19 @@ public class LimelightHood extends CommandBase {
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("pipeline").setNumber(0);
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
+  /**
+   * Called every time the scheduler runs while the command is scheduled.
+   * Runs moveHoodtoAngle()
+   */
   @Override
   public void execute() {
     hood.moveHoodtoAngle();
   }
 
-  // Called once the command ends or is interrupted.
+  /**
+   * Called once the command ends or is interrupted.
+   * Switches Limelight to previous pipeline.
+   */
   @Override
   public void end(boolean interrupted) {
     // Changes back to hardware zoom pipeline if it was there
@@ -47,7 +60,9 @@ public class LimelightHood extends CommandBase {
     }
   }
 
-  // Returns true when the command should end.
+  /**
+   * Returns true when the command should end.
+   */
   @Override
   public boolean isFinished() {
     return true;

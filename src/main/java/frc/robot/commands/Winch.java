@@ -10,13 +10,18 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
+/**
+ * Defines a Winch object. Creates climber and Up parameters to be used later.
+ */
 public class Winch extends CommandBase {
-  /**
-   * Creates a new Winch.
-   */
   Climber climber;
   boolean Up;
 
+  /**
+   * Creates a new Winch
+   * @param climber Climber subsystem
+   * @param Up Boolean relating to whether it's up or not
+   */
   public Winch(Climber climber, boolean Up) {
     this.Up = Up;
     this.climber = climber;
@@ -24,12 +29,17 @@ public class Winch extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
-  // Called when the command is initially scheduled.
+  /**
+   * Called when the command is initially scheduled.
+   */
   @Override
   public void initialize() {
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
+  /**
+   * Called every time the scheduler runs while the command is scheduled.
+   * if statement sets winch motor moving forward or backward depending on whether it should be going up or down.
+   */
   @Override
   public void execute() {
     if (Up) {
@@ -39,13 +49,18 @@ public class Winch extends CommandBase {
     }
   }
 
-  // Called once the command ends or is interrupted.
+  /**
+   * Called once the command ends or is interrupted.
+   * Sets winch motor to zero.
+   */
   @Override
   public void end(boolean interrupted) {
     climber.setWinchMotor(0);
   }
 
-  // Returns true when the command should end.
+  /**
+   * Returns true when the command should end.
+   */
   @Override
   public boolean isFinished() {
     return false;

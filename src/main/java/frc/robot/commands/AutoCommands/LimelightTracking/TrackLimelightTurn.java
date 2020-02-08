@@ -16,13 +16,19 @@ import frc.robot.subsystems.Shooter;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
+/**
+ * Defines a TrackLimelightTurn object.
+ */
 public class TrackLimelightTurn extends PIDCommand {
   Shooter shooter;
   DriveTrain driveTrain;
   // static double d;
 
   /**
-   * Creates a new TrackLimelight.
+   * Creates a new TrackLimelightTurn.
+   * @param shooter Shooter subsystem
+   * @param driveTrain Drivetrain subsystem
+   * Creates PID loop and sets constants.
    */
   public TrackLimelightTurn(Shooter shooter, DriveTrain driveTrain) {
     super(
@@ -42,11 +48,18 @@ public class TrackLimelightTurn extends PIDCommand {
     getController().setTolerance(5);
   }
 
+  /**
+   * Called once the command ends.
+   * Sets tankDrive motors on both sides to zero.
+   */
   public void end() {
     driveTrain.tankDrive(0, 0);
   }
 
-  // Returns true when the command should end.
+  /**
+   * Returns true when the command should end.
+   * @return Whether the controller is at the correct setpoint.
+   */
   @Override
   public boolean isFinished() {
     return getController().atSetpoint();

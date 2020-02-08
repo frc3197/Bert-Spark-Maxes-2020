@@ -15,11 +15,17 @@ import frc.robot.subsystems.DriveTrain;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
+/**
+ * Defines a DtriveDistance object. Creates driveTrain parameter for later.
+ */
 public class DriveDistance extends PIDCommand {
   DriveTrain driveTrain;
 
   /**
    * Creates a new DriveDistance.
+   * @param driveTrain DriveTrain subsystem
+   * @param distance Calculated setpoint
+   * Creates PID loop and sets constants.
    */
   public DriveDistance(DriveTrain driveTrain, double distance) {
     super(
@@ -39,11 +45,17 @@ public class DriveDistance extends PIDCommand {
     this.driveTrain = driveTrain;
   }
 
+  /**
+   * Called when the command is initially scheduled.
+   * Resets the DriveTrain motors' encoders.
+   */
   public void initialize() {
     driveTrain.resetEncoder();
   }
 
-  // Returns true when the command should end.
+  /**
+   * Returns true when the command should end.
+   */
   @Override
   public boolean isFinished() {
     return false;
