@@ -11,36 +11,49 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Hood;
 
+/**
+ * Defines a MoveHood object. Creates Hood parameter to be used later.
+ */
 public class MoveHood extends CommandBase {
 Hood hood;
-  /**
-   * Creates a new moveHood.
-   */
+
+ /**
+  * Creates a new MoveHood.
+  * @param hood Hood subsystem
+  */
   public MoveHood(Hood hood) {
     this.hood = hood;
     addRequirements(hood);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
-  // Called when the command is initially scheduled.
+  /**
+   * Called when the command is initially scheduled.
+   */
   @Override
   public void initialize() {
 
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
+  /**
+   * Called every time the scheduler runs while the command is scheduled.
+   */
   @Override
   public void execute() {
     hood.moveHood(RobotContainer.getHoodManual());
   }
 
-  // Called once the command ends or is interrupted.
+  /**
+   * Called once the command ends or is interrupted.
+   */
   @Override
   public void end(boolean interrupted) {
     hood.moveHood(0);
   }
 
-  // Returns true when the command should end.
+  /**
+   * Returns true when the command should end.
+   */
   @Override
   public boolean isFinished() {
     return false;

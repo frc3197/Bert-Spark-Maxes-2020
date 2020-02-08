@@ -15,12 +15,16 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+/**
+ * Defines a Shooter object. Code inside creates a variable for the Shooter motor.
+ */
 public class Shooter extends SubsystemBase {
-  /**
-   * Creates a new Shooter.
-   */
+
   private WPI_TalonSRX TalonShooter1 = new WPI_TalonSRX(Constants.TalonID.kShooter1.id);
 
+  /**
+   * Creates a new Shooter. Code inside configures encoder, minimum and maximum outputs, and PID Loop.
+   */
   public Shooter() {
     TalonShooter1.configFactoryDefault();
 
@@ -42,32 +46,58 @@ public class Shooter extends SubsystemBase {
 
   }
 
+  /**
+   * This method will be called once per scheduler run
+   */
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+  
   }
 
+  /**
+   * Runs Shooter motor based on RPM
+   * @param val RPM value
+   */
   public void shooterVelocity(double val) {
     TalonShooter1.set(ControlMode.Velocity, -val);
   }
 
+  /**
+   * Runs Shooter motor based on speed value
+   * @param val Speed value
+   */
   public void setShooter(double val) {
     TalonShooter1.set(val);
   }
 
+  /**
+   * Pulls Limelight's X Offset value and prints it.
+   * @return Limelight's X Offset value
+   */
   public double getXOffset() {
     System.out.println(NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("tx").getDouble(0));
     return NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("tx").getDouble(0);
   }
 
+  /**
+   * Pulls Limelight's Y Offset value.
+   * @return Limelight's Y-Offset value
+   */
   public double getYOffset() {
     return NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
   }
 
+  /**
+   * Pulls encoder value in ticks.
+   * @return Encoder value in ticks
+   */
   public double getEncoderValue() {
     return TalonShooter1.getSelectedSensorPosition();
   }
 
+  /**
+   * Resets the encoder position to zero.
+   */
   public void resetEncoder() {
     TalonShooter1.setSelectedSensorPosition(0);
   }

@@ -15,10 +15,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
+/**
+ * Defines a Hood object. Code inside creates variables for the hood motor and limit switches.
+ */
 public class Hood extends SubsystemBase {
   public static WPI_TalonFX hoodMotor = new WPI_TalonFX(Constants.TalonID.kHood.id);
   DigitalInput hoodLSFront = new DigitalInput(4);
   DigitalInput hoodLSBack = new DigitalInput(5);
+
   /**
    * Creates a new Hood.
    */
@@ -26,15 +30,24 @@ public class Hood extends SubsystemBase {
     hoodMotor.setSafetyEnabled(false);
   }
 
+  /**
+   * This method will be called once per scheduler run
+   */
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
   }
 
+  /**
+   * Moves the hood motor according to a speed value.
+   * @param speed Speed value for hood. Currently a constant.
+   */
   public void moveHood(double speed){
     hoodMotor.set(speed);
   }
 
+  /**
+   * Implements limit switches. Calibrates the encoder with limit switches.
+   */
   public void encoderCalibrate(){
     if(getForwardLimitSwitch() && getBackwardLimitSwitch()){
       moveHood(0);
@@ -53,6 +66,9 @@ public class Hood extends SubsystemBase {
     hoodMotor.setSelectedSensorPosition(0);
   }
 
+  /**
+   * Moves Hood angle based on calculated distance from target using Limelight values.
+   */
   public void moveHoodtoAngle(){
     /*
     d = distance from the Power Port
@@ -76,18 +92,34 @@ public class Hood extends SubsystemBase {
     //TODO: Test physics, implement, etc.
   }
 
+  /**
+   * Pulls Limelight's Y Offset value.
+   * @return Limelight's Y Offset value
+   */
   public double getYOffset() {
     return NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
   }
 
+  /**
+   * Pulls encoder value in ticks.
+   * @return Encoder value in ticks
+   */
   public double getEncoderPosition(){
     return hoodMotor.getSelectedSensorPosition();
   }
 
+  /**
+   * Pulls state of forward limit switch.
+   * @return State of forward limit switch
+   */
   public boolean getForwardLimitSwitch(){
     return hoodLSFront.get();
   }
 
+  /**
+   * Pulls state of backward limit switch.
+   * @return State of backward limit switch
+   */
   public boolean getBackwardLimitSwitch(){
     return hoodLSBack.get();
   }

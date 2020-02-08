@@ -12,6 +12,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+/**
+ * Defines subsystem for Arms to be used in code.
+ */
 public class Arms extends SubsystemBase {
   /**
    * Creates a new Arms.
@@ -19,6 +22,9 @@ public class Arms extends SubsystemBase {
   public final WPI_TalonFX armsMotor1 = new WPI_TalonFX(11);
   public final WPI_TalonFX armsMotor2 = new WPI_TalonFX(12);
 
+  /**
+   * Creates two limit switches.
+   */
   DigitalInput forwardLS = new DigitalInput(1);
   DigitalInput backwardLS = new DigitalInput(2);
 
@@ -33,15 +39,27 @@ public class Arms extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  /**
+   * Sets motor speed for the arms.
+   * @param output Value for speed of arms. Currently a constant.
+   */
   public void moveArms(double output) {
     armsMotor1.set(output);
     armsMotor2.set(output);
   }
 
+  /**
+   * Pulls state of the top limit switch.
+   * @return State of the top limit switch
+   */
   public boolean getTopLimit(){
     return forwardLS.get();
   }
 
+  /**
+   * Pulls state of the bottom limit switch.
+   * @return State of the bottom limit switch
+   */
   public boolean getBottomLimit(){
     return backwardLS.get();
   }

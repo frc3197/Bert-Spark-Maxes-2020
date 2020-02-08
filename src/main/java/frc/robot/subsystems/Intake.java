@@ -12,22 +12,32 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+/**
+ * Defines an Intake object. Code inside creates a variable for the Intake motor.
+ */
 public class Intake extends SubsystemBase {
+  
+  public final WPI_TalonFX intakeMotor = new WPI_TalonFX(7);
+
   /**
    * Creates a new Intake.
    */
-  public final WPI_TalonFX intakeMotor = new WPI_TalonFX(7);
-
   public Intake() {
     intakeMotor.setSafetyEnabled(false);
 
   }
 
+  /**
+   * This method will be called once per scheduler run
+   */
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
   }
 
+  /**
+   * Runs the Intake motor based on a speed value.
+   * @param val Speed value. Currently a constant.
+   */
   public void takeIn(double val) {
     intakeMotor.set(ControlMode.PercentOutput, val);
   }

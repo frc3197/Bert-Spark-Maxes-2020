@@ -38,6 +38,13 @@ public final class Constants {
     public final double D;
     public final double F;
 
+    /**
+     * Uses variables as parameters.
+     * @param P P variable
+     * @param I I Variable
+     * @param D D Variable
+     * @param F F Variable 
+     */
     private PID_Constants(double P, double I, double D, double F) {
       this.P = P;
       this.I = I;
@@ -46,6 +53,9 @@ public final class Constants {
     }
   }
 
+  /**
+   * Motor ID numbers and what they correspond to.
+   */
   public static enum TalonID {
     kLeft1(1, "Left1"), kLeft2(3, "Left2"), kRight1(0, "Right1"), kRight2(2, "Right2"), kShooter1(10, "Shooter1"),
     kCPScrub(6, "CPScrub"), kCPArm(7, "CPArm"), kIntake(7, "Intake"), kElevator(7, "elevator"), kHopper(13, "hopper"),
@@ -55,6 +65,11 @@ public final class Constants {
     public final int id;
     public final String name;
 
+    /**
+     * Creates Motor COntroller information objects named their respective names above.
+     * @param id ID number(Number)
+     * @param name Motor name(String)
+     */
     private TalonID(int id, String name) {
       this.id = id;
       this.name = name;
@@ -70,7 +85,7 @@ public final class Constants {
    * = name; // }
    */
   // }
-
+  
   public static final int kPIDLoopIdx = 0;
   public static final int kTimeoutMs = 30;
 }
