@@ -14,10 +14,17 @@ import frc.robot.subsystems.Shooter;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
+/**
+ * Defines a TrackLimelightFollow object.
+ */
 public class TrackLimelightFollow extends SequentialCommandGroup {
-  /**
-   * Creates a new TrackLimelightFollowTwo.
-   */
+
+ /**
+  * Creates a new TrackLimelightFollow.
+  * @param shooter Shooter subsystem
+  * @param driveTrain DriveTrain subsystem
+  * Runs selected commands sequentially
+  */
   public TrackLimelightFollow(Shooter shooter, DriveTrain driveTrain) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());

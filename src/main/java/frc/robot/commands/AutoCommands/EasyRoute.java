@@ -19,9 +19,18 @@ import frc.robot.subsystems.Shooter;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
+/**
+ * Defines an EasyRoute object.
+ */
 public class EasyRoute extends SequentialCommandGroup {
+
   /**
    * Creates a new EasyRoute.
+   * @param hood Hood subsystem
+   * @param shooter Shooter subsystem
+   * @param driveTrain DriveTrain subsystem
+   * @param hopper Hopper subsystem
+   * Runs selected commands sequentially.
    */
   public EasyRoute(Hood hood, Shooter shooter, DriveTrain driveTrain, Hopper hopper) {
     // Add your commands in the super() call, e.g.

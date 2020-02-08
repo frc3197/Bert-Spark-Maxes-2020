@@ -15,11 +15,17 @@ import frc.robot.subsystems.DriveTrain;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
+/**
+ * Defines a GyroTurn object. Creates a driveTrain patameter to be used later.
+ */
 public class GyroTurn extends PIDCommand {
   DriveTrain driveTrain;
-  /**
-   * Creates a new GyroTurn.
-   */
+ /**
+  * Creates a new GyroTurn
+  * @param driveTrain DriveTrain subsystem
+  * @param angle Setpoint
+  * Creates the PID loop and sets constants.
+  */
   public GyroTurn(DriveTrain driveTrain, double angle) {
     super(
         // The controller that the command will use
@@ -37,11 +43,17 @@ public class GyroTurn extends PIDCommand {
     this.driveTrain = driveTrain;
   }
 
+  /**
+   * Called when the command is initially scheduled.
+   * Resets the Gyro.
+   */
   public void initialize() {
     driveTrain.resetGyro();
   }
 
-  // Returns true when the command should end.
+  /**
+   * Returns true when the command should end.
+   */
   @Override
   public boolean isFinished() {
     return false;

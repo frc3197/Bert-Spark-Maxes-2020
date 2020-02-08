@@ -18,10 +18,12 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanel;
 
+/**
+ * Defines a Scrub object. Code inside creates parameters, variables for the state of 
+ * rotation control and position control, and variables for which color to sense for.
+ */
 public class Scrub extends CommandBase {
-  /**
-   * Creates a new ControlPanelTurn.
-   */
+  
   private ColorSensor colorSensor;
   private ControlPanel controlPanel;
   private boolean rotationControl = false;
@@ -34,6 +36,11 @@ public class Scrub extends CommandBase {
   private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
   private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
 
+  /**
+   * Creates a new Scrub.
+   * @param controlPanel ControlPanel subsystem
+   * @param colorSensor ColorSensor subsystem
+   */
   public Scrub(ControlPanel controlPanel, ColorSensor colorSensor) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.controlPanel = controlPanel;
@@ -41,7 +48,9 @@ public class Scrub extends CommandBase {
     addRequirements(controlPanel);
   }
 
-  // Called when the command is initially scheduled.
+  /**
+   * Called when the command is initially scheduled.
+   */
   @Override
   public void initialize() {
     m_colorMatcher.addColorMatch(kBlueTarget);
@@ -51,7 +60,13 @@ public class Scrub extends CommandBase {
     //TODO: Toggle On Color Sensor Light
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
+  /**
+   * Called every time the scheduler runs while the command is scheduled.
+   * Runs either rotation control or position control based on two buttons.
+   * Rotation Control: Rotating Control Panel 3-5 times.
+   * Position Control: Rotating Control Panel to a specific color given by FMS during the game.
+   * Loop determines actions taken based on color given by FMS.
+   */
   @Override
   public void execute() {
     SmartDashboard.putNumber("Red", colorSensor.getColor().red);
@@ -109,20 +124,28 @@ public class Scrub extends CommandBase {
     }
   }
 
-  // Called once the command ends or is interrupted.
+  /**
+   * Called once the command ends or is interrupted.
+   */
   @Override
   public void end(boolean interrupted) {
     SmartDashboard.putBoolean("Scrub Running", false);
     //TODO: Toggle Off Color Sensor light
   }
 
-  // Returns true when the command should end.
+  /**
+   * Returns true when the command should end.
+   */
   @Override
   public boolean isFinished() {
     //TODO: add a finished conditional.
     return false;
   }
 
+  /**
+   * Converts detected color values to a string.
+   * @return String name of color detected
+   */
   public String getColorString() {
     Color detectedColor = colorSensor.getColor();
     String colorString;

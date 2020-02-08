@@ -10,12 +10,17 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
+/**
+ * Defines a Climb object. Creates values for later parameters.
+ */
 public class Climb extends CommandBase {
   Climber climber;
   boolean Up;
 
   /**
    * Creates a new Climb.
+   * @param climber Subsytem pulled in to use here.
+   * @param Up Boolean relating to going up.
    */
   public Climb(Climber climber, boolean Up) {
     this.Up = Up;
@@ -24,12 +29,16 @@ public class Climb extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
-  // Called when the command is initially scheduled.
+  /**
+   * Called when the command is initially scheduled.
+   */
   @Override
   public void initialize() {
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
+  /**
+   * Called every time the scheduler runs while the command is scheduled.
+   */
   @Override
   public void execute() {
     if (Up) {
@@ -39,13 +48,17 @@ public class Climb extends CommandBase {
     }
   }
 
-  // Called once the command ends or is interrupted.
+  /**
+   * Called once the command ends or is interrupted.
+   */
   @Override
   public void end(boolean interrupted) {
     climber.setTelescopeMotor(0);
   }
 
-  // Returns true when the command should end.
+  /**
+   * Returns true when the command should end.
+   */
   @Override
   public boolean isFinished() {
     return false;

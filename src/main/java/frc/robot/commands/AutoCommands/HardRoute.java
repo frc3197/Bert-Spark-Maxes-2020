@@ -22,9 +22,19 @@ import frc.robot.subsystems.Shooter;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
+/**
+ * Defines a HardRoute object.
+ */
 public class HardRoute extends SequentialCommandGroup {
   /**
    * Creates a new HardRoute.
+   * @param driveTrain DriveTrain subsystem
+   * @param arms Arms subsystem
+   * @param intake Intake subsystem
+   * @param hood Hood subsystem
+   * @param shooter Shooter subsystem
+   * @param hopper Hopper subsystem
+   * Runs selected commands sequentially.
    */
   public HardRoute(DriveTrain driveTrain, Arms arms, Intake intake, Hood hood, Shooter shooter, Hopper hopper) {
     // Add your commands in the super() call, e.g.

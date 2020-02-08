@@ -17,9 +17,17 @@ import frc.robot.subsystems.Intake;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
+/**
+ * Defines a TakeInBall object.
+ */
 public class TakeInBall extends ParallelCommandGroup {
   /**
    * Creates a new TakeInBall.
+   * @param arms Arms subsystem
+   * @param intake Intake subsystem
+   * @param driveTrain DriveTrain subsystem
+   * @param distance Setpoint
+   * Runs selected commands simultaneously.
    */
   public TakeInBall(Arms arms, Intake intake, DriveTrain driveTrain, double distance) {
     // Add your commands in the super() call, e.g.

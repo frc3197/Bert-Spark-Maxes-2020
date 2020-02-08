@@ -10,20 +10,31 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+/**
+ * Defines a Turret object. Code inside creates a variable for the Turret motor.
+ */
 public class Turret extends SubsystemBase {
-  /**
-   * Creates a new Turret.
-   */
+ 
   private final WPI_TalonFX turretMotor = new WPI_TalonFX(16);
 
+   /**
+   * Creates a new Turret.
+   */
   public Turret() {
     turretMotor.setSafetyEnabled(false);
   }
 
+  /**
+   * This method will be called once per scheduler run
+   */
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
   }
+
+  /**
+   * Runs the Turret motor based on a speed value.
+   * @param val Speed value
+   */
   public void turn(double val){
     turretMotor.set(val);
   }

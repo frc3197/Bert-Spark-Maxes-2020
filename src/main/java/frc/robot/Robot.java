@@ -8,7 +8,9 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -23,7 +25,10 @@ public class Robot extends TimedRobot {
   private Command m_easyRoute;
   private Command m_hardRoute;
   private Command m_autonomousCommand;
-
+  public DigitalInput hoodCounter = new DigitalInput(6);
+  int count = 0;
+  boolean LS = true;
+  boolean hopperFull = false;
   private RobotContainer m_robotContainer;
 
   /**
@@ -51,7 +56,7 @@ public class Robot extends TimedRobot {
 
   /**
    * This function is called every robot packet, no matter the mode. Use this for
-   * items like diagnostics that you want ran during disabled, autonomous,
+   * items like diagnostics that you want run during disabled, autonomous,
    * teleoperated and test.
    *
    * <p>
@@ -64,10 +69,27 @@ public class Robot extends TimedRobot {
     // newly-scheduled
     // commands, running already-scheduled commands, removing finished or
     // interrupted commands,
-    // and running subsystem periodic() methods. This must be called from the
-    // robot's periodic
-    // block in order for anything in the Command-based framework to work.
+    // and running subsystem periodic() m
+    boolean pressed = hoodCounter.get();
     CommandScheduler.getInstance().run();
+    if (pressed == true) {
+      if (pressed && LS) {
+        count++;
+        LS = false;
+      }
+    }
+    if (pressed == false) {
+      LS = true;
+    }
+    if (count == 3) {
+      hopperFull = true;
+      count = 0;
+    }
+    if (count > 0) {
+      hopperFull = false;
+    }
+    SmartDashboard.putNumber("Hood Count", count);
+    SmartDashboard.putBoolean("Hopper is Full", hopperFull);
   }
 
   /**
@@ -77,6 +99,9 @@ public class Robot extends TimedRobot {
   public void disabledInit() {
   }
 
+/**
+ * This function is called periodically during Disabled mode.
+ */
   @Override
   public void disabledPeriodic() {
   }
@@ -104,6 +129,10 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
   }
 
+  /**
+   * This makes sure that the autonomous stops running when teleop starts running. 
+   * If you want the autonomous to continue until interrupted by another command, remove this line or comment it out.
+   */
   @Override
   public void teleopInit() {
     // This makes sure that the autonomous stops running when
@@ -121,6 +150,9 @@ public class Robot extends TimedRobot {
 
   }
 
+  /**
+   * This function is called once when entering test mode.
+   */
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.

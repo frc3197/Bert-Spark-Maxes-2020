@@ -7,7 +7,7 @@
 
 package frc.robot.commands.AutoCommands.LimelightTracking;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Shooter;
@@ -15,9 +15,17 @@ import frc.robot.subsystems.Shooter;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class Align extends ParallelCommandGroup {
+/**
+ * Defines an Align object.
+ */
+public class Align extends SequentialCommandGroup {
+ 
   /**
    * Creates a new Align.
+   * @param hood Hood subsystem
+   * @param shooter Shooter subsystem
+   * @param driveTrain DriveTrain subsystem
+   * Runs selected commands seuentially.
    */
   public Align(Hood hood, Shooter shooter, DriveTrain driveTrain) {
     // Add your commands in the super() call, e.g.

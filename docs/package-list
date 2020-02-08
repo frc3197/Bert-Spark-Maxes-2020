@@ -1,1 +1,6 @@
 frc.robot
+frc.robot.commands
+frc.robot.commands.AutoCommands
+frc.robot.commands.AutoCommands.LimelightTracking
+frc.robot.commands.AutoCommands.SubCommands
+frc.robot.subsystems
