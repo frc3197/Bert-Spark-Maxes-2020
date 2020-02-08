@@ -44,24 +44,34 @@ public class RobotContainer {
   private static boolean zoomOn = false;
 
   /**
-   * The XboxController for the driver.
+   * The XboxController for driver 1.
    */
   private static XboxController driver1 = new XboxController(0);
+  /**
+   * The XboxController for driver 2.
+   */
   private static XboxController driver2 = new XboxController(1);
 
-  // TODO: UNCOMMENT FOR DEMO
+  /**
+   * The buttons for driver 1.
+   */
   public static JoystickButton driver1A = new JoystickButton(driver1, 1);
   public static JoystickButton driver1B = new JoystickButton(driver1, 2);
   public static JoystickButton driver1X = new JoystickButton(driver1, 3);
   public static JoystickButton driver1Y = new JoystickButton(driver1, 4);
   public static JoystickButton driver1RS = new JoystickButton(driver1, 8);
 
+  /**
+   * The buttons for driver 2.
+   */
   public static JoystickButton driver2A = new JoystickButton(driver1, 1);
+   // TODO: UNCOMMENT FOR DEMO
   // public static JoystickButton driver2B = new JoystickButton(driver1, 2);
   // public static JoystickButton driver2X = new JoystickButton(driver1, 3);
   // public static JoystickButton driver2Y = new JoystickButton(driver1, 4);
   public static JoystickButton driver2RS = new JoystickButton(driver2, 8);
 
+  
   public final DriveTrain driveTrain = new DriveTrain();
   public final Hopper hopper = new Hopper();
   public final Intake intake = new Intake();
@@ -73,6 +83,9 @@ public class RobotContainer {
   public final Climber climber = new Climber();
   public final ColorSensor colorSensor = new ColorSensor();
 
+  /**
+   * Table of values for limelight and receiving FMS data.
+   */
   public static final NetworkTableInstance ntInst = NetworkTableInstance.getDefault();
 
   // TODO: BELOW IS FOR DEMO PURPOSES ONLY.
@@ -96,8 +109,11 @@ public class RobotContainer {
     configureButtonBindings();
   }
 
+  /**
+   * Attaches robot commands to buttons.
+   */
   private void configureButtonBindings() {
-    driver1X.toggleWhenPressed(new Feed(hopper));
+    driver1X.toggleWhenPressed(new Winch(climber, true));
     driver1A.toggleWhenPressed(new Feed(hopper));
     driver1B.whileHeld(new Climb(climber, false));
     driver1Y.whileHeld(new Climb(climber, true));
@@ -106,70 +122,110 @@ public class RobotContainer {
     driver2A.whileHeld(new AlignScript(hood, shooter, driveTrain));
     driver2RS.whenPressed(new ToggleZoom());
     // TODO: UNCOMMENT FOR DEMO
-    // driver1A.whileHeld(m_TrackLimelightFollow);
+    // driver2B.whileHeld(m_TrackLimelightFollow);
   }
 
+  /**
+   * Runs Shooter off of driver 2's Right Trigger value.
+   * @return Driver 2's Right Trigger Value
+   */
   public static double getShooter() {
     return driver2.getTriggerAxis(Hand.kRight);
   }
 
+  /**
+   * Runs Intake off of driver 1's RIght Trigger value.
+   * @return Driver 1's Right Trigger Value
+   */
   public static double getIntake() {
     return driver1.getTriggerAxis(Hand.kRight);
   }
 
+  /**
+   * Runs Hood manually from Driver 2's Right Joystick's vertical motion.
+   * @return Vertical motion of Driver 2's Right Joystick
+   */
   public static double getHoodManual() {
     return driver2.getY(Hand.kRight);
   }
 
+  /**
+   * Runs Turret manually from Driver 2's Left Joystick's horizontal motion.
+   * @return Horizontal motion of Driver 2's Left Joystick
+   */
   public static double getTurretManual() {
     return driver2.getX(Hand.kLeft);
   }
 
+  /**
+   * Runs Feeder on push of Driver 1's X Button.
+   * @return State of Driver 1's X Button
+   */
   public static boolean getFeeder() {
     return driver1.getXButton();
   }
 
+  /**
+   * Runs Position Control on push of Driver 2's Y Button.
+   * @return State of Driver 2's Y Button
+   */
   public static boolean getPositionControl() {
     return driver2.getYButton();
   }
 
+  /**
+   * Runs Rotation Control on push of Driver 2's X Button.
+   * @return State of Driver 2's X Button
+   */
   public static boolean getRotationControl() {
     return driver2.getXButton();
   }
 
-  public static double hoodMotorManual() {
-    return driver2.getY(Hand.kRight);
-  }
-
-  public static boolean rotationalControl() {
-    return driver2.getXButton();
-  }
-
-  public static boolean colorControl() {
-    return false;
-    // return driver2.getYButton();
-  }
-
+  /**
+   * Runs Tank Drive on the right side based on vertical motion of Driver 1's Right Joystick.
+   * @return Vertical motion of Driver 1's Right Joystick
+   */
   public static double tankDriveRight() {
     SmartDashboard.putNumber("Right Joystick", driver1.getY(Hand.kRight));
     return driver1.getY(Hand.kRight);
   }
 
+  /**
+   * Runs Tank Drive on the left side based on vertical motion of Driver 1's Left Joystick.
+   * @return Vertical motion of Driver 1's Left Joystick
+   */
   public static double tankDriveLeft() {
     SmartDashboard.putNumber("Left Joystick", driver1.getY(Hand.kLeft));
     return driver1.getY(Hand.kLeft);
   }
 
+  /**
+   * Puts the Autonomous Command on a schedule of commands and runs it.
+   * @return The selection of Autonomous Command
+   */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return m_sendableChooser.getSelected();
   }
 
+  /**
+   * Calculates target velocity for Motor(s) based on inputs and RPM.
+   * @param source Input from source of choosing
+   * @param RPM RPM of Motor(s)
+   * @return Target Velocity value
+   */
   public static double targetVelocity(double source, double RPM) {
     double targetVelocity = source * RPM * 4096 / 600;
     return targetVelocity;
   }
 
+  /**
+   * Pulls Limelight values and prints them:
+   * tv: Whether Limelight detects a valid target
+   * tx: X-position of Limelight in relation to target
+   * ty: Y-position of Limelight in relation to target
+   * ta: Area of screen target occupies
+   */
   public static void pullNetworkTables() {
     double tv = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("tv").getDouble(0);
     double tx = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("tx").getDouble(0);
@@ -181,6 +237,10 @@ public class RobotContainer {
     System.out.println(ta);
   }
 
+  /**
+   * Calculates Limelight's distance from target based on Limelight's Y-position.
+   * @return Calculated Distance
+   */
   public static double getDistanceFromTarget() {
     double ty = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
     ty = Math.toRadians(ty);
@@ -190,10 +250,17 @@ public class RobotContainer {
     // Will have to integrate a variable a1 value once set up for limelight angle.
   }
 
+  /**
+   * Pulls state of zoomOn to be used in toggleZoomBoolean.
+   * @return State of zoomOn
+   */
   public static boolean getZoom(){
     return zoomOn;
   }
 
+  /**
+   * Uses state of boolean zoomOn to toggle between normal zoom and hardware zoom.
+   */
   public static void toggleZoomBoolean(){
     if(zoomOn){
       zoomOn = false;

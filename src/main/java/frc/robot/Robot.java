@@ -56,7 +56,7 @@ public class Robot extends TimedRobot {
 
   /**
    * This function is called every robot packet, no matter the mode. Use this for
-   * items like diagnostics that you want ran during disabled, autonomous,
+   * items like diagnostics that you want run during disabled, autonomous,
    * teleoperated and test.
    *
    * <p>
@@ -99,6 +99,9 @@ public class Robot extends TimedRobot {
   public void disabledInit() {
   }
 
+/**
+ * This function is called periodically during Disabled mode.
+ */
   @Override
   public void disabledPeriodic() {
   }
@@ -126,6 +129,10 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
   }
 
+  /**
+   * This makes sure that the autonomous stops running when teleop starts running. 
+   * If you want the autonomous to continue until interrupted by another command, remove this line or comment it out.
+   */
   @Override
   public void teleopInit() {
     // This makes sure that the autonomous stops running when
@@ -143,6 +150,9 @@ public class Robot extends TimedRobot {
 
   }
 
+  /**
+   * This function is called once when entering test mode.
+   */
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.

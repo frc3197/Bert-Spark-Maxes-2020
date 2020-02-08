@@ -27,7 +27,7 @@ public class TrackLimelightMaintainDistance extends PIDCommand {
   public TrackLimelightMaintainDistance(Shooter shooter, DriveTrain driveTrain) {
     super(
         // The controller that the command will use
-        new PIDController(PID_Constants.kHood.P, PID_Constants.kHood.I, PID_Constants.kHood.D),
+        new PIDController(PID_Constants.kMaintainDistance.P, PID_Constants.kMaintainDistance.I, PID_Constants.kMaintainDistance.D),
         // This should return the measurement
         shooter::getYOffset,
         // This should return the setpoint (can also be a constant)

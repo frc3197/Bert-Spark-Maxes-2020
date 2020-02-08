@@ -21,8 +21,16 @@ package frc.robot;
 
 public final class Constants {
 
+  /**
+   * PID(Proportion, Integral, Derivative) Loop Constants:
+   * kTurn: Turning the robot from Limelight's X-position(Demo Only)
+   * kMaintainDistance: Moves the robot based on calculated distance from Limelight's Y-Position(Demo Only)
+   * kShooter: Tuning the speed of the shooter wheels
+   * kGyro: Turns based off of angle from Gyro Sensor
+   * kDrive: Drives based on encoder values
+   */
   public static enum PID_Constants {
-    kDVelocity(0.001, 0, .009, 0), kTurn(.1, .000125, .02175, 0), kHood(0.75, 0, 0.2025, 0), kShooter(.1, 0, 0, 1),
+    kTurn(.1, .000125, .02175, 0), kMaintainDistance(0.75, 0, 0.2025, 0), kShooter(.1, 0, 0, 1),
     kGyro(0, 0, 0, 0), kDrive(0, 0, 0, 0);
 
     public final double P;
