@@ -99,11 +99,11 @@ public class RobotContainer {
    */
   public RobotContainer() {
     driveTrain.setDefaultCommand(new Drive(driveTrain));
-    intake.setDefaultCommand(new TakeIn(intake));
-    arms.setDefaultCommand(new MoveArms(arms));
-    turret.setDefaultCommand(new MoveTurret(turret));
-    hood.setDefaultCommand(new MoveHood(hood));
-    controlPanel.setDefaultCommand(new Scrub(controlPanel, colorSensor));
+    // intake.setDefaultCommand(new TakeIn(intake));
+    // arms.setDefaultCommand(new MoveArms(arms));
+    // turret.setDefaultCommand(new MoveTurret(turret));
+    // hood.setDefaultCommand(new MoveHood(hood));
+    // controlPanel.setDefaultCommand(new Scrub(controlPanel, colorSensor));
     shooter.setDefaultCommand(new Shoot(shooter, hopper));
 
     configureButtonBindings();

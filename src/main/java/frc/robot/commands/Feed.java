@@ -42,7 +42,7 @@ public class Feed extends CommandBase {
    */
   @Override
   public void execute() {
-    hopper.hopperFeeder(0.8);
+    hopper.hopperFeeder(-0.8);
   }
 
   /**

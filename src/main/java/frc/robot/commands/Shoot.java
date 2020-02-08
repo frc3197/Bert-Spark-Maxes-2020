@@ -43,7 +43,12 @@ public class Shoot extends CommandBase {
     SmartDashboard.putNumber("Shooter Encoder Ticks", shooter.getEncoderValue());
     SmartDashboard.putNumber("Right Trigger", RobotContainer.getShooter());
     shooter.shooterVelocity(RobotContainer.targetVelocity(RobotContainer.getShooter(), 2750));
-    hopper.hopperElevator(0.5);
+    hopper.hopperElevator(RobotContainer.getShooter());
+    if(RobotContainer.getShooter() > 0.2){
+      hopper.hopperFeeder(-0.4);
+    }else{
+      hopper.hopperFeeder(0);
+    }
     // takes right trigger axis of driver 1 and runs up to 5500 RPM
   }
 
@@ -52,7 +57,7 @@ public class Shoot extends CommandBase {
    */
   @Override
   public void end(boolean interrupted) {
-    shooter.setShooter(0);
+    
   }
 
   /**
