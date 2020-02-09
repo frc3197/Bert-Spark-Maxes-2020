@@ -22,16 +22,15 @@ package frc.robot;
 public final class Constants {
 
   /**
-   * PID(Proportion, Integral, Derivative) Loop Constants:
-   * kTurn: Turning the robot from Limelight's X-position(Demo Only)
-   * kMaintainDistance: Moves the robot based on calculated distance from Limelight's Y-Position(Demo Only)
-   * kShooter: Tuning the speed of the shooter wheels
-   * kGyro: Turns based off of angle from Gyro Sensor
-   * kDrive: Drives based on encoder values
+   * PID(Proportion, Integral, Derivative) Loop Constants: kTurn: Turning the
+   * robot from Limelight's X-position(Demo Only) kMaintainDistance: Moves the
+   * robot based on calculated distance from Limelight's Y-Position(Demo Only)
+   * kShooter: Tuning the speed of the shooter wheels kGyro: Turns based off of
+   * angle from Gyro Sensor kDrive: Drives based on encoder values
    */
   public static enum PID_Constants {
-    kTurn(.1, .000125, .02175, 0), kMaintainDistance(0.75, 0, 0.2025, 0), kShooter(.1, 0, 0, 1),
-    kGyro(0, 0, 0, 0), kDrive(0, 0, 0, 0);
+    kTurn(.1, .000125, .02175, 0), kMaintainDistance(0.75, 0, 0.2025, 0), kShooter(.1, 0, 0, 1), kGyro(0, 0, 0, 0),
+    kDrive(0, 0, 0, 0);
 
     public final double P;
     public final double I;
@@ -40,10 +39,11 @@ public final class Constants {
 
     /**
      * Uses variables as parameters.
+     * 
      * @param P P variable
      * @param I I Variable
      * @param D D Variable
-     * @param F F Variable 
+     * @param F F Variable
      */
     private PID_Constants(double P, double I, double D, double F) {
       this.P = P;
@@ -57,17 +57,19 @@ public final class Constants {
    * Motor ID numbers and what they correspond to.
    */
   public static enum TalonID {
-    kLeft1(1, "Left1"), kLeft2(3, "Left2"), kRight1(0, "Right1"), kRight2(2, "Right2"), kShooter1(10, "Shooter1"),
-    kCPScrub(20, "CPScrub"), kCPArm(7, "CPArm"), kIntake(6, "Intake"), kElevator(7, "elevator"), kHopper(13, "hopper"),
-    kArms1(9, "Arms1"), kArms2(8, "Arms2"), kHood(15, "Hood"), kTurret(16, "Turret"),
-    kclimberWinch(17, "climberWinch"), kclimberTelescope(18, "climberTelescope");
-    
+    kLeft1(1, "Left1"), kLeft2(3, "Left2"), kRight1(0, "Right1"), kRight2(2, "Right2"), kShooter1(15, "Shooter1"),
+    kCPScrub(20, "CPScrub"), kCPArm(25, "CPArm"), kIntake(6, "Intake"), kElevator(7, "elevator"), kHopper(13, "hopper"),
+    kArms1(9, "Arms1"), kArms2(8, "Arms2"), kHood(10, "Hood"), kTurret(11, "Turret"), kclimberWinch(17, "climberWinch"),
+    kclimberTelescope(18, "climberTelescope");
+
     public final int id;
     public final String name;
 
     /**
-     * Creates Motor COntroller information objects named their respective names above.
-     * @param id ID number(Number)
+     * Creates Motor COntroller information objects named their respective names
+     * above.
+     * 
+     * @param id   ID number(Number)
      * @param name Motor name(String)
      */
     private TalonID(int id, String name) {
@@ -85,7 +87,7 @@ public final class Constants {
    * = name; // }
    */
   // }
-  
+
   public static final int kPIDLoopIdx = 0;
   public static final int kTimeoutMs = 30;
 }

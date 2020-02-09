@@ -21,7 +21,6 @@ import frc.robot.commands.MoveTurret;
 import frc.robot.commands.AutoCommands.LimelightTracking.AlignScript;
 // TODO: UNCOMMENT FOR DEMO
 // import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightFollow;
-import frc.robot.commands.AutoCommands.SubCommands.ToggleZoom;
 import frc.robot.subsystems.Arms;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ColorSensor;
@@ -65,13 +64,12 @@ public class RobotContainer {
    * The buttons for driver 2.
    */
   public static JoystickButton driver2A = new JoystickButton(driver1, 1);
-   // TODO: UNCOMMENT FOR DEMO
+  // TODO: UNCOMMENT FOR DEMO
   // public static JoystickButton driver2B = new JoystickButton(driver1, 2);
   // public static JoystickButton driver2X = new JoystickButton(driver1, 3);
   // public static JoystickButton driver2Y = new JoystickButton(driver1, 4);
   public static JoystickButton driver2RS = new JoystickButton(driver2, 8);
 
-  
   public final DriveTrain driveTrain = new DriveTrain();
   public final Hopper hopper = new Hopper();
   public final Intake intake = new Intake();
@@ -101,8 +99,8 @@ public class RobotContainer {
     driveTrain.setDefaultCommand(new Drive(driveTrain));
     // intake.setDefaultCommand(new TakeIn(intake));
     // arms.setDefaultCommand(new MoveArms(arms));
-    // turret.setDefaultCommand(new MoveTurret(turret));
-    // hood.setDefaultCommand(new MoveHood(hood));
+    turret.setDefaultCommand(new MoveTurret(turret));
+    hood.setDefaultCommand(new MoveHood(hood));
     // controlPanel.setDefaultCommand(new Scrub(controlPanel, colorSensor));
     shooter.setDefaultCommand(new Shoot(shooter, hopper));
 
@@ -113,20 +111,21 @@ public class RobotContainer {
    * Attaches robot commands to buttons.
    */
   private void configureButtonBindings() {
-    driver1X.toggleWhenPressed(new Winch(climber, true));
+    // driver1X.toggleWhenPressed(new Winch(climber, true));
     driver1A.toggleWhenPressed(new Feed(hopper));
-    driver1B.whileHeld(new Climb(climber, false));
-    driver1Y.whileHeld(new Climb(climber, true));
+    // driver1B.whileHeld(new Climb(climber, false));
+    // driver1Y.whileHeld(new Climb(climber, true));
     driver1RS.whileHeld(new Winch(climber, false));
 
     driver2A.whileHeld(new AlignScript(hood, shooter, driveTrain));
-    driver2RS.whenPressed(new ToggleZoom());
+    // driver2RS.whenPressed(new ToggleZoom());
     // TODO: UNCOMMENT FOR DEMO
     // driver2B.whileHeld(m_TrackLimelightFollow);
   }
 
   /**
    * Runs Shooter off of driver 2's Right Trigger value.
+   * 
    * @return Driver 2's Right Trigger Value
    */
   public static double getShooter() {
@@ -135,6 +134,7 @@ public class RobotContainer {
 
   /**
    * Runs Intake off of driver 1's RIght Trigger value.
+   * 
    * @return Driver 1's Right Trigger Value
    */
   public static double getIntake() {
@@ -143,6 +143,7 @@ public class RobotContainer {
 
   /**
    * Runs Hood manually from Driver 2's Right Joystick's vertical motion.
+   * 
    * @return Vertical motion of Driver 2's Right Joystick
    */
   public static double getHoodManual() {
@@ -151,6 +152,7 @@ public class RobotContainer {
 
   /**
    * Runs Turret manually from Driver 2's Left Joystick's horizontal motion.
+   * 
    * @return Horizontal motion of Driver 2's Left Joystick
    */
   public static double getTurretManual() {
@@ -159,6 +161,7 @@ public class RobotContainer {
 
   /**
    * Runs Feeder on push of Driver 1's X Button.
+   * 
    * @return State of Driver 1's X Button
    */
   public static boolean getFeeder() {
@@ -167,6 +170,7 @@ public class RobotContainer {
 
   /**
    * Runs Position Control on push of Driver 2's Y Button.
+   * 
    * @return State of Driver 2's Y Button
    */
   public static boolean getPositionControl() {
@@ -175,6 +179,7 @@ public class RobotContainer {
 
   /**
    * Runs Rotation Control on push of Driver 2's X Button.
+   * 
    * @return State of Driver 2's X Button
    */
   public static boolean getRotationControl() {
@@ -182,7 +187,9 @@ public class RobotContainer {
   }
 
   /**
-   * Runs Tank Drive on the right side based on vertical motion of Driver 1's Right Joystick.
+   * Runs Tank Drive on the right side based on vertical motion of Driver 1's
+   * Right Joystick.
+   * 
    * @return Vertical motion of Driver 1's Right Joystick
    */
   public static double tankDriveRight() {
@@ -191,7 +198,9 @@ public class RobotContainer {
   }
 
   /**
-   * Runs Tank Drive on the left side based on vertical motion of Driver 1's Left Joystick.
+   * Runs Tank Drive on the left side based on vertical motion of Driver 1's Left
+   * Joystick.
+   * 
    * @return Vertical motion of Driver 1's Left Joystick
    */
   public static double tankDriveLeft() {
@@ -201,6 +210,7 @@ public class RobotContainer {
 
   /**
    * Puts the Autonomous Command on a schedule of commands and runs it.
+   * 
    * @return The selection of Autonomous Command
    */
   public Command getAutonomousCommand() {
@@ -210,8 +220,9 @@ public class RobotContainer {
 
   /**
    * Calculates target velocity for Motor(s) based on inputs and RPM.
+   * 
    * @param source Input from source of choosing
-   * @param RPM RPM of Motor(s)
+   * @param RPM    RPM of Motor(s)
    * @return Target Velocity value
    */
   public static double targetVelocity(double source, double RPM) {
@@ -220,11 +231,9 @@ public class RobotContainer {
   }
 
   /**
-   * Pulls Limelight values and prints them:
-   * tv: Whether Limelight detects a valid target
-   * tx: X-position of Limelight in relation to target
-   * ty: Y-position of Limelight in relation to target
-   * ta: Area of screen target occupies
+   * Pulls Limelight values and prints them: tv: Whether Limelight detects a valid
+   * target tx: X-position of Limelight in relation to target ty: Y-position of
+   * Limelight in relation to target ta: Area of screen target occupies
    */
   public static void pullNetworkTables() {
     double tv = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("tv").getDouble(0);
@@ -239,6 +248,7 @@ public class RobotContainer {
 
   /**
    * Calculates Limelight's distance from target based on Limelight's Y-position.
+   * 
    * @return Calculated Distance
    */
   public static double getDistanceFromTarget() {
@@ -252,19 +262,20 @@ public class RobotContainer {
 
   /**
    * Pulls state of zoomOn to be used in toggleZoomBoolean.
+   * 
    * @return State of zoomOn
    */
-  public static boolean getZoom(){
+  public static boolean getZoom() {
     return zoomOn;
   }
 
   /**
    * Uses state of boolean zoomOn to toggle between normal zoom and hardware zoom.
    */
-  public static void toggleZoomBoolean(){
-    if(zoomOn){
+  public static void toggleZoomBoolean() {
+    if (zoomOn) {
       zoomOn = false;
-    }else{
+    } else {
       zoomOn = true;
     }
   }

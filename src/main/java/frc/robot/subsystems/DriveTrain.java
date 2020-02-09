@@ -12,7 +12,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 /**
- * Defines a DriveTrain object. Code inside creates variables for drive motors used.
+ * Defines a DriveTrain object. Code inside creates variables for drive motors
+ * used.
  */
 public class DriveTrain extends SubsystemBase {
   public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
@@ -35,10 +36,15 @@ public class DriveTrain extends SubsystemBase {
     l2TalonFX.setSafetyEnabled(false);
     r1TalonFX.setSafetyEnabled(false);
     r2TalonFX.setSafetyEnabled(false);
+
     l1TalonFX.configOpenloopRamp(.1);
     l2TalonFX.configOpenloopRamp(.1);
     r1TalonFX.configOpenloopRamp(.1);
     r2TalonFX.configOpenloopRamp(.1);
+    l1TalonFX.setInverted(true);
+    l1TalonFX.setInverted(true);
+    l1TalonFX.setInverted(true);
+    l1TalonFX.setInverted(true);
   }
 
   /**
@@ -46,7 +52,7 @@ public class DriveTrain extends SubsystemBase {
    */
   @Override
   public void periodic() {
-  
+
   }
 
   /**
@@ -72,6 +78,7 @@ public class DriveTrain extends SubsystemBase {
 
   /**
    * Pulls current encoder value
+   * 
    * @return Encoder value
    */
   public double getEncoderValue() {
@@ -80,6 +87,7 @@ public class DriveTrain extends SubsystemBase {
 
   /**
    * Pulls encoder tick value and converts it to inches.
+   * 
    * @return Calculated inches
    */
   public double getDistance() {
@@ -90,6 +98,7 @@ public class DriveTrain extends SubsystemBase {
 
   /**
    * Drives motors based on Y-Axis of each side's joystick.
+   * 
    * @param l Left joystick Y-Axis value
    * @param r Right joystick Y-Axis value
    */
@@ -100,6 +109,7 @@ public class DriveTrain extends SubsystemBase {
 
   /**
    * Pulls Gyro's detected angle
+   * 
    * @return Detected angle
    */
   public double getGyroAngle() {

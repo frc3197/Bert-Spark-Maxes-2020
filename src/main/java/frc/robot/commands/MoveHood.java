@@ -15,12 +15,13 @@ import frc.robot.subsystems.Hood;
  * Defines a MoveHood object. Creates Hood parameter to be used later.
  */
 public class MoveHood extends CommandBase {
-Hood hood;
+  Hood hood;
 
- /**
-  * Creates a new MoveHood.
-  * @param hood Hood subsystem
-  */
+  /**
+   * Creates a new MoveHood.
+   * 
+   * @param hood Hood subsystem
+   */
   public MoveHood(Hood hood) {
     this.hood = hood;
     addRequirements(hood);
@@ -40,7 +41,7 @@ Hood hood;
    */
   @Override
   public void execute() {
-    hood.moveHood(RobotContainer.getHoodManual());
+    hood.moveHood(RobotContainer.getHoodManual() * .5);
   }
 
   /**
@@ -59,4 +60,3 @@ Hood hood;
     return false;
   }
 }
-
