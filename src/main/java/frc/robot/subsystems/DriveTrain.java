@@ -41,10 +41,10 @@ public class DriveTrain extends SubsystemBase {
     l2TalonFX.configOpenloopRamp(.1);
     r1TalonFX.configOpenloopRamp(.1);
     r2TalonFX.configOpenloopRamp(.1);
-    l1TalonFX.setInverted(true);
-    l1TalonFX.setInverted(true);
-    l1TalonFX.setInverted(true);
-    l1TalonFX.setInverted(true);
+    l1TalonFX.setInverted(false);
+    l2TalonFX.setInverted(false);
+    r1TalonFX.setInverted(false);
+    r2TalonFX.setInverted(false);
   }
 
   /**
