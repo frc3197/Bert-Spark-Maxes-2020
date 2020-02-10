@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Turret;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -27,9 +28,9 @@ public class Align extends SequentialCommandGroup {
    * @param driveTrain DriveTrain subsystem
    * Runs selected commands seuentially.
    */
-  public Align(Hood hood, Shooter shooter, DriveTrain driveTrain) {
+  public Align(Hood hood, Shooter shooter, Turret turret) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super(new TrackLimelightTurn(shooter, driveTrain), new LimelightHood(hood));
+    super(new TrackLimelightTurn(shooter, turret), new LimelightHood(hood));
   }
 }

@@ -18,6 +18,7 @@ import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Turret;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -36,10 +37,10 @@ public class HardRoute extends SequentialCommandGroup {
    * @param hopper Hopper subsystem
    * Runs selected commands sequentially.
    */
-  public HardRoute(DriveTrain driveTrain, Arms arms, Intake intake, Hood hood, Shooter shooter, Hopper hopper) {
+  public HardRoute(DriveTrain driveTrain, Arms arms, Intake intake, Hood hood, Shooter shooter, Hopper hopper, Turret turret) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     super(new TakeInBall(arms, intake, driveTrain, 0), new GyroTurn(driveTrain, 0), 
-          new AlignScript(hood, shooter, driveTrain), new Shoot(shooter, hopper));
+          new AlignScript(hood, shooter, turret), new Shoot(shooter, hopper));
   }
 }

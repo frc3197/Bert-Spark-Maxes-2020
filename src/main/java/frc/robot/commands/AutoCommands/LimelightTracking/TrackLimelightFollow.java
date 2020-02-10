@@ -28,6 +28,8 @@ public class TrackLimelightFollow extends SequentialCommandGroup {
   public TrackLimelightFollow(Shooter shooter, DriveTrain driveTrain) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super(new TrackLimelightTurn(shooter, driveTrain), new TrackLimelightMaintainDistance(shooter, driveTrain));
+    super(
+      // new TrackLimelightTurn(shooter, driveTrain),
+       new TrackLimelightMaintainDistance(shooter, driveTrain));
   }
 }

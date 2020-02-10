@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Constants.PID_Constants;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Turret;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -21,16 +22,16 @@ import frc.robot.subsystems.Shooter;
  */
 public class TrackLimelightTurn extends PIDCommand {
   Shooter shooter;
-  DriveTrain driveTrain;
+  Turret turret;
   // static double d;
 
   /**
    * Creates a new TrackLimelightTurn.
    * @param shooter Shooter subsystem
-   * @param driveTrain Drivetrain subsystem
+   * @param turret Drivetrain subsystem
    * Creates PID loop and sets constants.
    */
-  public TrackLimelightTurn(Shooter shooter, DriveTrain driveTrain) {
+  public TrackLimelightTurn(Shooter shooter, Turret turret) {
     super(
         // The controller that the command will use
         new PIDController(PID_Constants.kTurn.P, PID_Constants.kTurn.I, PID_Constants.kTurn.D),
@@ -40,11 +41,11 @@ public class TrackLimelightTurn extends PIDCommand {
         0,
         // This uses the output
         output -> {
-          driveTrain.tankDrive((output * .8) + .05, (-output * .8) + 0.05);
+          turret.turn((output * .8) + .05);
           // Use the output here
         });
     addRequirements();
-    this.driveTrain = driveTrain;
+    this.turret = turret;
     getController().setTolerance(5);
   }
 
@@ -53,7 +54,7 @@ public class TrackLimelightTurn extends PIDCommand {
    * Sets tankDrive motors on both sides to zero.
    */
   public void end() {
-    driveTrain.tankDrive(0, 0);
+    turret.turn(0);
   }
 
   /**
@@ -62,7 +63,8 @@ public class TrackLimelightTurn extends PIDCommand {
    */
   @Override
   public boolean isFinished() {
-    return getController().atSetpoint();
+    return false;
+    // return getController().atSetpoint();
   }
 
   // public double usePIDOutput() {

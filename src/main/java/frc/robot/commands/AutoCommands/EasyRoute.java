@@ -15,6 +15,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Turret;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -32,9 +33,9 @@ public class EasyRoute extends SequentialCommandGroup {
    * @param hopper Hopper subsystem
    * Runs selected commands sequentially.
    */
-  public EasyRoute(Hood hood, Shooter shooter, DriveTrain driveTrain, Hopper hopper) {
+  public EasyRoute(Hood hood, Shooter shooter, DriveTrain driveTrain, Hopper hopper, Turret turret) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super(new AlignScript(hood, shooter, driveTrain), new Shoot(shooter, hopper), new DriveDistance(driveTrain, 0));
+    super(new AlignScript(hood, shooter, turret), new Shoot(shooter, hopper), new DriveDistance(driveTrain, 0));
   }
 }
