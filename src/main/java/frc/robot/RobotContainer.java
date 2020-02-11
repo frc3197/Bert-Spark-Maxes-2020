@@ -117,7 +117,7 @@ public class RobotContainer {
     // driver1Y.whileHeld(new Climb(climber, true));
     driver1RS.whileHeld(new Winch(climber, false));
 
-    driver2A.whileHeld(new AlignScript(hood, shooter, driveTrain));
+    driver2A.whileHeld(new AlignScript(hood, shooter, turret));
     // driver2RS.whenPressed(new ToggleZoom());
     // TODO: UNCOMMENT FOR DEMO
     // driver2B.whileHeld(m_TrackLimelightFollow);
