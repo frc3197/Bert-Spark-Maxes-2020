@@ -75,7 +75,7 @@ public class Shooter extends SubsystemBase {
    * @return Limelight's X Offset value
    */
   public double getXOffset() {
-    System.out.println(NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("tx").getDouble(0));
+    // System.out.println(NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("tx").getDouble(0));
     return NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("tx").getDouble(0);
   }
 
@@ -95,6 +95,10 @@ public class Shooter extends SubsystemBase {
     return TalonShooter1.getSelectedSensorPosition();
   }
 
+  public double getVelocity(){
+    double units = TalonShooter1.getSelectedSensorVelocity();
+    return ((units/2048) * 600);
+  }
   /**
    * Resets the encoder position to zero.
    */

@@ -10,7 +10,6 @@ package frc.robot.commands.AutoCommands.LimelightTracking;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Constants.PID_Constants;
-import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Turret;
 
@@ -46,7 +45,7 @@ public class TrackLimelightTurn extends PIDCommand {
         });
     addRequirements();
     this.turret = turret;
-    getController().setTolerance(5);
+    getController().setTolerance(1);
   }
 
   /**

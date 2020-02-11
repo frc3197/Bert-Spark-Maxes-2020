@@ -11,13 +11,14 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 /**
  * Defines an Intake object. Code inside creates a variable for the Intake motor.
  */
 public class Intake extends SubsystemBase {
   
-  public final WPI_TalonFX intakeMotor = new WPI_TalonFX(7);
+  public final WPI_TalonFX intakeMotor = new WPI_TalonFX(Constants.TalonID.kIntake.id);
 
   /**
    * Creates a new Intake.

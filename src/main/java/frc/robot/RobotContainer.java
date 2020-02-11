@@ -10,11 +10,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Climb;
 import frc.robot.commands.Drive;
+import frc.robot.commands.Elevate;
 import frc.robot.commands.Feed;
 import frc.robot.commands.MoveArms;
-import frc.robot.commands.Scrub;
 import frc.robot.commands.Shoot;
-import frc.robot.commands.TakeIn;
 import frc.robot.commands.Winch;
 import frc.robot.commands.MoveHood;
 import frc.robot.commands.MoveTurret;
@@ -26,6 +25,7 @@ import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
@@ -63,11 +63,12 @@ public class RobotContainer {
   /**
    * The buttons for driver 2.
    */
-  public static JoystickButton driver2A = new JoystickButton(driver1, 1);
+  public static JoystickButton driver2A = new JoystickButton(driver2, 1);
   // TODO: UNCOMMENT FOR DEMO
-  // public static JoystickButton driver2B = new JoystickButton(driver1, 2);
-  // public static JoystickButton driver2X = new JoystickButton(driver1, 3);
-  // public static JoystickButton driver2Y = new JoystickButton(driver1, 4);
+  // public static JoystickButton driver2B = new JoystickButton(driver2, 2);
+  // public static JoystickButton driver2X = new JoystickButton(driver2, 3);
+  // public static JoystickButton driver2Y = new JoystickButton(driver2, 4);
+  public static JoystickButton driver2RB = new JoystickButton(driver2, 6);
   public static JoystickButton driver2RS = new JoystickButton(driver2, 8);
 
   public final DriveTrain driveTrain = new DriveTrain();
@@ -80,7 +81,7 @@ public class RobotContainer {
   public final Turret turret = new Turret();
   public final Climber climber = new Climber();
   public final ColorSensor colorSensor = new ColorSensor();
-
+  public final Elevator elevator = new Elevator(hopper);
   /**
    * Table of values for limelight and receiving FMS data.
    */
@@ -98,7 +99,7 @@ public class RobotContainer {
   public RobotContainer() {
     driveTrain.setDefaultCommand(new Drive(driveTrain));
     // intake.setDefaultCommand(new TakeIn(intake));
-    // arms.setDefaultCommand(new MoveArms(arms));
+    arms.setDefaultCommand(new MoveArms(arms));
     turret.setDefaultCommand(new MoveTurret(turret));
     hood.setDefaultCommand(new MoveHood(hood));
     // controlPanel.setDefaultCommand(new Scrub(controlPanel, colorSensor));
@@ -113,11 +114,12 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // driver1X.toggleWhenPressed(new Winch(climber, true));
     driver1A.toggleWhenPressed(new Feed(hopper));
-    // driver1B.whileHeld(new Climb(climber, false));
-    // driver1Y.whileHeld(new Climb(climber, true));
+    driver1B.whileHeld(new Climb(climber, false));
+    driver1Y.whileHeld(new Climb(climber, true));
     driver1RS.whileHeld(new Winch(climber, false));
 
     driver2A.whileHeld(new AlignScript(hood, shooter, turret));
+    driver2RB.whileHeld(new Elevate(elevator));
     // driver2RS.whenPressed(new ToggleZoom());
     // TODO: UNCOMMENT FOR DEMO
     // driver2B.whileHeld(m_TrackLimelightFollow);
@@ -167,6 +169,30 @@ public class RobotContainer {
   public static boolean getFeeder() {
     return driver1.getXButton();
   }
+  public static boolean getLeftBumper(){
+    return driver1.getBumper(Hand.kLeft);
+  }
+
+  public static boolean getLeftTrigger(){
+    double leftTrigger = driver1.getTriggerAxis(Hand.kLeft); 
+    boolean down = (leftTrigger > .7);
+    return down;
+  }
+  public static double getArm(){
+    if(getLeftBumper())
+    {
+      return .1;
+    }
+    else if(getLeftTrigger())
+    {
+      return -.1;
+    }
+    else{
+     return 0;
+    }
+  }
+
+
 
   /**
    * Runs Position Control on push of Driver 2's Y Button.

@@ -10,19 +10,26 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-
+import frc.robot.subsystems.Hopper;
 /**
- * Defines a Turret object. Code inside creates a variable for the Turret motor.
+ * Defines a Elevator object. Code inside creates variables for 
+ * elevator motor.
  */
-public class Turret extends SubsystemBase {
- 
-  private final WPI_TalonFX turretMotor = new WPI_TalonFX(Constants.TalonID.kTurret.id);
+public class Elevator extends SubsystemBase {
+  Hopper hopper;
 
-   /**
-   * Creates a new Turret.
+  public final WPI_TalonFX hopElevatorMotor = new WPI_TalonFX(Constants.TalonID.kElevator.id);
+
+
+
+  /**
+   * Creates a new Elevator.
    */
-  public Turret() {
-    turretMotor.setSafetyEnabled(false);
+  public Elevator(Hopper hopper) {
+    hopElevatorMotor.setSafetyEnabled(false);
+    this.hopper = hopper;
+   
+
   }
 
   /**
@@ -33,10 +40,14 @@ public class Turret extends SubsystemBase {
   }
 
   /**
-   * Runs the Turret motor based on a speed value.
-   * @param val Speed value
+   * Runs Elevator motor based on a speed value.
+   * @param val Speed value. Curently a constant
    */
-  public void turn(double val){
-    turretMotor.set(val);
+  public void hopperElevator(double val) {
+    hopElevatorMotor.set(val);
+  }
+    public void hopperAll(double val) {
+    hopper.hopperFeeder(val);
+    hopElevatorMotor.set(val);
   }
 }
