@@ -8,54 +8,37 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.Arms;
+import frc.robot.subsystems.Hopper;
 
-/**
- * Defines a MoveArms object. Code inside creates parameters to be used later.
- */
-public class MoveArms extends CommandBase {
-  Arms arms;
-
-   /**
-   * Creates a new MoveArms.
+public class Elevate extends CommandBase {
+  Hopper hopper;
+  /**
+   * Creates a new Elevate.
    */
-  public MoveArms(Arms arms) {
-    this.arms = arms;
-    addRequirements(arms);
+  public Elevate(Hopper hopper) {
+    this.hopper = hopper;
+    addRequirements(hopper);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
-  /**
-   * Called when the command is initially scheduled.
-   */
+  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
   }
 
-  /**
-   * Called every time the scheduler runs while the command is scheduled.
-   * Implements limit switches for preventing overextension and toggling between up and down movement.
-   */
+  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double getArms = RobotContainer.getArm();
-    arms.moveArms(getArms);
- 
-    // TODO: Add things
+    hopper.hopperElevator(0.8);
   }
 
-  /**
-   * Called once the command ends or is interrupted.
-   */
+  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    arms.moveArms(0);
+    hopper.hopperElevator(0);
   }
 
-  /**
-   * Returns true when the command should end.
-   */
+  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;
