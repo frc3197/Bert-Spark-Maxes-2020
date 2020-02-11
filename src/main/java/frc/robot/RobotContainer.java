@@ -63,7 +63,7 @@ public class RobotContainer {
   /**
    * The buttons for driver 2.
    */
-  public static JoystickButton driver2A = new JoystickButton(driver1, 1);
+  public static JoystickButton driver2A = new JoystickButton(driver2, 1);
   // TODO: UNCOMMENT FOR DEMO
   // public static JoystickButton driver2B = new JoystickButton(driver1, 2);
   // public static JoystickButton driver2X = new JoystickButton(driver1, 3);
@@ -117,7 +117,7 @@ public class RobotContainer {
     // driver1Y.whileHeld(new Climb(climber, true));
     driver1RS.whileHeld(new Winch(climber, false));
 
-    driver2A.whileHeld(new AlignScript(hood, shooter, driveTrain));
+    driver2A.whileHeld(new AlignScript(hood, shooter, turret));
     // driver2RS.whenPressed(new ToggleZoom());
     // TODO: UNCOMMENT FOR DEMO
     // driver2B.whileHeld(m_TrackLimelightFollow);
