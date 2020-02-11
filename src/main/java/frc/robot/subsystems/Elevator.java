@@ -10,7 +10,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-
+import frc.robot.subsystems.Hopper;
 /**
  * Defines a Elevator object. Code inside creates variables for 
  * elevator motor.
@@ -25,9 +25,9 @@ public class Elevator extends SubsystemBase {
   /**
    * Creates a new Elevator.
    */
-  public Elevator() {
+  public Elevator(Hopper hopper) {
     hopElevatorMotor.setSafetyEnabled(false);
-    
+    addRequirements(hopper);
 
   }
 
@@ -43,6 +43,10 @@ public class Elevator extends SubsystemBase {
    * @param val Speed value. Curently a constant
    */
   public void hopperElevator(double val) {
+    hopElevatorMotor.set(val);
+  }
+    public void hopperAll(double val) {
+    hopper.hopperFeeder(val);
     hopElevatorMotor.set(val);
   }
 }
