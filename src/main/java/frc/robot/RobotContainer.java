@@ -81,7 +81,7 @@ public class RobotContainer {
   public final Turret turret = new Turret();
   public final Climber climber = new Climber();
   public final ColorSensor colorSensor = new ColorSensor();
-  public final Elevator elevator = new Elevator();
+  public final Elevator elevator = new Elevator(hopper);
   /**
    * Table of values for limelight and receiving FMS data.
    */

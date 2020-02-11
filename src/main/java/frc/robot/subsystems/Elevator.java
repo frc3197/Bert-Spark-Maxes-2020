@@ -16,7 +16,7 @@ import frc.robot.subsystems.Hopper;
  * elevator motor.
  */
 public class Elevator extends SubsystemBase {
-  
+  Hopper hopper;
 
   public final WPI_TalonFX hopElevatorMotor = new WPI_TalonFX(Constants.TalonID.kElevator.id);
 
@@ -27,7 +27,8 @@ public class Elevator extends SubsystemBase {
    */
   public Elevator(Hopper hopper) {
     hopElevatorMotor.setSafetyEnabled(false);
-    addRequirements(hopper);
+    this.hopper = hopper;
+   
 
   }
 
