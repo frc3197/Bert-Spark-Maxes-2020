@@ -75,7 +75,7 @@ public class Shooter extends SubsystemBase {
    * @return Limelight's X Offset value
    */
   public double getXOffset() {
-    System.out.println(NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("tx").getDouble(0));
+    // System.out.println(NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("tx").getDouble(0));
     return NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("tx").getDouble(0);
   }
 
