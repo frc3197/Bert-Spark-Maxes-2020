@@ -27,12 +27,11 @@ public class Shooter extends SubsystemBase {
    */
   public Shooter() {
     TalonShooter1.configFactoryDefault();
-
+    TalonShooter1.setInverted(true);
     TalonShooter1.setSafetyEnabled(false);
 
     TalonShooter1.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, Constants.kPIDLoopIdx,
         Constants.kTimeoutMs);
-
     TalonShooter1.configNominalOutputForward(0, Constants.kTimeoutMs);
     TalonShooter1.configNominalOutputReverse(0, Constants.kTimeoutMs);
 
@@ -59,7 +58,7 @@ public class Shooter extends SubsystemBase {
    * @param val RPM value
    */
   public void shooterVelocity(double val) {
-    TalonShooter1.set(ControlMode.Velocity, -val);
+    TalonShooter1.set(ControlMode.Velocity, val);
   }
 
   /**
@@ -97,7 +96,7 @@ public class Shooter extends SubsystemBase {
 
   public double getVelocity(){
     double units = TalonShooter1.getSelectedSensorVelocity();
-    return ((units/2048) * 600);
+    return ((units/2048) * 60000);
   }
   /**
    * Resets the encoder position to zero.
