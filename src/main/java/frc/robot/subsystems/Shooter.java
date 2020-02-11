@@ -95,6 +95,10 @@ public class Shooter extends SubsystemBase {
     return TalonShooter1.getSelectedSensorPosition();
   }
 
+  public double getVelocity(){
+    double units = TalonShooter1.getSelectedSensorVelocity();
+    return ((units/2048) * 60000);
+  }
   /**
    * Resets the encoder position to zero.
    */
