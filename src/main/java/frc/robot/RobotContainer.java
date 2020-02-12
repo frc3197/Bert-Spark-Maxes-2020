@@ -15,6 +15,7 @@ import frc.robot.commands.Feed;
 import frc.robot.commands.MoveArms;
 import frc.robot.commands.Scrub;
 import frc.robot.commands.Shoot;
+import frc.robot.commands.TakeIn;
 import frc.robot.commands.Winch;
 import frc.robot.commands.MoveHood;
 import frc.robot.commands.MoveTurret;
@@ -98,7 +99,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
     driveTrain.setDefaultCommand(new Drive(driveTrain));
-    // intake.setDefaultCommand(new TakeIn(intake));
+   intake.setDefaultCommand(new TakeIn(intake));
     arms.setDefaultCommand(new MoveArms(arms));
     turret.setDefaultCommand(new MoveTurret(turret));
     hood.setDefaultCommand(new MoveHood(hood));
