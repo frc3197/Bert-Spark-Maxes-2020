@@ -47,13 +47,17 @@ public class Drive extends CommandBase {
      */
     double tankR = RobotContainer.tankDriveRight();
     double tankL = RobotContainer.tankDriveLeft();
+
+    double arcadeR = RobotContainer.arcadeDriveRotation();
+    double arcadeS = RobotContainer.arcadeDriveSpeed();
     RobotContainer.pullNetworkTables();
     System.out.println("Distance From Target: " + RobotContainer.getDistanceFromTarget());
 
     /*
      * Executes the ltankDrive function with the variables we assigned.
      */
-    driveTrain.tankDrive(tankR * .8, tankL * .8);
+    // driveTrain.tankDrive(tankR * .8, tankL * .8);
+    driveTrain.arcadeDrive(arcadeS * .8, arcadeR * .8);
     
     /*
      * Puts the inputs of the Controller onto ShuffleBoard.

@@ -34,7 +34,7 @@ public class LimelightHood extends CommandBase {
    */
   @Override
   public void initialize() {
-    hood.encoderCalibrate();
+    // hood.encoderCalibrate();
     // Forces LimelightHood to use no hardware zoom pipeline
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("pipeline").setNumber(0);
   }

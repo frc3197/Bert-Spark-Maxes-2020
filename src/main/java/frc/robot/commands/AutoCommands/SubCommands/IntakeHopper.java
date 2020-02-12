@@ -5,31 +5,26 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.AutoCommands.LimelightTracking;
+package frc.robot.commands.AutoCommands.SubCommands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.subsystems.Hood;
-import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Turret;
+import frc.robot.commands.Feed;
+import frc.robot.commands.TakeIn;
+import frc.robot.subsystems.Hopper;
+import frc.robot.subsystems.Intake;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-/**
- * Defines an Align object.
- */
-public class Align extends ParallelCommandGroup {
- 
+public class IntakeHopper extends ParallelCommandGroup {
+  Intake intake;
+  Hopper hopper;
   /**
-   * Creates a new Align.
-   * @param hood Hood subsystem
-   * @param shooter Shooter subsystem
-   * @param driveTrain DriveTrain subsystem
-   * Runs selected commands seuentially.
+   * Creates a new IntakeHopper.
    */
-  public Align(Hood hood, Shooter shooter, Turret turret) {
+  public IntakeHopper(Intake intake, Hopper hopper) {
+    super(new TakeIn(intake),new Feed(hopper));
     // Add your commands in the super() call, e.g.
-    // super(new FooCommand(), new BarCommand());
-    super(new TrackLimelightTurn(turret), new LimelightHood(hood));
+    // super(new FooCommand(), new BarCommand());super();
   }
 }

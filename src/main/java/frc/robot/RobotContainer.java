@@ -19,6 +19,7 @@ import frc.robot.commands.Winch;
 import frc.robot.commands.MoveHood;
 import frc.robot.commands.MoveTurret;
 import frc.robot.commands.AutoCommands.LimelightTracking.AlignScript;
+import frc.robot.commands.AutoCommands.SubCommands.IntakeHopper;
 // TODO: UNCOMMENT FOR DEMO
 // import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightFollow;
 import frc.robot.subsystems.Arms;
@@ -60,7 +61,7 @@ public class RobotContainer {
   public static JoystickButton driver1X = new JoystickButton(driver1, 3);
   public static JoystickButton driver1Y = new JoystickButton(driver1, 4);
   public static JoystickButton driver1RS = new JoystickButton(driver1, 8);
-
+  public static JoystickButton driver1RB = new JoystickButton(driver1, 6);
   /**
    * The buttons for driver 2.
    */
@@ -99,7 +100,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
     driveTrain.setDefaultCommand(new Drive(driveTrain));
-   intake.setDefaultCommand(new TakeIn(intake));
+  //  intake.setDefaultCommand(new TakeIn(intake));
     arms.setDefaultCommand(new MoveArms(arms));
     turret.setDefaultCommand(new MoveTurret(turret));
     hood.setDefaultCommand(new MoveHood(hood));
@@ -114,7 +115,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // driver1X.toggleWhenPressed(new Winch(climber, true));
-    driver1A.toggleWhenPressed(new Feed(hopper));
+    driver1A.toggleWhenPressed(new IntakeHopper(intake, hopper));
     driver1B.whileHeld(new Climb(climber, false));
     driver1Y.whileHeld(new Climb(climber, true));
     driver1RS.whileHeld(new Winch(climber, false));
@@ -152,7 +153,9 @@ public class RobotContainer {
   public static double getHoodManual() {
     return driver2.getY(Hand.kRight);
   }
-
+  public static boolean getReverse(){
+    return driver1.getBumper(Hand.kRight);
+  }
   /**
    * Runs Turret manually from Driver 2's Left Joystick's horizontal motion.
    * 
@@ -307,4 +310,11 @@ public class RobotContainer {
     }
   }
   // real total hight is 98.25 lime hight is 22.5 75.75 = h2-h1
+
+public static double arcadeDriveSpeed() {
+	return driver1.getY(Hand.kLeft);
+}
+public static double arcadeDriveRotation(){
+  return driver1.getX(Hand.kRight);
+}
 }

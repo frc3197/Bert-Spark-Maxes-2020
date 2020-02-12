@@ -39,6 +39,10 @@ public class Intake extends SubsystemBase {
    * Runs the Intake motor based on a speed value.
    * @param val Speed value. Currently a constant.
    */
+
+  public void reverseTakeIn(double val){
+    intakeMotor.set(val * -1);
+  }
   public void takeIn(double val) {
     intakeMotor.set(ControlMode.PercentOutput, val);
   }

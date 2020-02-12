@@ -26,26 +26,24 @@ public class TrackLimelightTurn extends PIDCommand {
 
   /**
    * Creates a new TrackLimelightTurn.
-   * @param shooter Shooter subsystem
    * @param turret Drivetrain subsystem
    * Creates PID loop and sets constants.
    */
-  public TrackLimelightTurn(Shooter shooter, Turret turret) {
+  public TrackLimelightTurn(Turret turret) {
     super(
         // The controller that the command will use
         new PIDController(PID_Constants.kTurn.P, PID_Constants.kTurn.I, PID_Constants.kTurn.D),
         // This should return the measurement
-        shooter::getXOffset,
+        turret::getXOffset,
         // This should return the setpoint (can also be a constant)
         0,
         // This uses the output
         output -> {
-          turret.turn((output * .8) + .05);
+          turret.turn((output * .7) + .05);
           // Use the output here
         });
     addRequirements(turret);
     this.turret = turret;
-    getController().setTolerance(1);
   }
 
   /**

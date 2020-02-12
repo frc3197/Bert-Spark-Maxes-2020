@@ -30,7 +30,7 @@ public class Hopper extends SubsystemBase {
   public Hopper() {
     hopElevatorMotor.setSafetyEnabled(false);
     hopFeederMotor.setSafetyEnabled(false);
-
+    hopFeederMotor.setInverted(true);
   }
 
   /**

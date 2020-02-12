@@ -107,6 +107,11 @@ public class DriveTrain extends SubsystemBase {
     drive.tankDrive(r, l, true);
   }
 
+  public void arcadeDrive(double speed, double rotation){
+
+    drive.arcadeDrive(speed, rotation);
+  }
+
   /**
    * Pulls Gyro's detected angle
    * 

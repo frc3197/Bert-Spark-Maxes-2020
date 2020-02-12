@@ -20,8 +20,6 @@ import frc.robot.RobotContainer;
  */
 public class Hood extends SubsystemBase {
   public static WPI_TalonFX hoodMotor = new WPI_TalonFX(Constants.TalonID.kHood.id);
-  DigitalInput hoodLSFront = new DigitalInput(4);
-  DigitalInput hoodLSBack = new DigitalInput(5);
 
   /**
    * Creates a new Hood.
@@ -49,17 +47,28 @@ public class Hood extends SubsystemBase {
    * Implements limit switches. Calibrates the encoder with limit switches.
    */
   public void encoderCalibrate(){
-    if(getForwardLimitSwitch() && getBackwardLimitSwitch()){
+
+    int forwardLimit = hoodMotor.isFwdLimitSwitchClosed();
+    int reverseLimit = hoodMotor.isRevLimitSwitchClosed();
+    int on = 1;
+    int off = 0;
+    if(reverseLimit == on && forwardLimit == on){
       moveHood(0);
-    }else if(getBackwardLimitSwitch()){
+    }
+    else if(reverseLimit == on){
       moveHood(0);
-    }else if(getForwardLimitSwitch()){
-      while(!getBackwardLimitSwitch()){
-        moveHood(-0.2);
+    }
+    
+    else if(forwardLimit == on){
+
+      while(reverseLimit == off){
+        moveHood(-0.7);
       }
-    }else{
-      while(!getBackwardLimitSwitch()){
-        moveHood(-0.2);
+
+    }
+    else{
+      while(reverseLimit == off){
+        moveHood(-0.7);
       }
     }
     hoodMotor.set(0);
@@ -104,6 +113,10 @@ public class Hood extends SubsystemBase {
    * Pulls encoder value in ticks.
    * @return Encoder value in ticks
    */
+  public void resetEncoderPosition(){
+    hoodMotor.setSelectedSensorPosition(0);
+  }
+
   public double getEncoderPosition(){
     return hoodMotor.getSelectedSensorPosition();
   }
@@ -112,15 +125,15 @@ public class Hood extends SubsystemBase {
    * Pulls state of forward limit switch.
    * @return State of forward limit switch
    */
-  public boolean getForwardLimitSwitch(){
-    return hoodLSFront.get();
-  }
+  // public boolean getForwardLimitSwitch(){
+  //   return hoodLSFront.get();
+  // }
 
   /**
    * Pulls state of backward limit switch.
    * @return State of backward limit switch
    */
-  public boolean getBackwardLimitSwitch(){
-    return hoodLSBack.get();
-  }
+  // public boolean getBackwardLimitSwitch(){
+  //   return hoodLSBack.get();
+  // }
 }

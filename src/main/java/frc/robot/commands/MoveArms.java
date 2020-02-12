@@ -42,7 +42,6 @@ public class MoveArms extends CommandBase {
     double getArms = RobotContainer.getArm();
     arms.moveArms(getArms);
  
-    // TODO: Add things
   }
 
   /**

@@ -8,6 +8,8 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -36,6 +38,13 @@ public class Turret extends SubsystemBase {
    * Runs the Turret motor based on a speed value.
    * @param val Speed value
    */
+  public double getXOffset() {
+    // System.out.println(NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("tx").getDouble(0));
+    return NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("tx").getDouble(0);
+  }
+
+
+
   public void turn(double val){
     turretMotor.set(val);
   }
