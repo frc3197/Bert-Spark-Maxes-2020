@@ -43,7 +43,7 @@ public class TrackLimelightTurn extends PIDCommand {
           turret.turn((output * .8) + .05);
           // Use the output here
         });
-    addRequirements();
+    addRequirements(turret);
     this.turret = turret;
     getController().setTolerance(1);
   }

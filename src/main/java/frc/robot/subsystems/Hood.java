@@ -83,9 +83,9 @@ public class Hood extends SubsystemBase {
     double theta = Math.atan(80.25/d);
     double thetaL = 90 - theta;
     double currentTicks = getEncoderPosition();
-    double ticks = 10240 * thetaL;
+    double idealTicks = 10240 * thetaL;
 
-    while(ticks - currentTicks > 0){ //POTENTIAL PROBLEM: ticks is based on thetaL and currentTicks is based on theta. May be wrong.
+    while(idealTicks - currentTicks > 0){ //POTENTIAL PROBLEM: ticks is based on thetaL and currentTicks is based on theta. May be wrong.
       moveHood(0.2);
       currentTicks = getEncoderPosition();
     }
