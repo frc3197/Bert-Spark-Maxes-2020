@@ -7,7 +7,7 @@
 
 package frc.robot.commands.AutoCommands.LimelightTracking;
 
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Turret;
@@ -18,7 +18,7 @@ import frc.robot.subsystems.Turret;
 /**
  * Defines an Align object.
  */
-public class Align extends SequentialCommandGroup {
+public class Align extends ParallelCommandGroup {
  
   /**
    * Creates a new Align.

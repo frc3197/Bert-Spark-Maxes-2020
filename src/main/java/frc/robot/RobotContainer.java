@@ -13,7 +13,6 @@ import frc.robot.commands.Drive;
 import frc.robot.commands.Elevate;
 import frc.robot.commands.Feed;
 import frc.robot.commands.MoveArms;
-import frc.robot.commands.Scrub;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.TakeIn;
 import frc.robot.commands.Winch;
@@ -27,6 +26,7 @@ import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
@@ -82,7 +82,7 @@ public class RobotContainer {
   public final Turret turret = new Turret();
   public final Climber climber = new Climber();
   public final ColorSensor colorSensor = new ColorSensor();
-
+  public final Elevator elevator = new Elevator(hopper);
   /**
    * Table of values for limelight and receiving FMS data.
    */
@@ -120,7 +120,7 @@ public class RobotContainer {
     driver1RS.whileHeld(new Winch(climber, false));
 
     driver2A.whileHeld(new AlignScript(hood, shooter, turret));
-    driver2RB.whileHeld(new Elevate(hopper));
+    driver2RB.whileHeld(new Elevate(elevator));
     // driver2RS.whenPressed(new ToggleZoom());
     // TODO: UNCOMMENT FOR DEMO
     // driver2B.whileHeld(m_TrackLimelightFollow);
@@ -253,7 +253,7 @@ public class RobotContainer {
    * @return Target Velocity value
    */
   public static double targetVelocity(double source, double RPM) {
-    double targetVelocity = source * RPM * 4096 / 600;
+    double targetVelocity = source * (RPM * 4096 / 600);
     return targetVelocity;
   }
 

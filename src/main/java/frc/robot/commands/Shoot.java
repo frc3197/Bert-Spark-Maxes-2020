@@ -43,7 +43,7 @@ public class Shoot extends CommandBase {
     SmartDashboard.putNumber("Shooter Encoder Ticks", shooter.getEncoderValue());
     SmartDashboard.putNumber("Right Trigger", RobotContainer.getShooter());
     SmartDashboard.putNumber("Shooter Velocity", shooter.getVelocity());
-    shooter.shooterVelocity(RobotContainer.targetVelocity(RobotContainer.getShooter(), 2750));
+    shooter.shooterVelocity(RobotContainer.targetVelocity(RobotContainer.getShooter(), 5500));
     // hopper.hopperElevator(RobotContainer.getShooter());
     // if(RobotContainer.getShooter() > 0.2){
     //   hopper.hopperFeeder(-0.4);
