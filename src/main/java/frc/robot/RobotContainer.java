@@ -289,7 +289,7 @@ public class RobotContainer {
     double ty = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
     ty = Math.toRadians(ty);
     System.out.println("offset : " + ty);
-    double limeDistance = 74 / (Math.tan(ty));
+    double limeDistance = 80.25 / (Math.tan(ty));
     return limeDistance;
     // Will have to integrate a variable a1 value once set up for limelight angle.
   }
