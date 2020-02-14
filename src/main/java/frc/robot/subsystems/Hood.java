@@ -62,13 +62,15 @@ public class Hood extends SubsystemBase {
     else if(forwardLimit == on){
 
       while(reverseLimit == off){
-        moveHood(-0.7);
+        moveHood(-0.2);
+        reverseLimit = hoodMotor.isRevLimitSwitchClosed();
       }
 
     }
     else{
       while(reverseLimit == off){
-        moveHood(-0.7);
+        moveHood(-0.2);
+        reverseLimit = hoodMotor.isRevLimitSwitchClosed();
       }
     }
     hoodMotor.set(0);
@@ -81,20 +83,20 @@ public class Hood extends SubsystemBase {
   public void moveHoodtoAngle(){
     /*
     d = distance from the Power Port
-    theta = angle of the hood from the back horizontal
-    thetaL = angle of launch (approximately). Perpendicular to theta
+    thetaL = angle of launch
+    thetaI = target angle of shooter (approximately). Perpendicular to thetaL
     currentTicks = the current encoder position
-    ticks = the ticks that the encoder should be at to be at the correct angle. (Calculated using FLM below)
-      theta degrees(1 rotation/0.2 degrees)(2048 ticks/1 rotation) = 10240 * theta
+    idealTicks = the ticks that the encoder should be at to be at the correct angle. (Calculated using FLM below)
+      thetaI degrees(1 rotation/0.2 degrees)(2048 ticks/1 rotation) = 10240 * thetaI
     Command runs the hood forward until ticks = currentTicks (or when the difference between them is 0)
     */
     double d = RobotContainer.getDistanceFromTarget();
-    double theta = Math.atan(80.25/d);
-    double thetaL = 90 - theta;
+    double thetaL = Math.atan(80.25/d);
+    double thetaI = 90 - thetaL;
     double currentTicks = getEncoderPosition();
-    double idealTicks = 10240 * thetaL;
+    double idealTicks = 10240 * thetaI;
 
-    while(idealTicks - currentTicks > 0){ //POTENTIAL PROBLEM: ticks is based on thetaL and currentTicks is based on theta. May be wrong.
+    while(idealTicks - currentTicks > 0){ 
       moveHood(0.2);
       currentTicks = getEncoderPosition();
     }
