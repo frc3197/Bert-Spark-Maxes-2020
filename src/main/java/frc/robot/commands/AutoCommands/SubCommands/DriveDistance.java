@@ -38,7 +38,7 @@ public class DriveDistance extends PIDCommand {
         distance,
         // This uses the output
         output -> {
-          driveTrain.tankDrive(output, output);
+          driveTrain.arcadeDrive(output + .5, 0 );
         });
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
@@ -58,6 +58,8 @@ public class DriveDistance extends PIDCommand {
    */
   @Override
   public boolean isFinished() {
+    
     return false;
+
   }
 }
