@@ -34,7 +34,7 @@ public class LimelightHood extends CommandBase {
    */
   @Override
   public void initialize() {
-    // hood.encoderCalibrate();
+    hood.encoderCalibrate();
     // Forces LimelightHood to use no hardware zoom pipeline
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("pipeline").setNumber(0);
   }
@@ -45,7 +45,17 @@ public class LimelightHood extends CommandBase {
    */
   @Override
   public void execute() {
-    hood.moveHoodtoAngle();
+    // hood.moveHoodtoAngle();
+    double d = RobotContainer.getDistanceFromTarget();
+    double thetaL = Math.atan(80.25/d);
+    double thetaI = 90 - thetaL;
+    double currentTicks = hood.getEncoderPosition();
+    double idealTicks = 10240 * thetaI;
+
+    while(idealTicks - currentTicks > 0){ 
+      hood.moveHood(0.2);
+      currentTicks = hood.getEncoderPosition();
+    }
   }
 
   /**

@@ -26,6 +26,7 @@ public class Hood extends SubsystemBase {
    */
   public Hood() {
     hoodMotor.setSafetyEnabled(false);
+    hoodMotor.setInverted(true);
   }
 
   /**

@@ -41,13 +41,13 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
     // autonomous chooser on the dashboard.
-    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(1);
-    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(1);
+    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
+    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
     m_robotContainer = new RobotContainer();
     m_robotContainer.m_sendableChooser.addOption("Easy Route", m_easyRoute);
     m_robotContainer.m_sendableChooser.addOption("Hard Route", m_hardRoute);
     m_robotContainer.driveTrain.calibrateGyro();
-    m_robotContainer.hood.encoderCalibrate();
+    // m_robotContainer.hood.encoderCalibrate();
     // usb0 camera object can be tweaked to change brightness/whatever for usb
     // camera
     CameraServer.getInstance().startAutomaticCapture(0);
@@ -143,7 +143,8 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-
+    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
+    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
   }
 
   /**

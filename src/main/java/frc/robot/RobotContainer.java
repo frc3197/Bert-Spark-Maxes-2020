@@ -18,7 +18,10 @@ import frc.robot.commands.TakeIn;
 import frc.robot.commands.Winch;
 import frc.robot.commands.MoveHood;
 import frc.robot.commands.MoveTurret;
+import frc.robot.commands.AutoCommands.LimelightTracking.Align;
 import frc.robot.commands.AutoCommands.LimelightTracking.AlignScript;
+import frc.robot.commands.AutoCommands.LimelightTracking.LimelightHood;
+import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightTurn;
 import frc.robot.commands.AutoCommands.SubCommands.IntakeHopper;
 // TODO: UNCOMMENT FOR DEMO
 // import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightFollow;
@@ -120,7 +123,8 @@ public class RobotContainer {
     driver1Y.whileHeld(new Climb(climber, true));
     driver1RS.whileHeld(new Winch(climber, false));
 
-    driver2A.whileHeld(new AlignScript(hood, shooter, turret));
+    driver2A.whileHeld(new LimelightHood(hood));
+    // driver2A.whileHeld(new Align(hood, shooter, turret));
     driver2RB.whileHeld(new Elevate(elevator));
     // driver2RS.whenPressed(new ToggleZoom());
     // TODO: UNCOMMENT FOR DEMO

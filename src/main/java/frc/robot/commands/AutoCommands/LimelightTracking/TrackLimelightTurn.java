@@ -39,7 +39,7 @@ public class TrackLimelightTurn extends PIDCommand {
         0,
         // This uses the output
         output -> {
-          turret.turn((output * .7) + .05);
+          turret.turn(output * .2);
           // Use the output here
         });
     addRequirements(turret);

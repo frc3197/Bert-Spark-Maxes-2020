@@ -29,7 +29,7 @@ public final class Constants {
    * angle from Gyro Sensor kDrive: Drives based on encoder values
    */
   public static enum PID_Constants {
-    kTurn(.1, .000125, .02175, 0), kMaintainDistance(0.75, 0, 0.2025, 0), kShooter(.2, 0, 0, 1), kGyro(0, 0, 0, 0),
+    kTurn(.2,0, 0, 0), kMaintainDistance(0.75, 0, 0.2025, 0), kShooter(.2, 0, 0, 1), kGyro(0, 0, 0, 0),
     kDrive(0, 0, 0, 0);
 
     public final double P;
