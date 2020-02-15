@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.AutoCommands.EasyRoute;
+import frc.robot.commands.AutoCommands.HardRoute;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 /**
@@ -44,9 +46,16 @@ public class Robot extends TimedRobot {
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
     m_robotContainer = new RobotContainer();
+    m_robotContainer.driveTrain.calibrateGyro();
+    m_easyRoute = new EasyRoute(m_robotContainer.hood, m_robotContainer.shooter, 
+                                m_robotContainer.driveTrain, m_robotContainer.hopper,
+                                m_robotContainer.turret);
+    m_hardRoute = new HardRoute(m_robotContainer.driveTrain, m_robotContainer.arms, 
+                                m_robotContainer.intake, m_robotContainer.hood, 
+                                m_robotContainer.shooter, m_robotContainer.hopper,
+                                m_robotContainer.turret);
     m_robotContainer.m_sendableChooser.addOption("Easy Route", m_easyRoute);
     m_robotContainer.m_sendableChooser.addOption("Hard Route", m_hardRoute);
-    m_robotContainer.driveTrain.calibrateGyro();
     // m_robotContainer.hood.encoderCalibrate();
     // usb0 camera object can be tweaked to change brightness/whatever for usb
     // camera
@@ -117,13 +126,13 @@ public class Robot extends TimedRobot {
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(1);
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(1);
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    m_autonomousCommand.schedule();
+    // m_autonomousCommand.schedule();
     // m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
-    // if (m_autonomousCommand != null) {
-    // m_autonomousCommand.schedule();
-    // }
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.schedule();
+    }
   }
 
   /**
