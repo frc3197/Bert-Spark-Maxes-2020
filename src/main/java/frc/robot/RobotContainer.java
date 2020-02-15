@@ -189,11 +189,11 @@ public class RobotContainer {
   public static double getArm(){
     if(getLeftBumper())
     {
-      return .1;
+      return .3;
     }
     else if(getLeftTrigger())
     {
-      return -.1;
+      return -.3;
     }
     else{
      return 0;
