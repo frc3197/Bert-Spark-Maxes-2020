@@ -46,11 +46,14 @@ public class LimelightHood extends CommandBase {
   @Override
   public void execute() {
     // hood.moveHoodtoAngle();
+    double gearMultiplier = 1/7/7/7*(14/72)*(360);
     double d = RobotContainer.getDistanceFromTarget();
     double thetaL = Math.atan(80.25/d);
     double thetaI = 90 - thetaL;
+    thetaI -= 40;
     double currentTicks = hood.getEncoderPosition();
-    double idealTicks = 10240 * thetaI;
+    //FLM: thetaI(1)
+    double idealTicks = 2048 / gearMultiplier * thetaI;
 
     while(idealTicks - currentTicks > 0){ 
       hood.moveHood(0.2);
