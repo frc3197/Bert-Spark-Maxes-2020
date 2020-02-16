@@ -21,6 +21,7 @@ public class LimelightHood extends CommandBase {
 
   /**
    * Creates a new LimelightHood.
+   * 
    * @param hood Hood subsystem
    */
   public LimelightHood(Hood hood) {
@@ -30,8 +31,9 @@ public class LimelightHood extends CommandBase {
   }
 
   /**
-   * Called when the command is initially scheduled.
-   * Calibrates encoder and forces Limelight to use the no hardware zoom pipeline(for accurate distance calculation).
+   * Called when the command is initially scheduled. Calibrates encoder and forces
+   * Limelight to use the no hardware zoom pipeline(for accurate distance
+   * calculation).
    */
   @Override
   public void initialize() {
@@ -41,24 +43,24 @@ public class LimelightHood extends CommandBase {
   }
 
   /**
-   * Called every time the scheduler runs while the command is scheduled.
-   * Runs moveHoodtoAngle()
+   * Called every time the scheduler runs while the command is scheduled. Runs
+   * moveHoodtoAngle()
    */
   @Override
   public void execute() {
-    
 
     // hood.moveHoodtoAngle();
+    double gearMultiplier = 1 / 7 / 7 / 7 * (14 / 72) * (360);
     double d = RobotContainer.getDistanceFromTarget();
-    double thetaL = Math.atan(80.25/d);
+    double thetaL = Math.atan(80.25 / d);
     double thetaI = 90 - thetaL;
+    thetaI -= 40;
     double currentTicks = hood.getEncoderPosition();
     double idealTicks = 10240 * thetaI;
     SmartDashboard.putNumber("Target Ticks", idealTicks);
     int hoodFwd = hood.hoodMotor.isFwdLimitSwitchClosed();
- 
 
-    while(idealTicks - currentTicks > 0 && hoodFwd == 0){ 
+    while (idealTicks - currentTicks > 0 && hoodFwd == 0) {
       hood.moveHood(0.4);
       SmartDashboard.putNumber("Current Ticks", currentTicks);
       SmartDashboard.putNumber("Ticks Error", idealTicks - currentTicks);
@@ -68,23 +70,24 @@ public class LimelightHood extends CommandBase {
   }
 
   /**
-   * Called once the command ends or is interrupted.
-   * Switches Limelight to previous pipeline.
+   * Called once the command ends or is interrupted. Switches Limelight to
+   * previous pipeline.
    */
   @Override
   public void end(boolean interrupted) {
     // Changes back to hardware zoom pipeline if it was there
     // if (RobotContainer.getZoom()) {
-      // NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("pipeline").setNumber(0);
-    }
-  
+    // NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("pipeline").setNumber(0);
+  }
 
   /**
    * Returns true when the command should end.
    */
   @Override
   public boolean isFinished() {
-    if(hood.hoodMotor.isFwdLimitSwitchClosed() == 1){return true;}
+    if (hood.hoodMotor.isFwdLimitSwitchClosed() == 1) {
+      return true;
+    }
     return false;
   }
 }
