@@ -39,6 +39,6 @@ public class EasyRoute extends SequentialCommandGroup {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     // super(new DriveDistanceSimple(driveTrain));
-    super(new TrackLimelightTurn(turret), new ShootAuto(shooter, hopper),new ElevateAuto(elevator,hopper), new DriveDistanceSimple(driveTrain));
+    super(new TrackLimelightTurn(turret), new ShootAuto(shooter, hopper),new ElevateAuto(elevator,hopper,shooter), new DriveDistanceSimple(driveTrain));
   }
 }

@@ -136,7 +136,7 @@ public class RobotContainer {
     driver2X.toggleWhenPressed(new BackupScrubRot(controlPanel));
     driver2Y.whileHeld(driveDistanceSimple);
     driver2A.whileHeld(new Align(hood, shooter, turret));
-    driver2RB.whileHeld(new Elevate(elevator));
+    driver2RB.whileHeld(new Elevate(elevator,hopper));
     driver2RS.whenPressed(new ToggleZoom());
     driver2LS.whileHeld(new Reverse(elevator,hopper));
 

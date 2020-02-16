@@ -9,15 +9,18 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Hopper;
 
 public class Elevate extends CommandBase {
   Elevator elevator;
+  Hopper hopper;
   /**
    * Creates a new Elevate.
    */
-  public Elevate(Elevator elevator) {
+  public Elevate(Elevator elevator,Hopper hopper) {
     this.elevator = elevator;
-    addRequirements(elevator);
+    this.hopper = hopper;
+    addRequirements(elevator,hopper);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -29,6 +32,7 @@ public class Elevate extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    hopper.hopperFeeder(.4);
     elevator.hopperElevator(0.4);
   }
 
@@ -36,6 +40,7 @@ public class Elevate extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     elevator.hopperElevator(0);
+    hopper.hopperFeeder(0);
   }
 
   // Returns true when the command should end.

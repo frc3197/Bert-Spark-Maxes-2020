@@ -68,6 +68,13 @@ public class Shooter extends SubsystemBase {
     TalonShooter1.set(val);
   }
 
+  public boolean getMotor(){
+    double val = TalonShooter1.get();
+    if(val>.2) 
+    return true;
+    else return false;
+  }
+
   /**
    * Pulls Limelight's X Offset value and prints it.
    * @return Limelight's X Offset value

@@ -9,20 +9,24 @@ package frc.robot.commands.AutoCommands.SubCommands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.commands.Feed;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Hopper;
+import frc.robot.subsystems.Shooter;
 
 public class ElevateAuto extends CommandBase {
   Elevator elevator;
   Hopper hopper;
+  Shooter shooter;
   /**
    * Creates a new Elevate.
    */
-  public ElevateAuto(Elevator elevator, Hopper hopper) {
+  public ElevateAuto(Elevator elevator, Hopper hopper,Shooter shooter) {
     this.elevator = elevator;
     this.hopper  = hopper;
-    addRequirements(elevator,hopper);
+    this.shooter = shooter;
+    addRequirements(elevator,hopper,shooter);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -36,18 +40,21 @@ public class ElevateAuto extends CommandBase {
   public void execute() {
     hopper.hopperFeeder(.4);
     elevator.hopperElevator(0.4);
+    shooter.shooterVelocity(RobotContainer.targetVelocity(1, 5500));
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    
+    hopper.hopperFeeder(0);
+    elevator.hopperElevator(0);
+    shooter.shooterVelocity(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    Timer.delay(5);
+    Timer.delay(6);
     return true;
   }
 }
