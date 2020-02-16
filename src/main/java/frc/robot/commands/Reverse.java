@@ -8,17 +8,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.Arms;
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Hopper;
 
-public class MoveArms extends CommandBase {
-  Arms arms;
+public class Reverse extends CommandBase {
+  Elevator elevator;
+  Hopper hopper;
   /**
-   * Creates a new MoveArms.
+   * Creates a new Reverse.
    */
-  public MoveArms(Arms arms) {
-    this.arms = arms;
-    addRequirements(arms);
+  public Reverse(Elevator elevator, Hopper hopper) {
+    addRequirements(elevator);
+    this.elevator = elevator;
+    this.hopper = hopper;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -30,13 +32,15 @@ public class MoveArms extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double val = RobotContainer.getArm();
-    arms.moveArms(val);
+    elevator.hopperElevator(-.2);
+    hopper.hopperFeeder(-.2);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    elevator.hopperElevator(0);
+    hopper.hopperFeeder(0);
   }
 
   // Returns true when the command should end.

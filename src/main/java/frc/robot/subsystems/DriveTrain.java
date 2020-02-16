@@ -24,6 +24,7 @@ public class DriveTrain extends SubsystemBase {
   private SpeedControllerGroup leftMotors = new SpeedControllerGroup(l1TalonFX, l2TalonFX);
   private SpeedControllerGroup rightMotors = new SpeedControllerGroup(r1TalonFX, r2TalonFX);
 
+
   public DifferentialDrive drive = new DifferentialDrive(leftMotors, rightMotors);
 
   Gyro gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
@@ -33,18 +34,18 @@ public class DriveTrain extends SubsystemBase {
    */
   public DriveTrain() {
     l1TalonFX.setSafetyEnabled(false);
-    l2TalonFX.setSafetyEnabled(false);
+    // l2TalonFX.setSafetyEnabled(false);
     r1TalonFX.setSafetyEnabled(false);
-    r2TalonFX.setSafetyEnabled(false);
+    // r2TalonFX.setSafetyEnabled(false);
 
     l1TalonFX.configOpenloopRamp(.1);
-    l2TalonFX.configOpenloopRamp(.1);
+    // l2TalonFX.configOpenloopRamp(.1);
     r1TalonFX.configOpenloopRamp(.1);
-    r2TalonFX.configOpenloopRamp(.1);
+    // r2TalonFX.configOpenloopRamp(.1);
     l1TalonFX.setInverted(false);
-    l2TalonFX.setInverted(false);
+    // l2TalonFX.setInverted(false);
     r1TalonFX.setInverted(false);
-    r2TalonFX.setInverted(false);
+    // r2TalonFX.setInverted(false);
   }
 
   /**

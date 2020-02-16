@@ -10,7 +10,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -122,6 +121,24 @@ public class Hood extends SubsystemBase {
   public double getEncoderPosition(){
     return hoodMotor.getSelectedSensorPosition();
   }
+
+  public double ticksToAngle(){
+    return ((getEncoderPosition() /  2048) * (10/49));
+  }
+  public static double angleToTicks(double angle)
+  {
+    return ((angle / (10/49)) * 2048);
+  }
+
+//   public double getHoodAngleSimple(){
+
+//     double currentAngle = getYOffset();
+// if( currentAngle >= x && currentAngle <= y ){
+
+// }
+// else if( currentAngle >= x2 && currentAngle <= y2)
+
+//   }
 
   /**
    * Pulls state of forward limit switch.

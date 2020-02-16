@@ -11,21 +11,16 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Climb;
 import frc.robot.commands.Drive;
 import frc.robot.commands.Elevate;
-import frc.robot.commands.Feed;
-import frc.robot.commands.MoveArmCP;
 import frc.robot.commands.MoveArms;
-import frc.robot.commands.Shoot;
-import frc.robot.commands.TakeIn;
-import frc.robot.commands.Winch;
 import frc.robot.commands.MoveHood;
 import frc.robot.commands.MoveTurret;
+import frc.robot.commands.Reverse;
 import frc.robot.commands.Scrub;
+import frc.robot.commands.Shoot;
+import frc.robot.commands.Winch;
 import frc.robot.commands.AutoCommands.LimelightTracking.Align;
-import frc.robot.commands.AutoCommands.LimelightTracking.AlignScript;
-import frc.robot.commands.AutoCommands.LimelightTracking.LimelightAdjustHood;
-import frc.robot.commands.AutoCommands.LimelightTracking.LimelightHood;
-import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightTurn;
 import frc.robot.commands.AutoCommands.SubCommands.IntakeHopper;
+import frc.robot.commands.AutoCommands.SubCommands.ToggleZoom;
 // TODO: UNCOMMENT FOR DEMO
 // import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightFollow;
 import frc.robot.subsystems.Arms;
@@ -79,6 +74,7 @@ public class RobotContainer {
   // public static JoystickButton driver2Y = new JoystickButton(driver2, 4);
   public static JoystickButton driver2RB = new JoystickButton(driver2, 6);
   public static JoystickButton driver2RS = new JoystickButton(driver2, 8);
+  public static JoystickButton driver2LS = new JoystickButton(driver2, 7);
 
   public final DriveTrain driveTrain = new DriveTrain();
   public final Hopper hopper = new Hopper();
@@ -131,7 +127,9 @@ public class RobotContainer {
     // driver2A.whileHeld(new LimelightAdjustHood(hood));
     driver2A.whileHeld(new Align(hood, shooter, turret));
     driver2RB.whileHeld(new Elevate(elevator));
-    // driver2RS.whenPressed(new ToggleZoom());
+    driver2RS.whenPressed(new ToggleZoom());
+    driver2LS.whileHeld(new Reverse(elevator,hopper));
+
     // TODO: UNCOMMENT FOR DEMO
     // driver2B.whileHeld(m_TrackLimelightFollow);
   }
