@@ -8,10 +8,12 @@
 package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.Shoot;
-import frc.robot.commands.AutoCommands.LimelightTracking.AlignScript;
-import frc.robot.commands.AutoCommands.SubCommands.DriveDistance;
+import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightTurn;
+import frc.robot.commands.AutoCommands.SubCommands.DriveDistanceSimple;
+import frc.robot.commands.AutoCommands.SubCommands.ElevateAuto;
+import frc.robot.commands.AutoCommands.SubCommands.ShootAuto;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Shooter;
@@ -33,9 +35,10 @@ public class EasyRoute extends SequentialCommandGroup {
    * @param hopper Hopper subsystem
    * Runs selected commands sequentially.
    */
-  public EasyRoute(Hood hood, Shooter shooter, DriveTrain driveTrain, Hopper hopper, Turret turret) {
+  public EasyRoute(Hood hood, Shooter shooter, DriveTrain driveTrain, Hopper hopper, Turret turret, Elevator elevator) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super(new AlignScript(hood, shooter, turret), new Shoot(shooter, hopper), new DriveDistance(driveTrain, 0));
+    // super(new DriveDistanceSimple(driveTrain));
+    super(new TrackLimelightTurn(turret), new ShootAuto(shooter, hopper),new ElevateAuto(elevator,hopper), new DriveDistanceSimple(driveTrain));
   }
 }

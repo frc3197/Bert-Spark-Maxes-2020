@@ -30,7 +30,7 @@ public final class Constants {
    */
   public static enum PID_Constants {
     kTurn(.3,0, 0, 0), kMaintainDistance(0.75, 0, 0.2025, 0), kShooter(.2, 0, 0, 1), kGyro(0, 0, 0, 0),
-    kDrive(0, 0, 0, 0),kHood(.4,0,0,0);
+    kDrive(.5, 0, 0, 0),kHood(.4,0,0,0);
 
     public final double P;
     public final double I;

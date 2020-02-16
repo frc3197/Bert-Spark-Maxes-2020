@@ -77,9 +77,9 @@ public class Scrub extends CommandBase {
 
     String gameData = DriverStation.getInstance().getGameSpecificMessage();
     String colorString = getColorString();
-    rotationControl = RobotContainer.getRotationControl();
-    positionControl = RobotContainer.getPositionControl();
-
+    // rotationControl = RobotContainer.getRotationControl();
+    rotationControl = false;
+    positionControl = false;
     controlPanel.moveCPArm(val);
 
     if (positionControl) {

@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.BackupScrubRot;
 import frc.robot.commands.Climb;
 import frc.robot.commands.Drive;
 import frc.robot.commands.Elevate;
@@ -18,7 +19,10 @@ import frc.robot.commands.Reverse;
 import frc.robot.commands.Scrub;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.Winch;
+import frc.robot.commands.AutoCommands.EasyRoute;
 import frc.robot.commands.AutoCommands.LimelightTracking.Align;
+import frc.robot.commands.AutoCommands.SubCommands.DriveDistance;
+import frc.robot.commands.AutoCommands.SubCommands.DriveDistanceSimple;
 import frc.robot.commands.AutoCommands.SubCommands.IntakeHopper;
 import frc.robot.commands.AutoCommands.SubCommands.ToggleZoom;
 // TODO: UNCOMMENT FOR DEMO
@@ -69,9 +73,9 @@ public class RobotContainer {
    */
   public static JoystickButton driver2A = new JoystickButton(driver2, 1);
   // TODO: UNCOMMENT FOR DEMO
-  // public static JoystickButton driver2B = new JoystickButton(driver2, 2);
-  // public static JoystickButton driver2X = new JoystickButton(driver2, 3);
-  // public static JoystickButton driver2Y = new JoystickButton(driver2, 4);
+  public static JoystickButton driver2B = new JoystickButton(driver2, 2);
+  public static JoystickButton driver2X = new JoystickButton(driver2, 3);
+  public static JoystickButton driver2Y = new JoystickButton(driver2, 4);
   public static JoystickButton driver2RB = new JoystickButton(driver2, 6);
   public static JoystickButton driver2RS = new JoystickButton(driver2, 8);
   public static JoystickButton driver2LS = new JoystickButton(driver2, 7);
@@ -87,6 +91,9 @@ public class RobotContainer {
   public final Climber climber = new Climber();
   public final ColorSensor colorSensor = new ColorSensor();
   public final Elevator elevator = new Elevator(hopper);
+  public final Command easyRoute = new EasyRoute(hood, shooter, driveTrain, hopper, turret, elevator);
+  public final Command driveDistance = new DriveDistance(driveTrain, 50);
+  public final Command driveDistanceSimple = new DriveDistanceSimple(driveTrain);
   /**
    * Table of values for limelight and receiving FMS data.
    */
@@ -118,6 +125,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // driver1X.toggleWhenPressed(new Winch(climber, true));
+
     driver1A.toggleWhenPressed(new IntakeHopper(intake, hopper));
     driver1B.whileHeld(new Climb(climber, false));
     driver1Y.whileHeld(new Climb(climber, true));
@@ -125,6 +133,8 @@ public class RobotContainer {
     driver1RS.whileHeld(new Winch(climber, false));
 
     // driver2A.whileHeld(new LimelightAdjustHood(hood));
+    driver2X.toggleWhenPressed(new BackupScrubRot(controlPanel));
+    driver2Y.whileHeld(driveDistanceSimple);
     driver2A.whileHeld(new Align(hood, shooter, turret));
     driver2RB.whileHeld(new Elevate(elevator));
     driver2RS.whenPressed(new ToggleZoom());
@@ -249,9 +259,10 @@ public class RobotContainer {
    * 
    * @return State of Driver 2's X Button
    */
-  public static boolean getRotationControl() {
-    return driver2.getXButton();
-  }
+
+  // public static boolean getRotationControl() {
+  //   return driver2.getXButton();
+  // }
 
   /**
    * Runs Tank Drive on the right side based on vertical motion of Driver 1's
@@ -282,7 +293,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_sendableChooserAuto.getSelected();
+    // return m_sendableChooserAuto.getSelected();
+    return easyRoute;
   }
 
   /**

@@ -52,7 +52,7 @@ public class Robot extends TimedRobot {
     m_robotContainer.driveTrain.calibrateGyro();
     m_easyRoute = new EasyRoute(m_robotContainer.hood, m_robotContainer.shooter, 
                                 m_robotContainer.driveTrain, m_robotContainer.hopper,
-                                m_robotContainer.turret);
+                                m_robotContainer.turret, m_robotContainer.elevator);
     m_hardRoute = new HardRoute(m_robotContainer.driveTrain, m_robotContainer.arms, 
                                 m_robotContainer.intake, m_robotContainer.hood, 
                                 m_robotContainer.shooter, m_robotContainer.hopper,
@@ -132,9 +132,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_robotContainer.hood.encoderCalibrate();
-    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(1);
-    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(1);
+    m_robotContainer.driveTrain.resetEncoder();
+    // m_robotContainer.hood.encoderCalibrate();
+    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
+    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     // m_autonomousCommand.schedule();
     // m_autonomousCommand = m_robotContainer.getAutonomousCommand();

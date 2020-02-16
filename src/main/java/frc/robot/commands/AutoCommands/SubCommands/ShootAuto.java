@@ -5,27 +5,26 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.AutoCommands.SubCommands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Hood;
+import frc.robot.subsystems.Hopper;
+import frc.robot.subsystems.Shooter;
 
-/**
- * Defines a MoveHood object. Creates Hood parameter to be used later.
- */
-public class MoveHood extends CommandBase {
-  Hood hood;
+public class ShootAuto extends CommandBase {
+  private Shooter shooter;
+  Hopper hopper;
 
   /**
-   * Creates a new MoveHood.
-   * 
-   * @param hood Hood subsystem
+   * Creates a new ShooterTest.
    */
-  public MoveHood(Hood hood) {
-    this.hood = hood;
-    addRequirements(hood);
+  public ShootAuto(Shooter shooter, Hopper hopper) {
+    this.shooter = shooter;
+    this.hopper = hopper;
+    addRequirements(shooter);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -34,7 +33,7 @@ public class MoveHood extends CommandBase {
    */
   @Override
   public void initialize() {
-
+    shooter.resetEncoder();
   }
 
   /**
@@ -42,11 +41,17 @@ public class MoveHood extends CommandBase {
    */
   @Override
   public void execute() {
-    int hoodFwd = hood.hoodMotor.isFwdLimitSwitchClosed();
-    // String angle = ""
-    // SmartDashboard.putNumber("Angle", value)
-    System.out.println("hoodFWD" + hoodFwd);
-    hood.moveHood(RobotContainer.getHoodManual() * .5);
+    SmartDashboard.putNumber("Shooter Encoder Ticks", shooter.getEncoderValue());
+    SmartDashboard.putNumber("Right Trigger", RobotContainer.getShooter());
+    SmartDashboard.putNumber("Shooter Velocity", shooter.getVelocity());
+    shooter.shooterVelocity(RobotContainer.targetVelocity(1, 5500));
+    // hopper.hopperElevator(RobotContainer.getShooter());
+    // if(RobotContainer.getShooter() > 0.2){
+    //   hopper.hopperFeeder(-0.4);
+    // }else{
+    //   hopper.hopperFeeder(0);
+    // }
+    // takes right trigger axis of driver 1 and runs up to 5500 RPM
   }
 
   /**
@@ -54,7 +59,7 @@ public class MoveHood extends CommandBase {
    */
   @Override
   public void end(boolean interrupted) {
-    hood.moveHood(0);
+    
   }
 
   /**
@@ -62,6 +67,7 @@ public class MoveHood extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    return false;
+    Timer.delay(3);
+    return true;
   }
 }
