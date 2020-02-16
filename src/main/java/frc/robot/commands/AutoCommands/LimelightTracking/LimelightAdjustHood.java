@@ -9,63 +9,55 @@ package frc.robot.commands.AutoCommands.LimelightTracking;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
-import frc.robot.Constants.PID_Constants;
-import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Turret;
+import frc.robot.Constants;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.Hood;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-/**
- * Defines a TrackLimelightTurn object.
- */
-public class TrackLimelightTurn extends PIDCommand {
-  Shooter shooter;
-  Turret turret;
-  // static double d;
+public class LimelightAdjustHood extends PIDCommand {
+  Hood hood;
+  int hoodFwd;
 
   /**
-   * Creates a new TrackLimelightTurn.
-   * @param turret Drivetrain subsystem
-   * Creates PID loop and sets constants.
+   * Creates a new LimelightAdjustHood.
    */
-  public TrackLimelightTurn(Turret turret) {
+  public LimelightAdjustHood(Hood hood) {
     super(
         // The controller that the command will use
-        new PIDController(PID_Constants.kTurn.P, PID_Constants.kTurn.I, PID_Constants.kTurn.D),
+        new PIDController(Constants.PID_Constants.kHood.P, Constants.PID_Constants.kHood.I, Constants.PID_Constants.kHood.D),
         // This should return the measurement
-        turret::getXOffset,
+        hood::getEncoderPosition,
+
         // This should return the setpoint (can also be a constant)
-        0,
+        hood::moveHoodtoAngle,
         // This uses the output
         output -> {
-          turret.turn(output * .2);
+        hood.moveHood(output);
+        
           // Use the output here
         });
-    addRequirements(turret);
-    this.turret = turret;
-    getController().setTolerance(0);
+        addRequirements(hood);
+        this.hood = hood;
+        getController().setTolerance(10000);
+    // Use addRequirements() here to declare subsystem dependencies.
+    // Configure additional PID options by calling `getController` here.
   }
 
-  /**
-   * Called once the command ends.
-   * Sets tankDrive motors on both sides to zero.
-   */
-  public void end() {
-    turret.turn(0);
-  }
+  // Returns true when the command should end.
+  // @Override
+  // public void initialize() {
+  //   hood.encoderCalibrate();
+  // }
 
-  /**
-   * Returns true when the command should end.
-   * @return Whether the controller is at the correct setpoint.
-   */
   @Override
   public boolean isFinished() {
-    // return false;
-    return getController().atSetpoint();
-  }
+    hoodFwd = hood.hoodMotor.isFwdLimitSwitchClosed();
+    boolean fwdLimit;
+    if(hoodFwd == 1){fwdLimit = true;}
+    else{fwdLimit = false;}
 
-  // public double usePIDOutput() {
-  // return d;
-  // }
+    return (getController().atSetpoint() || fwdLimit);
+  }
 }

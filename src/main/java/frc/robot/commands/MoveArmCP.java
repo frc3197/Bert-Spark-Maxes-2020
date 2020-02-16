@@ -9,17 +9,16 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Arms;
 import frc.robot.subsystems.ControlPanel;
 
-public class MoveArms extends CommandBase {
-  Arms arms;
+public class MoveArmCP extends CommandBase {
+  ControlPanel cp;
   /**
    * Creates a new MoveArms.
    */
-  public MoveArms(Arms arms) {
-    this.arms = arms;
-    addRequirements(arms);
+  public MoveArmCP(ControlPanel cp) {
+    this.cp = cp;
+    addRequirements(cp);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -31,13 +30,15 @@ public class MoveArms extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double val = RobotContainer.getArm();
-    arms.moveArms(val);
+    double val = RobotContainer.getArmCP();
+    cp.moveCPArm(val);
+    
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    cp.moveCPArm(0);
   }
 
   // Returns true when the command should end.

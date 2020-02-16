@@ -25,7 +25,7 @@ public class Shooter extends SubsystemBase {
    * Creates a new Shooter. Code inside configures encoder, minimum and maximum outputs, and PID Loop.
    */
   public Shooter() {
-    TalonShooter1.configFactoryDefault();
+  
     TalonShooter1.setInverted(true);
     TalonShooter1.setSafetyEnabled(false);
 

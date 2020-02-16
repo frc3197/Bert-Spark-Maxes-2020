@@ -34,6 +34,9 @@ public class Robot extends TimedRobot {
   boolean hopperFull = false;
   private RobotContainer m_robotContainer;
 
+  // private String ll1 = "limelight-hounds";
+  // private String ll2 = "limelight-"
+
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
@@ -54,8 +57,14 @@ public class Robot extends TimedRobot {
                                 m_robotContainer.intake, m_robotContainer.hood, 
                                 m_robotContainer.shooter, m_robotContainer.hopper,
                                 m_robotContainer.turret);
-    m_robotContainer.m_sendableChooser.addOption("Easy Route", m_easyRoute);
-    m_robotContainer.m_sendableChooser.addOption("Hard Route", m_hardRoute);
+    m_robotContainer.m_sendableChooserAuto.addOption("Easy Route", m_easyRoute);
+    m_robotContainer.m_sendableChooserAuto.addOption("Hard Route", m_hardRoute);
+
+    // m_robotContainer.m_sendableChooserLL.addOption("", object);
+
+
+
+
     // m_robotContainer.hood.encoderCalibrate();
     // usb0 camera object can be tweaked to change brightness/whatever for usb
     // camera
@@ -123,6 +132,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    m_robotContainer.hood.encoderCalibrate();
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(1);
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(1);
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
@@ -148,6 +158,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopInit() {
+    m_robotContainer.hood.encoderCalibrate();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove

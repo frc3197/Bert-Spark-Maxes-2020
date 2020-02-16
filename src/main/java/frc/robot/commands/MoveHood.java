@@ -41,6 +41,9 @@ public class MoveHood extends CommandBase {
    */
   @Override
   public void execute() {
+    int hoodFwd = hood.hoodMotor.isFwdLimitSwitchClosed();
+
+    System.out.println("hoodFWD" + hoodFwd);
     hood.moveHood(RobotContainer.getHoodManual() * .5);
   }
 

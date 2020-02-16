@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -19,7 +20,7 @@ import frc.robot.RobotContainer;
  * Defines a Hood object. Code inside creates variables for the hood motor and limit switches.
  */
 public class Hood extends SubsystemBase {
-  public static WPI_TalonFX hoodMotor = new WPI_TalonFX(Constants.TalonID.kHood.id);
+  public WPI_TalonFX hoodMotor = new WPI_TalonFX(Constants.TalonID.kHood.id);
 
   /**
    * Creates a new Hood.
@@ -63,15 +64,17 @@ public class Hood extends SubsystemBase {
     else if(forwardLimit == on){
 
       while(reverseLimit == off){
-        moveHood(-0.2);
+        moveHood(-0.4);
         reverseLimit = hoodMotor.isRevLimitSwitchClosed();
+        SmartDashboard.putBoolean("Hood Reverse Limit", reverseLimit == on);
       }
 
     }
     else{
       while(reverseLimit == off){
-        moveHood(-0.2);
+        moveHood(-0.4);
         reverseLimit = hoodMotor.isRevLimitSwitchClosed();
+        SmartDashboard.putBoolean("Hood Reverse Limit", reverseLimit == on);
       }
     }
     hoodMotor.set(0);
@@ -81,7 +84,7 @@ public class Hood extends SubsystemBase {
   /**
    * Moves Hood angle based on calculated distance from target using Limelight values.
    */
-  public void moveHoodtoAngle(){
+  public double moveHoodtoAngle(){
     /*
     d = distance from the Power Port
     thetaL = angle of launch
@@ -94,13 +97,9 @@ public class Hood extends SubsystemBase {
     double d = RobotContainer.getDistanceFromTarget();
     double thetaL = Math.atan(80.25/d);
     double thetaI = 90 - thetaL;
-    double currentTicks = getEncoderPosition();
     double idealTicks = 10240 * thetaI;
 
-    while(idealTicks - currentTicks > 0){ 
-      moveHood(0.2);
-      currentTicks = getEncoderPosition();
-    }
+    return idealTicks;
     //TODO: Test physics, implement, etc.
   }
 

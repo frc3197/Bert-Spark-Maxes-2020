@@ -69,6 +69,8 @@ public class Scrub extends CommandBase {
    */
   @Override
   public void execute() {
+    double val = RobotContainer.getArmCP();
+    
     SmartDashboard.putNumber("Red", colorSensor.getColor().red);
     SmartDashboard.putNumber("Green", colorSensor.getColor().green);
     SmartDashboard.putNumber("Blue", colorSensor.getColor().blue);
@@ -77,6 +79,8 @@ public class Scrub extends CommandBase {
     String colorString = getColorString();
     rotationControl = RobotContainer.getRotationControl();
     positionControl = RobotContainer.getPositionControl();
+
+    controlPanel.moveCPArm(val);
 
     if (positionControl) {
       switch (gameData.charAt(0)) {

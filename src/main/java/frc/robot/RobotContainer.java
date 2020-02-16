@@ -12,14 +12,17 @@ import frc.robot.commands.Climb;
 import frc.robot.commands.Drive;
 import frc.robot.commands.Elevate;
 import frc.robot.commands.Feed;
+import frc.robot.commands.MoveArmCP;
 import frc.robot.commands.MoveArms;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.TakeIn;
 import frc.robot.commands.Winch;
 import frc.robot.commands.MoveHood;
 import frc.robot.commands.MoveTurret;
+import frc.robot.commands.Scrub;
 import frc.robot.commands.AutoCommands.LimelightTracking.Align;
 import frc.robot.commands.AutoCommands.LimelightTracking.AlignScript;
+import frc.robot.commands.AutoCommands.LimelightTracking.LimelightAdjustHood;
 import frc.robot.commands.AutoCommands.LimelightTracking.LimelightHood;
 import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightTurn;
 import frc.robot.commands.AutoCommands.SubCommands.IntakeHopper;
@@ -65,6 +68,7 @@ public class RobotContainer {
   public static JoystickButton driver1Y = new JoystickButton(driver1, 4);
   public static JoystickButton driver1RS = new JoystickButton(driver1, 8);
   public static JoystickButton driver1RB = new JoystickButton(driver1, 6);
+  public static JoystickButton driver1LS = new JoystickButton(driver1, 7);
   /**
    * The buttons for driver 2.
    */
@@ -96,8 +100,8 @@ public class RobotContainer {
   // private final TrackLimelightFollow m_TrackLimelightFollow = new
   // TrackLimelightFollow(shooter, driveTrain);
 
-  public SendableChooser<Command> m_sendableChooser = new SendableChooser<Command>();
-
+  public SendableChooser<Command> m_sendableChooserAuto = new SendableChooser<Command>();
+  public SendableChooser<String> m_sendableChooserLL = new SendableChooser<String>();
   /*
    * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
    */
@@ -107,7 +111,7 @@ public class RobotContainer {
     arms.setDefaultCommand(new MoveArms(arms));
     turret.setDefaultCommand(new MoveTurret(turret));
     hood.setDefaultCommand(new MoveHood(hood));
-    // controlPanel.setDefaultCommand(new Scrub(controlPanel, colorSensor));
+    controlPanel.setDefaultCommand(new Scrub(controlPanel, colorSensor));
     shooter.setDefaultCommand(new Shoot(shooter, hopper));
 
     configureButtonBindings();
@@ -121,10 +125,11 @@ public class RobotContainer {
     driver1A.toggleWhenPressed(new IntakeHopper(intake, hopper));
     driver1B.whileHeld(new Climb(climber, false));
     driver1Y.whileHeld(new Climb(climber, true));
+    driver1X.whileHeld(new Winch(climber, true));
     driver1RS.whileHeld(new Winch(climber, false));
 
-    driver2A.whileHeld(new LimelightHood(hood));
-    // driver2A.whileHeld(new Align(hood, shooter, turret));
+    // driver2A.whileHeld(new LimelightAdjustHood(hood));
+    driver2A.whileHeld(new Align(hood, shooter, turret));
     driver2RB.whileHeld(new Elevate(elevator));
     // driver2RS.whenPressed(new ToggleZoom());
     // TODO: UNCOMMENT FOR DEMO
@@ -177,6 +182,11 @@ public class RobotContainer {
   public static boolean getFeeder() {
     return driver1.getXButton();
   }
+
+
+
+
+
   public static boolean getLeftBumper(){
     return driver1.getBumper(Hand.kLeft);
   }
@@ -189,11 +199,11 @@ public class RobotContainer {
   public static double getArm(){
     if(getLeftBumper())
     {
-      return .3;
+      return .1;
     }
     else if(getLeftTrigger())
     {
-      return -.3;
+      return -.1;
     }
     else{
      return 0;
@@ -209,6 +219,31 @@ public class RobotContainer {
    */
   public static boolean getPositionControl() {
     return driver2.getYButton();
+  }
+
+
+
+  public static boolean getLeftBumperCP(){
+    return driver2.getBumper(Hand.kLeft);
+  }
+
+  public static boolean getLeftTriggerCP(){
+    double leftTrigger = driver2.getTriggerAxis(Hand.kLeft); 
+    boolean down = (leftTrigger > .7);
+    return down;
+  }
+  public static double getArmCP(){
+    if(getLeftBumperCP())
+    {
+      return .5;
+    }
+    else if(getLeftTriggerCP())
+    {
+      return -.5;
+    }
+    else{
+     return 0;
+    }
   }
 
   /**
@@ -249,7 +284,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_sendableChooser.getSelected();
+    return m_sendableChooserAuto.getSelected();
   }
 
   /**
@@ -289,7 +324,7 @@ public class RobotContainer {
     double ty = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
     ty = Math.toRadians(ty);
     System.out.println("offset : " + ty);
-    double limeDistance = 80.25 / (Math.tan(ty));
+    double limeDistance = 80.25 / (Math.tan(ty + 17.77));
     return limeDistance;
     // Will have to integrate a variable a1 value once set up for limelight angle.
   }
@@ -301,6 +336,7 @@ public class RobotContainer {
    */
   public static boolean getZoom() {
     return zoomOn;
+
   }
 
   /**

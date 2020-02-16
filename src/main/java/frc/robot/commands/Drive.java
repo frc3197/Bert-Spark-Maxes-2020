@@ -57,7 +57,7 @@ public class Drive extends CommandBase {
      * Executes the ltankDrive function with the variables we assigned.
      */
     // driveTrain.tankDrive(tankR * .8, tankL * .8);
-    driveTrain.arcadeDrive(arcadeS * .8, arcadeR * .8);
+    driveTrain.arcadeDrive(arcadeS * .8, arcadeR * -.8);
     
     /*
      * Puts the inputs of the Controller onto ShuffleBoard.

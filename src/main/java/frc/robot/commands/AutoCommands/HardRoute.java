@@ -40,7 +40,7 @@ public class HardRoute extends SequentialCommandGroup {
   public HardRoute(DriveTrain driveTrain, Arms arms, Intake intake, Hood hood, Shooter shooter, Hopper hopper, Turret turret) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super(new TakeInBall(arms, intake, driveTrain, 0), new GyroTurn(driveTrain, 0), 
+    super(new AlignScript(hood,shooter,turret),new Shoot(shooter, hopper),new TakeInBall(arms, intake, driveTrain, 195), new GyroTurn(driveTrain, 180), 
           new AlignScript(hood, shooter, turret), new Shoot(shooter, hopper));
   }
 }
