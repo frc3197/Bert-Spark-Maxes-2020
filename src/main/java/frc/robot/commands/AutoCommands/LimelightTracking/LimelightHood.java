@@ -18,6 +18,7 @@ import frc.robot.subsystems.Hood;
  */
 public class LimelightHood extends CommandBase {
   Hood hood;
+  private final double TICKS_TO_DEG = 51982336/5040;
 
   /**
    * Creates a new LimelightHood.
@@ -48,25 +49,43 @@ public class LimelightHood extends CommandBase {
    */
   @Override
   public void execute() {
-
-    // hood.moveHoodtoAngle();
-    double gearMultiplier = 1 / 7 / 7 / 7 * (14 / 72) * (360);
+    /* Math explain time y'all
+     * thetaI is calculated through trigonometry (arctan(opposite/adjacent))
+     * thetaE is calculated as the error between the ideal angle (thetaI) and the starting angle (40)
+     * ticksE converts degrees to ticks. Should be the ticks the encoder is at to be at thetaE. Full FLM below
+     * (n ticks)(1 motorRotation)(1 gearboxesRotation) (1 bigRotation)           (360 degrees)
+     *          (2048 ticks)     (343 motorRotations)  (74/14 gearboxesRotations)(1 bigRotation)
+     * the while loop compares the error between ticksE and the current encoder position, and stops when
+     *     the encoder position is at ticksE.
+     */
     double d = RobotContainer.getDistanceFromTarget();
-    double thetaL = Math.atan(80.25 / d);
-    double thetaI = 90 - thetaL;
-    thetaI -= 40;
-    double currentTicks = hood.getEncoderPosition();
-    double idealTicks = 10240 * thetaI;
-    SmartDashboard.putNumber("Target Ticks", idealTicks);
-    int hoodFwd = hood.hoodMotor.isFwdLimitSwitchClosed();
-
-    while (idealTicks - currentTicks > 0 && hoodFwd == 0) {
-      hood.moveHood(0.4);
-      SmartDashboard.putNumber("Current Ticks", currentTicks);
-      SmartDashboard.putNumber("Ticks Error", idealTicks - currentTicks);
-      currentTicks = hood.getEncoderPosition();
-
+    double thetaI = 90 - Math.atan(80.25/d); //80.25 is the height of the shooter from the center of the power port
+    double thetaE = thetaI - 40; //40 is the angle of the shooter when hitting the back limit
+    double ticksE = TICKS_TO_DEG * thetaE;
+    while(ticksE - hood.getEncoderPosition() > 0){ //We can assume that this number will always be positive (encoderCalibrate())
+      hood.moveHood(0.5);
     }
+    hood.moveHood(0);
+
+    // TODO: Remove all this old stuff
+    // hood.moveHoodtoAngle();
+    // double gearMultiplier = 1 / 7 / 7 / 7 * (14 / 72) * (360);
+    // double d = RobotContainer.getDistanceFromTarget();
+    // double thetaL = Math.atan(80.25 / d);
+    // double thetaI = 90 - thetaL;
+    // thetaI -= 40;
+    // double currentTicks = hood.getEncoderPosition();
+    // double idealTicks = 10240 * thetaI;
+    // SmartDashboard.putNumber("Target Ticks", idealTicks);
+    // int hoodFwd = hood.hoodMotor.isFwdLimitSwitchClosed();
+
+    // while (idealTicks - currentTicks > 0 && hoodFwd == 0) {
+    //   hood.moveHood(0.4);
+    //   SmartDashboard.putNumber("Current Ticks", currentTicks);
+    //   SmartDashboard.putNumber("Ticks Error", idealTicks - currentTicks);
+    //   currentTicks = hood.getEncoderPosition();
+
+    // }
   }
 
   /**
@@ -85,6 +104,7 @@ public class LimelightHood extends CommandBase {
    */
   @Override
   public boolean isFinished() {
+    //This should technically never happen if the math is right.
     if (hood.hoodMotor.isFwdLimitSwitchClosed() == 1) {
       return true;
     }

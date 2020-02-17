@@ -81,7 +81,7 @@ public class Hood extends SubsystemBase {
   }
 
   /**
-   * Moves Hood angle based on calculated distance from target using Limelight values.
+   * Moves Hood angle based on calculated distance from target using Limelight values. DEPRECATED
    */
   public double moveHoodtoAngle(){
     /*
