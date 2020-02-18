@@ -1,0 +1,8 @@
+{
+  "lengthUnit": "Foot",
+  "maxVelocity": 10.0,
+  "maxAcceleration": 2.0,
+  "wheelBase": 20.0,
+  "gameName": "Infinite Recharge",
+  "outputDir": ""
+}
