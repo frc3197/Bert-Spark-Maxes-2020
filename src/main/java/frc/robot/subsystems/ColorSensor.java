@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ColorSensor extends SubsystemBase {
     I2C sensor;
 
-    private final I2C.Port i2cPort = I2C.Port.kMXP;
+    private final I2C.Port i2cPort = I2C.Port.kOnboard;
     private final ColorSensorV3 m_colorsensor = new ColorSensorV3(i2cPort);
 
     protected final static int COMMAND_REGISTER_BIT = 0x80;

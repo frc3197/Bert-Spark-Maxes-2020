@@ -77,6 +77,8 @@ public final class Constants {
       this.name = name;
     }
   }
+
+
   /*
    * public static enum CANSparkMaxID { kLeft1(14, "Left1"), kLeft2(15, "Left2"),
    * kRight1(16, "Right1"), kRight2(1, "Right2");
@@ -86,8 +88,7 @@ public final class Constants {
    * // private CANSparkMaxID(int id, String name) { // this.id = id; // this.name
    * = name; // }
    */
-  // }
-
+  // 
   public static final int kPIDLoopIdx = 0;
   public static final int kTimeoutMs = 30;
 }

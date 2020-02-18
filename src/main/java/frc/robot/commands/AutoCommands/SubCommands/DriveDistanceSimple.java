@@ -7,10 +7,8 @@
 
 package frc.robot.commands.AutoCommands.SubCommands;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.commands.Drive;
 import frc.robot.subsystems.DriveTrain;
 
 public class DriveDistanceSimple extends CommandBase {
