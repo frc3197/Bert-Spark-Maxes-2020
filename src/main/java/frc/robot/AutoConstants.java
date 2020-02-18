@@ -9,7 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
-// import edu.wpi.first.wpilibj.util.Units;
+import edu.wpi.first.wpilibj.util.Units;
 
 /**
  * Add your docs here.
@@ -24,16 +24,16 @@ public class AutoConstants {
     public final static int  kA = 0;
 
 
-    public final static double maxSpeedMetersPerSecond = 0;
-    public final static double maxAccelerationMetersPerSecondSquared = 0;    
+    public final static double maxSpeedMetersPerSecond = 3;
+    public final static double maxAccelerationMetersPerSecondSquared = 3;    
     
     public final static int trackWidth = 0;
     public static final double ramseteB = 2;
     //  B is similar to kP where it will make convergence more aggressive 
     public static final double ramseteZeta = .7;
     // Zeta is most comparable to kD and provides some damping
-    public static final Pose2d poseRef = new Pose2d(4, 1, new Rotation2d(0));
-	public static final double linearVelocityRefMeters = 0;
-	public static final double angularVelocityRefRadiansPerSecond = 0;
+    public static final Pose2d poseRef = new Pose2d(3, 0, new Rotation2d(Units.degreesToRadians(180)));
+	public static final double linearVelocityRefMeters = 3;
+	public static final double angularVelocityRefRadiansPerSecond = 1;
 
 }

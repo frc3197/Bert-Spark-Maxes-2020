@@ -100,7 +100,18 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
 
   
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-    return new DifferentialDriveWheelSpeeds(l1TalonFX.getSelectedSensorVelocity(), r1TalonFX.getSelectedSensorVelocity());
+    return new DifferentialDriveWheelSpeeds(getLeftEncoderVelocityMeters(), getRightEncoderVelocityMeters());
+  }
+
+  public double getLeftEncoderVelocityMeters(){
+    double velocityU = l1TalonFX.getSelectedSensorVelocity();
+    return (velocityU / 2048) * (Units.inchesToMeters(6) * Math.PI) * 10;
+  }
+
+
+  public double getRightEncoderVelocityMeters(){
+    double velocityU = r1TalonFX.getSelectedSensorVelocity();
+    return (velocityU / 2048) * (Units.inchesToMeters(6) * Math.PI) * 10;
   }
 
   public void zeroHeading(){
