@@ -15,19 +15,21 @@ import edu.wpi.first.wpilibj.util.Units;
  * Add your docs here.
  */
 public class AutoConstants {
-    public final static int  kP = 0;
-    public final static int  kI = 0;
-    public final static int  kD = 0;     
+    public final static double  kP = 0.34;
+    public final static double  kI = 0;
+    public final static double  kD = 0;     
 
-    public final static int  kS = 0;
-    public final static int  kV = 0;
-    public final static int  kA = 0;
+    public final static double  kS = 0.34;
+    public final static double  kV = 0.00589;
+    public final static double  kA = 0.00147;
 
 
     public final static double maxSpeedMetersPerSecond = 3;
     public final static double maxAccelerationMetersPerSecondSquared = 3;    
     
-    public final static int trackWidth = 0;
+    // public final static double trackWidth = 211.93250669859398;
+    public final static double trackWidth = 21.93250669859398;
+
     public static final double ramseteB = 2;
     //  B is similar to kP where it will make convergence more aggressive 
     public static final double ramseteZeta = .7;

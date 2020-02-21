@@ -32,7 +32,7 @@ public class Elevate extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    hopper.hopperFeeder(.4);
+    hopper.hopperFeeder(.6);
     elevator.hopperElevator(0.4);
   }
 

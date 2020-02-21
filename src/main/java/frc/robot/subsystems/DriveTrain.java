@@ -39,7 +39,7 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
   public RamseteController ramseteController = new RamseteController(AutoConstants.ramseteB, AutoConstants.ramseteZeta);
 
 
-  public Rotation2d m_rotation2d = new Rotation2d(Math.toRadians(90));
+  public Rotation2d m_rotation2d = new Rotation2d(Units.degreesToRadians(90));
   public Pose2d m_pose = new Pose2d();
   public DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(m_rotation2d,m_pose);
   // TRACK WIDTH MEASUERED DISTANCE WHEEL CENTER TO WHEEL CENTER IN METERS
