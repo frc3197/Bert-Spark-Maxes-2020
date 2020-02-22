@@ -86,6 +86,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    SmartDashboard.putNumber("pose x",m_robotContainer.driveTrain.m_odometry.getPoseMeters().getTranslation().getX());
+    SmartDashboard.putNumber("pose y",m_robotContainer.driveTrain.m_odometry.getPoseMeters().getTranslation().getY());
+    SmartDashboard.putNumber("pose rotation",m_robotContainer.driveTrain.m_odometry.getPoseMeters().getRotation().getDegrees());
     SmartDashboard.putNumber("Distance Meters Left", m_robotContainer.driveTrain.getDistanceMetersLeft());
     SmartDashboard.putNumber("Distance Meters Right", m_robotContainer.driveTrain.getDistanceMetersRight());
 
@@ -93,7 +96,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Velocity Meters Left", m_robotContainer.driveTrain.getLeftEncoderVelocityMeters());
     SmartDashboard.putNumber("Right Encoder Value", m_robotContainer.driveTrain.r1TalonFX.getSelectedSensorPosition());
     SmartDashboard.putNumber("Left Encoder Value", -m_robotContainer.driveTrain.l1TalonFX.getSelectedSensorPosition());
-    SmartDashboard.putNumber("Gyro" , m_robotContainer.driveTrain.getGyroAngle());
+    SmartDashboard.putNumber("Gyro" , m_robotContainer.driveTrain.getHeading());
     SmartDashboard.putBoolean("Shooter is Running", m_robotContainer.shooter.getMotor());
     SmartDashboard.putNumber("Match Time", DriverStation.getInstance().getMatchTime());
     // Runs the Scheduler. This is responsible for polling buttons, adding

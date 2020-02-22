@@ -45,11 +45,11 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
 
   public Rotation2d m_rotation2d = new Rotation2d();
   public Pose2d m_pose = new Pose2d();
-  public DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(m_rotation2d,m_pose);
+  public DifferentialDriveOdometry m_odometry;
   // TRACK WIDTH MEASUERED DISTANCE WHEEL CENTER TO WHEEL CENTER IN METERS
   public DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(AutoConstants.trackWidth);
   
-  public ChassisSpeeds chassisSpeeds = ramseteController.calculate(m_pose, AutoConstants.poseRef, AutoConstants.linearVelocityRefMeters, AutoConstants.angularVelocityRefRadiansPerSecond);
+  // public ChassisSpeeds chassisSpeeds = ramseteController.calculate(m_pose, AutoConstants.poseRef, AutoConstants.linearVelocityRefMeters, AutoConstants.angularVelocityRefRadiansPerSecond);
 
   // public PIDController leftPID = new PIDController(AutoConstants.kP, AutoConstants.kI, AutoConstants.kD);
   // public PIDController rightPID = new PIDController(AutoConstants.kP, AutoConstants.kI, AutoConstants.kD);
@@ -62,19 +62,20 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
    * Constructor for the DriveTrain
    */
   public DriveTrain() {
+    m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
     l1TalonFX.setSafetyEnabled(false);
     l2TalonFX.setSafetyEnabled(false);
     r1TalonFX.setSafetyEnabled(false);
     r2TalonFX.setSafetyEnabled(false);
 
-    l1TalonFX.configOpenloopRamp(.1);
-    l2TalonFX.configOpenloopRamp(.1);
-    r1TalonFX.configOpenloopRamp(.1);
-    r2TalonFX.configOpenloopRamp(.1);
-    l1TalonFX.setInverted(false);
-    l2TalonFX.setInverted(false);
-    r1TalonFX.setInverted(false);
-    r2TalonFX.setInverted(false);
+    // l1TalonFX.configOpenloopRamp(.1);
+    // l2TalonFX.configOpenloopRamp(.1);
+    // r1TalonFX.configOpenloopRamp(.1);
+    // r2TalonFX.configOpenloopRamp(.1);
+    l1TalonFX.setInverted(true);
+    l2TalonFX.setInverted(true);
+    r1TalonFX.setInverted(true);
+    r2TalonFX.setInverted(true);
 
     // leftPID.setSetpoint(0);
     // rightPID.setSetpoint(0);
@@ -85,8 +86,9 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
    */
   @Override
   public void periodic() {
-    var gyroAngle = Rotation2d.fromDegrees(getGyroAngle());
-    m_pose = m_odometry.update(gyroAngle,getDistanceMetersLeft(), getDistanceMetersRight());
+    var gyroAngle = Rotation2d.fromDegrees(getHeading());
+    m_odometry.update(gyroAngle,getDistanceMetersLeft(), getDistanceMetersRight());
+    // m_pose = m_odometry.update(gyroAngle,getDistanceMetersLeft(), getDistanceMetersRight());
   }
 
   public void resetOdometry(Pose2d pose) {
@@ -107,14 +109,14 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
   }
 
   public double getLeftEncoderVelocityMeters(){
-    double velocityU = -l1TalonFX.getSelectedSensorVelocity();
-    return (velocityU / 2048) * Units.inchesToMeters(6 * Math.PI) * 10;
+    double velocityU = l1TalonFX.getSelectedSensorVelocity();
+    return ((velocityU / Constants.gear_ratio) / 2048) * Units.inchesToMeters(6 * Math.PI) * 10;
   }
 
 
   public double getRightEncoderVelocityMeters(){
-    double velocityU = r1TalonFX.getSelectedSensorVelocity();
-    return (velocityU / 2048) * Units.inchesToMeters(6 * Math.PI) * 10;
+    double velocityU = -r1TalonFX.getSelectedSensorVelocity();
+    return ((velocityU / Constants.gear_ratio) / 2048) * Units.inchesToMeters(6 * Math.PI) * 10;
   }
 
   public void zeroHeading(){
@@ -122,17 +124,18 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
   }
 
   public Pose2d getPose(){
+    
     return m_odometry.getPoseMeters();
   }
 
   public double getDistanceMetersLeft(){
-    double encoder = -l1TalonFX.getSelectedSensorPosition();
+    double encoder = l1TalonFX.getSelectedSensorPosition();
     double distance = ((encoder / Constants.gear_ratio) / 2048.0) * 0.478779 ; 
     return distance;
   }
 
   public double getDistanceMetersRight(){
-    double encoder = r1TalonFX.getSelectedSensorPosition();
+    double encoder = -r1TalonFX.getSelectedSensorPosition();
     double distance = ((encoder / Constants.gear_ratio) / 2048.0) * 0.478779; 
     return distance;
   }
@@ -165,7 +168,7 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
    * @return Encoder value
    */
   public double getEncoderValue() {
-    return -l1TalonFX.getSelectedSensorPosition();
+    return l1TalonFX.getSelectedSensorPosition();
   }
 
   /**
@@ -174,8 +177,8 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
    * @return Calculated inches
    */
   public double getDistance() {
-    double ticks = -l1TalonFX.getSelectedSensorPosition();
-    double distance = (ticks / 2048) * (6 * Math.PI);
+    double ticks = l1TalonFX.getSelectedSensorPosition();
+    double distance = ((ticks / Constants.gear_ratio) / 2048) * (6 * Math.PI);
     return distance;
   }
 

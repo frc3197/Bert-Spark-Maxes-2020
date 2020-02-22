@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.util.Units;
  * Add your docs here.
  */
 public class AutoConstants {
-    public final static double  kP = .631;
+    public final static double  kP = 4;
     public final static double  kI = 0;
     public final static double  kD = 0;     
 
@@ -34,7 +34,7 @@ public class AutoConstants {
     //  B is similar to kP where it will make convergence more aggressive 
     public static final double ramseteZeta = .7;
     // Zeta is most comparable to kD and provides some damping
-    public static final Pose2d poseRef = new Pose2d(.5, 0, new Rotation2d());
+    // public static final Pose2d poseRef = new Pose2d(2,0, new Rotation2d());
 	public static final double linearVelocityRefMeters = 1;
     public static final double angularVelocityRefRadiansPerSecond = 1;
 
