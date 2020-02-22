@@ -23,15 +23,15 @@ import frc.robot.subsystems.DriveTrain;
 
 
 
-public class Ramsete1{
+public class Ramsete3{
 DriveTrain driveTrain;
 String trajectoryJSON;
 Path trajectoryPath;
 Trajectory trajectory;
 
-public Ramsete1(DriveTrain driveTrain){
+public Ramsete3(DriveTrain driveTrain){
 this.driveTrain = driveTrain;
-trajectoryJSON = "1.wpilib.json";
+trajectoryJSON = "3.wpilib.json";
 try {
   trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
   trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
