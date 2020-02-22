@@ -57,14 +57,14 @@ public class LimelightHood extends CommandBase {
      * the while loop compares the error between ticksE and the current encoder position, and stops when
      *     the encoder position is at ticksE.
      */
-    double d = RobotContainer.getDistanceFromTarget();
-    double thetaI = 90 - Math.atan(80.25/d); //80.25 is the height of the shooter from the center of the power port
-    double thetaE = thetaI - 40; //40 is the angle of the shooter when hitting the back limit
-    double ticksE = TICKS_TO_DEG * thetaE;
-    while(ticksE - hood.getEncoderPosition() > 0){ //We can assume that this number will always be positive (encoderCalibrate())
-      hood.moveHood(0.5);
-    }
-    hood.moveHood(0);
+    // double d = RobotContainer.getDistanceFromTarget();
+    // double thetaI = 90 - Math.atan(80.25/d); //80.25 is the height of the shooter from the center of the power port
+    // double thetaE = thetaI - 40; //40 is the angle of the shooter when hitting the back limit
+    // double ticksE = TICKS_TO_DEG * thetaE;
+    // while(ticksE - hood.getEncoderPosition() > 0){ //We can assume that this number will always be positive (encoderCalibrate())
+    //   hood.moveHood(0.5);
+    // }
+    // hood.moveHood(0);
 
     // TODO: Remove all this old stuff
     // hood.moveHoodtoAngle();
