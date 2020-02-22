@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.kauailabs.navx.frc</groupId>
+  <artifactId>navx-cpp</artifactId>
+  <version>3.1.401</version>
+  <packaging>zip.asc</packaging>
+  <description>navX-MXP Robotics Navigation Sensor WPI Libraries</description>
+  <name>navX-MXP</name>
+  <url>https://github.com/kauailabs/navxmxp</url>
+  <organization>
+    <name>com.github.kauailabs</name>
+    <url>https://github.com/kauailabs</url>
+  </organization>
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/kauailabs/navxmxp/issues</url>
+  </issueManagement>
+  <licenses>
+    <license>
+      <name>The MIT License (MIT)</name>
+      <url>https://github.com/kauailabs/navxmxp/blob/master/LICENSE.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm>
+    <url>https://github.com/kauailabs/navxmxp</url>
+    <connection>scm:git:git://github.com/kauailabs/navxmxp.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com:kauailabs/navxmxp.git</developerConnection>
+  </scm>
+  <developers>
+    <developer>
+      <name>kauailabs</name>
+    </developer>
+  </developers>
+</project>

@@ -1,0 +1,163 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.kauailabs.navx.frc",
+    "module": "navx-java",
+    "version": "3.1.401",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "6.0",
+      "buildId": "wosq6igmrzfuzg2oofx2ve7o7u"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 11,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "edu.wpi.first.cscore",
+          "module": "cscore-java",
+          "version": {
+            "requires": "2020.+"
+          }
+        },
+        {
+          "group": "edu.wpi.first.cameraserver",
+          "module": "cameraserver-java",
+          "version": {
+            "requires": "2020.+"
+          }
+        },
+        {
+          "group": "edu.wpi.first.ntcore",
+          "module": "ntcore-java",
+          "version": {
+            "requires": "2020.+"
+          }
+        },
+        {
+          "group": "edu.wpi.first.wpilibj",
+          "module": "wpilibj-java",
+          "version": {
+            "requires": "2020.+"
+          }
+        },
+        {
+          "group": "edu.wpi.first.wpiutil",
+          "module": "wpiutil-java",
+          "version": {
+            "requires": "2020.+"
+          }
+        },
+        {
+          "group": "edu.wpi.first.hal",
+          "module": "hal-java",
+          "version": {
+            "requires": "2020.+"
+          }
+        },
+        {
+          "group": "edu.wpi.first.thirdparty.frc2020.opencv",
+          "module": "opencv-java",
+          "version": {
+            "requires": "3.4.7-2"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "navx-java-3.1.401.jar",
+          "url": "navx-java-3.1.401.jar",
+          "size": 67154,
+          "sha512": "7751c0971375d88190a7aa75fb1c4e9dc90b19b321dbe17b8c127369ba0a12210046fe522d3c553e9eb60c48577f105c6cf2b9dbb7f1fd2974fa20dedc3bd5e8",
+          "sha256": "958601edd0b1c5672246db227bb6a22d772ea947375f8e3c0d728b7f1e96c853",
+          "sha1": "4f921a43de46967400ebd56270955ea1bf88c1e4",
+          "md5": "8f628f145f938caccbc61491a55b5f14"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 11,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "edu.wpi.first.cscore",
+          "module": "cscore-java",
+          "version": {
+            "requires": "2020.+"
+          }
+        },
+        {
+          "group": "edu.wpi.first.cameraserver",
+          "module": "cameraserver-java",
+          "version": {
+            "requires": "2020.+"
+          }
+        },
+        {
+          "group": "edu.wpi.first.ntcore",
+          "module": "ntcore-java",
+          "version": {
+            "requires": "2020.+"
+          }
+        },
+        {
+          "group": "edu.wpi.first.wpilibj",
+          "module": "wpilibj-java",
+          "version": {
+            "requires": "2020.+"
+          }
+        },
+        {
+          "group": "edu.wpi.first.wpiutil",
+          "module": "wpiutil-java",
+          "version": {
+            "requires": "2020.+"
+          }
+        },
+        {
+          "group": "edu.wpi.first.hal",
+          "module": "hal-java",
+          "version": {
+            "requires": "2020.+"
+          }
+        },
+        {
+          "group": "edu.wpi.first.thirdparty.frc2020.opencv",
+          "module": "opencv-java",
+          "version": {
+            "requires": "3.4.7-2"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "navx-java-3.1.401.jar",
+          "url": "navx-java-3.1.401.jar",
+          "size": 67154,
+          "sha512": "7751c0971375d88190a7aa75fb1c4e9dc90b19b321dbe17b8c127369ba0a12210046fe522d3c553e9eb60c48577f105c6cf2b9dbb7f1fd2974fa20dedc3bd5e8",
+          "sha256": "958601edd0b1c5672246db227bb6a22d772ea947375f8e3c0d728b7f1e96c853",
+          "sha1": "4f921a43de46967400ebd56270955ea1bf88c1e4",
+          "md5": "8f628f145f938caccbc61491a55b5f14"
+        }
+      ]
+    }
+  ]
+}
