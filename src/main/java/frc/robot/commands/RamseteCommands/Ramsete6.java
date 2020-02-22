@@ -17,21 +17,22 @@ import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.AutoConstants;
 import frc.robot.subsystems.DriveTrain;
 
 
 
-public class Ramsete1{
+public class Ramsete6{
 DriveTrain driveTrain;
 String trajectoryJSON;
 Path trajectoryPath;
 Trajectory trajectory;
 
-public Ramsete1(DriveTrain driveTrain){
+public Ramsete6(DriveTrain driveTrain){
 this.driveTrain = driveTrain;
-trajectoryJSON = "1.wpilib.json";
+trajectoryJSON = "6.wpilib.json";
 try {
   trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
   trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
