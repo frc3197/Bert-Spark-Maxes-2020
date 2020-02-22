@@ -37,7 +37,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 
   static private double WHEEL_DIAMETER = 0.1524;
-  static private double ENCODER_EDGES_PER_REV = 4096;
+  static private double ENCODER_EDGES_PER_REV = 2048;
   static private int PIDIDX = 0;
 
   Joystick stick;
@@ -70,7 +70,7 @@ public class Robot extends TimedRobot {
 
     leftMaster = new WPI_TalonFX(3);
     leftMaster.setInverted(true);
-    leftMaster.setSensorPhase(false);
+    leftMaster.setSensorPhase(true);
     leftMaster.setNeutralMode(NeutralMode.Brake);
 
     rightMaster = new WPI_TalonFX(2);
@@ -94,8 +94,8 @@ public class Robot extends TimedRobot {
 
     // Note that the angle from the NavX and all implementors of wpilib Gyro
     // must be negated because getAngle returns a clockwise positive angle
-    Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
-    gyroAngleRadians = () -> -1 * Math.toRadians(gyro.getAngle());
+    AHRS navx = new AHRS(SerialPort.Port.kUSB1);
+    gyroAngleRadians = () -> -1 * Math.toRadians(navx.getAngle());
 
     //
     // Configure drivetrain movement

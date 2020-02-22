@@ -221,11 +221,11 @@ public class RobotContainer {
   public static double getArm(){
     if(getLeftBumper())
     {
-      return .1;
+      return .2;
     }
     else if(getLeftTrigger())
     {
-      return -.1;
+      return -.2;
     }
     else{
      return 0;
@@ -306,59 +306,50 @@ public class RobotContainer {
    * @return The selection of Autonomous Command
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    // return m_sendableChooserAuto.getSelected();
-    // return easyRoute;
-       // Create a voltage constraint to ensure we don't accelerate too fast
-       var autoVoltageConstraint =
-       new DifferentialDriveVoltageConstraint(
-           new SimpleMotorFeedforward(AutoConstants.kS,
-                                      AutoConstants.kV,
-                                      AutoConstants.kA),
-           driveTrain.kinematics,
-           10);
+    var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
+         new SimpleMotorFeedforward(AutoConstants.kS,
+                                    AutoConstants.kV,
+                                    AutoConstants.kA),
+         driveTrain.kinematics,
+         10);
 
-   // Create config for trajectory
-   TrajectoryConfig config =
-       new TrajectoryConfig(AutoConstants.maxSpeedMetersPerSecond,
-                            AutoConstants.maxAccelerationMetersPerSecondSquared)
-           // Add kinematics to ensure max speed is actually obeyed
-           .setKinematics(driveTrain.kinematics)
-           // Apply the voltage constraint
-           .addConstraint(autoVoltageConstraint);
+    // Create config for trajectory
+    TrajectoryConfig config =
+    new TrajectoryConfig(AutoConstants.maxSpeedMetersPerSecond,
+                         AutoConstants.maxAccelerationMetersPerSecondSquared)
+    // Add kinematics to ensure max speed is actually obeyed
+    .setKinematics(driveTrain.kinematics)
+    // Apply the voltage constraint
+    .addConstraint(autoVoltageConstraint);
+    // An example trajectory to follow.  All units in meters.
 
-   // An example trajectory to follow.  All units in meters.
-   Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
-       // Start at the origin facing the +X direction
-       new Pose2d(0, 0, new Rotation2d(0)),
-       // Pass through these two interior waypoints, making an 's' curve path
-       List.of(
-           new Translation2d(1, 1),
-           new Translation2d(2, -1)
-       ),
-       // End 3 meters straight ahead of where we started, facing forward
-       new Pose2d(3, 0, new Rotation2d(Units.degreesToRadians(180))),
-       // Pass config
-       config
-   );
+    Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+    // Start at the origin facing the +X direction
+    new Pose2d(0, 0, new Rotation2d(0)),
+    // Pass through these two interior waypoints, making an 's' curve path
+    List.of(
+      new Translation2d(.25, -.25)
+    ),
+    // End 3 meters straight ahead of where we started, facing forward
+    new Pose2d(.5, 0, new Rotation2d()),
+    // Pass config
+    config);
 
-   RamseteCommand ramseteCommand = new RamseteCommand(
-       trajectory,
-       driveTrain::getPose,
-       new RamseteController(AutoConstants.ramseteB, AutoConstants.ramseteZeta),
-       new SimpleMotorFeedforward(AutoConstants.kS,
-                                      AutoConstants.kV,
-                                      AutoConstants.kA),
-       driveTrain.kinematics,
-       driveTrain::getWheelSpeeds,
-       new PIDController(AutoConstants.kP, AutoConstants.kI, AutoConstants.kD),
-       new PIDController(AutoConstants.kP, AutoConstants.kI, AutoConstants.kD),
-       // RamseteCommand passes volts to the callback
-       driveTrain::tankDriveVolts,
-        driveTrain );
-
-   // Run path following command, then stop at the end.
-   return ramseteCommand.andThen(() -> driveTrain.tankDriveVolts(0, 0));
+    RamseteCommand ramseteCommand = new RamseteCommand(
+    exampleTrajectory,
+    driveTrain::getPose,
+    new RamseteController(),
+    new SimpleMotorFeedforward(AutoConstants.kS,
+                               AutoConstants.kV,
+                               AutoConstants.kA),
+    driveTrain.kinematics,
+    driveTrain::getWheelSpeeds,
+    new PIDController(AutoConstants.kP, 0, 0),
+    new PIDController(AutoConstants.kP, 0, 0),
+    // RamseteCommand passes volts to the callback
+    driveTrain::tankDriveVolts,
+    driveTrain);
+    return ramseteCommand.andThen(() -> driveTrain.tankDriveVolts(0, 0));
  }
   
 

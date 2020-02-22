@@ -1,9 +1,13 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
@@ -39,22 +43,21 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
   public RamseteController ramseteController = new RamseteController(AutoConstants.ramseteB, AutoConstants.ramseteZeta);
 
 
-  public Rotation2d m_rotation2d = new Rotation2d(Units.degreesToRadians(90));
+  public Rotation2d m_rotation2d = new Rotation2d();
   public Pose2d m_pose = new Pose2d();
   public DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(m_rotation2d,m_pose);
   // TRACK WIDTH MEASUERED DISTANCE WHEEL CENTER TO WHEEL CENTER IN METERS
-  public DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(AutoConstants.trackWidth));
+  public DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(AutoConstants.trackWidth);
   
   public ChassisSpeeds chassisSpeeds = ramseteController.calculate(m_pose, AutoConstants.poseRef, AutoConstants.linearVelocityRefMeters, AutoConstants.angularVelocityRefRadiansPerSecond);
-  public DifferentialDriveWheelSpeeds driveWheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
 
-  public PIDController leftPID = new PIDController(AutoConstants.kP, AutoConstants.kI, AutoConstants.kD);
-  public PIDController rightPID = new PIDController(AutoConstants.kP, AutoConstants.kI, AutoConstants.kD);
+  // public PIDController leftPID = new PIDController(AutoConstants.kP, AutoConstants.kI, AutoConstants.kD);
+  // public PIDController rightPID = new PIDController(AutoConstants.kP, AutoConstants.kI, AutoConstants.kD);
   
   
-
-  static Gyro gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
-
+   
+  //static Gyro gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
+  public static AHRS gyro = new AHRS(SerialPort.Port.kUSB1);
   /**
    * Constructor for the DriveTrain
    */
@@ -82,7 +85,7 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
    */
   @Override
   public void periodic() {
-    var gyroAngle = Rotation2d.fromDegrees(-getGyroAngle());
+    var gyroAngle = Rotation2d.fromDegrees(getGyroAngle());
     m_pose = m_odometry.update(gyroAngle,getDistanceMetersLeft(), getDistanceMetersRight());
   }
 
@@ -104,14 +107,14 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
   }
 
   public double getLeftEncoderVelocityMeters(){
-    double velocityU = l1TalonFX.getSelectedSensorVelocity();
-    return (velocityU / 2048) * (Units.inchesToMeters(6) * Math.PI) * 10;
+    double velocityU = -l1TalonFX.getSelectedSensorVelocity();
+    return (velocityU / 2048) * Units.inchesToMeters(6 * Math.PI) * 10;
   }
 
 
   public double getRightEncoderVelocityMeters(){
     double velocityU = r1TalonFX.getSelectedSensorVelocity();
-    return (velocityU / 2048) * (Units.inchesToMeters(6) * Math.PI) * 10;
+    return (velocityU / 2048) * Units.inchesToMeters(6 * Math.PI) * 10;
   }
 
   public void zeroHeading(){
@@ -123,14 +126,14 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
   }
 
   public double getDistanceMetersLeft(){
-    double encoder = l1TalonFX.getSelectedSensorPosition();
-    double distance = (encoder / 2048.0) * ((Units.inchesToMeters(6.0)) * Math.PI); 
+    double encoder = -l1TalonFX.getSelectedSensorPosition();
+    double distance = ((encoder / Constants.gear_ratio) / 2048.0) * 0.478779 ; 
     return distance;
   }
 
   public double getDistanceMetersRight(){
     double encoder = r1TalonFX.getSelectedSensorPosition();
-    double distance = (encoder / 2048.0) * ((Units.inchesToMeters(6.0)) * Math.PI); 
+    double distance = ((encoder / Constants.gear_ratio) / 2048.0) * 0.478779; 
     return distance;
   }
   /**
@@ -143,7 +146,7 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
 
 
   public void calibrateGyro() {
-    gyro.calibrate();
+    // gyro.calibrate
   }
 
   /**
@@ -153,7 +156,7 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
     l1TalonFX.setSelectedSensorPosition(0);
     l2TalonFX.setSelectedSensorPosition(0);
     r1TalonFX.setSelectedSensorPosition(0);
-    r1TalonFX.setSelectedSensorPosition(0);
+    r2TalonFX.setSelectedSensorPosition(0);
   }
 
   /**
@@ -162,7 +165,7 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
    * @return Encoder value
    */
   public double getEncoderValue() {
-    return l1TalonFX.getSelectedSensorPosition();
+    return -l1TalonFX.getSelectedSensorPosition();
   }
 
   /**
@@ -171,7 +174,7 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
    * @return Calculated inches
    */
   public double getDistance() {
-    double ticks = l1TalonFX.getSelectedSensorPosition();
+    double ticks = -l1TalonFX.getSelectedSensorPosition();
     double distance = (ticks / 2048) * (6 * Math.PI);
     return distance;
   }
@@ -198,7 +201,7 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
    * @return Detected angle
    */
   public double getGyroAngle() {
-    return gyro.getAngle();
+    return -gyro.getAngle();
   }
 
   public void tankDriveVolts(double leftVolts,double rightVolts){

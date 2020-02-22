@@ -59,7 +59,7 @@ public final class Constants {
   public static enum TalonID {
     kLeft1(1, "Left1"), kLeft2(3, "Left2"), kRight1(0, "Right1"), kRight2(2, "Right2"), kShooter1(15, "Shooter1"),
     kCPScrub(4, "CPScrub"), kCPArm(5, "CPArm"), kIntake(6, "Intake"), kElevator(7, "elevator"), kHopper(13, "hopper"),
-    kArms1(9, "Arms1"), kArms2(8, "Arms2"), kHood(10, "Hood"), kTurret(11, "Turret"), kclimberWinch(14, "climberWinch"),
+    kArms2(8, "Arms2"), kHood(10, "Hood"), kTurret(11, "Turret"), kclimberWinch(14, "climberWinch"),
     kclimberTelescope(12, "climberTelescope");
 
     public final int id;
@@ -89,6 +89,7 @@ public final class Constants {
    * = name; // }
    */
   // 
+  public static final double gear_ratio = 7.6;
   public static final int kPIDLoopIdx = 0;
   public static final int kTimeoutMs = 30;
 }

@@ -19,7 +19,6 @@ public class Arms extends SubsystemBase {
   /**
    * Creates a new Arms.
    */
-  public final WPI_TalonFX armsMotor1 = new WPI_TalonFX(Constants.TalonID.kArms1.id);
   public final WPI_TalonFX armsMotor2 = new WPI_TalonFX(Constants.TalonID.kArms2.id);
 //MOTOR2 IS SLAVED TO MOTOR1!
   /**
@@ -27,9 +26,7 @@ public class Arms extends SubsystemBase {
    */
   
   public Arms() {
-    armsMotor2.follow(armsMotor1);
     armsMotor2.setInverted(true);
-    armsMotor1.setSafetyEnabled(false);
     armsMotor2.setSafetyEnabled(false);
   }
 
@@ -43,7 +40,7 @@ public class Arms extends SubsystemBase {
    * @param output Value for speed of arms. Currently a constant.
    */
   public void moveArms(double output) {
-    armsMotor1.set(output);
+    armsMotor2.set(output);
     
   }
 
