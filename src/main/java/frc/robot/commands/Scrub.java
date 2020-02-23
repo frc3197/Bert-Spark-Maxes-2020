@@ -134,7 +134,7 @@ public class Scrub extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     SmartDashboard.putBoolean("Scrub Running", false);
-    //TODO: Toggle Off Color Sensor light
+    
   }
 
   /**

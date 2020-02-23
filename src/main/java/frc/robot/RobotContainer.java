@@ -3,28 +3,17 @@ package frc.robot;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.List;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.controller.RamseteController;
-import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
-import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
-import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
-import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.BackupScrubRot;
 import frc.robot.commands.Climb;
@@ -38,6 +27,7 @@ import frc.robot.commands.Scrub;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.Winch;
 import frc.robot.commands.AutoCommands.EasyRoute;
+import frc.robot.commands.AutoCommands.EightBallRoute;
 import frc.robot.commands.AutoCommands.LimelightTracking.Align;
 import frc.robot.commands.AutoCommands.SubCommands.DriveDistance;
 import frc.robot.commands.AutoCommands.SubCommands.DriveDistanceSimple;
@@ -112,6 +102,12 @@ public class RobotContainer {
   public final Command easyRoute = new EasyRoute(hood, shooter, driveTrain, hopper, turret, elevator);
   public final Command driveDistance = new DriveDistance(driveTrain, 50);
   public final Command driveDistanceSimple = new DriveDistanceSimple(driveTrain);
+  Trajectory trajectory1;
+  Trajectory trajectory2;
+  Trajectory trajectory3;
+  Trajectory trajectory4;
+  Trajectory trajectory5;
+  Trajectory trajectory6;
   /**
    * Table of values for limelight and receiving FMS data.
    */
@@ -123,6 +119,7 @@ public class RobotContainer {
 
   public SendableChooser<Command> m_sendableChooserAuto = new SendableChooser<Command>();
   public SendableChooser<String> m_sendableChooserLL = new SendableChooser<String>();
+ 
 
   public final String trajectoryJSON1 = "1.wpilib.json";
   public final String trajectoryJSON2 = "2.wpilib.json";
@@ -131,17 +128,61 @@ public class RobotContainer {
   public final String trajectoryJSON5 = "5.wpilib.json";
   public final String trajectoryJSON6 = "6.wpilib.json";
 
-try {
-  Path trajectoryPath2 = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON2);
-  Trajectory trajectory2 = TrajectoryUtil.fromPathweaverJson(trajectoryPath2);
-} catch (IOException ex) {
-  DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON2, ex.getStackTrace());
-}
+
 
   /*
    * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
    */
   public RobotContainer() {
+    try {
+      Path trajectoryPath2 = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON2);
+      trajectory2 = TrajectoryUtil.fromPathweaverJson(trajectoryPath2);
+    } catch (IOException ex) {
+      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON2, ex.getStackTrace());
+    }
+
+    try {
+      Path trajectoryPath1 = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON1);
+      trajectory1 = TrajectoryUtil.fromPathweaverJson(trajectoryPath1);
+    } catch (IOException ex) {
+      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON1, ex.getStackTrace());
+    }
+
+    try {
+      Path trajectoryPath3 = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON3);
+      trajectory3 = TrajectoryUtil.fromPathweaverJson(trajectoryPath3);
+    } catch (IOException ex) {
+      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON3, ex.getStackTrace());
+    }
+
+    try {
+      Path trajectoryPath4 = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON4);
+      trajectory4 = TrajectoryUtil.fromPathweaverJson(trajectoryPath4);
+    } catch (IOException ex) {
+      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON4, ex.getStackTrace());
+    }
+
+    try {
+      Path trajectoryPath5 = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON5);
+      trajectory5 = TrajectoryUtil.fromPathweaverJson(trajectoryPath5);
+    } catch (IOException ex) {
+      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON5, ex.getStackTrace());
+    }
+
+    try {
+      Path trajectoryPath6 = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON6);
+      trajectory6 = TrajectoryUtil.fromPathweaverJson(trajectoryPath6);
+    } catch (IOException ex) {
+      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON6, ex.getStackTrace());
+    }
+
+
+
+
+
+
+
+
     driveTrain.setDefaultCommand(new Drive(driveTrain));
   //  intake.setDefaultCommand(new TakeIn(intake));
     arms.setDefaultCommand(new MoveArms(arms));
@@ -325,51 +366,10 @@ try {
    * @return The selection of Autonomous Command
    */
   public Command getAutonomousCommand() {
-    var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
-         new SimpleMotorFeedforward(AutoConstants.kS,
-                                    AutoConstants.kV,
-                                    AutoConstants.kA),
-         driveTrain.kinematics,
-         10);
 
-    // Create config for trajectory
-    TrajectoryConfig config =
-    new TrajectoryConfig(AutoConstants.maxSpeedMetersPerSecond,
-                         AutoConstants.maxAccelerationMetersPerSecondSquared)
-    // Add kinematics to ensure max speed is actually obeyed
-    .setKinematics(driveTrain.kinematics)
-    // Apply the voltage constraint
-    .addConstraint(autoVoltageConstraint);
-    // An example trajectory to follow.  All units in meters.
-
-    Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
-    // Start at the origin facing the +X direction
-    new Pose2d(0, 0, new Rotation2d()),
-    // Pass through these two interior waypoints, making an 's' curve path
-    List.of(
-      new Translation2d(1,1),
-      new Translation2d(2, -1)
-    ),
-    // End 3 meters straight ahead of where we started, facing forward
-    new Pose2d(3, 0, new Rotation2d()),
-    // Pass config
-    config);
-
-    RamseteCommand ramseteCommand = new RamseteCommand(
-    exampleTrajectory,
-    driveTrain::getPose,
-    new RamseteController(),
-    new SimpleMotorFeedforward(AutoConstants.kS,
-                               AutoConstants.kV,
-                               AutoConstants.kA),
-    driveTrain.kinematics,
-    driveTrain::getWheelSpeeds,
-    new PIDController(AutoConstants.kP, 0, 0),
-    new PIDController(AutoConstants.kP, 0, 0),
-    // RamseteCommand passes volts to the callback
-    driveTrain::tankDriveVolts,
-    driveTrain);
-    return ramseteCommand.andThen(() -> driveTrain.tankDriveVolts(0, 0));
+    return (new EightBallRoute(driveTrain, elevator, hopper, shooter, trajectory1, trajectory2, trajectory3,
+        trajectory4, trajectory5, trajectory6));
+    
  }
   
 

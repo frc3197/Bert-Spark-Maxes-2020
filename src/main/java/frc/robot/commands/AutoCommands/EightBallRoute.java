@@ -27,8 +27,14 @@ public class EightBallRoute extends SequentialCommandGroup {
    Trajectory trajectory3, Trajectory trajectory4,Trajectory trajectory5, Trajectory trajectory6) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super(new Ramsete(driveTrain,trajectory1),new Ramsete(driveTrain, trajectory2),new Ramsete(driveTrain, trajectory3), 
-    new ElevateAuto(elevator,hopper,shooter),new Ramsete(driveTrain, trajectory4),new Ramsete(driveTrain, trajectory5),
-    new Ramsete(driveTrain, trajectory6), new ElevateAuto(elevator,hopper,shooter));
+    super(
+    new Ramsete(driveTrain,trajectory1).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
+    new Ramsete(driveTrain, trajectory2).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
+    new Ramsete(driveTrain, trajectory3).andThen(() -> driveTrain.tankDriveVolts(0, 0)), 
+    new ElevateAuto(elevator,hopper,shooter),
+    new Ramsete(driveTrain, trajectory4).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
+    new Ramsete(driveTrain, trajectory5).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
+    new Ramsete(driveTrain, trajectory6).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
+    new ElevateAuto(elevator,hopper,shooter));
   }
 }
