@@ -7,43 +7,21 @@
 
 package frc.robot.commands.RamseteCommands;
 
-import java.io.IOException;
-import java.nio.file.Path;
-
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
-import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.AutoConstants;
 import frc.robot.subsystems.DriveTrain;
 
 
 
-public class Ramsete6{
+public class Ramsete extends RamseteCommand{
 DriveTrain driveTrain;
-String trajectoryJSON;
-Path trajectoryPath;
-Trajectory trajectory;
-
-public Ramsete6(DriveTrain driveTrain){
-this.driveTrain = driveTrain;
-trajectoryJSON = "6.wpilib.json";
-try {
-  trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
-  trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
-} catch (IOException ex) {
-  DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
-}
-
-}
-
-public RamseteCommand Ramsete1 = new RamseteCommand(
-  trajectory,
+public Ramsete(DriveTrain driveTrain, Trajectory trajectory){
+  
+  super(trajectory,
   driveTrain::getPose,
   new RamseteController(),
   new SimpleMotorFeedforward(AutoConstants.kS,
@@ -56,12 +34,7 @@ public RamseteCommand Ramsete1 = new RamseteCommand(
   // RamseteCommand passes volts to the callback
   driveTrain::tankDriveVolts,
   driveTrain);
-
-  
-  
-
-
-
-
+this.driveTrain = driveTrain;
+}
 }
 

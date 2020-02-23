@@ -9,23 +9,12 @@ package frc.robot.commands.AutoCommands.SubCommands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.Hopper;
-import frc.robot.subsystems.Shooter;
 
-public class ElevateAuto extends CommandBase {
-  Elevator elevator;
-  Hopper hopper;
-  Shooter shooter;
+public class WaitShoot extends CommandBase {
   /**
-   * Creates a new Elevate.
+   * Creates a new WaitShoot.
    */
-  public ElevateAuto(Elevator elevator, Hopper hopper,Shooter shooter) {
-    this.elevator = elevator;
-    this.hopper  = hopper;
-    this.shooter = shooter;
-    addRequirements(elevator,hopper,shooter);
+  public WaitShoot() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -37,23 +26,17 @@ public class ElevateAuto extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    hopper.hopperFeeder(.4);
-    elevator.hopperElevator(0.4);
-    shooter.shooterVelocity(RobotContainer.targetVelocity(1, 5500));
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    hopper.hopperFeeder(0);
-    elevator.hopperElevator(0);
-    shooter.shooterVelocity(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    Timer.delay(3);
+    Timer.delay(2);
     return true;
   }
 }

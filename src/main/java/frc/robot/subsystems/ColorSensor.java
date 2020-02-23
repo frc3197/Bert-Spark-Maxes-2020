@@ -12,6 +12,7 @@ import java.nio.ByteOrder;
 
 import com.revrobotics.ColorSensorV3;
 
+
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -20,17 +21,17 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  * Defines a ColorSensor object.
  */
 public class ColorSensor extends SubsystemBase {
-    I2C sensor;
+    // I2C sensor;
 
     private final I2C.Port i2cPort = I2C.Port.kOnboard;
-    private final ColorSensorV3 m_colorsensor = new ColorSensorV3(i2cPort);
+    private final ColorSensorV3 m_colorSensor;
 
     protected final static int COMMAND_REGISTER_BIT = 0x80;
     protected final static int MULTI_BYTE_BIT = 0x20;
 
     protected final static int ENABLE_REGISTER = 0x00;
     protected final static int ATIME_REGISTER = 0x01;
-    protected final static int PPULSE_REGISTER = 0x0E;
+    protected final static int PULSE_REGISTER = 0x0E;
 
     protected final static int ID_REGISTER = 0x12;
     protected final static int CDATA_REGISTER = 0x14;
@@ -43,9 +44,10 @@ public class ColorSensor extends SubsystemBase {
      * Creates a Color Sensor object.
      */
     public ColorSensor() {
-        sensor = new I2C(I2C.Port.kOnboard, 0x52); // port, I2c address (0x39 old)
+        m_colorSensor = new ColorSensorV3(i2cPort);
+        // sensor = new I2C(I2C.Port.kOnboard, 0x52); // port, I2c address (0x39 old)
 
-        sensor.write(COMMAND_REGISTER_BIT, 0b00000011); // power on, color sensor on
+        // sensor.write(COMMAND_REGISTER_BIT, 0b00000011); // power on, color sensor on
     }
 
     /**
@@ -55,7 +57,7 @@ public class ColorSensor extends SubsystemBase {
      */
     protected int readWordRegister(int address) {
         ByteBuffer buf = ByteBuffer.allocate(2);
-        sensor.read(COMMAND_REGISTER_BIT | MULTI_BYTE_BIT | address, 2, buf);
+        // sensor.read(COMMAND_REGISTER_BIT | MULTI_BYTE_BIT | address, 2, buf);
         buf.order(ByteOrder.LITTLE_ENDIAN);
         return buf.getShort(0);
     }
@@ -65,7 +67,7 @@ public class ColorSensor extends SubsystemBase {
      * @return Color detected or unknown
      */
     public Color getColor() {
-        return m_colorsensor.getColor();
+        return m_colorSensor.getColor();
     }
 
     /**

@@ -1,6 +1,8 @@
 
 package frc.robot;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -11,12 +13,15 @@ import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
@@ -118,6 +123,21 @@ public class RobotContainer {
 
   public SendableChooser<Command> m_sendableChooserAuto = new SendableChooser<Command>();
   public SendableChooser<String> m_sendableChooserLL = new SendableChooser<String>();
+
+  public final String trajectoryJSON1 = "1.wpilib.json";
+  public final String trajectoryJSON2 = "2.wpilib.json";
+  public final String trajectoryJSON3 = "3.wpilib.json";
+  public final String trajectoryJSON4 = "4.wpilib.json";
+  public final String trajectoryJSON5 = "5.wpilib.json";
+  public final String trajectoryJSON6 = "6.wpilib.json";
+
+try {
+  Path trajectoryPath2 = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON2);
+  Trajectory trajectory2 = TrajectoryUtil.fromPathweaverJson(trajectoryPath2);
+} catch (IOException ex) {
+  DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON2, ex.getStackTrace());
+}
+
   /*
    * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
    */
