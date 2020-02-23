@@ -8,6 +8,8 @@
 package frc.robot.commands.AutoCommands.LimelightTracking;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Hood;
@@ -57,11 +59,21 @@ public class LimelightHood extends CommandBase {
      * the while loop compares the error between ticksE and the current encoder position, and stops when
      *     the encoder position is at ticksE.
      */
-    double d = RobotContainer.getDistanceFromTarget();
-    double thetaI = 90 - Math.atan(80.25/d); //80.25 is the height of the shooter from the center of the power port
-    double thetaE = thetaI - 40; //40 is the angle of the shooter when hitting the back limit
-    double ticksE = TICKS_TO_DEG * thetaE;
-    while(ticksE - hood.getEncoderPosition() > 0){ //We can assume that this number will always be positive (encoderCalibrate())
+    double d = RobotContainer.getDistanceFromTarget(); //in inches
+    double thetaI = 90 - Units.radiansToDegrees(Math.atan(80.25/d)); //80.25 is the height of the shooter from the center of the power port
+    double thetaE = thetaI - 37; //40 is the angle of the shooter when hitting the back limit
+
+    //Basic implementation of correcting for error. Probably not right tbh.
+    if(d - 165 > 20){
+      thetaE += 3;
+    }else if(d - 165 < 20){
+      thetaE -= 3;
+    }else{
+    }
+    
+    double ticksE = TICKS_TO_DEG * thetaE; //10182.2 is the simplified TICKS_TO_DEG
+    SmartDashboard.putNumber("Target Ticks", ticksE);
+    if(ticksE - hood.getEncoderPosition() > 0){ //We can assume that this number will always be positive (encoderCalibrate())
       hood.moveHood(0.5);
     }
     hood.moveHood(0);

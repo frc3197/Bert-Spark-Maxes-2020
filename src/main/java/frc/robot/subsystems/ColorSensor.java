@@ -14,6 +14,7 @@ import com.revrobotics.ColorSensorV3;
 
 
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -24,7 +25,7 @@ public class ColorSensor extends SubsystemBase {
     // I2C sensor;
 
     private final I2C.Port i2cPort = I2C.Port.kOnboard;
-    private final ColorSensorV3 m_colorSensor;
+    private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
 
     protected final static int COMMAND_REGISTER_BIT = 0x80;
     protected final static int MULTI_BYTE_BIT = 0x20;
@@ -44,7 +45,6 @@ public class ColorSensor extends SubsystemBase {
      * Creates a Color Sensor object.
      */
     public ColorSensor() {
-        m_colorSensor = new ColorSensorV3(i2cPort);
         // sensor = new I2C(I2C.Port.kOnboard, 0x52); // port, I2c address (0x39 old)
 
         // sensor.write(COMMAND_REGISTER_BIT, 0b00000011); // power on, color sensor on

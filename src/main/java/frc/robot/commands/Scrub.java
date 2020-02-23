@@ -28,6 +28,7 @@ public class Scrub extends CommandBase {
   private ControlPanel controlPanel;
   private boolean rotationControl = false;
   private boolean positionControl = false;
+  private boolean finished = false;
 
   private final ColorMatch m_colorMatcher = new ColorMatch();
 
@@ -53,6 +54,7 @@ public class Scrub extends CommandBase {
    */
   @Override
   public void initialize() {
+    finished = false;
     m_colorMatcher.addColorMatch(kBlueTarget);
     m_colorMatcher.addColorMatch(kGreenTarget);
     m_colorMatcher.addColorMatch(kRedTarget);
@@ -85,29 +87,36 @@ public class Scrub extends CommandBase {
     if (positionControl) {
       switch (gameData.charAt(0)) {
       case 'B':
-        while (colorString != "Red") {
+      case 'b':
+        if (colorString != "Red") {
           controlPanel.panelSpin(0.2);
-          colorString = getColorString();
+        }else{
+          finished = true;
         }
         break;
       case 'G':
-        while (colorString != "Yellow") {
+      case 'g':       
+        if (colorString != "Yellow") {
           controlPanel.panelSpin(0.2);
-          colorString = getColorString();
+        }else{
+          finished = true;
         }
         break;
       case 'R':
-        while (colorString != "Blue") {
+      case 'r':
+        if (colorString != "Blue") {
           controlPanel.panelSpin(0.2);
-          colorString = getColorString();
+        }else{
+          finished = true;
         }
         break;
       case 'Y':
-        while (colorString != "Green") {
+      case 'y':
+        if (colorString != "Green") {
           controlPanel.panelSpin(0.2);
-          colorString = getColorString();
+        }else{
+          finished = true;
         }
-      default:
         break;
       }
     } else if (rotationControl) {
@@ -116,7 +125,8 @@ public class Scrub extends CommandBase {
       String currentColor = getColorString();
       int currentColorCount = 0;
       boolean currentColorSeen = false;
-      while (currentColorCount <= 8) {
+      finished = false;
+      if (currentColorCount <= 8) {
         controlPanel.panelSpin(0.2);
         if (getColorString() == currentColor && !currentColorSeen) {
           currentColorCount++;
@@ -124,6 +134,8 @@ public class Scrub extends CommandBase {
         } else if (getColorString() != currentColor) {
           currentColorSeen = false;
         }
+      }else{
+        finished = true;
       }
     }
   }
@@ -134,7 +146,8 @@ public class Scrub extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     SmartDashboard.putBoolean("Scrub Running", false);
-    
+    controlPanel.panelSpin(0);
+    //TODO: Toggle Off Color Sensor light
   }
 
   /**
@@ -143,7 +156,7 @@ public class Scrub extends CommandBase {
   @Override
   public boolean isFinished() {
     //TODO: add a finished conditional.
-    return false;
+    return finished;
   }
 
   /**
