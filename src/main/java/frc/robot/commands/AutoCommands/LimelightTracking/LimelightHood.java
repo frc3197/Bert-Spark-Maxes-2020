@@ -19,6 +19,7 @@ import frc.robot.subsystems.Hood;
  */
 public class LimelightHood extends CommandBase {
   Hood hood;
+  private double ticksE;
   private final double TICKS_TO_DEG = 51982336/5040;
 
   /**
@@ -40,6 +41,7 @@ public class LimelightHood extends CommandBase {
   @Override
   public void initialize() {
     hood.encoderCalibrate();
+    ticksE = 0;
     // Forces LimelightHood to use no hardware zoom pipeline
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("pipeline").setNumber(0);
   }
@@ -59,24 +61,45 @@ public class LimelightHood extends CommandBase {
      * the while loop compares the error between ticksE and the current encoder position, and stops when
      *     the encoder position is at ticksE.
      */
-    double d = RobotContainer.getDistanceFromTarget(); //in inches
-    double thetaI = 90 - Units.radiansToDegrees(Math.atan(80.25/d)); //80.25 is the height of the shooter from the center of the power port
-    double thetaE = thetaI - 37; //40 is the angle of the shooter when hitting the back limit
+    //TODO: Work on later
+    // double d = RobotContainer.getDistanceFromTarget(); //in inches
+    // double thetaI = 90 - Units.radiansToDegrees(Math.atan(80.25/d)); //80.25 is the height of the shooter from the center of the power port
+    // double thetaE = thetaI - 37; //40 is the angle of the shooter when hitting the back limit
 
-    //Basic implementation of correcting for error. Probably not right tbh.
-    if(d - 165 > 20){
-      thetaE += 3;
-    }else if(d - 165 < 20){
-      thetaE -= 3;
-    }else{
-    }
+    // //Basic implementation of correcting for error. Probably not right tbh.
+    // if(d - 165 > 20){ //165 is the distance in inches of the bot from the target that was calibrated last time.
+    //   thetaE -= 4;
+    // }else if(d - 165 < -20){
+    //   thetaE += 4;
+    // }
     
-    double ticksE = TICKS_TO_DEG * thetaE; //10182.2 is the simplified TICKS_TO_DEG
-    SmartDashboard.putNumber("Target Ticks", ticksE);
-    if(ticksE - hood.getEncoderPosition() > 0){ //We can assume that this number will always be positive (encoderCalibrate())
-      hood.moveHood(0.5);
+    // ticksE = TICKS_TO_DEG * thetaE; //10182.2 is the simplified TICKS_TO_DEG
+    // SmartDashboard.putNumber("Target Ticks", ticksE);
+    // if(ticksE - hood.getEncoderPosition() > 0){ //We can assume that this number will always be positive (encoderCalibrate())
+    //   hood.moveHood(0.5);
+    // }
+
+    //Initiation Line: 120in
+    //First ball: 242.63in
+    double d = RobotContainer.getDistanceFromTarget();
+    double deadzone = 40; //in inches
+    double ticksInit = 275253; //Placeholder. (120, 1234)
+    double ticksMid = 275000;
+    double ticksBall = 290000; //Placeholder. (242.63, 2345)
+    if(Math.abs(d - 120) < deadzone){
+      ticksE = ticksInit;
+    }else if(Math.abs(d - 180) < deadzone){
+      ticksE = ticksMid;
+    }else if(Math.abs(d - 240) < deadzone){
+      ticksE = ticksBall;
     }
-    hood.moveHood(0);
+    if(ticksE - hood.getEncoderPosition() > 0){
+      hood.moveHood(0.7);
+    }
+    //Slope = 2345-1234/242.63-120
+    //y=(slope)x
+
+    // double ticksE;
 
     // TODO: Remove all this old stuff
     // hood.moveHoodtoAngle();
@@ -108,6 +131,7 @@ public class LimelightHood extends CommandBase {
     // Changes back to hardware zoom pipeline if it was there
     // if (RobotContainer.getZoom()) {
     // NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("pipeline").setNumber(0);
+    hood.moveHood(0);
   }
 
   /**
@@ -115,10 +139,11 @@ public class LimelightHood extends CommandBase {
    */
   @Override
   public boolean isFinished() {
+    return !(ticksE - hood.getEncoderPosition() > 0);
     //This should technically never happen if the math is right.
-    if (hood.hoodMotor.isFwdLimitSwitchClosed() == 1) {
-      return true;
-    }
-    return false;
+    // if (hood.hoodMotor.isFwdLimitSwitchClosed() == 1) {
+    //   return true;
+    // }
+    // return false;
   }
 }

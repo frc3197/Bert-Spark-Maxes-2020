@@ -63,7 +63,7 @@ public class Hood extends SubsystemBase {
     else if(forwardLimit == on){
 
       while(reverseLimit == off){
-        moveHood(-0.4);
+        moveHood(-0.7);
         reverseLimit = hoodMotor.isRevLimitSwitchClosed();
         SmartDashboard.putBoolean("Hood Reverse Limit", reverseLimit == on);
       }
@@ -71,7 +71,7 @@ public class Hood extends SubsystemBase {
     }
     else{
       while(reverseLimit == off){
-        moveHood(-0.4);
+        moveHood(-0.7);
         reverseLimit = hoodMotor.isRevLimitSwitchClosed();
         SmartDashboard.putBoolean("Hood Reverse Limit", reverseLimit == on);
       }
@@ -99,7 +99,6 @@ public class Hood extends SubsystemBase {
     double idealTicks = 10240 * thetaI;
 
     return idealTicks;
-    //TODO: Test physics, implement, etc.
   }
 
   /**
@@ -125,6 +124,7 @@ public class Hood extends SubsystemBase {
   //   }
   // }
   public double getEncoderPosition(){
+    SmartDashboard.putNumber("Hood Encoder Position", hoodMotor.getSelectedSensorPosition());
     return hoodMotor.getSelectedSensorPosition();
   }
 

@@ -17,6 +17,7 @@ import frc.robot.subsystems.Hood;
  */
 public class MoveHood extends CommandBase {
   Hood hood;
+  private int hoodFwd;
 
   /**
    * Creates a new MoveHood.
@@ -42,7 +43,7 @@ public class MoveHood extends CommandBase {
    */
   @Override
   public void execute() {
-    int hoodFwd = hood.hoodMotor.isFwdLimitSwitchClosed();
+    hoodFwd = hood.hoodMotor.isFwdLimitSwitchClosed();
     // String angle = ""
     // SmartDashboard.putNumber("Angle", value)
     System.out.println("hoodFWD" + hoodFwd);

@@ -34,6 +34,7 @@ public class Robot extends TimedRobot {
   int count = 0;
   boolean LS = true;
   boolean hopperFull = false;
+  private boolean pressed;
   private RobotContainer m_robotContainer;
   
   // private String ll1 = "limelight-hounds";
@@ -101,12 +102,12 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Shooter is Running", m_robotContainer.shooter.getMotor());
     SmartDashboard.putNumber("Match Time", DriverStation.getInstance().getMatchTime());
     SmartDashboard.putString("Detected Color", m_robotContainer.colorSensor.getColorString());
-    // Runs the Scheduler. This is responsible for polling buttons, adding
-    // newly-scheduled
+    SmartDashboard.putNumber("Distance from Target", RobotContainer.getDistanceFromTarget());
+    SmartDashboard.putNumber("Hood Encoder Value", m_robotContainer.hood.hoodMotor.getSelectedSensorPosition());
     // commands, running already-scheduled commands, removing finished or
     // interrupted commands,
     // and running subsystem periodic() m
-    boolean pressed = hoodCounter.get();
+    pressed = hoodCounter.get();
     CommandScheduler.getInstance().run();
     if (pressed == true) {
       if (pressed && LS) {

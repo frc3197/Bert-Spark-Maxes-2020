@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
+import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.BackupScrubRot;
@@ -30,6 +31,8 @@ import frc.robot.commands.Winch;
 import frc.robot.commands.AutoCommands.EasyRoute;
 import frc.robot.commands.AutoCommands.EightBallRoute;
 import frc.robot.commands.AutoCommands.LimelightTracking.Align;
+import frc.robot.commands.AutoCommands.LimelightTracking.LimelightHood;
+import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightTurn;
 import frc.robot.commands.AutoCommands.SubCommands.DriveDistance;
 import frc.robot.commands.AutoCommands.SubCommands.DriveDistanceSimple;
 import frc.robot.commands.AutoCommands.SubCommands.IntakeHopper;
@@ -212,7 +215,9 @@ public class RobotContainer {
     // driver2Y.whileHeld(driveDistanceSimple);
     driver2X.whenPressed(new Scrub(controlPanel, colorSensor, false));
     driver2Y.whenPressed(new Scrub(controlPanel, colorSensor, true));
-    driver2A.whileHeld(new Align(hood, shooter, turret));
+    // driver2A.whileHeld(new Align(hood, shooter, turret));
+    driver2B.whileHeld(new TrackLimelightTurn(turret));
+    driver2A.whenPressed(new LimelightHood(hood));
     driver2RB.whileHeld(new Elevate(elevator,hopper));
     driver2RS.whenPressed(new ToggleZoom());
     driver2LS.whileHeld(new Reverse(elevator,hopper));
@@ -411,9 +416,11 @@ public class RobotContainer {
    */
   public static double getDistanceFromTarget() {
     double ty = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
-    ty = Math.toRadians(ty);
+    double offset = Units.degreesToRadians(11.911213439);
     System.out.println("offset : " + ty);
-    double limeDistance = 80.25 / (Math.tan(ty + 17.77));
+    ty = Units.degreesToRadians(ty);
+    double limeDistance = Math.abs(80.25 / (Math.tan(ty + offset)));
+    SmartDashboard.putNumber("Distance from Target", limeDistance);
     return limeDistance;
     // Will have to integrate a variable a1 value once set up for limelight angle.
   }

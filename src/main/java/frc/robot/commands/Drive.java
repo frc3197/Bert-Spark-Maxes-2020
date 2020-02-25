@@ -11,6 +11,7 @@ import frc.robot.subsystems.DriveTrain;
 public class Drive extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   DriveTrain driveTrain;
+  private double tankR, tankL, arcadeR, arcadeS;
 
   // double[] yValues = new double[] { driveTrain.CalcFPS(),
   // RobotContainer.tankDriveLeft() };
@@ -32,7 +33,10 @@ public class Drive extends CommandBase {
   public void initialize() {
     driveTrain.resetEncoder();
     driveTrain.resetGyro();
-
+    tankR = 0; 
+    tankL = 0;
+    arcadeR = 0;
+    arcadeS = 0;
   }
  
   /**
@@ -45,11 +49,11 @@ public class Drive extends CommandBase {
      * Pulls the inputs from the controller and assigns them to the variables for
      * use in the tankDrive function.
      */
-    double tankR = RobotContainer.tankDriveRight();
-    double tankL = RobotContainer.tankDriveLeft();
+    tankR = RobotContainer.tankDriveRight();
+    tankL = RobotContainer.tankDriveLeft();
 
-    double arcadeR = RobotContainer.arcadeDriveRotation();
-    double arcadeS = RobotContainer.arcadeDriveSpeed();
+    arcadeR = RobotContainer.arcadeDriveRotation();
+    arcadeS = RobotContainer.arcadeDriveSpeed();
     RobotContainer.pullNetworkTables();
     System.out.println("Distance From Target: " + RobotContainer.getDistanceFromTarget());
 
