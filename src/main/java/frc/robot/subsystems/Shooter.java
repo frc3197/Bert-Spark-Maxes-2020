@@ -76,7 +76,7 @@ public class Shooter extends PIDSubsystem {
   }
   
   public void feedForwardPID(double RPM) {
-  TalonShooter1.setVoltage(feedforward.calculate(RPM * 4096 / 600))
+  TalonShooter1.setVoltage(feedforward.calculate(RPM * 2048 / 600))
       + getController().calculate(TalonShooter1.getSelectedSensorVelocity(), RPM);
   // CHANGE GETSELECTEDSENSORVELOCITYTODISTANCEUNIT
   // THIS COULD BE AN OPTION FOR FEEDFORWARD WITH PID BUT SHOULD LOOK INTO FLYWHEEL CALCULATION
