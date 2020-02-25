@@ -28,7 +28,9 @@ public class Scrub extends CommandBase {
   private ControlPanel controlPanel;
   private boolean rotationControl = false;
   private boolean positionControl = false;
+  private boolean position;
   private boolean finished = false;
+  private int currentColorCount = 0;
 
   private final ColorMatch m_colorMatcher = new ColorMatch();
 
@@ -42,11 +44,13 @@ public class Scrub extends CommandBase {
    * @param controlPanel ControlPanel subsystem
    * @param colorSensor ColorSensor subsystem
    */
-  public Scrub(ControlPanel controlPanel, ColorSensor colorSensor) {
+  public Scrub(ControlPanel controlPanel, ColorSensor colorSensor, boolean position) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.controlPanel = controlPanel;
     this.colorSensor = colorSensor;
+    this.position = position;
     addRequirements(controlPanel);
+    getColorString();
   }
 
   /**
@@ -55,10 +59,14 @@ public class Scrub extends CommandBase {
   @Override
   public void initialize() {
     finished = false;
+    currentColorCount = 0;
+    controlPanel.resetEncoderPosition();
     m_colorMatcher.addColorMatch(kBlueTarget);
     m_colorMatcher.addColorMatch(kGreenTarget);
     m_colorMatcher.addColorMatch(kRedTarget);
     m_colorMatcher.addColorMatch(kYellowTarget);
+    SmartDashboard.putBoolean("Position Control", false);
+    SmartDashboard.putBoolean("Rotation Control", false);
     //TODO: Toggle On Color Sensor Light
   }
 
@@ -71,71 +79,55 @@ public class Scrub extends CommandBase {
    */
   @Override
   public void execute() {
-    double val = RobotContainer.getArmCP();
-    
-    SmartDashboard.putNumber("Red", colorSensor.getColor().red);
-    SmartDashboard.putNumber("Green", colorSensor.getColor().green);
-    SmartDashboard.putNumber("Blue", colorSensor.getColor().blue);
-
     String gameData = DriverStation.getInstance().getGameSpecificMessage();
     String colorString = getColorString();
+    SmartDashboard.putString("Game Data", gameData);
     // rotationControl = RobotContainer.getRotationControl();
-    rotationControl = false;
-    positionControl = false;
-    controlPanel.moveCPArm(val);
 
-    if (positionControl) {
+    if (position) {
+      SmartDashboard.putBoolean("Position Control", true);
       switch (gameData.charAt(0)) {
       case 'B':
       case 'b':
-        if (colorString != "Red") {
-          controlPanel.panelSpin(0.2);
+        if (colorString != "Yellow") {
+          controlPanel.panelSpin(0.6);
         }else{
           finished = true;
         }
         break;
       case 'G':
       case 'g':       
-        if (colorString != "Yellow") {
-          controlPanel.panelSpin(0.2);
+        if (colorString != "Blue") {
+          controlPanel.panelSpin(0.6);
         }else{
           finished = true;
         }
         break;
       case 'R':
       case 'r':
-        if (colorString != "Blue") {
-          controlPanel.panelSpin(0.2);
+        if (colorString != "Green") {
+          controlPanel.panelSpin(0.6);
         }else{
           finished = true;
         }
         break;
       case 'Y':
       case 'y':
-        if (colorString != "Green") {
-          controlPanel.panelSpin(0.2);
+        if (colorString != "Red") {
+          controlPanel.panelSpin(0.6);
         }else{
           finished = true;
         }
         break;
       }
-    } else if (rotationControl) {
-      // May work. Controls based on current color and rotates until it's seen that
-      // color three times.
-      String currentColor = getColorString();
-      int currentColorCount = 0;
-      boolean currentColorSeen = false;
-      finished = false;
-      if (currentColorCount <= 8) {
-        controlPanel.panelSpin(0.2);
-        if (getColorString() == currentColor && !currentColorSeen) {
-          currentColorCount++;
-          currentColorSeen = true;
-        } else if (getColorString() != currentColor) {
-          currentColorSeen = false;
-        }
+    } else {
+      SmartDashboard.putBoolean("Rotation Control", true);
+      if(controlPanel.getEncoderPosition() < 1000000){
+        //TODO: Calculation when we put a NEO on there.
+        controlPanel.panelSpin(0.6);
       }else{
         finished = true;
+        controlPanel.panelSpin(0);
       }
     }
   }
@@ -145,8 +137,9 @@ public class Scrub extends CommandBase {
    */
   @Override
   public void end(boolean interrupted) {
-    SmartDashboard.putBoolean("Scrub Running", false);
     controlPanel.panelSpin(0);
+    SmartDashboard.putBoolean("Position Control", false);
+    SmartDashboard.putBoolean("Rotation Control", false);
     //TODO: Toggle Off Color Sensor light
   }
 

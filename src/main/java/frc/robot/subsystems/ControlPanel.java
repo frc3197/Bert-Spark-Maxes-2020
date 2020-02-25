@@ -53,4 +53,12 @@ public class ControlPanel extends SubsystemBase {
     TalonCPArm.set(ControlMode.PercentOutput, val);
   }
 
+  public int getEncoderPosition(){
+    return TalonCPScrub.getSelectedSensorPosition();
+  }
+
+  public void resetEncoderPosition(){
+    TalonCPScrub.setSelectedSensorPosition(0);
+  }
+
 }

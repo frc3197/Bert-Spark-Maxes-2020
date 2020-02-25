@@ -19,6 +19,7 @@ import frc.robot.commands.BackupScrubRot;
 import frc.robot.commands.Climb;
 import frc.robot.commands.Drive;
 import frc.robot.commands.Elevate;
+import frc.robot.commands.MoveArmCP;
 import frc.robot.commands.MoveArms;
 import frc.robot.commands.MoveHood;
 import frc.robot.commands.MoveTurret;
@@ -185,10 +186,10 @@ public class RobotContainer {
 
     driveTrain.setDefaultCommand(new Drive(driveTrain));
   //  intake.setDefaultCommand(new TakeIn(intake));
-    arms.setDefaultCommand(new MoveArms(arms));
+    // arms.setDefaultCommand(new MoveArms(arms));
+    controlPanel.setDefaultCommand(new MoveArmCP(controlPanel));
     turret.setDefaultCommand(new MoveTurret(turret));
     hood.setDefaultCommand(new MoveHood(hood));
-    controlPanel.setDefaultCommand(new Scrub(controlPanel, colorSensor));
     shooter.setDefaultCommand(new Shoot(shooter, hopper));
 
     configureButtonBindings();
@@ -207,8 +208,10 @@ public class RobotContainer {
     driver1RS.whileHeld(new Winch(climber, false));
 
     // driver2A.whileHeld(new LimelightAdjustHood(hood));
-    driver2X.toggleWhenPressed(new BackupScrubRot(controlPanel));
-    driver2Y.whileHeld(driveDistanceSimple);
+    // driver2X.toggleWhenPressed(new BackupScrubRot(controlPanel));
+    // driver2Y.whileHeld(driveDistanceSimple);
+    driver2X.whenPressed(new Scrub(controlPanel, colorSensor, false));
+    driver2Y.whenPressed(new Scrub(controlPanel, colorSensor, true));
     driver2A.whileHeld(new Align(hood, shooter, turret));
     driver2RB.whileHeld(new Elevate(elevator,hopper));
     driver2RS.whenPressed(new ToggleZoom());

@@ -10,6 +10,8 @@ package frc.robot.subsystems;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
+import com.revrobotics.ColorMatch;
+import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 
 
@@ -26,6 +28,13 @@ public class ColorSensor extends SubsystemBase {
 
     private final I2C.Port i2cPort = I2C.Port.kOnboard;
     private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
+
+    private final ColorMatch m_colorMatcher = new ColorMatch();
+
+    private final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
+    private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
+    private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
+    private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
 
     protected final static int COMMAND_REGISTER_BIT = 0x80;
     protected final static int MULTI_BYTE_BIT = 0x20;
@@ -45,6 +54,10 @@ public class ColorSensor extends SubsystemBase {
      * Creates a Color Sensor object.
      */
     public ColorSensor() {
+        m_colorMatcher.addColorMatch(kBlueTarget);
+        m_colorMatcher.addColorMatch(kGreenTarget);
+        m_colorMatcher.addColorMatch(kRedTarget);
+        m_colorMatcher.addColorMatch(kYellowTarget);
         // sensor = new I2C(I2C.Port.kOnboard, 0x52); // port, I2c address (0x39 old)
 
         // sensor.write(COMMAND_REGISTER_BIT, 0b00000011); // power on, color sensor on
@@ -109,6 +122,24 @@ public class ColorSensor extends SubsystemBase {
     public int proximity() {
         return readWordRegister(PDATA_REGISTER);
     }
+
+    public String getColorString() {
+        Color detectedColor = getColor();
+        String colorString;
+        ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
+        if (match.color == kBlueTarget) {
+          colorString = "Blue";
+        } else if (match.color == kRedTarget) {
+          colorString = "Red";
+        } else if (match.color == kGreenTarget) {
+          colorString = "Green";
+        } else if (match.color == kYellowTarget) {
+          colorString = "Yellow";
+        } else {
+          colorString = "Wot in Tarnation"; //no
+        }
+        return colorString;
+      }
 
     /**
      * This method will be called once per scheduler run

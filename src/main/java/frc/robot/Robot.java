@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.AutoCommands.EasyRoute;
 import frc.robot.commands.AutoCommands.HardRoute;
+import frc.robot.commands.AutoCommands.SubCommands.IntakeHopper;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 /**
@@ -99,6 +100,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Gyro" , m_robotContainer.driveTrain.getHeading());
     SmartDashboard.putBoolean("Shooter is Running", m_robotContainer.shooter.getMotor());
     SmartDashboard.putNumber("Match Time", DriverStation.getInstance().getMatchTime());
+    SmartDashboard.putString("Detected Color", m_robotContainer.colorSensor.getColorString());
     // Runs the Scheduler. This is responsible for polling buttons, adding
     // newly-scheduled
     // commands, running already-scheduled commands, removing finished or
@@ -151,11 +153,9 @@ public class Robot extends TimedRobot {
     // m_robotContainer.hood.encoderCalibrate();
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
+    new IntakeHopper(m_robotContainer.intake, m_robotContainer.hopper).schedule();
+    m_robotContainer.shooter.shooterVelocity(RobotContainer.targetVelocity(1, 5500));
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    // m_autonomousCommand.schedule();
-    // m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
-    // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
@@ -174,6 +174,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopInit() {
+    m_robotContainer.shooter.shooterVelocity(RobotContainer.targetVelocity(0, 5500));
     // m_robotContainer.hood.encoderCalibrate();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to

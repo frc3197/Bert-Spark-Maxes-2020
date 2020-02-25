@@ -13,6 +13,7 @@ import frc.robot.subsystems.ControlPanel;
 
 public class MoveArmCP extends CommandBase {
   ControlPanel cp;
+  private double val;
   /**
    * Creates a new MoveArms.
    */
@@ -30,9 +31,8 @@ public class MoveArmCP extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double val = RobotContainer.getArmCP();
+    val = RobotContainer.getArmCP();
     cp.moveCPArm(val);
-    
   }
 
   // Called once the command ends or is interrupted.
