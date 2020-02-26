@@ -375,8 +375,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
 
-    return (new EightBallRoute(driveTrain, elevator, hopper, shooter, trajectory1, trajectory2, trajectory3,
-        trajectory4, trajectory5, trajectory6));
+    //TODO: Add a command
+    return m_sendableChooserAuto.getSelected();
     
  }
   
@@ -403,10 +403,10 @@ public class RobotContainer {
     double tx = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("tx").getDouble(0);
     double ty = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
     double ta = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ta").getDouble(0);
-    System.out.println(tv);
-    System.out.println(tx);
-    System.out.println(ty);
-    System.out.println(ta);
+    SmartDashboard.putNumber("tv", tv);
+    SmartDashboard.putNumber("tx", tx);
+    SmartDashboard.putNumber("ty", ty);
+    SmartDashboard.putNumber("ta", ta);
   }
 
   /**
@@ -417,10 +417,14 @@ public class RobotContainer {
   public static double getDistanceFromTarget() {
     double ty = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
     double offset = Units.degreesToRadians(11.911213439);
-    System.out.println("offset : " + ty);
     ty = Units.degreesToRadians(ty);
     double limeDistance = Math.abs(80.25 / (Math.tan(ty + offset)));
     SmartDashboard.putNumber("Distance from Target", limeDistance);
+    if(limeDistance < 280 && limeDistance > 80){
+      SmartDashboard.putBoolean("Inside Shooting Range", true);
+    }else{
+      SmartDashboard.putBoolean("Inside Shooting Range", false);
+    }
     return limeDistance;
     // Will have to integrate a variable a1 value once set up for limelight angle.
   }

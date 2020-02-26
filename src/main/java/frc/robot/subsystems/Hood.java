@@ -81,27 +81,6 @@ public class Hood extends SubsystemBase {
   }
 
   /**
-   * Moves Hood angle based on calculated distance from target using Limelight values. DEPRECATED
-   */
-  public double moveHoodtoAngle(){
-    /*
-    d = distance from the Power Port
-    thetaL = angle of launch
-    thetaI = target angle of shooter (approximately). Perpendicular to thetaL
-    currentTicks = the current encoder position
-    idealTicks = the ticks that the encoder should be at to be at the correct angle. (Calculated using FLM below)
-      thetaI degrees(1 rotation/0.2 degrees)(2048 ticks/1 rotation) = 10240 * thetaI
-    Command runs the hood forward until ticks = currentTicks (or when the difference between them is 0)
-    */
-    double d = RobotContainer.getDistanceFromTarget();
-    double thetaL = Math.atan(80.25/d);
-    double thetaI = 90 - thetaL;
-    double idealTicks = 10240 * thetaI;
-
-    return idealTicks;
-  }
-
-  /**
    * Pulls Limelight's Y Offset value.
    * @return Limelight's Y Offset value
    */
@@ -131,34 +110,17 @@ public class Hood extends SubsystemBase {
   public double ticksToAngle(){
     return ((getEncoderPosition() /  2048) * (10/49));
   }
+
   public static double angleToTicks(double angle)
   {
     return ((angle / (10/49)) * 2048);
   }
 
-//   public double getHoodAngleSimple(){
+  public int getForwardLimitSwitch(){
+    return hoodMotor.isFwdLimitSwitchClosed();
+  }
 
-//     double currentAngle = getYOffset();
-// if( currentAngle >= x && currentAngle <= y ){
-
-// }
-// else if( currentAngle >= x2 && currentAngle <= y2)
-
-//   }
-
-  /**
-   * Pulls state of forward limit switch.
-   * @return State of forward limit switch
-   */
-  // public boolean getForwardLimitSwitch(){
-  //   return hoodLSFront.get();
-  // }
-
-  /**
-   * Pulls state of backward limit switch.
-   * @return State of backward limit switch
-   */
-  // public boolean getBackwardLimitSwitch(){
-  //   return hoodLSBack.get();
-  // }
+  public int getBackwardLimitSwitch(){
+    return hoodMotor.isRevLimitSwitchClosed();
+  }
 }

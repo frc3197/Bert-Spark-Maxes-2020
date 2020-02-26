@@ -16,14 +16,12 @@ import frc.robot.subsystems.Shooter;
 
 public class ShootAuto extends CommandBase {
   private Shooter shooter;
-  Hopper hopper;
 
   /**
    * Creates a new ShooterTest.
    */
-  public ShootAuto(Shooter shooter, Hopper hopper) {
+  public ShootAuto(Shooter shooter) {
     this.shooter = shooter;
-    this.hopper = hopper;
     addRequirements(shooter);
     // Use addRequirements() here to declare subsystem dependencies.
   }
