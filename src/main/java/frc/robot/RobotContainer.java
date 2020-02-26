@@ -180,13 +180,6 @@ public class RobotContainer {
       DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON6, ex.getStackTrace());
     }
 
-
-
-
-
-
-
-
     driveTrain.setDefaultCommand(new Drive(driveTrain));
   //  intake.setDefaultCommand(new TakeIn(intake));
     arms.setDefaultCommand(new MoveArms(arms));
