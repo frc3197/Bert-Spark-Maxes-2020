@@ -42,9 +42,9 @@ public class Climb extends CommandBase {
   @Override
   public void execute() {
     if (Up) {
-      climber.setTelescopeMotor(0.3);
+      climber.setTelescopeMotor(0.2);
     } else {
-      climber.setTelescopeMotor(-0.3);
+      climber.setTelescopeMotor(-0.2);
     }
   }
 

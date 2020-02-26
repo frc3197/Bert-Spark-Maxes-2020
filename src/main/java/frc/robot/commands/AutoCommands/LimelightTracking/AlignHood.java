@@ -83,7 +83,7 @@ public class AlignHood extends CommandBase {
     //First ball: 242.63in
     double d = RobotContainer.getDistanceFromTarget();
     double deadzone = 40; //in inches
-    double ticksInit = 275253; //Placeholder. (120, 1234)
+    double ticksInit = 255253; //Placeholder. (120, 1234)
     double ticksMid = 275000;
     double ticksBall = 290000; //Placeholder. (242.63, 2345)
     if(Math.abs(d - 120) < deadzone){
@@ -92,9 +92,10 @@ public class AlignHood extends CommandBase {
       ticksE = ticksMid;
     }else if(Math.abs(d - 240) < deadzone){
       ticksE = ticksBall;
-    }else{
-      ticksE = 0;
     }
+    // }else{
+    //   ticksE = 0;
+    // }
     if(ticksE - hood.getEncoderPosition() > 0){
       hood.moveHood(0.7);
     }

@@ -43,8 +43,8 @@ public class Shoot extends CommandBase {
     SmartDashboard.putNumber("Shooter Encoder Ticks", shooter.getEncoderValue());
     SmartDashboard.putNumber("Right Trigger", RobotContainer.getShooter());
     SmartDashboard.putNumber("Shooter Velocity", shooter.getVelocity());
-    // shooter.shooterVelocity(RobotContainer.targetVelocity(RobotContainer.getShooter(), 5500));
-    shooter.feedForwardPID(RobotContainer.getShooter(), 5500);
+    // shooter.shooterVelocity(RobotContainer.targetVelocity(RobotContainer.getShooter(), 5600));
+    shooter.feedForwardPID(RobotContainer.getShooter(), 5600);
   }
   /**
    * Called once the command ends or is interrupted.
