@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
 
     double encoderConstant = (1 / ENCODER_EDGES_PER_REV) * 1;
 
-    master.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder,
+    master.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor,
                                                 PIDIDX, 10);
     encoderPosition = ()
         -> master.getSelectedSensorPosition(PIDIDX) * encoderConstant;

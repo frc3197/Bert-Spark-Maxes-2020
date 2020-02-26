@@ -24,12 +24,12 @@ import frc.robot.Constants;
 public class Shooter extends PIDSubsystem {
 
   private WPI_TalonFX TalonShooter1 = new WPI_TalonFX(Constants.TalonID.kShooter1.id);
-  public SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(0, 0, 0);
+  public SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(.349, .12, 0.026);
   /**
    * Creates a new Shooter. Code inside configures encoder, minimum and maximum outputs, and PID Loop.
    */
   public Shooter() {
-    super(new PIDController(.2, 0, .5));
+    super(new PIDController(4.66, 0, 0));
     TalonShooter1.setInverted(true);
     TalonShooter1.setSafetyEnabled(false);
 
@@ -40,11 +40,6 @@ public class Shooter extends PIDSubsystem {
     
     TalonShooter1.configPeakOutputForward(1, Constants.kTimeoutMs);
     TalonShooter1.configPeakOutputReverse(-1, Constants.kTimeoutMs);
-
-    TalonShooter1.config_kF(Constants.kPIDLoopIdx, Constants.PID_Constants.kShooter.F, Constants.kTimeoutMs);
-    TalonShooter1.config_kP(Constants.kPIDLoopIdx, Constants.PID_Constants.kShooter.P, Constants.kTimeoutMs);
-    TalonShooter1.config_kI(Constants.kPIDLoopIdx, Constants.PID_Constants.kShooter.I, Constants.kTimeoutMs);
-    TalonShooter1.config_kD(Constants.kPIDLoopIdx, Constants.PID_Constants.kShooter.D, Constants.kTimeoutMs);
 
   }
 
@@ -74,6 +69,10 @@ public class Shooter extends PIDSubsystem {
     TalonShooter1.set(ControlMode.Velocity, val);
   }
 
+  public double shooterVelocityRPS(){
+    double units = TalonShooter1.getSelectedSensorVelocity();
+    return ((units / 2048) * 10);
+  }
   /**
    * Runs Shooter motor based on speed value
    * @param val Speed value
@@ -90,8 +89,8 @@ public class Shooter extends PIDSubsystem {
   }
   
   public void feedForwardPID(double source ,double RPM) {
-  TalonShooter1.setVoltage(source * (feedforward.calculate(RPM)
-   + getController().calculate(TalonShooter1.getSelectedSensorVelocity(), RPM)));
+  TalonShooter1.setVoltage(source * (feedforward.calculate(RPM / 60)
+   + getController().calculate(shooterVelocityRPS(), (RPM/60))));
   // CHANGE GETSELECTEDSENSORVELOCITYTODISTANCEUNIT
   // THIS COULD BE AN OPTION FOR FEEDFORWARD WITH PID BUT SHOULD LOOK INTO FLYWHEEL CALCULATION
   // FLYWHEEL CALCULATION: (VOLTAGE / RPM) * SETPOINTRPM
