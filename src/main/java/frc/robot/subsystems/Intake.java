@@ -9,6 +9,9 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -18,13 +21,13 @@ import frc.robot.Constants;
  */
 public class Intake extends SubsystemBase {
   
-  public final WPI_TalonFX intakeMotor = new WPI_TalonFX(Constants.TalonID.kIntake.id);
+  public final CANSparkMax intakeMotor = new CANSparkMax(Constants.TalonID.kIntake.id,MotorType.kBrushless);
 
   /**
    * Creates a new Intake.
    */
   public Intake() {
-    intakeMotor.setSafetyEnabled(false);
+    intakeMotor.setIdleMode(IdleMode.kBrake);
 
   }
 
@@ -44,7 +47,7 @@ public class Intake extends SubsystemBase {
     intakeMotor.set(val * -1);
   }
   public void takeIn(double val) {
-    intakeMotor.set(ControlMode.PercentOutput, val);
+    intakeMotor.set(val);
   }
 }
 
