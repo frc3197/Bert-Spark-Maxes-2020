@@ -9,6 +9,9 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -18,14 +21,14 @@ import frc.robot.Constants;
  */
 public class ControlPanel extends SubsystemBase {
   
-  private WPI_TalonFX TalonCPScrub = new WPI_TalonFX(Constants.TalonID.kCPScrub.id);
+  private CANSparkMax SparkCPScrub = new CANSparkMax(Constants.TalonID.kCPScrub.id,MotorType.kBrushless);
   private WPI_TalonFX TalonCPArm = new WPI_TalonFX(Constants.TalonID.kCPArm.id);
 
   /**
    * Creates a new ControlPanel.
    */
   public ControlPanel() {
-    TalonCPScrub.setSafetyEnabled(false);
+    SparkCPScrub.setIdleMode(IdleMode.kBrake);
     TalonCPArm.setSafetyEnabled(false);
   }
 
@@ -42,7 +45,7 @@ public class ControlPanel extends SubsystemBase {
    * @param val Speed Value. Currently a constant.
    */
   public void panelSpin(double val) {
-    TalonCPScrub.set(ControlMode.PercentOutput, val);
+    SparkCPScrub.set(val);
   }
 
   /**
@@ -51,14 +54,6 @@ public class ControlPanel extends SubsystemBase {
    */
   public void moveCPArm(double val) {
     TalonCPArm.set(ControlMode.PercentOutput, val);
-  }
-
-  public int getEncoderPosition(){
-    return TalonCPScrub.getSelectedSensorPosition();
-  }
-
-  public void resetEncoderPosition(){
-    TalonCPScrub.setSelectedSensorPosition(0);
   }
 
 }
