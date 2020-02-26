@@ -1,4 +1,10 @@
 {
+    # Unit of analysis
+    # Options:
+    # 'Degrees'
+    # 'Radians'
+    # 'Rotations'
+    "units": "Rotations",
     # Class names of motor controllers used.
     # Options:
     # 'WPI_TalonSRX'
@@ -6,43 +12,18 @@
     # 'WPI_VictorSPX'
     # Note: The first motor on each side should always be a Talon SRX/FX, as the
     # VictorSPX does not support encoder connections
-    "rightControllerTypes": ["WPI_TalonFX", "WPI_TalonFX"],
-    "leftControllerTypes": ["WPI_TalonFX", "WPI_TalonFX"],
-    # Note: The first id in the list of ports should be the one with an encoder
-    # Ports for the left-side motors
-    "leftMotorPorts": [3, 1],
-    # Ports for the right-side motors
-    "rightMotorPorts": [2, 0],
-    # Inversions for the left-side motors
-    "leftMotorsInverted": [True,True],
-    # Inversions for the right side motors
-    "rightMotorsInverted": [True,True],
-    # Wheel diameter (in units of your choice - will dictate units of analysis)
-    "wheelDiameter": 0.1524,
-    # If your robot has only one encoder, set all right encoder fields to `None`
+    "controllerTypes": ["WPI_TalonFX"],
+    # Ports for the flywheel motor(s)
+    # If you only have 1 motor all the below arrays should only have one element
+    # The first port is the one with the encoder attached
+    "motorPorts": [15],
+    # Inversions for the side motor(s)
+    "motorsInverted": [True],
     # Encoder edges-per-revolution (*NOT* cycles per revolution!)
-    # This value should be the edges per revolution *of the wheels*, and so
+    # This value should be the edges per revolution *of the flywheel*, and so
     # should take into account gearing between the encoder and the wheels
     "encoderEPR": 2048,
-    # Whether the left encoder is inverted
-    "leftEncoderInverted": True,
-    # Whether the right encoder is inverted:
-    "rightEncoderInverted": True,
-    # Your gyro type (one of "NavX", "Pigeon", "ADXRS450", "AnalogGyro", or "None")
-    "gyroType": "NavX",
-    # Whatever you put into the constructor of your gyro
-    # Could be:
-    # "SPI.Port.kMXP" (MXP SPI port for NavX or ADXRS450),
-    # "SerialPort.Port.kMXP" (MXP Serial port for NavX),
-    # "I2C.Port.kOnboard" (Onboard I2C port for NavX),
-    # "0" (Pigeon CAN ID or AnalogGyro channel),
-    # "new WPI_TalonSRX(3)" (Pigeon on a Talon SRX),
-    # "leftSlave" (Pigeon on the left slave Talon SRX/FX),
-    # "" (NavX using default SPI, ADXRS450 using onboard CS0, or no gyro)
-    "gyroPort": "SerialPort.Port.kUSB1",
+    # Whether the encoder is inverted
+    "encoderInverted": True,
 }
-
-
-
-
 

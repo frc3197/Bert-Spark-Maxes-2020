@@ -189,7 +189,7 @@ public class RobotContainer {
 
     driveTrain.setDefaultCommand(new Drive(driveTrain));
   //  intake.setDefaultCommand(new TakeIn(intake));
-    // arms.setDefaultCommand(new MoveArms(arms));
+    arms.setDefaultCommand(new MoveArms(arms));
     controlPanel.setDefaultCommand(new MoveArmCP(controlPanel));
     turret.setDefaultCommand(new MoveTurret(turret));
     hood.setDefaultCommand(new MoveHood(hood));

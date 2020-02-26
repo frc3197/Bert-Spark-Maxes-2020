@@ -56,4 +56,12 @@ public class ControlPanel extends SubsystemBase {
     TalonCPArm.set(ControlMode.PercentOutput, val);
   }
 
+public void resetEncoderPosition() {
+  SparkCPScrub.getEncoder().setPosition(0);
+  TalonCPArm.setSelectedSensorPosition(0);
+}
+public double getEncoderPosition(){
+  return SparkCPScrub.getEncoder().getPosition();
+}
+
 }

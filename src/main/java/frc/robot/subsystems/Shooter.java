@@ -11,21 +11,25 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj2.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 /**
- * Defines a Shooter object. Code inside creates a variable for the Shooter motor.
+ * Defines a Shooter object. Code inside creates a variable for the Shooter
+ * motor.
  */
 public class Shooter extends PIDSubsystem {
 
   private WPI_TalonFX TalonShooter1 = new WPI_TalonFX(Constants.TalonID.kShooter1.id);
-  public SimpleMotorFeedForward feedforward = new SimpleMotorFeedForward(0,0,0);
+  public SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(0, 0, 0);
   /**
    * Creates a new Shooter. Code inside configures encoder, minimum and maximum outputs, and PID Loop.
    */
   public Shooter() {
-    super("Shooter",0,0,0);
+    super(new PIDController(.2, 0, .5));
     TalonShooter1.setInverted(true);
     TalonShooter1.setSafetyEnabled(false);
 
@@ -44,6 +48,16 @@ public class Shooter extends PIDSubsystem {
 
   }
 
+  @Override
+  public void useOutput(double output, double setpoint) {
+    // Use the output here
+  }
+
+  @Override
+  public double getMeasurement() {
+    // Return the process variable measurement here
+    return 0;
+  }
   /**
    * This method will be called once per scheduler run
    */
@@ -75,9 +89,9 @@ public class Shooter extends PIDSubsystem {
     else return false;
   }
   
-  public void feedForwardPID(double RPM) {
-  TalonShooter1.setVoltage(feedforward.calculate(RPM * 2048 / 600))
-      + getController().calculate(TalonShooter1.getSelectedSensorVelocity(), RPM);
+  public void feedForwardPID(double source ,double RPM) {
+  TalonShooter1.setVoltage(source * (feedforward.calculate(RPM)
+   + getController().calculate(TalonShooter1.getSelectedSensorVelocity(), RPM)));
   // CHANGE GETSELECTEDSENSORVELOCITYTODISTANCEUNIT
   // THIS COULD BE AN OPTION FOR FEEDFORWARD WITH PID BUT SHOULD LOOK INTO FLYWHEEL CALCULATION
   // FLYWHEEL CALCULATION: (VOLTAGE / RPM) * SETPOINTRPM
@@ -117,5 +131,6 @@ public class Shooter extends PIDSubsystem {
   public void resetEncoder() {
     TalonShooter1.setSelectedSensorPosition(0);
   }
+
 
 }
