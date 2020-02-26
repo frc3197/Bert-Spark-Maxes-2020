@@ -17,15 +17,15 @@ import frc.robot.Constants;
 /**
  * Defines a Shooter object. Code inside creates a variable for the Shooter motor.
  */
-public class Shooter extends SubsystemBase {
+public class Shooter extends PIDSubsystem {
 
   private WPI_TalonFX TalonShooter1 = new WPI_TalonFX(Constants.TalonID.kShooter1.id);
-
+  public SimpleMotorFeedForward feedforward = new SimpleMotorFeedForward(0,0,0);
   /**
    * Creates a new Shooter. Code inside configures encoder, minimum and maximum outputs, and PID Loop.
    */
   public Shooter() {
-  
+    super("Shooter",0,0,0);
     TalonShooter1.setInverted(true);
     TalonShooter1.setSafetyEnabled(false);
 
@@ -74,7 +74,14 @@ public class Shooter extends SubsystemBase {
     return true;
     else return false;
   }
-
+  
+  public void feedForwardPID(double RPM) {
+  TalonShooter1.setVoltage(feedforward.calculate(RPM * 2048 / 600))
+      + getController().calculate(TalonShooter1.getSelectedSensorVelocity(), RPM);
+  // CHANGE GETSELECTEDSENSORVELOCITYTODISTANCEUNIT
+  // THIS COULD BE AN OPTION FOR FEEDFORWARD WITH PID BUT SHOULD LOOK INTO FLYWHEEL CALCULATION
+  // FLYWHEEL CALCULATION: (VOLTAGE / RPM) * SETPOINTRPM
+                       }
   /**
    * Pulls Limelight's X Offset value and prints it.
    * @return Limelight's X Offset value

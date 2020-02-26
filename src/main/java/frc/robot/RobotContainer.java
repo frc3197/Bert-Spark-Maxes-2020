@@ -389,7 +389,7 @@ public class RobotContainer {
    * @return Target Velocity value
    */
   public static double targetVelocity(double source, double RPM) {
-    double targetVelocity = source * (RPM * 4096 / 600);
+    double targetVelocity = source * (RPM * 2048 / 600);
     return targetVelocity;
   }
 
