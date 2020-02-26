@@ -30,6 +30,6 @@ public class Align extends SequentialCommandGroup {
   public Align(Hood hood, Shooter shooter, Turret turret) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super(new TrackLimelightTurn(turret), new LimelightAdjustHood(hood));
+    super(new TrackLimelightTurn(turret), new LimelightHood(hood));
   }
 }

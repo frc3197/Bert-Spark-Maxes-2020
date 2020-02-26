@@ -8,54 +8,41 @@
 package frc.robot.commands.AutoCommands.SubCommands;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Shooter;
 
-public class ShootAuto extends CommandBase {
-  private Shooter shooter;
-
+public class RamseteElevateAuto extends CommandBase {
+  Elevator elevator;
   /**
-   * Creates a new ShooterTest.
+   * Creates a new Elevate.
    */
-  public ShootAuto(Shooter shooter) {
-    this.shooter = shooter;
-    addRequirements(shooter);
+  public RamseteElevateAuto(Elevator elevator) {
+    this.elevator = elevator;
+    addRequirements(elevator);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
-  /**
-   * Called when the command is initially scheduled.
-   */
+  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shooter.resetEncoder();
   }
 
-  /**
-   * Called every time the scheduler runs while the command is scheduled.
-   */
+  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putNumber("Shooter Encoder Ticks", shooter.getEncoderValue());
-    SmartDashboard.putNumber("Right Trigger", RobotContainer.getShooter());
-    SmartDashboard.putNumber("Shooter Velocity", shooter.getVelocity());
-    shooter.feedForwardPID(1, 5500);
+    elevator.hopperElevator(0.4);
   }
 
-  /**
-   * Called once the command ends or is interrupted.
-   */
+  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    
+    elevator.hopperElevator(0);
   }
 
-  /**
-   * Returns true when the command should end.
-   */
+  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     Timer.delay(3);

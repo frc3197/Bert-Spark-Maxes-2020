@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.AutoCommands.EasyRoute;
+import frc.robot.commands.AutoCommands.EightBallRoute;
 import frc.robot.commands.AutoCommands.HardRoute;
 import frc.robot.commands.AutoCommands.SubCommands.IntakeHopper;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -28,7 +29,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
  */
 public class Robot extends TimedRobot {
   private Command m_easyRoute;
-  private Command m_hardRoute;
+  private Command m_eightBallRoute;
   private Command m_autonomousCommand;
   public DigitalInput hoodCounter = new DigitalInput(6);
   int count = 0;
@@ -56,12 +57,14 @@ public class Robot extends TimedRobot {
     m_easyRoute = new EasyRoute(m_robotContainer.hood, m_robotContainer.shooter, 
                                 m_robotContainer.driveTrain, m_robotContainer.hopper,
                                 m_robotContainer.turret, m_robotContainer.elevator);
-    m_hardRoute = new HardRoute(m_robotContainer.driveTrain, m_robotContainer.arms, 
-                                m_robotContainer.intake, m_robotContainer.hood, 
-                                m_robotContainer.shooter, m_robotContainer.hopper,
-                                m_robotContainer.turret);
+    m_eightBallRoute = new EightBallRoute(m_robotContainer.driveTrain, m_robotContainer.elevator, 
+                                          m_robotContainer.hopper, m_robotContainer.shooter,
+                                          m_robotContainer.intake, m_robotContainer.trajectory1,
+                                          m_robotContainer.trajectory2, m_robotContainer.trajectory3, 
+                                          m_robotContainer.trajectory4, m_robotContainer.trajectory5, 
+                                          m_robotContainer.trajectory6);
     m_robotContainer.m_sendableChooserAuto.addOption("Easy Route", m_easyRoute);
-    m_robotContainer.m_sendableChooserAuto.addOption("Hard Route", m_hardRoute);
+    m_robotContainer.m_sendableChooserAuto.addOption("Eight Ball", m_eightBallRoute);
 
     // m_robotContainer.m_sendableChooserLL.addOption("", object);
 
