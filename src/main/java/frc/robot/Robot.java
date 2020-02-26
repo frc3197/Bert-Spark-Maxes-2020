@@ -157,8 +157,6 @@ public class Robot extends TimedRobot {
     // m_robotContainer.hood.encoderCalibrate();
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
-    new IntakeHopper(m_robotContainer.intake, m_robotContainer.hopper).schedule();
-    m_robotContainer.shooter.shooterVelocity(RobotContainer.targetVelocity(1, 5500));
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
