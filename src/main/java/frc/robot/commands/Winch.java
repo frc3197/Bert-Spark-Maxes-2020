@@ -43,9 +43,9 @@ public class Winch extends CommandBase {
   @Override
   public void execute() {
     if (Up) {
-      climber.setWinchMotor(0.5);
+      climber.setWinchMotor(0.8);
     } else {
-      climber.setWinchMotor(-0.5);
+      climber.setWinchMotor(-0.8);
     }
   }
 

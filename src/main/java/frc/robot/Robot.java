@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -16,9 +17,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.AutoCommands.EasyRoute;
 import frc.robot.commands.AutoCommands.EightBallRoute;
-import frc.robot.commands.AutoCommands.HardRoute;
-import frc.robot.commands.AutoCommands.SubCommands.IntakeHopper;
-import edu.wpi.first.networktables.NetworkTableInstance;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -50,7 +48,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
     // autonomous chooser on the dashboard.
-    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
+    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(1);
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
     m_robotContainer = new RobotContainer();
     m_robotContainer.driveTrain.calibrateGyro();
@@ -152,6 +150,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
     m_robotContainer.driveTrain.zeroHeading();
     m_robotContainer.driveTrain.resetOdometry(m_robotContainer.driveTrain.m_pose);
     // m_robotContainer.hood.encoderCalibrate();
@@ -176,13 +175,13 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopInit() {
-    m_robotContainer.shooter.shooterVelocity(RobotContainer.targetVelocity(0, 5500));
+    // m_robotContainer.shooter.shooterVelocity(RobotContainer.targetVelocity(0, 5600));
     // m_robotContainer.hood.encoderCalibrate();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
+    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(1);
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
   }
 
