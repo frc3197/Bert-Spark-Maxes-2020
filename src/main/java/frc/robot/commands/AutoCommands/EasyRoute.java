@@ -8,6 +8,7 @@
 package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.AutoCommands.LimelightTracking.LimelightHood;
 import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightTurn;
 import frc.robot.commands.AutoCommands.SubCommands.DriveDistanceSimple;
 import frc.robot.commands.AutoCommands.SubCommands.ElevateAuto;
@@ -39,6 +40,6 @@ public class EasyRoute extends SequentialCommandGroup {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     // super(new DriveDistanceSimple(driveTrain));
-    super(new TrackLimelightTurn(turret), new ShootAuto(shooter),new ElevateAuto(elevator,hopper,shooter), new DriveDistanceSimple(driveTrain));
+    super(new TrackLimelightTurn(turret), new LimelightHood(hood), new ShootAuto(shooter),new ElevateAuto(elevator,hopper,shooter), new DriveDistanceSimple(driveTrain));
   }
 }

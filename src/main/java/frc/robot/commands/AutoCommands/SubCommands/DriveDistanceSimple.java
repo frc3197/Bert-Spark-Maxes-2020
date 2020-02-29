@@ -35,7 +35,7 @@ driveTrain.resetEncoder();
     
     double distance = (driveTrain.getEncoderValue() / 2048) * (6*Math.PI);
     SmartDashboard.putNumber("distance", distance);
-    if(distance < 500){
+    if(distance < 50){
       driveTrain.tankDrive(-.5, -.5);}
       else{
         driveTrain.tankDrive(0, 0);
