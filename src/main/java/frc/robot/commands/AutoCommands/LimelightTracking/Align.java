@@ -27,7 +27,7 @@ public class Align extends SequentialCommandGroup {
    * @param driveTrain DriveTrain subsystem
    * Runs selected commands seuentially.
    */
-  public Align(Hood hood, Shooter shooter, Turret turret) {
+  public Align(Hood hood, Turret turret) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     super(new TrackLimelightTurn(turret), new LimelightHood(hood));

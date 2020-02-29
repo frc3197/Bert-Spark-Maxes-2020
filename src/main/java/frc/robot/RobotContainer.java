@@ -109,6 +109,8 @@ public class RobotContainer {
   Trajectory trajectory4;
   Trajectory trajectory5;
   Trajectory trajectory6;
+  Trajectory trajectory61;
+  Trajectory trajectory62;
   /**
    * Table of values for limelight and receiving FMS data.
    */
@@ -128,7 +130,8 @@ public class RobotContainer {
   public final String trajectoryJSON4 = "4.wpilib.json";
   public final String trajectoryJSON5 = "5.wpilib.json";
   public final String trajectoryJSON6 = "6.wpilib.json";
-
+  public final String trajectoryJSON61 = "61-1.wpilib.json";  
+  public final String trajectoryJSON62 = "61-2.wpilib.json";
 
 
   /*
@@ -177,6 +180,19 @@ public class RobotContainer {
       DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON6, ex.getStackTrace());
     }
 
+    try {
+      Path trajectoryPath61 = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON61);
+      trajectory61 = TrajectoryUtil.fromPathweaverJson(trajectoryPath61);
+    } catch (IOException ex) {
+      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON61, ex.getStackTrace());
+    }
+
+    try {
+      Path trajectoryPath62 = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON62);
+      trajectory62 = TrajectoryUtil.fromPathweaverJson(trajectoryPath62);
+    } catch (IOException ex) {
+      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON62, ex.getStackTrace());
+    }
     driveTrain.setDefaultCommand(new Drive(driveTrain));
   //  intake.setDefaultCommand(new TakeIn(intake));
     arms.setDefaultCommand(new MoveArms(arms));
@@ -205,7 +221,7 @@ public class RobotContainer {
     // driver2Y.whileHeld(driveDistanceSimple);
     driver2X.whenPressed(new Scrub(controlPanel, colorSensor, false));
     driver2Y.whenPressed(new Scrub(controlPanel, colorSensor, true));
-    driver2A.whileHeld(new AlignScript(hood, shooter, turret));
+    driver2A.whileHeld(new AlignScript(hood, turret));
     driver2B.whileHeld(new TrackLimelightTurn(turret));
 //     driver2A.whenPressed(new LimelightHood(hood));
     driver2RB.whileHeld(new Elevate(elevator,hopper));

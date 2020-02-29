@@ -43,6 +43,7 @@ public class ShootAuto extends CommandBase {
     SmartDashboard.putNumber("Right Trigger", RobotContainer.getShooter());
     SmartDashboard.putNumber("Shooter Velocity", shooter.getVelocity());
     shooter.feedForwardPID(1, 5600);
+    
   }
 
   /**
