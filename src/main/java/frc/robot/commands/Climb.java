@@ -44,7 +44,7 @@ public class Climb extends CommandBase {
     if (Up) {
       climber.setTelescopeMotor(0.2);
     } else {
-      climber.setTelescopeMotor(-0.2);
+      climber.setTelescopeMotor(-0.1);
     }
   }
 

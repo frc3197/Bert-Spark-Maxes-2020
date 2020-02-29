@@ -59,7 +59,7 @@ public class ShootAuto extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    Timer.delay(3);
+    Timer.delay(1.5);
     return true;
   }
 }

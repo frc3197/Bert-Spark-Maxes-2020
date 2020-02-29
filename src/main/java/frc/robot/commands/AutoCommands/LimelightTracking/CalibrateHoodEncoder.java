@@ -37,7 +37,7 @@ public class CalibrateHoodEncoder extends CommandBase {
       hood.moveHood(0);
     }
     else{
-      hood.moveHood(-0.7);
+      hood.moveHood(-0.9);
     }
   }
 
