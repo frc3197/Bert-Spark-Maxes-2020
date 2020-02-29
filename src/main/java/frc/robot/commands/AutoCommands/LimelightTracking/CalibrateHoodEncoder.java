@@ -33,7 +33,6 @@ public class CalibrateHoodEncoder extends CommandBase {
     //TODO: Rewrite Encoder Calibrate
     reverseLimit = hood.hoodMotor.isRevLimitSwitchClosed();
     on = 1;
-    int off = 0;
     if(reverseLimit == on){
       hood.moveHood(0);
     }
