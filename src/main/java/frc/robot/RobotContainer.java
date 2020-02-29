@@ -111,6 +111,11 @@ public class RobotContainer {
   Trajectory trajectory6;
   Trajectory trajectory61;
   Trajectory trajectory62;
+  Trajectory trajectory51;
+  Trajectory trajectory52;
+  Trajectory trajectory53;
+  Trajectory trajectory54;
+  
   /**
    * Table of values for limelight and receiving FMS data.
    */
@@ -132,6 +137,10 @@ public class RobotContainer {
   public final String trajectoryJSON6 = "6.wpilib.json";
   public final String trajectoryJSON61 = "61-1.wpilib.json";  
   public final String trajectoryJSON62 = "61-2.wpilib.json";
+  public final String trajectoryJSON51 = "51-1.wpilib.json";
+  public final String trajectoryJSON52 = "51-2.wpilib.json";
+  public final String trajectoryJSON53 = "51-3.wpilib.json";
+  public final String trajectoryJSON54 = "51-4.wpilib.json";
 
 
   /*
@@ -193,6 +202,35 @@ public class RobotContainer {
     } catch (IOException ex) {
       DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON62, ex.getStackTrace());
     }
+
+    try {
+      Path trajectoryPath51 = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON51);
+      trajectory51 = TrajectoryUtil.fromPathweaverJson(trajectoryPath51);
+    } catch (IOException ex) {
+      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON51, ex.getStackTrace());
+    }
+
+    try {
+      Path trajectoryPath52 = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON52);
+      trajectory52 = TrajectoryUtil.fromPathweaverJson(trajectoryPath52);
+    } catch (IOException ex) {
+      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON52, ex.getStackTrace());
+    }
+
+    try {
+      Path trajectoryPath53 = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON53);
+      trajectory53 = TrajectoryUtil.fromPathweaverJson(trajectoryPath53);
+    } catch (IOException ex) {
+      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON53, ex.getStackTrace());
+    }
+
+    try {
+      Path trajectoryPath54 = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON54);
+      trajectory54 = TrajectoryUtil.fromPathweaverJson(trajectoryPath54);
+    } catch (IOException ex) {
+      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON54, ex.getStackTrace());
+    }
+
     driveTrain.setDefaultCommand(new Drive(driveTrain));
   //  intake.setDefaultCommand(new TakeIn(intake));
     arms.setDefaultCommand(new MoveArms(arms));
