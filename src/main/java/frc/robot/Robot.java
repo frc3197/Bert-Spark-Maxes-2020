@@ -50,7 +50,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
     // autonomous chooser on the dashboard.
-    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(1);
+    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
     m_robotContainer = new RobotContainer();
     m_robotContainer.driveTrain.calibrateGyro();
@@ -164,6 +164,7 @@ public class Robot extends TimedRobot {
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_robotContainer.hopper.hopperFeeder(0.4);
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
@@ -182,13 +183,14 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopInit() {
+    m_robotContainer.hopper.hopperFeeder(0);
     // m_robotContainer.shooter.shooterVelocity(RobotContainer.targetVelocity(0, 5600));
     // m_robotContainer.hood.encoderCalibrate();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(1);
+    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
   }
 
