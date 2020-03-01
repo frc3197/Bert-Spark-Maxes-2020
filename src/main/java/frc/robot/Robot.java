@@ -69,7 +69,7 @@ public class Robot extends TimedRobot {
     m_robotContainer.m_sendableChooserAuto.addOption("Easy Route", m_easyRoute);
     m_robotContainer.m_sendableChooserAuto.addOption("Eight Ball", m_eightBallRoute);
     m_robotContainer.m_sendableChooserAuto.addOption("Six Ball 1" , m_sixballrun);
-
+    
     SmartDashboard.putData(m_robotContainer.m_sendableChooserAuto);
     // m_robotContainer.m_sendableChooserLL.addOption("", object);
 
@@ -163,7 +163,7 @@ public class Robot extends TimedRobot {
     // m_robotContainer.hood.encoderCalibrate();
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autonomousCommand = RobotContainer.getAutonomousCommand();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
