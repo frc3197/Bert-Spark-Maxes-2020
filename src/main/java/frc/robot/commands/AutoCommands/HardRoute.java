@@ -8,12 +8,18 @@
 package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.Elevate;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.AutoCommands.LimelightTracking.AlignScript;
+import frc.robot.commands.AutoCommands.SubCommands.AlignShoot;
+import frc.robot.commands.AutoCommands.SubCommands.DriveAndSuck;
+import frc.robot.commands.AutoCommands.SubCommands.DriveDistanceSimple;
+import frc.robot.commands.AutoCommands.SubCommands.ElevateAuto;
 import frc.robot.commands.AutoCommands.SubCommands.GyroTurn;
 import frc.robot.commands.AutoCommands.SubCommands.TakeInBall;
 import frc.robot.subsystems.Arms;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
@@ -37,10 +43,11 @@ public class HardRoute extends SequentialCommandGroup {
    * @param hopper Hopper subsystem
    * Runs selected commands sequentially.
    */
-  public HardRoute(DriveTrain driveTrain, Arms arms, Intake intake, Hood hood, Shooter shooter, Hopper hopper, Turret turret) {
+  public HardRoute(DriveTrain driveTrain, Arms arms, Intake intake, Hood hood, Shooter shooter, Hopper hopper, Turret turret,Elevator elevator) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super(new AlignScript(hood,turret),new Shoot(shooter, hopper),new TakeInBall(arms, intake, driveTrain, 195), new GyroTurn(driveTrain, 180), 
-          new AlignScript(hood, turret), new Shoot(shooter, hopper));
+    super(new AlignShoot(shooter, hood, turret),new ElevateAuto(elevator, hopper, shooter),
+          new DriveAndSuck(driveTrain, 30, intake, hopper),new DriveDistanceSimple(driveTrain, -30),
+          new AlignShoot(shooter, hood, turret),new ElevateAuto(elevator, hopper, shooter));
   }
 }

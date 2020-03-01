@@ -13,33 +13,40 @@ import frc.robot.subsystems.DriveTrain;
 
 public class DriveDistanceSimple extends CommandBase {
   DriveTrain driveTrain;
+private double distance;
+private double distanceGone;
 
   /**
    * Creates a new DriveDistanceSimple.
    */
-  public DriveDistanceSimple(DriveTrain driveTrain) {
+  public DriveDistanceSimple(DriveTrain driveTrain, double distance) {
     addRequirements(driveTrain);
     this.driveTrain = driveTrain;
+    this.distance = distance;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-driveTrain.resetEncoder();
+    driveTrain.resetEncoder();
+    distanceGone = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-    double distance = (driveTrain.getEncoderValue() / 2048) * (6*Math.PI);
-    SmartDashboard.putNumber("distance", distance);
-    if(distance < 50){
-      driveTrain.tankDrive(-.5, -.5);}
-      else{
-        driveTrain.tankDrive(0, 0);
+    distanceGone = (driveTrain.getEncoderValue() / 2048) *7* (6*Math.PI);
+    SmartDashboard.putNumber("distance", distance-distanceGone);
+    if(distanceGone - distance != 0){
+      if(distance > 0){
+        driveTrain.tankDrive(0.5, 0.5);
+      }else{
+        driveTrain.tankDrive(-0.5, -0.5);
       }
+    }else{
+      driveTrain.tankDrive(0, 0);
+    }
     
   }
 
@@ -52,6 +59,6 @@ driveTrain.resetEncoder();
   // Returns true when the command should end.
   @Override
   public boolean isFinished(){
-    return false;
+    return Math.abs(distanceGone - distance) < 10;
   }
 }

@@ -122,7 +122,7 @@ public class Scrub extends CommandBase {
       }
     } else {
       SmartDashboard.putBoolean("Rotation Control", true);
-      if(controlPanel.getEncoderPosition() < 1000000){
+      if(controlPanel.getEncoderPosition() < 800){
         //TODO: Calculation when we put a NEO on there.
         controlPanel.panelSpin(0.6);
       }else{

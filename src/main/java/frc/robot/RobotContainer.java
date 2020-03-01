@@ -29,6 +29,7 @@ import frc.robot.commands.Shoot;
 import frc.robot.commands.Winch;
 import frc.robot.commands.AutoCommands.EasyRoute;
 import frc.robot.commands.AutoCommands.LimelightTracking.AlignScript;
+import frc.robot.commands.AutoCommands.LimelightTracking.LimelightHood;
 import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightTurn;
 import frc.robot.commands.AutoCommands.SubCommands.DriveDistance;
 import frc.robot.commands.AutoCommands.SubCommands.DriveDistanceSimple;
@@ -102,7 +103,7 @@ public class RobotContainer {
   public final Elevator elevator = new Elevator(hopper);
   public final Command easyRoute = new EasyRoute(hood, shooter, driveTrain, hopper, turret, elevator);
   public final Command driveDistance = new DriveDistance(driveTrain, 50);
-  public final Command driveDistanceSimple = new DriveDistanceSimple(driveTrain);
+  public final Command driveDistanceSimple = new DriveDistanceSimple(driveTrain, 30);
   Trajectory trajectory1;
   Trajectory trajectory2;
   Trajectory trajectory3;
@@ -221,9 +222,9 @@ public class RobotContainer {
     // driver2Y.whileHeld(driveDistanceSimple);
     driver2X.whenPressed(new Scrub(controlPanel, colorSensor, false));
     driver2Y.whenPressed(new Scrub(controlPanel, colorSensor, true));
-    driver2A.whileHeld(new AlignScript(hood, turret));
+    // driver2A.whileHeld(new LimelightHood(hood));
     driver2B.whileHeld(new TrackLimelightTurn(turret));
-//     driver2A.whenPressed(new LimelightHood(hood));
+    driver2A.whenPressed(new LimelightHood(hood));
     driver2RB.whileHeld(new Elevate(elevator,hopper));
     driver2RS.whenPressed(new ToggleZoom());
     driver2LS.whileHeld(new Reverse(elevator,hopper));
