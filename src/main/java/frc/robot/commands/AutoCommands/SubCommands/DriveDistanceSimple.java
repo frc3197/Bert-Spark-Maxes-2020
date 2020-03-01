@@ -36,7 +36,7 @@ private double distanceGone;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    distanceGone = (driveTrain.getEncoderValue() / 2048) *7* (6*Math.PI);
+    distanceGone = (driveTrain.l1TalonFX.getSelectedSensorPosition() / 2048) *7* (6*Math.PI);
     SmartDashboard.putNumber("distance", distance-distanceGone);
     if(distanceGone - distance != 0){
       if(distance > 0){

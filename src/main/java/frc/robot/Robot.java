@@ -55,7 +55,7 @@ public class Robot extends TimedRobot {
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(1);
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
     m_robotContainer = new RobotContainer();
-    m_robotContainer.driveTrain.calibrateGyro();
+    m_robotContainer.driveTrain.resetGyro();
     m_sixballrun= new SixBallRun(m_robotContainer.driveTrain, m_robotContainer.trajectory61,
     m_robotContainer.trajectory62, m_robotContainer.elevator, m_robotContainer.hopper,
     m_robotContainer.shooter, m_robotContainer.hood, m_robotContainer.turret, m_robotContainer.intake);
@@ -65,7 +65,7 @@ public class Robot extends TimedRobot {
     m_hardRoute = new HardRoute(m_robotContainer.driveTrain, m_robotContainer.arms,
                                 m_robotContainer.intake, m_robotContainer.hood,
                                 m_robotContainer.shooter, m_robotContainer.hopper,
-                                m_robotContainer.turret, m_robotContainer.elevator)
+                                m_robotContainer.turret, m_robotContainer.elevator);
     m_eightBallRoute = new EightBallRoute(m_robotContainer.driveTrain, m_robotContainer.elevator, 
                                           m_robotContainer.hopper, m_robotContainer.shooter,
                                           m_robotContainer.intake, m_robotContainer.trajectory1,

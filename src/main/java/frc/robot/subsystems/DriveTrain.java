@@ -40,7 +40,7 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
   public RamseteController ramseteController = new RamseteController(AutoConstants.ramseteB, AutoConstants.ramseteZeta);
 
   public Command placeholder;
-  public Rotation2d m_rotation2d = new Rotation2d();
+  public Rotation2d m_rotation2d;
   public Pose2d m_pose = new Pose2d();
   public DifferentialDriveOdometry m_odometry;
   // TRACK WIDTH MEASUERED DISTANCE WHEEL CENTER TO WHEEL CENTER IN METERS
@@ -59,8 +59,15 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
    * Constructor for the DriveTrain
    */
   public DriveTrain() {
+    m_rotation2d = new Rotation2d(getHeadingRadians());
      placeholder = RobotContainer.getAutonomousCommand();
-    if(placeholder.getName().equals("HardRoute");
+    if(placeholder.getName().equals("SixBallRun")){
+      m_pose.equals(new Pose2d(3.132, -.75, m_rotation2d));
+    }
+    else if(placeholder.getName().equals("EightBallRoute")){
+      m_pose.equals(new Pose2d(3.155, -7.5, m_rotation2d));}
+    else{m_pose.equals(new Pose2d());}
+    m_odometry = new DifferentialDriveOdometry(m_rotation2d, m_pose);
     r1TalonFX.setSafetyEnabled(false);
     r2TalonFX.setSafetyEnabled(false);
 
@@ -90,6 +97,13 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
   public void resetOdometry(Pose2d pose) {
     resetEncoder();
     m_odometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading()));
+  }
+
+  public void resetEncoder() {
+    r1TalonFX.setSelectedSensorPosition(0);
+r2TalonFX.setSelectedSensorPosition(0);
+l1TalonFX.setSelectedSensorPosition(0);
+    l2TalonFX.setSelectedSensorPosition(0);
   }
 
   /**
@@ -135,6 +149,12 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
     double distance = ((encoder / Constants.gear_ratio) / 2048.0) * 0.478779; 
     return distance;
   }
+
+  public double getDistance(){
+    double encoder = l1TalonFX.getSelectedSensorPosition();
+    double distance = ((encoder / Constants.gear_ratio) / 2048.0) * (6 * Math.PI); 
+    return distance;
+  }
   /**
    * Calibrates the Gyro
    */
@@ -142,48 +162,11 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
   public double getHeading(){
     return (getGyroAngle() % 360);
   }
+  public double getHeadingRadians(){
 
+    return Units.degreesToRadians(getHeading());
+      }
 
-  public void calibrateGyro() {
-    // gyro.calibrate
-  }
-
-  /**
-   * Resets the encoder to the 0 position
-   */
-  public void resetEncoder() {
-    l1TalonFX.setSelectedSensorPosition(0);
-    l2TalonFX.setSelectedSensorPosition(0);
-    r1TalonFX.setSelectedSensorPosition(0);
-    r2TalonFX.setSelectedSensorPosition(0);
-  }
-
-  /**
-   * Pulls current encoder value
-   * 
-   * @return Encoder value
-   */
-  public double getEncoderValue() {
-    return l1TalonFX.getSelectedSensorPosition();
-  }
-
-  /**
-   * Pulls encoder tick value and converts it to inches.
-   * 
-   * @return Calculated inches
-   */
-  public double getDistance() {
-    double ticks = l1TalonFX.getSelectedSensorPosition();
-    double distance = ((ticks / Constants.gear_ratio) / 2048) * (6 * Math.PI);
-    return distance;
-  }
-
-  /**
-   * Drives motors based on Y-Axis of each side's joystick.
-   * 
-   * @param l Left joystick Y-Axis value
-   * @param r Right joystick Y-Axis value
-   */
   public void tankDrive(double l, double r) {
     // System.out.println((l + r) / 2);
     drive.tankDrive(r, l, true);
@@ -209,4 +192,7 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
     drive.feed();
 
   }
+
+public void calibrateGyro() {
+}
 }
