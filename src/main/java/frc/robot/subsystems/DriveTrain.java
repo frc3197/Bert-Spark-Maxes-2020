@@ -14,9 +14,13 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.util.Units;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.AutoConstants;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
+import frc.robot.commands.AutoCommands.HardRoute;
 
 /**
  * Defines a DriveTrain object. Code inside creates variables for drive motors
@@ -27,7 +31,7 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
   public WPI_TalonFX r1TalonFX = new WPI_TalonFX(Constants.TalonID.kRight1.id);
   public WPI_TalonFX l2TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft2.id);
   public WPI_TalonFX r2TalonFX = new WPI_TalonFX(Constants.TalonID.kRight2.id);
-
+ 
   private SpeedControllerGroup leftMotors = new SpeedControllerGroup(l1TalonFX, l2TalonFX);
   private SpeedControllerGroup rightMotors = new SpeedControllerGroup(r1TalonFX, r2TalonFX);
 
@@ -35,7 +39,7 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
   public DifferentialDrive drive = new DifferentialDrive(leftMotors, rightMotors);
   public RamseteController ramseteController = new RamseteController(AutoConstants.ramseteB, AutoConstants.ramseteZeta);
 
-
+  public Command placeholder;
   public Rotation2d m_rotation2d = new Rotation2d();
   public Pose2d m_pose = new Pose2d();
   public DifferentialDriveOdometry m_odometry;
@@ -55,9 +59,8 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
    * Constructor for the DriveTrain
    */
   public DriveTrain() {
-    m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
-    l1TalonFX.setSafetyEnabled(false);
-    l2TalonFX.setSafetyEnabled(false);
+     placeholder = RobotContainer.getAutonomousCommand();
+    if(placeholder.getName().equals("HardRoute");
     r1TalonFX.setSafetyEnabled(false);
     r2TalonFX.setSafetyEnabled(false);
 
