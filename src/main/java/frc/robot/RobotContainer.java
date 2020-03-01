@@ -115,6 +115,7 @@ public class RobotContainer {
   Trajectory trajectory52;
   Trajectory trajectory53;
   Trajectory trajectory54;
+  Trajectory testTrajectory;
   
   /**
    * Table of values for limelight and receiving FMS data.
@@ -141,6 +142,7 @@ public class RobotContainer {
   public final String trajectoryJSON52 = "51-2.wpilib.json";
   public final String trajectoryJSON53 = "51-3.wpilib.json";
   public final String trajectoryJSON54 = "51-4.wpilib.json";
+  public final String trajectoryJSONTest = "Test.wpilib.json";
 
 
   /*
@@ -229,6 +231,13 @@ public class RobotContainer {
       trajectory54 = TrajectoryUtil.fromPathweaverJson(trajectoryPath54);
     } catch (IOException ex) {
       DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON54, ex.getStackTrace());
+    }
+
+    try {
+      Path trajectoryPathTest = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSONTest);
+      testTrajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPathTest);
+    } catch (IOException ex) {
+      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSONTest, ex.getStackTrace());
     }
 
     driveTrain.setDefaultCommand(new Drive(driveTrain));

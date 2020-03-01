@@ -19,6 +19,7 @@ import frc.robot.commands.AutoCommands.EasyRoute;
 import frc.robot.commands.AutoCommands.EightBallRoute;
 import frc.robot.commands.AutoCommands.SubCommands.FiveBallRun;
 import frc.robot.commands.AutoCommands.SubCommands.SixBallRun;
+import frc.robot.commands.RamseteCommands.Ramsete;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -33,6 +34,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private Command m_sixballrun;
   private Command m_fiveballrun;
+  private Command m_ramseteTest;
   public DigitalInput hoodCounter = new DigitalInput(6);
   int count = 0;
   boolean LS = true;
@@ -73,11 +75,12 @@ public class Robot extends TimedRobot {
                                            m_robotContainer.driveTrain, m_robotContainer.trajectory51,
                                           m_robotContainer.trajectory52, m_robotContainer.trajectory53,
                                            m_robotContainer.trajectory54, m_robotContainer.shooter);
-
+    m_ramseteTest = new Ramsete(m_robotContainer.driveTrain, m_robotContainer.testTrajectory);
     m_robotContainer.m_sendableChooserAuto.addOption("Easy Route", m_easyRoute);
     m_robotContainer.m_sendableChooserAuto.addOption("Eight Ball", m_eightBallRoute);
     m_robotContainer.m_sendableChooserAuto.addOption("Six Ball 1" , m_sixballrun);
     m_robotContainer.m_sendableChooserAuto.addOption("Five Ball 1", m_fiveballrun);
+    m_robotContainer.m_sendableChooserAuto.addOption("Tester", m_ramseteTest);
     SmartDashboard.putData(m_robotContainer.m_sendableChooserAuto);
     // m_robotContainer.m_sendableChooserLL.addOption("", object);
 
