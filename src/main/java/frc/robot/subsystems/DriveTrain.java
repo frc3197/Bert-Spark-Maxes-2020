@@ -61,6 +61,7 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
   public DriveTrain() {
     m_rotation2d = new Rotation2d(getHeadingRadians());
      placeholder = RobotContainer.getAutonomousCommand();
+     
     if(placeholder.getName().equals("SixBallRun")){
       m_pose.equals(new Pose2d(3.132, -.75, m_rotation2d));
     }

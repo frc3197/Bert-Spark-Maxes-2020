@@ -225,7 +225,7 @@ public class RobotContainer {
     // driver2A.whileHeld(new LimelightHood(hood));
     driver2B.whileHeld(new TrackLimelightTurn(turret));
     driver2A.whenPressed(new LimelightHood(hood));
-    driver2RB.whileHeld(new Elevate(elevator,hopper));
+    driver2RB.whileHeld(new Elevate(elevator, hopper));
     driver2RS.whenPressed(new ToggleZoom());
     driver2LS.whileHeld(new Reverse(elevator, hopper));
 
@@ -371,7 +371,10 @@ public class RobotContainer {
   public static Command getAutonomousCommand() {
 
     // TODO: Add a command
-    return m_sendableChooserAuto.getSelected();
+    if (m_sendableChooserAuto.getSelected() != null) {
+      return m_sendableChooserAuto.getSelected();
+    } else
+      return (new TrackLimelightTurn(new Turret()));
     
  }
   
