@@ -14,6 +14,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 
 /**
@@ -23,12 +24,12 @@ import frc.robot.Constants;
 public class Shooter extends PIDSubsystem {
 
   private WPI_TalonFX TalonShooter1 = new WPI_TalonFX(Constants.TalonID.kShooter1.id);
-  public SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(.349, .12, 0.026);
+  public SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(.5, .12, 0.026);
   /**
    * Creates a new Shooter. Code inside configures encoder, minimum and maximum outputs, and PID Loop.
    */
   public Shooter() {
-    super(new PIDController(4.66, 0, 0));
+    super(new PIDController(4.44, .01,.2));
     TalonShooter1.setInverted(true);
     TalonShooter1.setSafetyEnabled(false);
 
@@ -88,8 +89,12 @@ public class Shooter extends PIDSubsystem {
   }
   
   public void feedForwardPID(double source ,double RPM) {
-  TalonShooter1.setVoltage(source * (feedforward.calculate(RPM / 60)
-   + getController().calculate(shooterVelocityRPS(), (RPM/60))));
+    double setpoint = (source * (feedforward.calculate(RPM / 60)
+    + getController().calculate(shooterVelocityRPS(), (RPM/60))));
+
+  TalonShooter1.setVoltage(setpoint);
+
+   SmartDashboard.putNumber("Shooter Voltage",getVelocity() );
   // CHANGE GETSELECTEDSENSORVELOCITYTODISTANCEUNIT
   // THIS COULD BE AN OPTION FOR FEEDFORWARD WITH PID BUT SHOULD LOOK INTO FLYWHEEL CALCULATION
   // FLYWHEEL CALCULATION: (VOLTAGE / RPM) * SETPOINTRPM
@@ -121,7 +126,7 @@ public class Shooter extends PIDSubsystem {
 
   public double getVelocity(){
     double units = TalonShooter1.getSelectedSensorVelocity();
-    return ((units/2048) * 60000);
+    return ((units/2048) * 600);
   }
   /**
    * Resets the encoder position to zero.
