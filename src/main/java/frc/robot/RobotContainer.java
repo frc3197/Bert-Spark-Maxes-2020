@@ -8,8 +8,8 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
@@ -29,7 +29,6 @@ import frc.robot.commands.Scrub;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.Winch;
 import frc.robot.commands.AutoCommands.EasyRoute;
-import frc.robot.commands.AutoCommands.LimelightTracking.AlignScript;
 import frc.robot.commands.AutoCommands.LimelightTracking.LimelightHood;
 import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightTurn;
 import frc.robot.commands.AutoCommands.SubCommands.DriveDistance;
@@ -61,7 +60,7 @@ public class RobotContainer {
   private static boolean zoomOn = false;
 
   
-  public static SendableChooser<Command> m_sendableChooserAuto = new SendableChooser<Command>();
+  public SendableChooser<Command> m_sendableChooserAuto = new SendableChooser<Command>();
   public SendableChooser<Pose2d> m_sendableChooserPose = new SendableChooser<Pose2d>();
 
   /**
@@ -108,7 +107,7 @@ public class RobotContainer {
   public final Elevator elevator = new Elevator(hopper);
   public final Command easyRoute = new EasyRoute(hood, shooter, driveTrain, hopper, turret, elevator);
   public final Command driveDistance = new DriveDistance(driveTrain, 50);
-  public final Command driveDistanceSimple = new DriveDistanceSimple(driveTrain, 30);
+  public final Command driveDistanceSimple = new DriveDistanceSimple(driveTrain, 30, hopper);
   Trajectory trajectory1;
   Trajectory trajectory2;
   Trajectory trajectory3;
@@ -368,7 +367,7 @@ public class RobotContainer {
    * 
    * @return The selection of Autonomous Command
    */
-  public static Command getAutonomousCommand() {
+  public Command getAutonomousCommand() {
 
     // TODO: Add a command
     if (m_sendableChooserAuto.getSelected() != null) {

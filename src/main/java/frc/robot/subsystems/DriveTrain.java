@@ -15,12 +15,10 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.AutoConstants;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
-import frc.robot.commands.AutoCommands.HardRoute;
+import frc.robot.Robot;
 
 /**
  * Defines a DriveTrain object. Code inside creates variables for drive motors
@@ -60,7 +58,7 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
    */
   public DriveTrain() {
     m_rotation2d = new Rotation2d(getHeadingRadians());
-     placeholder = RobotContainer.getAutonomousCommand();
+     placeholder = Robot.getRobotContainer().getAutonomousCommand();
      
     if(placeholder.getName().equals("SixBallRun")){
       m_pose.equals(new Pose2d(3.132, -.75, m_rotation2d));

@@ -9,13 +9,10 @@ package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.AutoCommands.SubCommands.ElevateAuto;
 import frc.robot.commands.AutoCommands.SubCommands.RamseteElevateAuto;
 import frc.robot.commands.RamseteCommands.Ramsete;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.Hopper;
-import frc.robot.subsystems.Shooter;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:

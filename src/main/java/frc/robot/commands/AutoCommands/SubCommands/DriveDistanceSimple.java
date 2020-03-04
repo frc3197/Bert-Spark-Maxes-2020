@@ -10,17 +10,19 @@ package frc.robot.commands.AutoCommands.SubCommands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Hopper;
 
 public class DriveDistanceSimple extends CommandBase {
   DriveTrain driveTrain;
 private double distance;
 private double distanceGone;
-
+Hopper hopper;
   /**
    * Creates a new DriveDistanceSimple.
    */
-  public DriveDistanceSimple(DriveTrain driveTrain, double distance) {
-    addRequirements(driveTrain);
+  public DriveDistanceSimple(DriveTrain driveTrain, double distance, Hopper hopper) {
+    addRequirements(driveTrain, hopper);
+    this.hopper = hopper;
     this.driveTrain = driveTrain;
     this.distance = distance;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -38,6 +40,7 @@ private double distanceGone;
   public void execute() {
     distanceGone = (driveTrain.l1TalonFX.getSelectedSensorPosition() / 2048) *7* (6*Math.PI);
     SmartDashboard.putNumber("distance", distance-distanceGone);
+    hopper.hopperFeeder(.4);
     if(distanceGone - distance != 0){
       if(distance > 0){
         driveTrain.tankDrive(0.5, 0.5);
@@ -54,6 +57,7 @@ private double distanceGone;
   @Override
   public void end(boolean interrupted) {
     driveTrain.tankDrive(0, 0);
+    hopper.hopperFeeder(0);
   }
 
   // Returns true when the command should end.

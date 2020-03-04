@@ -38,7 +38,7 @@ public class Robot extends TimedRobot {
   boolean LS = true;
   boolean hopperFull = false;
   private boolean pressed;
-  private RobotContainer m_robotContainer;
+  private static RobotContainer m_robotContainer;
   
   // private String ll1 = "limelight-hounds";
   // private String ll2 = "limelight-"
@@ -47,6 +47,7 @@ public class Robot extends TimedRobot {
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
    */
+
   @Override
   public void robotInit() {
     // Instantiate our RobotContainer. This will perform all our button bindings,
@@ -63,7 +64,7 @@ public class Robot extends TimedRobot {
                                 m_robotContainer.driveTrain, m_robotContainer.hopper,
                                 m_robotContainer.turret, m_robotContainer.elevator);
     m_hardRoute = new HardRoute(m_robotContainer.driveTrain, m_robotContainer.arms,
-                                m_robotContainer.intake, m_robotContainer.hood,
+                                 m_robotContainer.hood,
                                 m_robotContainer.shooter, m_robotContainer.hopper,
                                 m_robotContainer.turret, m_robotContainer.elevator);
     m_eightBallRoute = new EightBallRoute(m_robotContainer.driveTrain, m_robotContainer.elevator, 
@@ -170,7 +171,8 @@ public class Robot extends TimedRobot {
     // m_robotContainer.hood.encoderCalibrate();
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
-    m_autonomousCommand = RobotContainer.getAutonomousCommand();
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_robotContainer.intake.takeIn(.7);
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
@@ -189,6 +191,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopInit() {
+    m_robotContainer.intake.takeIn(0);
     // m_robotContainer.shooter.shooterVelocity(RobotContainer.targetVelocity(0, 5600));
     // m_robotContainer.hood.encoderCalibrate();
     // This makes sure that the autonomous stops running when
@@ -221,5 +224,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+  }
+  
+  public static RobotContainer getRobotContainer() {
+    return m_robotContainer;
   }
 }
