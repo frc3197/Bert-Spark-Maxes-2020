@@ -92,8 +92,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     // feedback for users, but not used by the control program
-    SmartDashboard.putNumber("encoder_pos", encoderPosition.get());
-    SmartDashboard.putNumber("encoder_rate", encoderRate.get());
   }
 
   @Override

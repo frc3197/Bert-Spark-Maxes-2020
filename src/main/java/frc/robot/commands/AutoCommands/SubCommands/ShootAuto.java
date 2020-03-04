@@ -10,7 +10,6 @@ package frc.robot.commands.AutoCommands.SubCommands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.Shooter;
 
 public class ShootAuto extends CommandBase {
@@ -38,8 +37,6 @@ public class ShootAuto extends CommandBase {
    */
   @Override
   public void execute() {
-    SmartDashboard.putNumber("Shooter Encoder Ticks", shooter.getEncoderValue());
-    SmartDashboard.putNumber("Right Trigger", RobotContainer.getShooter());
     SmartDashboard.putNumber("Shooter Velocity", shooter.getVelocity());
     shooter.feedForwardPID(1, 5600);
     

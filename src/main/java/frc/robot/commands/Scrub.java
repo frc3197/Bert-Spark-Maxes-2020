@@ -25,11 +25,8 @@ public class Scrub extends CommandBase {
   
   private ColorSensor colorSensor;
   private ControlPanel controlPanel;
-  private boolean rotationControl = false;
-  private boolean positionControl = false;
   private boolean position;
   private boolean finished = false;
-  private int currentColorCount = 0;
 
   private final ColorMatch m_colorMatcher = new ColorMatch();
 
@@ -58,7 +55,6 @@ public class Scrub extends CommandBase {
   @Override
   public void initialize() {
     finished = false;
-    currentColorCount = 0;
     controlPanel.resetEncoderPosition();
     m_colorMatcher.addColorMatch(kBlueTarget);
     m_colorMatcher.addColorMatch(kGreenTarget);
@@ -147,7 +143,6 @@ public class Scrub extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    //TODO: add a finished conditional.
     return finished;
   }
 

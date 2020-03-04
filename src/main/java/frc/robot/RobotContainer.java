@@ -347,7 +347,6 @@ public class RobotContainer {
    * @return Vertical motion of Driver 1's Right Joystick
    */
   public static double tankDriveRight() {
-    SmartDashboard.putNumber("Right Joystick", driver1.getY(Hand.kRight));
     return driver1.getY(Hand.kRight);
   }
 
@@ -358,7 +357,6 @@ public class RobotContainer {
    * @return Vertical motion of Driver 1's Left Joystick
    */
   public static double tankDriveLeft() {
-    SmartDashboard.putNumber("Left Joystick", driver1.getY(Hand.kLeft));
     return driver1.getY(Hand.kLeft);
   }
 
@@ -368,13 +366,10 @@ public class RobotContainer {
    * @return The selection of Autonomous Command
    */
   public Command getAutonomousCommand() {
-
-    // TODO: Add a command
     if (m_sendableChooserAuto.getSelected() != null) {
       return m_sendableChooserAuto.getSelected();
     } else
       return (new TrackLimelightTurn(new Turret()));
-    
  }
   
 
@@ -396,14 +391,6 @@ public class RobotContainer {
    * Limelight in relation to target ta: Area of screen target occupies
    */
   public static void pullNetworkTables() {
-    double tv = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("tv").getDouble(0);
-    double tx = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("tx").getDouble(0);
-    double ty = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
-    double ta = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ta").getDouble(0);
-    SmartDashboard.putNumber("tv", tv);
-    SmartDashboard.putNumber("tx", tx);
-    SmartDashboard.putNumber("ty", ty);
-    SmartDashboard.putNumber("ta", ta);
   }
 
   /**
