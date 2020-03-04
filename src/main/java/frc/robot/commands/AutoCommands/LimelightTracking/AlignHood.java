@@ -109,6 +109,9 @@ public class AlignHood extends CommandBase {
     else if(Math.abs(d - 240) < deadzone){
       ticksE = ticks240;
     }
+    else{
+        ticksE= ticks120;
+    }
     // }else{
     //   ticksE = 0;
     // }
