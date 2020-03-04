@@ -9,8 +9,8 @@ package frc.robot.commands.AutoCommands.SubCommands;
 
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import frc.robot.commands.TakeIn;
+import frc.robot.commands.AutoCommands.FiveBallRamsete;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Hood;
@@ -22,12 +22,12 @@ import frc.robot.subsystems.Turret;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class SixBallRun extends ParallelCommandGroup {
+public class FiveBallRun extends ParallelCommandGroup {
   /**
-   * Creates a new SixBallRun.
+   * Creates a new FiveBallRun.
    */
-  public SixBallRun(DriveTrain driveTrain, Trajectory trajectory61, Trajectory trajectory62, Elevator elevator,Hopper hopper,Shooter shooter,Hood hood,Turret turret,Intake intake) {
-    super(new SixBallRoute(driveTrain, trajectory61, trajectory62, elevator, hopper, shooter, hood, turret),new TakeIn(intake));
+  public FiveBallRun(Hood hood, Hopper hopper,Elevator elevator, Intake intake, Turret turret, DriveTrain driveTrain, Trajectory trajectory51, Trajectory trajectory52, Trajectory trajectory53, Trajectory trajectory54, Shooter shooter) {
+    super(new FiveBallRamsete(elevator, shooter, hood, turret, hopper, driveTrain, trajectory51, trajectory52, trajectory53, trajectory54), new TakeIn(intake));
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());super();
   }

@@ -22,8 +22,8 @@ public class AutoConstants {
     public final static double  kA = 0.0472;
 
 
-    public final static double maxSpeedMetersPerSecond = 1;
-    public final static double maxAccelerationMetersPerSecondSquared = 1.2;  
+    public final static double maxSpeedMetersPerSecond = .2;
+    public final static double maxAccelerationMetersPerSecondSquared = .2;  
     // public final static double trackWidth = 4.545290231051496;  
     public final static double trackWidth = Units.inchesToMeters(20);
 
@@ -32,7 +32,7 @@ public class AutoConstants {
     public static final double ramseteZeta = .7;
     // Zeta is most comparable to kD and provides some damping
     // public static final Pose2d poseRef = new Pose2d(2,0, new Rotation2d());
-	public static final double linearVelocityRefMeters = 1;
-    public static final double angularVelocityRefRadiansPerSecond = 1;
+	public static final double linearVelocityRefMeters = .2;
+    public static final double angularVelocityRefRadiansPerSecond = .2;
 
 }

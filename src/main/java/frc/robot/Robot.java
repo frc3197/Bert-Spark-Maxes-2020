@@ -17,8 +17,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.AutoCommands.EasyRoute;
 import frc.robot.commands.AutoCommands.EightBallRoute;
+import frc.robot.commands.AutoCommands.SubCommands.FiveBallRun;
 import frc.robot.commands.AutoCommands.HardRoute;
 import frc.robot.commands.AutoCommands.SubCommands.SixBallRun;
+import frc.robot.commands.RamseteCommands.Ramsete;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -33,6 +35,8 @@ public class Robot extends TimedRobot {
   private Command m_eightBallRoute;
   private Command m_autonomousCommand;
   private Command m_sixballrun;
+  private Command m_fiveballrun;
+  private Command m_ramseteTest;
   public DigitalInput hoodCounter = new DigitalInput(6);
   int count = 0;
   boolean LS = true;
@@ -53,7 +57,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
     // autonomous chooser on the dashboard.
-    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(1);
+    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
     m_robotContainer = new RobotContainer();
     m_robotContainer.driveTrain.resetGyro();
@@ -73,11 +77,17 @@ public class Robot extends TimedRobot {
                                           m_robotContainer.trajectory2, m_robotContainer.trajectory3, 
                                           m_robotContainer.trajectory4, m_robotContainer.trajectory5, 
                                           m_robotContainer.trajectory6);
+    m_fiveballrun = new FiveBallRun(m_robotContainer.hood, m_robotContainer.hopper,
+                                           m_robotContainer.elevator, m_robotContainer.intake, m_robotContainer.turret,
+                                           m_robotContainer.driveTrain, m_robotContainer.trajectory51,
+                                          m_robotContainer.trajectory52, m_robotContainer.trajectory53,
+                                           m_robotContainer.trajectory54, m_robotContainer.shooter);
+    m_ramseteTest = new Ramsete(m_robotContainer.driveTrain, m_robotContainer.testTrajectory);
     m_robotContainer.m_sendableChooserAuto.addOption("Easy Route", m_easyRoute);
     m_robotContainer.m_sendableChooserAuto.addOption("Hard Route", m_hardRoute);
     m_robotContainer.m_sendableChooserAuto.addOption("Eight Ball", m_eightBallRoute);
     m_robotContainer.m_sendableChooserAuto.addOption("Six Ball 1" , m_sixballrun);
-    
+    m_robotContainer.m_sendableChooserAuto.addOption("Five Ball 1", m_fiveballrun);
     SmartDashboard.putData(m_robotContainer.m_sendableChooserAuto);
     // m_robotContainer.m_sendableChooserLL.addOption("", object);
 
