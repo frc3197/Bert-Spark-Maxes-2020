@@ -27,6 +27,7 @@ public class SixBallRoute extends SequentialCommandGroup {
   public SixBallRoute(DriveTrain driveTrain,Trajectory trajectory61,Trajectory trajectory62, Elevator elevator, Hopper hopper,Shooter shooter, Hood hood, Turret turret) {
     super(new AlignShoot(shooter, hood, turret), new ElevateAuto(elevator, hopper, shooter),
         new Ramsete(driveTrain, trajectory61).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
+        new Delay(),
     new Ramsete(driveTrain, trajectory62).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
     new AlignShoot(shooter, hood, turret), new ElevateAuto(elevator, hopper, shooter)
     );

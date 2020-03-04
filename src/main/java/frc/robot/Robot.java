@@ -65,7 +65,7 @@ public class Robot extends TimedRobot {
     m_robotContainer.driveTrain.resetGyro();
     m_sixballrun= new SixBallRun(m_robotContainer.driveTrain, m_robotContainer.trajectory61,
     m_robotContainer.trajectory62, m_robotContainer.elevator, m_robotContainer.hopper,
-    m_robotContainer.shooter, m_robotContainer.hood, m_robotContainer.turret, m_robotContainer.intake);
+    m_robotContainer.shooter, m_robotContainer.hood, m_robotContainer.turret);
     m_easyRoute = new EasyRoute(m_robotContainer.hood, m_robotContainer.shooter, 
                                 m_robotContainer.driveTrain, m_robotContainer.hopper,
                                 m_robotContainer.turret, m_robotContainer.elevator);

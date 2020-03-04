@@ -26,8 +26,8 @@ public class SixBallRun extends ParallelCommandGroup {
   /**
    * Creates a new SixBallRun.
    */
-  public SixBallRun(DriveTrain driveTrain, Trajectory trajectory61, Trajectory trajectory62, Elevator elevator,Hopper hopper,Shooter shooter,Hood hood,Turret turret,Intake intake) {
-    super(new SixBallRoute(driveTrain, trajectory61, trajectory62, elevator, hopper, shooter, hood, turret),new TakeIn(intake));
+  public SixBallRun(DriveTrain driveTrain, Trajectory trajectory61, Trajectory trajectory62, Elevator elevator,Hopper hopper,Shooter shooter,Hood hood,Turret turret) {
+    super(new SixBallRoute(driveTrain, trajectory61, trajectory62, elevator, hopper, shooter, hood, turret));
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());super();
   }
