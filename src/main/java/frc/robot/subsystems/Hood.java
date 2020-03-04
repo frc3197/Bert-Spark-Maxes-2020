@@ -47,36 +47,6 @@ public class Hood extends SubsystemBase {
    * Implements limit switches. Calibrates the encoder with limit switches.
    */
   public void encoderCalibrate(){
-    //TODO: Rewrite Encoder Calibrate
-    int forwardLimit = hoodMotor.isFwdLimitSwitchClosed();
-    int reverseLimit = hoodMotor.isRevLimitSwitchClosed();
-    int on = 1;
-    int off = 0;
-    if(reverseLimit == on && forwardLimit == on){
-      moveHood(0);
-    }
-    else if(reverseLimit == on){
-      moveHood(0);
-    }
-    
-    else if(forwardLimit == on){
-
-      while(reverseLimit == off){
-        moveHood(-0.7);
-        reverseLimit = hoodMotor.isRevLimitSwitchClosed();
-        SmartDashboard.putBoolean("Hood Reverse Limit", reverseLimit == on);
-      }
-
-    }
-    else{
-      while(reverseLimit == off){
-        moveHood(-0.7);
-        reverseLimit = hoodMotor.isRevLimitSwitchClosed();
-        SmartDashboard.putBoolean("Hood Reverse Limit", reverseLimit == on);
-      }
-    }
-    hoodMotor.set(0);
-    hoodMotor.setSelectedSensorPosition(0);
   }
 
   /**

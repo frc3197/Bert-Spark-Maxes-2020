@@ -44,8 +44,6 @@ public class MoveHood extends CommandBase {
   @Override
   public void execute() {
     hoodFwd = hood.hoodMotor.isFwdLimitSwitchClosed();
-    // String angle = ""
-    // SmartDashboard.putNumber("Angle", value)
     System.out.println("hoodFWD" + hoodFwd);
     hood.moveHood(RobotContainer.getHoodManual() * .5);
   }

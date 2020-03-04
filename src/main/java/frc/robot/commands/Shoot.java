@@ -40,8 +40,6 @@ public class Shoot extends CommandBase {
    */
   @Override
   public void execute() {
-    SmartDashboard.putNumber("Shooter Encoder Ticks", shooter.getEncoderValue());
-    SmartDashboard.putNumber("Right Trigger", RobotContainer.getShooter());
     SmartDashboard.putNumber("Shooter Velocity", shooter.getVelocity());
     // shooter.shooterVelocity(RobotContainer.targetVelocity(RobotContainer.getShooter(), 5600));
     shooter.feedForwardPID(RobotContainer.getShooter(), 5600);

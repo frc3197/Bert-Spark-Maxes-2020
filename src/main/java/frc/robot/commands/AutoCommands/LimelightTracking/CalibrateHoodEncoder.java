@@ -30,7 +30,6 @@ public class CalibrateHoodEncoder extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //TODO: Rewrite Encoder Calibrate
     reverseLimit = hood.hoodMotor.isRevLimitSwitchClosed();
     on = 1;
     if(reverseLimit == on){
