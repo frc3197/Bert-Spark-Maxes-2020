@@ -58,15 +58,7 @@ public WPI_TalonFX l1TalonFX = new WPI_TalonFX(Constants.TalonID.kLeft1.id);
    */
   public DriveTrain() {
     m_rotation2d = new Rotation2d(getHeadingRadians());
-     placeholder = Robot.getRobotContainer().getAutonomousCommand();
-     
-    if(placeholder.getName().equals("SixBallRun")){
-      m_pose.equals(new Pose2d(3.132, -.75, m_rotation2d));
-    }
-    else if(placeholder.getName().equals("EightBallRoute")){
-      m_pose.equals(new Pose2d(3.155, -7.5, m_rotation2d));}
-    else{m_pose.equals(new Pose2d());}
-    m_odometry = new DifferentialDriveOdometry(m_rotation2d, m_pose);
+    
     r1TalonFX.setSafetyEnabled(false);
     r2TalonFX.setSafetyEnabled(false);
 
@@ -192,6 +184,19 @@ l1TalonFX.setSelectedSensorPosition(0);
 
   }
 
-public void calibrateGyro() {
-}
+  public void calibrateGyro() {
+  }
+
+  public void setPlaceholder(Command command) {
+    placeholder = command;
+
+    if(placeholder.getName().equals("SixBallRun")){
+      m_pose.equals(new Pose2d(3.132, -.75, m_rotation2d));
+    }
+    else if(placeholder.getName().equals("EightBallRoute")){
+      m_pose.equals(new Pose2d(3.155, -7.5, m_rotation2d));}
+    else{m_pose.equals(new Pose2d());}
+
+    m_odometry = new DifferentialDriveOdometry(m_rotation2d, m_pose);
+  }
 }

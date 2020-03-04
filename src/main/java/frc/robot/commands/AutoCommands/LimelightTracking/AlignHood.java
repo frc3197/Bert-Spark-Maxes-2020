@@ -81,20 +81,17 @@ public class AlignHood extends CommandBase {
     //First ball: 242.63in
     double d = RobotContainer.getDistanceFromTarget();
     double deadzone = 10; //in inches
-    double ticks120 = 255000; //Placeholder. (120, 1234)
-    double ticks140 = 269000;
-    double ticks160 = 272000;
-    double ticks180 = 277000; // About 180 in
-    double ticks200 = 284000;
-    double ticks220 = 29000;
-    double ticks240 = 294500; //Placeholder. (242.63, 2345)
+    double ticks120 = 270000; //Placeholder. (120, 1234)
+    double ticks140 = 279000;
+    double ticks160 = 280000;
+    double ticks180 = 283000; // About 180 in
+    double ticks200 = 289000;
+    double ticks220 = 294000;
+    double ticks240 = 298500; //Placeholder. (242.63, 2345)
     if(Math.abs(d - 120) < deadzone){
       ticksE = ticks120;
     
-    }else if(Math.abs(d - 120) < deadzone){
-      ticksE = ticks120;
-    }
-    else if(Math.abs(d - 140) < deadzone){
+    }else if(Math.abs(d - 140) < deadzone){
       ticksE = ticks140;
     }
     else if(Math.abs(d - 160) < deadzone){

@@ -39,7 +39,7 @@ public class TakeIn extends CommandBase {
    */
   @Override
   public void execute() {
-    double speed = 0.5;
+    double speed = 0.7;
     if(RobotContainer.getReverse()){
     intake.reverseTakeIn(speed);}
       else{intake.takeIn(speed);}

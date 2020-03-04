@@ -28,6 +28,7 @@ import frc.robot.commands.AutoCommands.SubCommands.SixBallRun;
  * project.
  */
 public class Robot extends TimedRobot {
+  private static Robot robotInstance;
   private Command m_easyRoute;
   private Command m_hardRoute;
   private Command m_eightBallRoute;
@@ -38,7 +39,7 @@ public class Robot extends TimedRobot {
   boolean LS = true;
   boolean hopperFull = false;
   private boolean pressed;
-  private static RobotContainer m_robotContainer;
+  private RobotContainer m_robotContainer;
   
   // private String ll1 = "limelight-hounds";
   // private String ll2 = "limelight-"
@@ -56,6 +57,7 @@ public class Robot extends TimedRobot {
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(1);
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
     m_robotContainer = new RobotContainer();
+    m_robotContainer.driveTrain.setPlaceholder(m_robotContainer.getAutonomousCommand());
     m_robotContainer.driveTrain.resetGyro();
     m_sixballrun= new SixBallRun(m_robotContainer.driveTrain, m_robotContainer.trajectory61,
     m_robotContainer.trajectory62, m_robotContainer.elevator, m_robotContainer.hopper,
@@ -91,6 +93,8 @@ public class Robot extends TimedRobot {
     // VideoSource usb0 = CameraServer.getInstance().startAutomaticCapture(0);
 
     // m_robotContainer.hood.calibrateHoodEncoder();
+
+    robotInstance = this;
   }
 
   /**
@@ -226,7 +230,11 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
   }
   
-  public static RobotContainer getRobotContainer() {
+  public RobotContainer getRobotContainer() {
     return m_robotContainer;
+  }
+
+  public static Robot getRobotInstance() {
+    return robotInstance;
   }
 }
