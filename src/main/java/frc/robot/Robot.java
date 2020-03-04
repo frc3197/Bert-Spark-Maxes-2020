@@ -90,6 +90,7 @@ public class Robot extends TimedRobot {
     m_robotContainer.m_sendableChooserAuto.addOption("Eight Ball", m_eightBallRoute);
     m_robotContainer.m_sendableChooserAuto.addOption("Six Ball 1" , m_sixballrun);
     m_robotContainer.m_sendableChooserAuto.addOption("Five Ball 1", m_fiveballrun);
+    m_robotContainer.m_sendableChooserAuto.setDefaultOption("Easy Route", m_easyRoute);
     SmartDashboard.putData(m_robotContainer.m_sendableChooserAuto);
     // m_robotContainer.m_sendableChooserLL.addOption("", object);
 
