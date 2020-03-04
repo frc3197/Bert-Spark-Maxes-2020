@@ -179,6 +179,7 @@ public class Robot extends TimedRobot {
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     m_robotContainer.intake.takeIn(.7);
+    m_robotContainer.shooter.feedForwardPID(1, 5600);
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
@@ -189,6 +190,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    
+    m_robotContainer.shooter.feedForwardPID(1, 5600);
+
   }
 
   /**

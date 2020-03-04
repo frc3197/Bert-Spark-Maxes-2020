@@ -38,7 +38,7 @@ public class ElevateAuto extends CommandBase {
   public void execute() {
     hopper.hopperFeeder(.4);
     elevator.hopperElevator(0.4);
-    shooter.feedForwardPID(1,5600);
+    
   }
 
   // Called once the command ends or is interrupted.

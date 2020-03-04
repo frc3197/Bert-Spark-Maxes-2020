@@ -7,6 +7,7 @@
 
 package frc.robot.commands.AutoCommands.SubCommands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hopper;
@@ -37,7 +38,10 @@ Hopper hopper;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    distanceGone = (driveTrain.l1TalonFX.getSelectedSensorPosition() / 2048) *7* (6*Math.PI);
+    distanceGone = (((driveTrain.l1TalonFX.getSelectedSensorPosition() / 2048) / 7  )* (6*Math.PI));
+    SmartDashboard.putNumber("distanceGone", distanceGone);
+    double distanceGoneOutput = Math.abs(distanceGone - distance);
+    SmartDashboard.putNumber("distancegone output", distanceGoneOutput);
     hopper.hopperFeeder(.4);
     if(distanceGone - distance != 0){
       if(distance > 0){
@@ -61,6 +65,7 @@ Hopper hopper;
   // Returns true when the command should end.
   @Override
   public boolean isFinished(){
+    
     return Math.abs(distanceGone - distance) < 10;
   }
 }
