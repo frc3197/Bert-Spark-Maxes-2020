@@ -86,7 +86,7 @@ public class AlignHood extends CommandBase {
     double ticks160 = 280000;
     double ticks180 = 283000; // About 180 in
     double ticks200 = 289000;
-    double ticks220 = 296500;
+    double ticks220 = 297000;
     double ticks240 = 300000; //Placeholder. (242.63, 2345)
     if(Math.abs(d - 120) < deadzone){
       ticksE = ticks120;
