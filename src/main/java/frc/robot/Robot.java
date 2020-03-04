@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.AutoCommands.EasyRoute;
 import frc.robot.commands.AutoCommands.EightBallRoute;
 import frc.robot.commands.AutoCommands.SubCommands.FiveBallRun;
+import frc.robot.commands.AutoCommands.HardRoute;
 import frc.robot.commands.AutoCommands.SubCommands.SixBallRun;
 import frc.robot.commands.RamseteCommands.Ramsete;
 
@@ -30,6 +31,7 @@ import frc.robot.commands.RamseteCommands.Ramsete;
  */
 public class Robot extends TimedRobot {
   private Command m_easyRoute;
+  private Command m_hardRoute;
   private Command m_eightBallRoute;
   private Command m_autonomousCommand;
   private Command m_sixballrun;
@@ -40,7 +42,7 @@ public class Robot extends TimedRobot {
   boolean LS = true;
   boolean hopperFull = false;
   private boolean pressed;
-  private RobotContainer m_robotContainer;
+  private static RobotContainer m_robotContainer;
   
   // private String ll1 = "limelight-hounds";
   // private String ll2 = "limelight-"
@@ -49,6 +51,7 @@ public class Robot extends TimedRobot {
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
    */
+
   @Override
   public void robotInit() {
     // Instantiate our RobotContainer. This will perform all our button bindings,
@@ -57,12 +60,16 @@ public class Robot extends TimedRobot {
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
     m_robotContainer = new RobotContainer();
-    m_robotContainer.driveTrain.calibrateGyro();
+    m_robotContainer.driveTrain.resetGyro();
     m_sixballrun= new SixBallRun(m_robotContainer.driveTrain, m_robotContainer.trajectory61,
     m_robotContainer.trajectory62, m_robotContainer.elevator, m_robotContainer.hopper,
     m_robotContainer.shooter, m_robotContainer.hood, m_robotContainer.turret, m_robotContainer.intake);
     m_easyRoute = new EasyRoute(m_robotContainer.hood, m_robotContainer.shooter, 
                                 m_robotContainer.driveTrain, m_robotContainer.hopper,
+                                m_robotContainer.turret, m_robotContainer.elevator);
+    m_hardRoute = new HardRoute(m_robotContainer.driveTrain, m_robotContainer.arms,
+                                 m_robotContainer.hood,
+                                m_robotContainer.shooter, m_robotContainer.hopper,
                                 m_robotContainer.turret, m_robotContainer.elevator);
     m_eightBallRoute = new EightBallRoute(m_robotContainer.driveTrain, m_robotContainer.elevator, 
                                           m_robotContainer.hopper, m_robotContainer.shooter,
@@ -77,10 +84,10 @@ public class Robot extends TimedRobot {
                                            m_robotContainer.trajectory54, m_robotContainer.shooter);
     m_ramseteTest = new Ramsete(m_robotContainer.driveTrain, m_robotContainer.testTrajectory);
     m_robotContainer.m_sendableChooserAuto.addOption("Easy Route", m_easyRoute);
+    m_robotContainer.m_sendableChooserAuto.addOption("Hard Route", m_hardRoute);
     m_robotContainer.m_sendableChooserAuto.addOption("Eight Ball", m_eightBallRoute);
     m_robotContainer.m_sendableChooserAuto.addOption("Six Ball 1" , m_sixballrun);
     m_robotContainer.m_sendableChooserAuto.addOption("Five Ball 1", m_fiveballrun);
-    m_robotContainer.m_sendableChooserAuto.addOption("Tester", m_ramseteTest);
     SmartDashboard.putData(m_robotContainer.m_sendableChooserAuto);
     // m_robotContainer.m_sendableChooserLL.addOption("", object);
 
@@ -107,18 +114,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putNumber("pose x",m_robotContainer.driveTrain.m_odometry.getPoseMeters().getTranslation().getX());
-    SmartDashboard.putNumber("pose y",m_robotContainer.driveTrain.m_odometry.getPoseMeters().getTranslation().getY());
-    SmartDashboard.putNumber("pose rotation",m_robotContainer.driveTrain.m_odometry.getPoseMeters().getRotation().getDegrees());
-    SmartDashboard.putNumber("Distance Meters Left", m_robotContainer.driveTrain.getDistanceMetersLeft());
-    SmartDashboard.putNumber("Distance Meters Right", m_robotContainer.driveTrain.getDistanceMetersRight());
-
-    SmartDashboard.putNumber("Velocity Meters Right", m_robotContainer.driveTrain.getRightEncoderVelocityMeters());
-    SmartDashboard.putNumber("Velocity Meters Left", m_robotContainer.driveTrain.getLeftEncoderVelocityMeters());
-    SmartDashboard.putNumber("Right Encoder Value", m_robotContainer.driveTrain.r1TalonFX.getSelectedSensorPosition());
-    SmartDashboard.putNumber("Left Encoder Value", -m_robotContainer.driveTrain.l1TalonFX.getSelectedSensorPosition());
+    // SmartDashboard.putNumber("pose x",m_robotContainer.driveTrain.m_odometry.getPoseMeters().getTranslation().getX());
+    // SmartDashboard.putNumber("pose y",m_robotContainer.driveTrain.m_odometry.getPoseMeters().getTranslation().getY());
+    // SmartDashboard.putNumber("pose rotation",m_robotContainer.driveTrain.m_odometry.getPoseMeters().getRotation().getDegrees());
     SmartDashboard.putNumber("Gyro" , m_robotContainer.driveTrain.getHeading());
-    SmartDashboard.putBoolean("Shooter is Running", m_robotContainer.shooter.getMotor());
     SmartDashboard.putNumber("Match Time", DriverStation.getInstance().getMatchTime());
     SmartDashboard.putString("Detected Color", m_robotContainer.colorSensor.getColorString());
     SmartDashboard.putNumber("Distance from Target", RobotContainer.getDistanceFromTarget());
@@ -175,7 +174,7 @@ public class Robot extends TimedRobot {
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    m_robotContainer.hopper.hopperFeeder(0.4);
+    m_robotContainer.intake.takeIn(.7);
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
@@ -194,7 +193,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopInit() {
-    m_robotContainer.hopper.hopperFeeder(0);
+    m_robotContainer.intake.takeIn(0);
     // m_robotContainer.shooter.shooterVelocity(RobotContainer.targetVelocity(0, 5600));
     // m_robotContainer.hood.encoderCalibrate();
     // This makes sure that the autonomous stops running when
@@ -227,5 +226,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+  }
+  
+  public static RobotContainer getRobotContainer() {
+    return m_robotContainer;
   }
 }

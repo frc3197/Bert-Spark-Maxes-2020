@@ -1,6 +1,5 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
@@ -68,12 +67,6 @@ public class Drive extends CommandBase {
      */
     // System.out.println("Velocity Value " + driveTrain.getVelocity());
     // System.out.println(driveTrain.CalcFPS() + " feet per second.");\
-
-    SmartDashboard.putNumber("Left Motor Input", tankL);
-    SmartDashboard.putNumber("Right Motor Input", tankR);
-    // SmartDashboard.putNumber("VelocityValue", driveTrain.CalcFPS());
-    SmartDashboard.putNumber("placeholder", RobotContainer.tankDriveLeft());
-    // SmartDashboard.putNumber("Velocity SetPoint", (driveTrain.getVelocityPID()));
 
   }
 

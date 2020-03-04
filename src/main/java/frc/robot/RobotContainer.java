@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
@@ -28,7 +29,7 @@ import frc.robot.commands.Scrub;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.Winch;
 import frc.robot.commands.AutoCommands.EasyRoute;
-import frc.robot.commands.AutoCommands.LimelightTracking.AlignScript;
+import frc.robot.commands.AutoCommands.LimelightTracking.LimelightHood;
 import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightTurn;
 import frc.robot.commands.AutoCommands.SubCommands.DriveDistance;
 import frc.robot.commands.AutoCommands.SubCommands.DriveDistanceSimple;
@@ -57,6 +58,10 @@ import frc.robot.subsystems.Turret;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private static boolean zoomOn = false;
+
+  
+  public SendableChooser<Command> m_sendableChooserAuto = new SendableChooser<Command>();
+  public SendableChooser<Pose2d> m_sendableChooserPose = new SendableChooser<Pose2d>();
 
   /**
    * The XboxController for driver 1.
@@ -102,7 +107,7 @@ public class RobotContainer {
   public final Elevator elevator = new Elevator(hopper);
   public final Command easyRoute = new EasyRoute(hood, shooter, driveTrain, hopper, turret, elevator);
   public final Command driveDistance = new DriveDistance(driveTrain, 50);
-  public final Command driveDistanceSimple = new DriveDistanceSimple(driveTrain);
+  public final Command driveDistanceSimple = new DriveDistanceSimple(driveTrain, 30, hopper);
   Trajectory trajectory1;
   Trajectory trajectory2;
   Trajectory trajectory3;
@@ -126,24 +131,19 @@ public class RobotContainer {
   // private final TrackLimelightFollow m_TrackLimelightFollow = new
   // TrackLimelightFollow(shooter, driveTrain);
 
-  public SendableChooser<Command> m_sendableChooserAuto = new SendableChooser<Command>();
-  public SendableChooser<String> m_sendableChooserLL = new SendableChooser<String>();
- 
-
   public final String trajectoryJSON1 = "1.wpilib.json";
   public final String trajectoryJSON2 = "2.wpilib.json";
   public final String trajectoryJSON3 = "3.wpilib.json";
   public final String trajectoryJSON4 = "4.wpilib.json";
   public final String trajectoryJSON5 = "5.wpilib.json";
   public final String trajectoryJSON6 = "6.wpilib.json";
-  public final String trajectoryJSON61 = "61-1.wpilib.json";  
+  public final String trajectoryJSON61 = "61-1.wpilib.json";
   public final String trajectoryJSON62 = "61-2.wpilib.json";
   public final String trajectoryJSON51 = "51-1.wpilib.json";
   public final String trajectoryJSON52 = "51-2.wpilib.json";
   public final String trajectoryJSON53 = "51-3.wpilib.json";
   public final String trajectoryJSON54 = "51-4.wpilib.json";
   public final String trajectoryJSONTest = "Test.wpilib.json";
-
 
   /*
    * Constructor For RobotContainer *DECLARE SUBSYSTEM DEFAULT COMMANDS HERE*
@@ -241,7 +241,7 @@ public class RobotContainer {
     }
 
     driveTrain.setDefaultCommand(new Drive(driveTrain));
-  //  intake.setDefaultCommand(new TakeIn(intake));
+    // intake.setDefaultCommand(new TakeIn(intake));
     arms.setDefaultCommand(new MoveArms(arms));
     controlPanel.setDefaultCommand(new MoveArmCP(controlPanel));
     turret.setDefaultCommand(new MoveTurret(turret));
@@ -268,12 +268,12 @@ public class RobotContainer {
     // driver2Y.whileHeld(driveDistanceSimple);
     driver2X.whenPressed(new Scrub(controlPanel, colorSensor, false));
     driver2Y.whenPressed(new Scrub(controlPanel, colorSensor, true));
-    driver2A.whileHeld(new AlignScript(hood, turret));
+    // driver2A.whileHeld(new LimelightHood(hood));
     driver2B.whileHeld(new TrackLimelightTurn(turret));
-//     driver2A.whenPressed(new LimelightHood(hood));
-    driver2RB.whileHeld(new Elevate(elevator,hopper));
+    driver2A.whenPressed(new LimelightHood(hood));
+    driver2RB.whileHeld(new Elevate(elevator, hopper));
     driver2RS.whenPressed(new ToggleZoom());
-    driver2LS.whileHeld(new Reverse(elevator,hopper));
+    driver2LS.whileHeld(new Reverse(elevator, hopper));
 
     // TODO: UNCOMMENT FOR DEMO
     // driver2B.whileHeld(m_TrackLimelightFollow);
@@ -305,9 +305,11 @@ public class RobotContainer {
   public static double getHoodManual() {
     return driver2.getY(Hand.kRight);
   }
-  public static boolean getReverse(){
+
+  public static boolean getReverse() {
     return driver1.getBumper(Hand.kRight);
   }
+
   /**
    * Runs Turret manually from Driver 2's Left Joystick's horizontal motion.
    * 
@@ -326,34 +328,25 @@ public class RobotContainer {
     return driver1.getXButton();
   }
 
-
-
-
-
-  public static boolean getLeftBumper(){
+  public static boolean getLeftBumper() {
     return driver1.getBumper(Hand.kLeft);
   }
 
-  public static boolean getLeftTrigger(){
-    double leftTrigger = driver1.getTriggerAxis(Hand.kLeft); 
+  public static boolean getLeftTrigger() {
+    double leftTrigger = driver1.getTriggerAxis(Hand.kLeft);
     boolean down = (leftTrigger > .7);
     return down;
   }
-  public static double getArm(){
-    if(getLeftBumper())
-    {
+
+  public static double getArm() {
+    if (getLeftBumper()) {
       return .2;
-    }
-    else if(getLeftTrigger())
-    {
+    } else if (getLeftTrigger()) {
       return -.2;
-    }
-    else{
-     return 0;
+    } else {
+      return 0;
     }
   }
-
-
 
   /**
    * Runs Position Control on push of Driver 2's Y Button.
@@ -364,28 +357,23 @@ public class RobotContainer {
     return driver2.getYButton();
   }
 
-
-
-  public static boolean getLeftBumperCP(){
+  public static boolean getLeftBumperCP() {
     return driver2.getBumper(Hand.kLeft);
   }
 
-  public static boolean getLeftTriggerCP(){
-    double leftTrigger = driver2.getTriggerAxis(Hand.kLeft); 
+  public static boolean getLeftTriggerCP() {
+    double leftTrigger = driver2.getTriggerAxis(Hand.kLeft);
     boolean down = (leftTrigger > .7);
     return down;
   }
-  public static double getArmCP(){
-    if(getLeftBumperCP())
-    {
+
+  public static double getArmCP() {
+    if (getLeftBumperCP()) {
       return .5;
-    }
-    else if(getLeftTriggerCP())
-    {
+    } else if (getLeftTriggerCP()) {
       return -.5;
-    }
-    else{
-     return 0;
+    } else {
+      return 0;
     }
   }
 
@@ -396,7 +384,7 @@ public class RobotContainer {
    */
 
   // public static boolean getRotationControl() {
-  //   return driver2.getXButton();
+  // return driver2.getXButton();
   // }
 
   /**
@@ -406,7 +394,6 @@ public class RobotContainer {
    * @return Vertical motion of Driver 1's Right Joystick
    */
   public static double tankDriveRight() {
-    SmartDashboard.putNumber("Right Joystick", driver1.getY(Hand.kRight));
     return driver1.getY(Hand.kRight);
   }
 
@@ -417,7 +404,6 @@ public class RobotContainer {
    * @return Vertical motion of Driver 1's Left Joystick
    */
   public static double tankDriveLeft() {
-    SmartDashboard.putNumber("Left Joystick", driver1.getY(Hand.kLeft));
     return driver1.getY(Hand.kLeft);
   }
 
@@ -427,10 +413,10 @@ public class RobotContainer {
    * @return The selection of Autonomous Command
    */
   public Command getAutonomousCommand() {
-
-    //TODO: Add a command
-    return m_sendableChooserAuto.getSelected();
-    
+    if (m_sendableChooserAuto.getSelected() != null) {
+      return m_sendableChooserAuto.getSelected();
+    } else
+      return (new TrackLimelightTurn(new Turret()));
  }
   
 
@@ -452,14 +438,6 @@ public class RobotContainer {
    * Limelight in relation to target ta: Area of screen target occupies
    */
   public static void pullNetworkTables() {
-    double tv = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("tv").getDouble(0);
-    double tx = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("tx").getDouble(0);
-    double ty = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ty").getDouble(0);
-    double ta = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ta").getDouble(0);
-    SmartDashboard.putNumber("tv", tv);
-    SmartDashboard.putNumber("tx", tx);
-    SmartDashboard.putNumber("ty", ty);
-    SmartDashboard.putNumber("ta", ta);
   }
 
   /**

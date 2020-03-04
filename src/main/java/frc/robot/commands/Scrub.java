@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanel;
 
@@ -26,11 +25,8 @@ public class Scrub extends CommandBase {
   
   private ColorSensor colorSensor;
   private ControlPanel controlPanel;
-  private boolean rotationControl = false;
-  private boolean positionControl = false;
   private boolean position;
   private boolean finished = false;
-  private int currentColorCount = 0;
 
   private final ColorMatch m_colorMatcher = new ColorMatch();
 
@@ -59,7 +55,6 @@ public class Scrub extends CommandBase {
   @Override
   public void initialize() {
     finished = false;
-    currentColorCount = 0;
     controlPanel.resetEncoderPosition();
     m_colorMatcher.addColorMatch(kBlueTarget);
     m_colorMatcher.addColorMatch(kGreenTarget);
@@ -122,7 +117,7 @@ public class Scrub extends CommandBase {
       }
     } else {
       SmartDashboard.putBoolean("Rotation Control", true);
-      if(controlPanel.getEncoderPosition() < 1000000){
+      if(controlPanel.getEncoderPosition() < 800){
         //TODO: Calculation when we put a NEO on there.
         controlPanel.panelSpin(0.6);
       }else{
@@ -148,7 +143,6 @@ public class Scrub extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    //TODO: add a finished conditional.
     return finished;
   }
 

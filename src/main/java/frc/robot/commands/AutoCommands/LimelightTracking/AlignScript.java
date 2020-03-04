@@ -10,7 +10,6 @@ package frc.robot.commands.AutoCommands.LimelightTracking;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.AutoCommands.SubCommands.ToggleOn;
 import frc.robot.subsystems.Hood;
-import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Turret;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
