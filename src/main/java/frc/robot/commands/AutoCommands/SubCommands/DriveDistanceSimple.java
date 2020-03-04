@@ -45,7 +45,7 @@ Hopper hopper;
     hopper.hopperFeeder(.4);
     if(distanceGone - distance != 0){
       if(distance > 0){
-        driveTrain.tankDrive(0.5, 0.5);
+        driveTrain.tankDrive(0.3, 0.3);
       }else{
         driveTrain.tankDrive(-0.5, -0.5);
       }

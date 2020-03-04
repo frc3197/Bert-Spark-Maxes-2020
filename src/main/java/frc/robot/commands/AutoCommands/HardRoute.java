@@ -7,6 +7,7 @@
 
 package frc.robot.commands.AutoCommands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.AutoCommands.SubCommands.AlignShoot;
 import frc.robot.commands.AutoCommands.SubCommands.DriveDistanceSimple;
@@ -40,7 +41,7 @@ public class HardRoute extends SequentialCommandGroup {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     super(new AlignShoot(shooter, hood, turret),new ElevateAuto(elevator, hopper, shooter),
-          new DriveDistanceSimple(driveTrain, 30, hopper),new DriveDistanceSimple(driveTrain, -30,hopper),
+          new DriveDistanceSimple(driveTrain, 130, hopper),new DriveDistanceSimple(driveTrain, -50,hopper),
           new AlignShoot(shooter, hood, turret),new ElevateAuto(elevator, hopper, shooter));
   }
 }
