@@ -7,6 +7,7 @@
 
 package frc.robot.commands.AutoCommands.LimelightTracking;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Constants.PID_Constants;
@@ -47,11 +48,16 @@ public class TrackLimelightTurn extends PIDCommand {
     getController().setTolerance(1);
   }
 
+  public void initialize(){
+    // NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
+  }
+
   /**
    * Called once the command ends.
    * Sets tankDrive motors on both sides to zero.
    */
   public void end() {
+    // NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(1);
     turret.turn(0);
   }
 

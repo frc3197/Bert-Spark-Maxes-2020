@@ -8,27 +8,52 @@
 package frc.robot.commands.AutoCommands.SubCommands;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class ToggleOn extends InstantCommand {
-  boolean turnOn;
-  public ToggleOn(boolean turnOn) {
-    this.turnOn = turnOn;
+/**
+ * Defines a ToggleLight object. Creates a parameter turnOn to be used later.
+ */
+public class ToggleOn extends CommandBase {
+ /**
+  * Creates a new ToggleLight.
+  * @param turnOn Boolean relating to whether the Limelight LEDs are on.
+  */
+  public ToggleOn() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
-  // Called when the command is initially scheduled.
+  /**
+   * Called when the command is initially scheduled.
+   */
   @Override
   public void initialize() {
-    if(turnOn){
+  }
+
+  /**
+   * Called every time the scheduler runs while the command is scheduled.
+   * If turnOn is true, then the Limelight turns on.
+   * If turnOn is false, then the Limelight turns off.
+   */
+  @Override
+  public void execute() {
       NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
-      NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
-    }else{
-      NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(1);
-      NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(1);
-    }
+    // else if(turnOn.intValue() == 0){
+    //   NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(1);
+    // }
+  }
+
+  /**
+   * Called once the command ends or is interrupted.
+   */
+  @Override
+  public void end(boolean interrupted) {
+  }
+
+  /**
+   * Returns true when the command should end.
+   */
+  @Override
+  public boolean isFinished() {
+    return true;
   }
 }

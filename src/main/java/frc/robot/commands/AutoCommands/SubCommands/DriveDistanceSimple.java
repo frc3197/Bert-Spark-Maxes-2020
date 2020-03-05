@@ -45,9 +45,9 @@ Hopper hopper;
     hopper.hopperFeeder(.4);
     if(distanceGone - distance != 0){
       if(distance > 0){
-        driveTrain.tankDrive(0.3, 0.3);
+        driveTrain.tankDrive(0.7, 0.7);
       }else{
-        driveTrain.tankDrive(-0.5, -0.5);
+        driveTrain.tankDrive(-0.7, -0.7);
       }
     }else{
       driveTrain.tankDrive(0, 0);
@@ -64,6 +64,7 @@ Hopper hopper;
 
   // Returns true when the command should end.
   @Override
+
   public boolean isFinished(){
     
     return Math.abs(distanceGone - distance) < 10;

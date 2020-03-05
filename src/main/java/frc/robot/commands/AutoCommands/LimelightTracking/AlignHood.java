@@ -81,7 +81,7 @@ public class AlignHood extends CommandBase {
     //First ball: 242.63in
     double d = RobotContainer.getDistanceFromTarget();
     double deadzone = 10; //in inches
-    double ticks120 = 270000; //Placeholder. (120, 1234)
+    double ticks120 = 273000; //Placeholder. (120, 1234)
     double ticks140 = 279000;
     double ticks160 = 280000;
     double ticks180 = 283000; // About 180 in

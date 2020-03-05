@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.AutoCommands.EasyRoute;
 import frc.robot.commands.AutoCommands.EightBallRoute;
 import frc.robot.commands.AutoCommands.SubCommands.FiveBallRun;
+import frc.robot.commands.AutoCommands.SubCommands.JustInit;
 import frc.robot.commands.AutoCommands.HardRoute;
 import frc.robot.commands.AutoCommands.SubCommands.SixBallRun;
 import frc.robot.commands.RamseteCommands.Ramsete;
@@ -38,6 +39,7 @@ public class Robot extends TimedRobot {
   private Command m_sixballrun;
   private Command m_fiveballrun;
   private Command m_ramseteTest;
+  private Command m_justInit;
   public DigitalInput hoodCounter = new DigitalInput(6);
   int count = 0;
   boolean LS = true;
@@ -58,8 +60,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
     // autonomous chooser on the dashboard.
-    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
-    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
+    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(1);
     m_robotContainer = new RobotContainer();
     m_robotContainer.driveTrain.setPlaceholder(m_robotContainer.getAutonomousCommand());
     m_robotContainer.driveTrain.resetGyro();
@@ -85,11 +86,13 @@ public class Robot extends TimedRobot {
                                           m_robotContainer.trajectory52, m_robotContainer.trajectory53,
                                            m_robotContainer.trajectory54, m_robotContainer.shooter);
     m_ramseteTest = new Ramsete(m_robotContainer.driveTrain, m_robotContainer.testTrajectory);
+    m_justInit = new JustInit(m_robotContainer.driveTrain, m_robotContainer.hopper);
     m_robotContainer.m_sendableChooserAuto.addOption("Easy Route", m_easyRoute);
     m_robotContainer.m_sendableChooserAuto.addOption("Hard Route", m_hardRoute);
-    m_robotContainer.m_sendableChooserAuto.addOption("Eight Ball", m_eightBallRoute);
-    m_robotContainer.m_sendableChooserAuto.addOption("Six Ball 1" , m_sixballrun);
-    m_robotContainer.m_sendableChooserAuto.addOption("Five Ball 1", m_fiveballrun);
+    // m_robotContainer.m_sendableChooserAuto.addOption("Eight Ball", m_eightBallRoute);
+    // m_robotContainer.m_sendableChooserAuto.addOption("Six Ball 1" , m_sixballrun);
+    // m_robotContainer.m_sendableChooserAuto.addOption("Five Ball 1", m_fiveballrun);
+    m_robotContainer.m_sendableChooserAuto.addOption("InitiationLine", m_justInit);
     m_robotContainer.m_sendableChooserAuto.setDefaultOption("Easy Route", m_easyRoute);
     SmartDashboard.putData(m_robotContainer.m_sendableChooserAuto);
     // m_robotContainer.m_sendableChooserLL.addOption("", object);
@@ -131,6 +134,7 @@ public class Robot extends TimedRobot {
     // interrupted commands,
     // and running subsystem periodic() m
     pressed = hoodCounter.get();
+    m_robotContainer.setTurnOn();;
     CommandScheduler.getInstance().run();
     if (pressed == true) {
       if (pressed && LS) {
@@ -177,7 +181,6 @@ public class Robot extends TimedRobot {
     m_robotContainer.driveTrain.resetOdometry(m_robotContainer.driveTrain.m_pose);
     // m_robotContainer.hood.encoderCalibrate();
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
-    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     m_robotContainer.intake.takeIn(1);
     m_robotContainer.shooter.feedForwardPID(1, 5600);
@@ -202,6 +205,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopInit() {
+    if(m_autonomousCommand != null) {
+      m_autonomousCommand.cancel();
+    }
+    m_robotContainer.shooter.feedForwardPID(0, 5600);
     m_robotContainer.intake.takeIn(0);
     // m_robotContainer.shooter.shooterVelocity(RobotContainer.targetVelocity(0, 5600));
     // m_robotContainer.hood.encoderCalibrate();
@@ -209,7 +216,7 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
+    NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(1);
     NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
   }
 

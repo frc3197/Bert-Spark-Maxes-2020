@@ -34,6 +34,8 @@ import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightTurn;
 import frc.robot.commands.AutoCommands.SubCommands.DriveDistance;
 import frc.robot.commands.AutoCommands.SubCommands.DriveDistanceSimple;
 import frc.robot.commands.AutoCommands.SubCommands.IntakeHopper;
+import frc.robot.commands.AutoCommands.SubCommands.ToggleOff;
+import frc.robot.commands.AutoCommands.SubCommands.ToggleOn;
 import frc.robot.commands.AutoCommands.SubCommands.ToggleZoom;
 // TODO: UNCOMMENT FOR DEMO
 // import frc.robot.commands.AutoCommands.LimelightTracking.TrackLimelightFollow;
@@ -58,7 +60,7 @@ import frc.robot.subsystems.Turret;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private static boolean zoomOn = false;
-
+  private Number turnOn = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").getNumber(-1);
   
   public SendableChooser<Command> m_sendableChooserAuto = new SendableChooser<Command>();
   public SendableChooser<Pose2d> m_sendableChooserPose = new SendableChooser<Pose2d>();
@@ -93,6 +95,8 @@ public class RobotContainer {
   public static JoystickButton driver2RB = new JoystickButton(driver2, 6);
   public static JoystickButton driver2RS = new JoystickButton(driver2, 8);
   public static JoystickButton driver2LS = new JoystickButton(driver2, 7);
+  public static JoystickButton driver2L3 = new JoystickButton(driver2, 9);
+  public static JoystickButton driver2R3 = new JoystickButton(driver2, 10);
 
   public final DriveTrain driveTrain = new DriveTrain();
   public final Hopper hopper = new Hopper();
@@ -272,11 +276,16 @@ public class RobotContainer {
     driver2B.whileHeld(new TrackLimelightTurn(turret));
     driver2A.whenPressed(new LimelightHood(hood));
     driver2RB.whileHeld(new Elevate(elevator, hopper));
-    driver2RS.whenPressed(new ToggleZoom());
-    driver2LS.whileHeld(new Reverse(elevator, hopper));
+    driver2L3.whenPressed(new ToggleOff());
+    driver2R3.whenPressed(new ToggleOn());
 
     // TODO: UNCOMMENT FOR DEMO
     // driver2B.whileHeld(m_TrackLimelightFollow);
+  }
+
+  public void setTurnOn(){
+    turnOn = NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").getNumber(-1);
+    System.out.println(turnOn.intValue());
   }
 
   /**

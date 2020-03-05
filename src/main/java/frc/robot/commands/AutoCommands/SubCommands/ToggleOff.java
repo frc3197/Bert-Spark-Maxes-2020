@@ -13,14 +13,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * Defines a ToggleLight object. Creates a parameter turnOn to be used later.
  */
-public class ToggleLight extends CommandBase {
-  private boolean turnOn;
+public class ToggleOff extends CommandBase {
  /**
   * Creates a new ToggleLight.
   * @param turnOn Boolean relating to whether the Limelight LEDs are on.
   */
-  public ToggleLight(boolean turnOn) {
-    this.turnOn = turnOn;
+  public ToggleOff() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -38,13 +36,10 @@ public class ToggleLight extends CommandBase {
    */
   @Override
   public void execute() {
-    if(turnOn){
-      NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
-      NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(0);
-    }else{
+    // if(turnOn.intValue() == 1){
+    //   NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(0);
+    // }
       NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("ledMode").setNumber(1);
-      NetworkTableInstance.getDefault().getTable("limelight-hounds").getEntry("camMode").setNumber(1);
-    }
   }
 
   /**
