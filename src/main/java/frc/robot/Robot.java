@@ -18,9 +18,9 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.AutoCommands.EasyRoute;
 import frc.robot.commands.AutoCommands.EightBallRoute;
 import frc.robot.commands.AutoCommands.SubCommands.FiveBallRun;
-import frc.robot.commands.AutoCommands.SubCommands.JustInit;
 import frc.robot.commands.AutoCommands.HardRoute;
 import frc.robot.commands.AutoCommands.SubCommands.SixBallRun;
+import frc.robot.commands.AutoCommands.SubCommands.JustInit;
 import frc.robot.commands.RamseteCommands.Ramsete;
 
 /**
@@ -85,8 +85,8 @@ public class Robot extends TimedRobot {
                                            m_robotContainer.driveTrain, m_robotContainer.trajectory51,
                                           m_robotContainer.trajectory52, m_robotContainer.trajectory53,
                                            m_robotContainer.trajectory54, m_robotContainer.shooter);
-    m_ramseteTest = new Ramsete(m_robotContainer.driveTrain, m_robotContainer.testTrajectory);
     m_justInit = new JustInit(m_robotContainer.driveTrain, m_robotContainer.hopper);
+    m_ramseteTest = new Ramsete(m_robotContainer.driveTrain, m_robotContainer.testTrajectory);
     m_robotContainer.m_sendableChooserAuto.addOption("Easy Route", m_easyRoute);
     m_robotContainer.m_sendableChooserAuto.addOption("Hard Route", m_hardRoute);
     // m_robotContainer.m_sendableChooserAuto.addOption("Eight Ball", m_eightBallRoute);
@@ -205,9 +205,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopInit() {
+    //Option 1
     if(m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+    // //Option 2
+    // if(m_autonomousCOmmand != null){
+    //   m_autonomousCommand.cancel(true);
+    // }
+
     m_robotContainer.shooter.feedForwardPID(0, 5600);
     m_robotContainer.intake.takeIn(0);
     // m_robotContainer.shooter.shooterVelocity(RobotContainer.targetVelocity(0, 5600));
@@ -225,7 +232,15 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    // //TODO: ONLY UNCOMMENT IF OPTION 1 ABOVE ALONE DOES NOT WORK
+    // if(m_autonomousCommand != null) {
+    //   m_autonomousCommand.cancel();
+    // }
 
+    // //TODO: ONLY UNCOMMENT IF OPTION 2 ABOVE DOES NOT WORK
+    // if(m_autonomousCommand != null){
+    //   m_autonomousCommand.end(true);
+    // }
   }
 
   /**

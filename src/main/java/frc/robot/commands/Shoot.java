@@ -42,7 +42,13 @@ public class Shoot extends CommandBase {
   public void execute() {
     SmartDashboard.putNumber("Shooter Velocity", shooter.getVelocity());
     // shooter.shooterVelocity(RobotContainer.targetVelocity(RobotContainer.getShooter(), 5600));
-    shooter.feedForwardPID(RobotContainer.getShooter(), 5600);
+    
+    //deadzone wheeee. If it doesn't work, get rid of it.
+    if(RobotContainer.getShooter() > 0.05){
+
+    }else{
+      shooter.feedForwardPID(RobotContainer.getShooter(), 5600);
+    }
   }
   /**
    * Called once the command ends or is interrupted.
