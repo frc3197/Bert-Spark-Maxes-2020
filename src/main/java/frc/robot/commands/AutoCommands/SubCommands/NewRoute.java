@@ -7,31 +7,26 @@
 
 package frc.robot.commands.AutoCommands.SubCommands;
 
-import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.RamseteCommands.Ramsete;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Turret;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class SixBallRoute extends SequentialCommandGroup {
+public class NewRoute extends SequentialCommandGroup {
+  DriveTrain driveTrain;
+  double distance;
+  Hopper hopper;
+  Elevator elevator;
   /**
-   * Creates a new SixBallRoute.
+   * Creates a new NewRoute.
    */
-  public SixBallRoute(DriveTrain driveTrain,Trajectory trajectory61,Trajectory trajectory62, Elevator elevator, Hopper hopper,Shooter shooter, Hood hood, Turret turret) {
-    super(new AlignShoot(shooter, hood, turret), new ElevateAuto(elevator, hopper),
-        new Ramsete(driveTrain, trajectory61).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
-        new Delay(),
-    new Ramsete(driveTrain, trajectory62).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
-    new AlignShoot(shooter, hood, turret), new ElevateAuto(elevator, hopper)
-    );
+  public NewRoute(DriveTrain driveTrain,Hopper hopper, Elevator elevator) {
     // Add your commands in the super() call, e.g.
-    // super(new FooCommand(), new BarCommand());super();
+    // super(new FooCommand(), new BarCommand());
+    super(new DriveDistanceSimple(driveTrain,-120,hopper),new ElevateAuto(elevator, hopper));
   }
 }

@@ -20,11 +20,10 @@ public class ElevateAuto extends CommandBase {
   /**
    * Creates a new Elevate.
    */
-  public ElevateAuto(Elevator elevator, Hopper hopper,Shooter shooter) {
+  public ElevateAuto(Elevator elevator, Hopper hopper) {
     this.elevator = elevator;
     this.hopper  = hopper;
-    this.shooter = shooter;
-    addRequirements(elevator,hopper,shooter);
+    addRequirements(elevator,hopper);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -46,7 +45,7 @@ public class ElevateAuto extends CommandBase {
   public void end(boolean interrupted) {
     hopper.hopperFeeder(0);
     elevator.hopperElevator(0);
-    shooter.shooterVelocity(0);
+    
   }
 
   // Returns true when the command should end.

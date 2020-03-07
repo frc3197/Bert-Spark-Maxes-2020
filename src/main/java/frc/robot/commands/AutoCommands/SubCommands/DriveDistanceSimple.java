@@ -47,7 +47,7 @@ Hopper hopper;
       if(distance > 0){
         driveTrain.tankDrive(0.7, 0.7);
       }else{
-        driveTrain.tankDrive(-0.7, -0.7);
+        driveTrain.tankDrive(-0.4, -0.4);
       }
     }else{
       driveTrain.tankDrive(0, 0);

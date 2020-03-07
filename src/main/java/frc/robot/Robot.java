@@ -19,6 +19,7 @@ import frc.robot.commands.AutoCommands.EasyRoute;
 import frc.robot.commands.AutoCommands.EightBallRoute;
 import frc.robot.commands.AutoCommands.SubCommands.FiveBallRun;
 import frc.robot.commands.AutoCommands.SubCommands.JustInit;
+import frc.robot.commands.AutoCommands.SubCommands.NewRoute;
 import frc.robot.commands.AutoCommands.HardRoute;
 import frc.robot.commands.AutoCommands.SubCommands.SixBallRun;
 import frc.robot.commands.RamseteCommands.Ramsete;
@@ -40,6 +41,7 @@ public class Robot extends TimedRobot {
   private Command m_fiveballrun;
   private Command m_ramseteTest;
   private Command m_justInit;
+  private Command m_NewRoute;
   public DigitalInput hoodCounter = new DigitalInput(6);
   int count = 0;
   boolean LS = true;
@@ -67,6 +69,7 @@ public class Robot extends TimedRobot {
     m_sixballrun= new SixBallRun(m_robotContainer.driveTrain, m_robotContainer.trajectory61,
     m_robotContainer.trajectory62, m_robotContainer.elevator, m_robotContainer.hopper,
     m_robotContainer.shooter, m_robotContainer.hood, m_robotContainer.turret);
+    m_NewRoute = new NewRoute(m_robotContainer.driveTrain, m_robotContainer.hopper, m_robotContainer.elevator);
     m_easyRoute = new EasyRoute(m_robotContainer.hood, m_robotContainer.shooter, 
                                 m_robotContainer.driveTrain, m_robotContainer.hopper,
                                 m_robotContainer.turret, m_robotContainer.elevator);
@@ -88,6 +91,7 @@ public class Robot extends TimedRobot {
     m_ramseteTest = new Ramsete(m_robotContainer.driveTrain, m_robotContainer.testTrajectory);
     m_justInit = new JustInit(m_robotContainer.driveTrain, m_robotContainer.hopper);
     m_robotContainer.m_sendableChooserAuto.addOption("Easy Route", m_easyRoute);
+    m_robotContainer.m_sendableChooserAuto.addOption("New Route", m_NewRoute);
     m_robotContainer.m_sendableChooserAuto.addOption("Hard Route", m_hardRoute);
     // m_robotContainer.m_sendableChooserAuto.addOption("Eight Ball", m_eightBallRoute);
     // m_robotContainer.m_sendableChooserAuto.addOption("Six Ball 1" , m_sixballrun);

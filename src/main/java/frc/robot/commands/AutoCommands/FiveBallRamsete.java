@@ -31,7 +31,7 @@ public class FiveBallRamsete extends SequentialCommandGroup {
   public FiveBallRamsete(Elevator elevator, Shooter shooter,Hood hood,Turret turret,Hopper hopper, DriveTrain driveTrain, Trajectory trajectory51, Trajectory trajectory52, Trajectory trajectory53, Trajectory trajectory54) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super(new AlignShoot(shooter, hood, turret), new ElevateAuto(elevator, hopper, shooter),
+    super(new AlignShoot(shooter, hood, turret), new ElevateAuto(elevator, hopper),
     new Ramsete(driveTrain, trajectory51).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
     new Ramsete(driveTrain, trajectory52).andThen(() -> {
                                                         driveTrain.tankDriveVolts(0, 0);
@@ -39,6 +39,6 @@ public class FiveBallRamsete extends SequentialCommandGroup {
                                                         }),
     new Ramsete(driveTrain, trajectory53).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
     new Ramsete(driveTrain, trajectory54).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
-    new AlignShoot(shooter, hood, turret),new ElevateAuto(elevator, hopper, shooter));
+    new AlignShoot(shooter, hood, turret),new ElevateAuto(elevator, hopper));
   }
 }
