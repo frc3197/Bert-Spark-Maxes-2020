@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Hopper;
 
 /**
@@ -42,7 +43,11 @@ public class Feed extends CommandBase {
    */
   @Override
   public void execute() {
-    hopper.hopperFeeder(0.4);
+    if(RobotContainer.getReverse()){
+    hopper.hopperFeeder(-0.4);}
+    else{
+      hopper.hopperFeeder(.4);
+    }
   }
 
   /**
