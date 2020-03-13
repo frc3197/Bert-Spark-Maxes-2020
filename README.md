@@ -60,7 +60,7 @@ public static void main(String[] args){
 */
 
 //  TYPE    NAME  OPERATOR  NEW  TYPE   PARAMETERS                ENDOFLINE
-   DriveTrain drive     =   new DriveTrain(double speed, Motor motor)  ;
+   DriveTrain drive     =   new DriveTrain(double speed, Motor motor1)  ;
 
 
 
